@@ -1,0 +1,592 @@
+{
+  "type": "bundle",
+  "id": "bundle--aff54760-007d-45b8-adb0-bd11e46d84f8",
+  "objects": [
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--ab3c08c2-05f7-4f8d-bc89-b018ae47b6f2",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "T1036.004",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1036.004"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--d2b8aec7-1826-4506-ae93-5c03de4efdb6",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "T1036.005",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1036.005"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--c17e7ff1-ca90-4e34-a8a0-e03790f2bcb9",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "T1041",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1041"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--c32ccf1c-a464-4747-b9b0-51b3981c43c6",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "T1071",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1071"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--22d85fd0-88bf-4136-bd8e-c1217dcd3e99",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "T1102.002",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1102.002"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--fb4bc3bc-e1b0-43de-946e-b43e5403944c",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "T1106",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1106"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--5dcdd8f3-726b-40d5-a546-efa6ccbb3365",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "T1132.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1132.001"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--ccd84e4a-b088-4dd8-a0f9-930f2fba2bc0",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "T1204.002",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1204.002"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--7b840e3f-a2c0-4d70-8ffa-76012181a883",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "T1480",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1480"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--87bd3862-aa60-449d-b289-6eba7aa16e99",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "T1547.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1547.001"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--1117a154-ba29-434f-8665-7e458d05a2aa",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "T1566.002",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1566.002"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--e14d65f6-7d71-4fae-a6c6-96ca70d7e4e2",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "T1573.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1573.001"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--f67b9aa9-3ebe-4e83-8244-79062f060232",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "T1583.003",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1583.003"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--87098990-8217-4c5a-8f7e-2cab33539081",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "T1583.004",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1583.004"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--92c2ffe2-e2c6-4088-b13c-20ccebe65dc6",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "T1587.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1587.001"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--309f1f84-a1ec-43ef-b39d-b7e2ba73f3f3",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "T1588.002",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1588.002"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--95209346-686f-43aa-a84c-f1e53c84a2d5",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "T1608.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1608.001"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--b67cd0fa-a93a-4e25-8a2c-fd6a601e5d5c",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "T1608.002",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1608.002"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--ce5abf24-a7d2-454f-9fff-d8bbac6293df",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "T1622",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1622"
+        }
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--083891ff-0ef2-45fd-88a8-ca4be4196552",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "domain:welivesecurity.com",
+      "pattern": "[domain-name:value = 'welivesecurity.com']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.802718Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "ESET-MQsTTang-MustangPandas-backdoor-Qt-MQTT-03-02-2023-a315b44b"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--ab5691ed-c7c0-4175-bc3c-7f063e6cd1a2",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "sha1:02D95E0C369B08248BFFAAC8607BBA119D83B95B",
+      "pattern": "[file:hashes.'SHA1' = '02D95E0C369B08248BFFAAC8607BBA119D83B95B']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.802718Z",
+      "labels": [
+        "sha1",
+        "extracted-from-report",
+        "ESET-MQsTTang-MustangPandas-backdoor-Qt-MQTT-03-02-2023-a315b44b"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--7b6e2cac-c6f4-4b8e-9573-012aa0d2f71e",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "ipv4:3.228.54.173",
+      "pattern": "[ipv4-addr:value = '3.228.54.173']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.802718Z",
+      "labels": [
+        "ipv4",
+        "extracted-from-report",
+        "ESET-MQsTTang-MustangPandas-backdoor-Qt-MQTT-03-02-2023-a315b44b"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--62ab955e-3c41-468c-9e0d-96377a0744c1",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "sha1:A1C660D31518C8AFAA6973714DE30F3D576B68FC",
+      "pattern": "[file:hashes.'SHA1' = 'A1C660D31518C8AFAA6973714DE30F3D576B68FC']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.802718Z",
+      "labels": [
+        "sha1",
+        "extracted-from-report",
+        "ESET-MQsTTang-MustangPandas-backdoor-Qt-MQTT-03-02-2023-a315b44b"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--a982528c-fc78-4c47-a2bd-0759b1d3a35e",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "domain:korplug.th",
+      "pattern": "[domain-name:value = 'korplug.th']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.802718Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "ESET-MQsTTang-MustangPandas-backdoor-Qt-MQTT-03-02-2023-a315b44b"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--0f4ea6fc-6996-486d-b7de-c2465039ade2",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "domain:broker.emqx.io",
+      "pattern": "[domain-name:value = 'broker.emqx.io']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.802718Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "ESET-MQsTTang-MustangPandas-backdoor-Qt-MQTT-03-02-2023-a315b44b"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--2883b59b-d253-465e-bd41-609660c3cf66",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "domain:amazon.com",
+      "pattern": "[domain-name:value = 'amazon.com']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.802718Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "ESET-MQsTTang-MustangPandas-backdoor-Qt-MQTT-03-02-2023-a315b44b"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--90f5e20a-0297-4cc2-b54f-d0f3b6d82cc3",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "ipv4:3.228.54.173",
+      "pattern": "[ipv4-addr:value = '3.228.54.173']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.802718Z",
+      "labels": [
+        "ipv4",
+        "extracted-from-report",
+        "ESET-MQsTTang-MustangPandas-backdoor-Qt-MQTT-03-02-2023-a315b44b"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--c01320ae-3e3b-41f5-97a4-e7514fe24112",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "sha1:430C2EF474C7710345B410F49DF853BDEAFBDD78",
+      "pattern": "[file:hashes.'SHA1' = '430C2EF474C7710345B410F49DF853BDEAFBDD78']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.802718Z",
+      "labels": [
+        "sha1",
+        "extracted-from-report",
+        "ESET-MQsTTang-MustangPandas-backdoor-Qt-MQTT-03-02-2023-a315b44b"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--b0b96afe-323b-47c4-81e6-cbc2981cee37",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "sha1:F1A8BF83A410B99EF0E7FDF7BA02B543B9F0E66C",
+      "pattern": "[file:hashes.'SHA1' = 'F1A8BF83A410B99EF0E7FDF7BA02B543B9F0E66C']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.802718Z",
+      "labels": [
+        "sha1",
+        "extracted-from-report",
+        "ESET-MQsTTang-MustangPandas-backdoor-Qt-MQTT-03-02-2023-a315b44b"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--8729da46-2b0a-4afb-85ef-35899de01932",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "sha1:02D95E0C369B08248BFFAAC8607BBA119D83B95B",
+      "pattern": "[file:hashes.'SHA1' = '02D95E0C369B08248BFFAAC8607BBA119D83B95B']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.802718Z",
+      "labels": [
+        "sha1",
+        "extracted-from-report",
+        "ESET-MQsTTang-MustangPandas-backdoor-Qt-MQTT-03-02-2023-a315b44b"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--7ee21f5b-eea2-45a0-b85d-c452e2e3f056",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "sha1:0EA5D10399524C189A197A847B8108AA8070F1B1",
+      "pattern": "[file:hashes.'SHA1' = '0EA5D10399524C189A197A847B8108AA8070F1B1']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.802718Z",
+      "labels": [
+        "sha1",
+        "extracted-from-report",
+        "ESET-MQsTTang-MustangPandas-backdoor-Qt-MQTT-03-02-2023-a315b44b"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--90ab23f8-3552-4d9d-960d-725e13f9ecc7",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "sha1:982CCAF1CB84F6E44E9296C7A1DDE2CE6A09D7BB",
+      "pattern": "[file:hashes.'SHA1' = '982CCAF1CB84F6E44E9296C7A1DDE2CE6A09D7BB']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.802718Z",
+      "labels": [
+        "sha1",
+        "extracted-from-report",
+        "ESET-MQsTTang-MustangPandas-backdoor-Qt-MQTT-03-02-2023-a315b44b"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--3590de48-2f3b-4807-b6f5-79dc5eba2041",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "sha1:740C8492DDA786E2231A46BFC422A2720DB0279A",
+      "pattern": "[file:hashes.'SHA1' = '740C8492DDA786E2231A46BFC422A2720DB0279A']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.802718Z",
+      "labels": [
+        "sha1",
+        "extracted-from-report",
+        "ESET-MQsTTang-MustangPandas-backdoor-Qt-MQTT-03-02-2023-a315b44b"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--c661ba72-9ef7-4ca3-aa77-15cba247b3e2",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "sha1:AB01E099872A094DC779890171A11764DE8B4360",
+      "pattern": "[file:hashes.'SHA1' = 'AB01E099872A094DC779890171A11764DE8B4360']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.802718Z",
+      "labels": [
+        "sha1",
+        "extracted-from-report",
+        "ESET-MQsTTang-MustangPandas-backdoor-Qt-MQTT-03-02-2023-a315b44b"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--fb9b5e77-ae13-4307-b502-54b42c248014",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "sha1:61A2D34625706F17221C1110D36A435438BC0665",
+      "pattern": "[file:hashes.'SHA1' = '61A2D34625706F17221C1110D36A435438BC0665']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.802718Z",
+      "labels": [
+        "sha1",
+        "extracted-from-report",
+        "ESET-MQsTTang-MustangPandas-backdoor-Qt-MQTT-03-02-2023-a315b44b"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--483a2001-a61b-4681-a72b-e517470ad7f1",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "sha1:30277F3284BCEEF0ADC5E9D45B66897FA8828BFD",
+      "pattern": "[file:hashes.'SHA1' = '30277F3284BCEEF0ADC5E9D45B66897FA8828BFD']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.802718Z",
+      "labels": [
+        "sha1",
+        "extracted-from-report",
+        "ESET-MQsTTang-MustangPandas-backdoor-Qt-MQTT-03-02-2023-a315b44b"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--1d0a3192-a4d7-4c82-a259-ee3b8c401814",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "sha1:BEE0B741142A9C392E05E0443AAE1FA41EF512D6",
+      "pattern": "[file:hashes.'SHA1' = 'BEE0B741142A9C392E05E0443AAE1FA41EF512D6']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.802718Z",
+      "labels": [
+        "sha1",
+        "extracted-from-report",
+        "ESET-MQsTTang-MustangPandas-backdoor-Qt-MQTT-03-02-2023-a315b44b"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--acbd9b85-e9df-4ca1-8883-eee2e2092446",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "sha1:F6F3343F64536BF98DE7E287A7419352BF94EB93",
+      "pattern": "[file:hashes.'SHA1' = 'F6F3343F64536BF98DE7E287A7419352BF94EB93']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.802718Z",
+      "labels": [
+        "sha1",
+        "extracted-from-report",
+        "ESET-MQsTTang-MustangPandas-backdoor-Qt-MQTT-03-02-2023-a315b44b"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--634b6045-71fd-4ebe-96ee-6c5b77dbfd7e",
+      "created": "2025-10-09T11:46:58.802718Z",
+      "modified": "2025-10-09T11:46:58.802718Z",
+      "name": "sha1:F848C4F3B9D7F3FE1DB3847370F8EEFAA9BF60F1",
+      "pattern": "[file:hashes.'SHA1' = 'F848C4F3B9D7F3FE1DB3847370F8EEFAA9BF60F1']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.802718Z",
+      "labels": [
+        "sha1",
+        "extracted-from-report",
+        "ESET-MQsTTang-MustangPandas-backdoor-Qt-MQTT-03-02-2023-a315b44b"
+      ]
+    }
+  ]
+}

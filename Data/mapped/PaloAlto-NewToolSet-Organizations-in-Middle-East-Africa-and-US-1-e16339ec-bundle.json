@@ -1,0 +1,1060 @@
+{
+  "type": "bundle",
+  "id": "bundle--7acdb052-45fe-48de-960a-b07bb8be5234",
+  "objects": [
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--32f9629b-98f9-4ead-be68-0203eb8ad145",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1003",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1003"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--94f47962-d7bb-4734-a16d-18c55c490269",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1018",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1018"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--e44a04fc-9e2d-448d-acfa-a217cd9ad53d",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1021.006",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1021.006"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--bdbf5abf-41a4-4832-83fc-535c98765e9c",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1027.009",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1027.009"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--439020f2-d7e4-40da-bf3a-f9280751a88c",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1030",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1030"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--1a0be833-bc64-409e-b8b3-b65dafb6c4c9",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1036.005",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1036.005"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--67a1e3f0-0ae9-4298-ab1e-c280e1ec8245",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1036.008",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1036.008"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--8513cef0-79ae-43e0-9f7e-43689007b32b",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1041",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1041"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--5c60e98f-3fa9-45d2-9f43-007e98333c03",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1046",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1046"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--4da9a8bb-58dc-4e32-90c7-d48a99833f36",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1047",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1047"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--f56ad21f-4932-4300-bfec-fdcc88eeb1c5",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1053.005",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1053.005"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--3d58ea9f-416c-41f2-bb68-5c6d1ad5b9e6",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1059.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1059.001"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--67d7334f-783f-4bf6-bad1-3980a5140425",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1059.003",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1059.003"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--6a76b04a-3bef-448f-9d31-befc5f09a60c",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1070.004",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1070.004"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--6560923b-418f-49ec-a4c5-6d0a1516536d",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1070.006",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1070.006"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--c6308602-ad98-4488-9320-e3d35ab65326",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1071.004",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1071.004"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--1b8958c8-7d56-4fa9-ad8b-45cc188a1229",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1074",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1074"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--06922181-6c38-49ef-8420-ec9680ba9dd8",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1078.002",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1078.002"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--c8d6edc7-a667-4a4c-ac9d-f1f40f1c25cd",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1087.002",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1087.002"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--959caf07-3225-456d-9bd3-5c5194c65edf",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1112",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1112"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--c28c8c8c-bedd-4121-8246-451d4c6160c3",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1114",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1114"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--feb48e97-8019-4b19-894d-ea3d7abf2ff5",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1132.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1132.001"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--d2950e2f-9f15-4ca4-af2d-272a938dfb30",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1136.002",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1136.002"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--afd5525c-fabd-4145-8597-932f75a1496e",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1140",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1140"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--1bcb7107-2c7f-4929-a69d-1c9bd6b61c4c",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1505.003",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1505.003"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--457aa71e-df05-4841-a2b9-cad336a46f97",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1556.008",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1556.008"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--a3eb08a6-d491-4db0-8c66-ccfa586228d2",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1560.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1560.001"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--1e5aec64-70eb-4589-a64b-4aab12b4fcb2",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1564.002",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1564.002"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--ab18791a-ba57-4431-b6d9-e3d72541646b",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1570",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1570"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--af98a927-0c31-485e-a629-8933a5772622",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1573.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1573.001"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--a1dc59b9-54fc-4aa1-b56a-db6c9e699353",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1583.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1583.001"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--9e5ace05-00de-4b73-978e-8b783ca043a7",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1583.002",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1583.002"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--368ed41f-d0ee-48d2-9ed4-706adbb21a9f",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "T1587.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1587.001"
+        }
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--77a6cc92-9db1-4083-b5a1-4007d3bf9a58",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "domain:unit42.paloaltonetworks.com",
+      "pattern": "[domain-name:value = 'unit42.paloaltonetworks.com']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--2dc9bfc1-2b46-498d-8d3e-0de3a6594937",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "domain:windows10.0-kb5000736-x64.msu",
+      "pattern": "[domain-name:value = 'windows10.0-kb5000736-x64.msu']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--a05aaf7e-8536-48a4-a978-164248aa16a0",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "domain:windows10.0-kb5009543-x64.msu",
+      "pattern": "[domain-name:value = 'windows10.0-kb5009543-x64.msu']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--3fd3d4c1-1296-466b-a4b6-8fbfbbba4ba7",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "domain:6.1-kb4537803.msu",
+      "pattern": "[domain-name:value = '6.1-kb4537803.msu']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--d89d3c7a-858e-4226-a959-32354b6c9eae",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "md5:b855dfde7f778f99a3724802715a0baa",
+      "pattern": "[file:hashes.'MD5' = 'b855dfde7f778f99a3724802715a0baa']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--42484e8c-ab99-483e-8c3b-a909d43657da",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "sha256:bcd2bdea2bfecd09e258b8777e3825c4a1d98af220e7b045ee7b6c30bf19d6df",
+      "pattern": "[file:hashes.'SHA256' = 'bcd2bdea2bfecd09e258b8777e3825c4a1d98af220e7b045ee7b6c30bf19d6df']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--e471e91f-f15c-45ed-923e-1d6463f376a4",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "sha256:3490ba26a75b6fb295256d077e0dbc13e4e32f9fd4e91fb35692dbf64c923c98",
+      "pattern": "[file:hashes.'SHA256' = '3490ba26a75b6fb295256d077e0dbc13e4e32f9fd4e91fb35692dbf64c923c98']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--6928e3f6-58d8-48f6-9149-5c22b22a6139",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "domain:program.util.rc",
+      "pattern": "[domain-name:value = 'program.util.rc']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--be9a026e-8898-4d15-84d7-ccbed36cafc9",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "sha256:3a2d0e5e4bfd6db9c45f094a638d1f1b9d07110b9f6eb8874b75d968401ad69c",
+      "pattern": "[file:hashes.'SHA256' = '3a2d0e5e4bfd6db9c45f094a638d1f1b9d07110b9f6eb8874b75d968401ad69c']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--37ec2ed9-2409-45d0-93c4-03096ecc6fdf",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "sha256:dee7321085737da53646b1f2d58838ece97c81e3f2319a29f7629d62395dbfd1",
+      "pattern": "[file:hashes.'SHA256' = 'dee7321085737da53646b1f2d58838ece97c81e3f2319a29f7629d62395dbfd1']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--9cd7d72a-82e0-494b-a103-089cd9b1235e",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "sha256:354048e6006ec9625e3e5e3056790afe018e70da916c2c1a9cb4499f83888a47",
+      "pattern": "[file:hashes.'SHA256' = '354048e6006ec9625e3e5e3056790afe018e70da916c2c1a9cb4499f83888a47']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--4c7fc6cb-968d-4e4b-9ef1-6175ed871ae0",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "sha256:bcd2bdea2bfecd09e258b8777e3825c4a1d98af220e7b045ee7b6c30bf19d6df",
+      "pattern": "[file:hashes.'SHA256' = 'bcd2bdea2bfecd09e258b8777e3825c4a1d98af220e7b045ee7b6c30bf19d6df']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--4e7da2a7-7705-4a8f-8302-06ab7f61672c",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "domain:6.1-kb4537803.msu",
+      "pattern": "[domain-name:value = '6.1-kb4537803.msu']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--793e16e0-d309-4331-9979-02c5807a0b69",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "domain:windows10.0-kb5009543-x64.msu",
+      "pattern": "[domain-name:value = 'windows10.0-kb5009543-x64.msu']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--22b5b771-2373-431a-8c20-9019a1c62944",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "domain:windows10.0-kb5000736-x64.msu",
+      "pattern": "[domain-name:value = 'windows10.0-kb5000736-x64.msu']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--163ea238-eea2-4c0d-ba02-c5ef06115aaf",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "sha256:2632bcd0715a7223bda1779e107087964037039e1576d2175acaf61d3759360f",
+      "pattern": "[file:hashes.'SHA256' = '2632bcd0715a7223bda1779e107087964037039e1576d2175acaf61d3759360f']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--df74ab53-0e2f-4eab-836e-7cbfb6b29ecb",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "sha256:ae989e25a50a6faa3c5c487083cdb250dde5f0ecc0c57b554ab77761bdaed996",
+      "pattern": "[file:hashes.'SHA256' = 'ae989e25a50a6faa3c5c487083cdb250dde5f0ecc0c57b554ab77761bdaed996']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--5c65a3ae-4fdd-4980-89cd-8414b48d6f86",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "sha256:e30f8596f1beda8254cbe1ac7a75839f5fe6c332f45ebabff88aadbce3938a19",
+      "pattern": "[file:hashes.'SHA256' = 'e30f8596f1beda8254cbe1ac7a75839f5fe6c332f45ebabff88aadbce3938a19']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--166fb923-8b60-496d-8051-480ec4181bdf",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "domain:fdsb.telemetry.geostatcdn",
+      "pattern": "[domain-name:value = 'fdsb.telemetry.geostatcdn']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--c50edc50-2e89-4691-bcc5-8b85f292f6ca",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "domain:dlbh.telemetry.geostatcdn",
+      "pattern": "[domain-name:value = 'dlbh.telemetry.geostatcdn']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--e5fd6c86-c985-4028-8df6-7f6c383df1e9",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "domain:lc3w.telemetry.geostatcdn",
+      "pattern": "[domain-name:value = 'lc3w.telemetry.geostatcdn']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--6be11881-e1d0-4f7f-b3b1-46f996db392f",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "domain:hfhs.telemetry.geostatcdn",
+      "pattern": "[domain-name:value = 'hfhs.telemetry.geostatcdn']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--09ecf3f7-9124-4981-a392-b1b3d0beb5e2",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "domain:g1sw.telemetry.geoinfocdn",
+      "pattern": "[domain-name:value = 'g1sw.telemetry.geoinfocdn']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--798e5ff2-252c-4598-8a0f-d1f55f0795a3",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "md5:b855dfde7f778f99a3724802715a0baa",
+      "pattern": "[file:hashes.'MD5' = 'b855dfde7f778f99a3724802715a0baa']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--95ea312b-6308-43aa-835a-ab15767220ce",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "sha256:1a4301019bdf42e7b2df801e04066a738d184deb22afcad9542127b0a31d5cfa",
+      "pattern": "[file:hashes.'SHA256' = '1a4301019bdf42e7b2df801e04066a738d184deb22afcad9542127b0a31d5cfa']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--c4256fe0-7cbd-44bf-89ed-b9425f1ed2ea",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "sha256:e7682a61b6c5b0487593f880a09d6123f18f8c6da9c13ed43b43866960b7aa8e",
+      "pattern": "[file:hashes.'SHA256' = 'e7682a61b6c5b0487593f880a09d6123f18f8c6da9c13ed43b43866960b7aa8e']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--72b84f51-9a8c-45aa-a87b-f60970e60ec3",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "sha256:58e87c0d9c9b190d1e6e44eae64e9a66de93d8de6cbd005e2562798462d05b45",
+      "pattern": "[file:hashes.'SHA256' = '58e87c0d9c9b190d1e6e44eae64e9a66de93d8de6cbd005e2562798462d05b45']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--04abba8f-6e5c-435c-9a04-74b9b0103583",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "sha256:7eb901a6dbf41bcb2e0cdcbb67c53ab722604d6c985317cb2b479f4c4de7cf90",
+      "pattern": "[file:hashes.'SHA256' = '7eb901a6dbf41bcb2e0cdcbb67c53ab722604d6c985317cb2b479f4c4de7cf90']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--76a02362-daf2-40e3-b638-12df231869c7",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "sha256:f45ea12579f636026d29009190221864f432dbc3e26e73d8f3ab7835fa595b86",
+      "pattern": "[file:hashes.'SHA256' = 'f45ea12579f636026d29009190221864f432dbc3e26e73d8f3ab7835fa595b86']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--f72388a7-064b-4105-86c7-576a05d73df9",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "sha256:bcd2bdea2bfecd09e258b8777e3825c4a1d98af220e7b045ee7b6c30bf19d6df",
+      "pattern": "[file:hashes.'SHA256' = 'bcd2bdea2bfecd09e258b8777e3825c4a1d98af220e7b045ee7b6c30bf19d6df']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--68e3795d-c1ac-4914-b8f0-2d4aab951c99",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "sha256:4351911f266eea8e62da380151a54d5c3fbbc7b08502f28d3224f689f55bffba",
+      "pattern": "[file:hashes.'SHA256' = '4351911f266eea8e62da380151a54d5c3fbbc7b08502f28d3224f689f55bffba']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--57b80fda-6a6a-4502-8d32-31b10c8bf03e",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "sha256:e0748ce315037253f278f7f8f2820c7dd8827a93b6d22d37dafc287c934083c4",
+      "pattern": "[file:hashes.'SHA256' = 'e0748ce315037253f278f7f8f2820c7dd8827a93b6d22d37dafc287c934083c4']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--c3195cac-f767-4b3a-82cf-5f9b2e279ea7",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "sha256:baed169ce874f6fe721e0d32128484b3048e9bf58b2c75db88d1a8b7d6bb938d",
+      "pattern": "[file:hashes.'SHA256' = 'baed169ce874f6fe721e0d32128484b3048e9bf58b2c75db88d1a8b7d6bb938d']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--3c38ce83-5cae-496a-b63c-9bc0d563d773",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "sha256:3a2d0e5e4bfd6db9c45f094a638d1f1b9d07110b9f6eb8874b75d968401ad69c",
+      "pattern": "[file:hashes.'SHA256' = '3a2d0e5e4bfd6db9c45f094a638d1f1b9d07110b9f6eb8874b75d968401ad69c']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--974491b2-88f4-4f48-9960-02599667a2a4",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "sha256:354048e6006ec9625e3e5e3056790afe018e70da916c2c1a9cb4499f83888a47",
+      "pattern": "[file:hashes.'SHA256' = '354048e6006ec9625e3e5e3056790afe018e70da916c2c1a9cb4499f83888a47']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--c867865c-c813-4338-a76f-f7b03114a24f",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "sha256:dee7321085737da53646b1f2d58838ece97c81e3f2319a29f7629d62395dbfd1",
+      "pattern": "[file:hashes.'SHA256' = 'dee7321085737da53646b1f2d58838ece97c81e3f2319a29f7629d62395dbfd1']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--bc2a2f04-6168-4414-a569-dffeb563dea1",
+      "created": "2025-10-09T11:46:58.841919Z",
+      "modified": "2025-10-09T11:46:58.841919Z",
+      "name": "sha256:086a6618705223a8873448465717e288cf7cc6a3af4d9bf18ddd44df6f400488",
+      "pattern": "[file:hashes.'SHA256' = '086a6618705223a8873448465717e288cf7cc6a3af4d9bf18ddd44df6f400488']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.841919Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "PaloAlto-NewToolSet-Organizations-in-Middle-East-Africa-and-US-1-e16339ec"
+      ]
+    }
+  ]
+}

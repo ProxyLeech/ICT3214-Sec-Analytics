@@ -1,0 +1,42 @@
+/* global styles */
+body{
+    background-color: white;
+    margin: auto;
+}
+header, footer{
+    background-color: lightgrey;
+    text-align: center;
+}
+/* navbar styles */
+nav{
+    border: solid black 3px;
+}
+.navbar{
+    list-style-type: none; /* remove the bullets points from the list */
+    margin: 0;
+}
+.navbar li{
+    background-color: lightgreen;
+    display: inline;
+    margin: 0 -3px;
+    padding: 0 5px;
+    font-size: 24px;
+    border: solid black 3px;
+}
+/* main body styles */
+article{
+    margin: 1%;
+    border: solid black 3px;
+    padding: 1%;
+}
+table{
+    width: 100%;
+    border-collapse: collapse;
+    border: solid black 3px;
+    table-layout: fixed;
+    word-wrap: break-word;
+    background-color: #BFFFED;
+}
+th, td{
+    border: solid black 3px;
+}

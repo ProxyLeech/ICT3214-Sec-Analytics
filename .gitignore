@@ -1,3 +1,5 @@
 __pycache__/
 *.pyc
 .env
+Data/extracted_pdfs/
+Data/extracted_pdfs/**

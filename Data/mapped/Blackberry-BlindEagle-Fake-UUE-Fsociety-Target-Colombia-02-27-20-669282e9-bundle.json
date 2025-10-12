@@ -1,0 +1,484 @@
+{
+  "type": "bundle",
+  "id": "bundle--12732df1-73b4-4d43-96fc-630939e9a349",
+  "objects": [
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--b96d3712-b89b-43f9-a728-8bfd18fd4b2d",
+      "created": "2025-10-09T11:46:58.789979Z",
+      "modified": "2025-10-09T11:46:58.789979Z",
+      "name": "T1053.005",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1053.005"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--a68b036c-ad8f-4699-94d7-eda1c3dc69fc",
+      "created": "2025-10-09T11:46:58.789979Z",
+      "modified": "2025-10-09T11:46:58.789979Z",
+      "name": "T1059.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1059.001"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--abac80ca-b3f4-4e06-912c-1fea71621c56",
+      "created": "2025-10-09T11:46:58.789979Z",
+      "modified": "2025-10-09T11:46:58.789979Z",
+      "name": "T1059.003",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1059.003"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--9c800425-a309-40af-8e1a-e0126bae4005",
+      "created": "2025-10-09T11:46:58.789979Z",
+      "modified": "2025-10-09T11:46:58.789979Z",
+      "name": "T1059.005",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1059.005"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--349fa0f7-0fd2-4745-b5cd-a57197b1c02d",
+      "created": "2025-10-09T11:46:58.789979Z",
+      "modified": "2025-10-09T11:46:58.789979Z",
+      "name": "T1204.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1204.001"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--40677cbc-bf22-4096-8ca3-ee826e7e830f",
+      "created": "2025-10-09T11:46:58.789979Z",
+      "modified": "2025-10-09T11:46:58.789979Z",
+      "name": "T1204.002",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1204.002"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--ed910f40-be66-463f-be99-20c8e56b8201",
+      "created": "2025-10-09T11:46:58.789979Z",
+      "modified": "2025-10-09T11:46:58.789979Z",
+      "name": "T1218.009",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1218.009"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--2dfa7adc-8ac1-4dd8-aed0-4f84f143d5ff",
+      "created": "2025-10-09T11:46:58.789979Z",
+      "modified": "2025-10-09T11:46:58.789979Z",
+      "name": "T1547.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1547.001"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--1e29aecf-53f2-4320-930a-d2bc5bed7a74",
+      "created": "2025-10-09T11:46:58.789979Z",
+      "modified": "2025-10-09T11:46:58.789979Z",
+      "name": "T1566.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1566.001"
+        }
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--2ad4ce88-e621-4f4d-a400-489f6ef9d117",
+      "created": "2025-10-09T11:46:58.789979Z",
+      "modified": "2025-10-09T11:46:58.789979Z",
+      "name": "domain:blogs.blackberry.com",
+      "pattern": "[domain-name:value = 'blogs.blackberry.com']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.789979Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "Blackberry-BlindEagle-Fake-UUE-Fsociety-Target-Colombia-02-27-20-669282e9"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--5f20fefe-9f37-4595-8c07-f5aee7ecc1ce",
+      "created": "2025-10-09T11:46:58.789979Z",
+      "modified": "2025-10-09T11:46:58.789979Z",
+      "name": "domain:ccb.org.co",
+      "pattern": "[domain-name:value = 'ccb.org.co']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.789979Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "Blackberry-BlindEagle-Fake-UUE-Fsociety-Target-Colombia-02-27-20-669282e9"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--b2defa39-8c22-4295-9df5-8e3614a7c1cf",
+      "created": "2025-10-09T11:46:58.789979Z",
+      "modified": "2025-10-09T11:46:58.789979Z",
+      "name": "email:correspondencia@ccb.org.co",
+      "pattern": "[email-addr:value = 'correspondencia@ccb.org.co']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.789979Z",
+      "labels": [
+        "email",
+        "extracted-from-report",
+        "Blackberry-BlindEagle-Fake-UUE-Fsociety-Target-Colombia-02-27-20-669282e9"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--bb43a77b-0e59-437b-b187-665b48565e7e",
+      "created": "2025-10-09T11:46:58.789979Z",
+      "modified": "2025-10-09T11:46:58.789979Z",
+      "name": "url:https://www.dian.gov.co/",
+      "pattern": "[url:value = 'https://www.dian.gov.co/']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.789979Z",
+      "labels": [
+        "url",
+        "extracted-from-report",
+        "Blackberry-BlindEagle-Fake-UUE-Fsociety-Target-Colombia-02-27-20-669282e9"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--d8a05413-329a-4dd6-836e-b354b2849c02",
+      "created": "2025-10-09T11:46:58.789979Z",
+      "modified": "2025-10-09T11:46:58.789979Z",
+      "name": "domain:dian.gov.co",
+      "pattern": "[domain-name:value = 'dian.gov.co']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.789979Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "Blackberry-BlindEagle-Fake-UUE-Fsociety-Target-Colombia-02-27-20-669282e9"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--3fe0ebe9-b81b-47a2-9f91-316b257c91c0",
+      "created": "2025-10-09T11:46:58.789979Z",
+      "modified": "2025-10-09T11:46:58.789979Z",
+      "name": "domain:www.dian.gov.co",
+      "pattern": "[domain-name:value = 'www.dian.gov.co']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.789979Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "Blackberry-BlindEagle-Fake-UUE-Fsociety-Target-Colombia-02-27-20-669282e9"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--ea6533c0-fd58-452b-94a2-447e7d74dc26",
+      "created": "2025-10-09T11:46:58.789979Z",
+      "modified": "2025-10-09T11:46:58.789979Z",
+      "name": "md5:e4d2799f3001a531d15939b1898399b4",
+      "pattern": "[file:hashes.'MD5' = 'e4d2799f3001a531d15939b1898399b4']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.789979Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Blackberry-BlindEagle-Fake-UUE-Fsociety-Target-Colombia-02-27-20-669282e9"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--2976b2fd-71fa-4417-b4db-74bf1235dbc7",
+      "created": "2025-10-09T11:46:58.789979Z",
+      "modified": "2025-10-09T11:46:58.789979Z",
+      "name": "sha256:fc85d3da6401b0764a2e8a5f55334a7d683ec20fb8210213feb6148f02a30554",
+      "pattern": "[file:hashes.'SHA256' = 'fc85d3da6401b0764a2e8a5f55334a7d683ec20fb8210213feb6148f02a30554']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.789979Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "Blackberry-BlindEagle-Fake-UUE-Fsociety-Target-Colombia-02-27-20-669282e9"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--51617cd2-ae86-4b87-8f60-91dcae9533cc",
+      "created": "2025-10-09T11:46:58.789979Z",
+      "modified": "2025-10-09T11:46:58.789979Z",
+      "name": "md5:B432202CF7F00B4A4CBE377C284F3F28",
+      "pattern": "[file:hashes.'MD5' = 'B432202CF7F00B4A4CBE377C284F3F28']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.789979Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Blackberry-BlindEagle-Fake-UUE-Fsociety-Target-Colombia-02-27-20-669282e9"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--1e195085-aed9-4a9a-9d40-0334308d3341",
+      "created": "2025-10-09T11:46:58.789979Z",
+      "modified": "2025-10-09T11:46:58.789979Z",
+      "name": "sha256:6D9D0EB5E8E69FFE9914C63676D293DA1B7D3B7B9F3D2C8035ABE0A3DE8B9FCA",
+      "pattern": "[file:hashes.'SHA256' = '6D9D0EB5E8E69FFE9914C63676D293DA1B7D3B7B9F3D2C8035ABE0A3DE8B9FCA']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.789979Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "Blackberry-BlindEagle-Fake-UUE-Fsociety-Target-Colombia-02-27-20-669282e9"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--7894e7b6-ba4b-4d69-8ac7-b097bf10d86e",
+      "created": "2025-10-09T11:46:58.789979Z",
+      "modified": "2025-10-09T11:46:58.789979Z",
+      "name": "md5:6BEF68F58AFCFDD93943AFCC894F8740",
+      "pattern": "[file:hashes.'MD5' = '6BEF68F58AFCFDD93943AFCC894F8740']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.789979Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Blackberry-BlindEagle-Fake-UUE-Fsociety-Target-Colombia-02-27-20-669282e9"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--450cfbd9-c1cc-4810-b4f7-d7c26477aa65",
+      "created": "2025-10-09T11:46:58.789979Z",
+      "modified": "2025-10-09T11:46:58.789979Z",
+      "name": "sha256:430BE2A37BAC2173CF47CA1376126A3E78A94904DBC5F304576D87F5A17ED366",
+      "pattern": "[file:hashes.'SHA256' = '430BE2A37BAC2173CF47CA1376126A3E78A94904DBC5F304576D87F5A17ED366']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.789979Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "Blackberry-BlindEagle-Fake-UUE-Fsociety-Target-Colombia-02-27-20-669282e9"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--6070a606-6062-49df-bf3c-c97547e7f970",
+      "created": "2025-10-09T11:46:58.789979Z",
+      "modified": "2025-10-09T11:46:58.789979Z",
+      "name": "domain:moc.ppadrocsid.ndc",
+      "pattern": "[domain-name:value = 'moc.ppadrocsid.ndc']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.789979Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "Blackberry-BlindEagle-Fake-UUE-Fsociety-Target-Colombia-02-27-20-669282e9"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--0734082b-31ce-4c2a-a316-d982be196fd0",
+      "created": "2025-10-09T11:46:58.789979Z",
+      "modified": "2025-10-09T11:46:58.789979Z",
+      "name": "domain:microsoft.net",
+      "pattern": "[domain-name:value = 'microsoft.net']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.789979Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "Blackberry-BlindEagle-Fake-UUE-Fsociety-Target-Colombia-02-27-20-669282e9"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--298424b7-dfc6-422d-b983-d55881864b0b",
+      "created": "2025-10-09T11:46:58.789979Z",
+      "modified": "2025-10-09T11:46:58.789979Z",
+      "name": "md5:C75F9D3DA98E57B973077FDE8EC3780F",
+      "pattern": "[file:hashes.'MD5' = 'C75F9D3DA98E57B973077FDE8EC3780F']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.789979Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Blackberry-BlindEagle-Fake-UUE-Fsociety-Target-Colombia-02-27-20-669282e9"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--1ddbf064-c902-40a2-9d63-811460062da6",
+      "created": "2025-10-09T11:46:58.789979Z",
+      "modified": "2025-10-09T11:46:58.789979Z",
+      "name": "sha256:5399BF1F18AFCC125007D127493082005421C5DDEBC34697313D62D8BC88DAEC",
+      "pattern": "[file:hashes.'SHA256' = '5399BF1F18AFCC125007D127493082005421C5DDEBC34697313D62D8BC88DAEC']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.789979Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "Blackberry-BlindEagle-Fake-UUE-Fsociety-Target-Colombia-02-27-20-669282e9"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--a3121d08-4689-42c7-947e-c0d89411aa3e",
+      "created": "2025-10-09T11:46:58.789979Z",
+      "modified": "2025-10-09T11:46:58.789979Z",
+      "name": "md5:07AF8778DE9F2BC53899AAC7AD671A72",
+      "pattern": "[file:hashes.'MD5' = '07AF8778DE9F2BC53899AAC7AD671A72']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.789979Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Blackberry-BlindEagle-Fake-UUE-Fsociety-Target-Colombia-02-27-20-669282e9"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--344e1cb1-4429-4523-a8f6-4de228a8f0b6",
+      "created": "2025-10-09T11:46:58.789979Z",
+      "modified": "2025-10-09T11:46:58.789979Z",
+      "name": "md5:5E518B80C701E17259F3E7323EFFC83F",
+      "pattern": "[file:hashes.'MD5' = '5E518B80C701E17259F3E7323EFFC83F']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.789979Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Blackberry-BlindEagle-Fake-UUE-Fsociety-Target-Colombia-02-27-20-669282e9"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--5bffd250-2e0b-45ac-b3ca-bb4e8f057590",
+      "created": "2025-10-09T11:46:58.789979Z",
+      "modified": "2025-10-09T11:46:58.789979Z",
+      "name": "sha256:03B7D19202F596FE4DC556B7DA818F0F76195912E29D728B14863DDA7B91D9B5",
+      "pattern": "[file:hashes.'SHA256' = '03B7D19202F596FE4DC556B7DA818F0F76195912E29D728B14863DDA7B91D9B5']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.789979Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "Blackberry-BlindEagle-Fake-UUE-Fsociety-Target-Colombia-02-27-20-669282e9"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--93c5c01d-4fdf-4905-9561-109deceab763",
+      "created": "2025-10-09T11:46:58.789979Z",
+      "modified": "2025-10-09T11:46:58.789979Z",
+      "name": "sha256:64A08714BD5D04DA6E2476A46EA620E3F7D2C8A438EDA8110C3F1917D63DFCFC",
+      "pattern": "[file:hashes.'SHA256' = '64A08714BD5D04DA6E2476A46EA620E3F7D2C8A438EDA8110C3F1917D63DFCFC']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.789979Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "Blackberry-BlindEagle-Fake-UUE-Fsociety-Target-Colombia-02-27-20-669282e9"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--845157bf-7cce-4396-8615-8f8e55aa88df",
+      "created": "2025-10-09T11:46:58.789979Z",
+      "modified": "2025-10-09T11:46:58.789979Z",
+      "name": "domain:blackberry.com",
+      "pattern": "[domain-name:value = 'blackberry.com']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.789979Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "Blackberry-BlindEagle-Fake-UUE-Fsociety-Target-Colombia-02-27-20-669282e9"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--01f462ea-76f8-4f42-a4fc-3ecd3ea30fdd",
+      "created": "2025-10-09T11:46:58.789979Z",
+      "modified": "2025-10-09T11:46:58.789979Z",
+      "name": "email:cti@blackberry.com",
+      "pattern": "[email-addr:value = 'cti@blackberry.com']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.789979Z",
+      "labels": [
+        "email",
+        "extracted-from-report",
+        "Blackberry-BlindEagle-Fake-UUE-Fsociety-Target-Colombia-02-27-20-669282e9"
+      ]
+    }
+  ]
+}

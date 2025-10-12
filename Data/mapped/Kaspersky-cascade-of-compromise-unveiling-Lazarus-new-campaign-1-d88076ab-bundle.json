@@ -1,0 +1,436 @@
+{
+  "type": "bundle",
+  "id": "bundle--baa2799f-0844-416a-8a7f-ecc738c9c900",
+  "objects": [
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--8ca6ed3a-ebfd-494c-b0ab-078fe1092bfc",
+      "created": "2025-10-09T11:46:58.813754Z",
+      "modified": "2025-10-09T11:46:58.813754Z",
+      "name": "T1003.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1003.001"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--e43d1e05-56a2-425f-8c49-4f99e4f67d78",
+      "created": "2025-10-09T11:46:58.813754Z",
+      "modified": "2025-10-09T11:46:58.813754Z",
+      "name": "T1027.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1027.001"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--27f6117b-c03a-46c0-b6c1-eab8841f097d",
+      "created": "2025-10-09T11:46:58.813754Z",
+      "modified": "2025-10-09T11:46:58.813754Z",
+      "name": "T1027.002",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1027.002"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--a8493ead-62ec-48bd-8a4e-44b1776e9aec",
+      "created": "2025-10-09T11:46:58.813754Z",
+      "modified": "2025-10-09T11:46:58.813754Z",
+      "name": "T1041",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1041"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--e1d331d8-bc11-406e-8293-2ea36536cb65",
+      "created": "2025-10-09T11:46:58.813754Z",
+      "modified": "2025-10-09T11:46:58.813754Z",
+      "name": "T1057",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1057"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--0725d2f4-634c-4e7f-a7cf-0b6828f4c189",
+      "created": "2025-10-09T11:46:58.813754Z",
+      "modified": "2025-10-09T11:46:58.813754Z",
+      "name": "T1071.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1071.001"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--78d30f74-cfea-4d29-8626-f6c2929dc27d",
+      "created": "2025-10-09T11:46:58.813754Z",
+      "modified": "2025-10-09T11:46:58.813754Z",
+      "name": "T1082",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1082"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--b447ed44-f59a-4bb7-8f3d-3ab6c6f57a09",
+      "created": "2025-10-09T11:46:58.813754Z",
+      "modified": "2025-10-09T11:46:58.813754Z",
+      "name": "T1083",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1083"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--2c1ebc01-aba4-452f-a3be-8b19ecc961af",
+      "created": "2025-10-09T11:46:58.813754Z",
+      "modified": "2025-10-09T11:46:58.813754Z",
+      "name": "T1113",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1113"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--42aabb4e-b80d-4f85-b1a4-9c7909cba977",
+      "created": "2025-10-09T11:46:58.813754Z",
+      "modified": "2025-10-09T11:46:58.813754Z",
+      "name": "T1132.002",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1132.002"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--99570f56-5ce7-4cc6-a033-c35886371ca0",
+      "created": "2025-10-09T11:46:58.813754Z",
+      "modified": "2025-10-09T11:46:58.813754Z",
+      "name": "T1140",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1140"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--30e3a64b-20d9-48b8-bffa-2a2ce966fbbb",
+      "created": "2025-10-09T11:46:58.813754Z",
+      "modified": "2025-10-09T11:46:58.813754Z",
+      "name": "T1189",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1189"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--7c2f7a82-f738-4e08-9d06-1e64f2343e54",
+      "created": "2025-10-09T11:46:58.813754Z",
+      "modified": "2025-10-09T11:46:58.813754Z",
+      "name": "T1203",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1203"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--d5509406-a60d-40d5-a020-6c4e3debb34f",
+      "created": "2025-10-09T11:46:58.813754Z",
+      "modified": "2025-10-09T11:46:58.813754Z",
+      "name": "T1547.012",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1547.012"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--c106d0df-9075-4eb9-bdc9-4104a15fe89c",
+      "created": "2025-10-09T11:46:58.813754Z",
+      "modified": "2025-10-09T11:46:58.813754Z",
+      "name": "T1573.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1573.001"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--290f26de-833e-4c2a-b274-8db684010168",
+      "created": "2025-10-09T11:46:58.813754Z",
+      "modified": "2025-10-09T11:46:58.813754Z",
+      "name": "T1574.002",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1574.002"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--f024e144-aea2-478e-9756-9a91a6a8bc23",
+      "created": "2025-10-09T11:46:58.813754Z",
+      "modified": "2025-10-09T11:46:58.813754Z",
+      "name": "T1620",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1620"
+        }
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--46d02f9e-1f6e-4ea9-9300-e14e7054e51c",
+      "created": "2025-10-09T11:46:58.813754Z",
+      "modified": "2025-10-09T11:46:58.813754Z",
+      "name": "domain:securelist.com",
+      "pattern": "[domain-name:value = 'securelist.com']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.813754Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "Kaspersky-cascade-of-compromise-unveiling-Lazarus-new-campaign-1-d88076ab"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--9cd11a52-e4b8-4bf0-96e1-ab6806b907d2",
+      "created": "2025-10-09T11:46:58.813754Z",
+      "modified": "2025-10-09T11:46:58.813754Z",
+      "name": "domain:kaspersky.com",
+      "pattern": "[domain-name:value = 'kaspersky.com']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.813754Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "Kaspersky-cascade-of-compromise-unveiling-Lazarus-new-campaign-1-d88076ab"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--fc976d50-b816-4637-b11d-4108baee2c56",
+      "created": "2025-10-09T11:46:58.813754Z",
+      "modified": "2025-10-09T11:46:58.813754Z",
+      "name": "email:intelreports@kaspersky.com",
+      "pattern": "[email-addr:value = 'intelreports@kaspersky.com']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.813754Z",
+      "labels": [
+        "email",
+        "extracted-from-report",
+        "Kaspersky-cascade-of-compromise-unveiling-Lazarus-new-campaign-1-d88076ab"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--61b2b38a-8df8-4cb9-95b1-b57b38360562",
+      "created": "2025-10-09T11:46:58.813754Z",
+      "modified": "2025-10-09T11:46:58.813754Z",
+      "name": "md5:9cd90dff2d9d56654dbecdcd409e1ef3",
+      "pattern": "[file:hashes.'MD5' = '9cd90dff2d9d56654dbecdcd409e1ef3']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.813754Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Kaspersky-cascade-of-compromise-unveiling-Lazarus-new-campaign-1-d88076ab"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--03f51406-e78f-40ee-8408-d17b5fa68fcc",
+      "created": "2025-10-09T11:46:58.813754Z",
+      "modified": "2025-10-09T11:46:58.813754Z",
+      "name": "md5:88a96f8730b35c7406d57f23bbba734d",
+      "pattern": "[file:hashes.'MD5' = '88a96f8730b35c7406d57f23bbba734d']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.813754Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Kaspersky-cascade-of-compromise-unveiling-Lazarus-new-campaign-1-d88076ab"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--e97a7b39-86b7-477d-a1c4-9b6deafc2bce",
+      "created": "2025-10-09T11:46:58.813754Z",
+      "modified": "2025-10-09T11:46:58.813754Z",
+      "name": "md5:54df2984e833ba2854de670cce43b823",
+      "pattern": "[file:hashes.'MD5' = '54df2984e833ba2854de670cce43b823']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.813754Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Kaspersky-cascade-of-compromise-unveiling-Lazarus-new-campaign-1-d88076ab"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--5a10140f-9f9c-48f0-8c6c-c72de1c66fa9",
+      "created": "2025-10-09T11:46:58.813754Z",
+      "modified": "2025-10-09T11:46:58.813754Z",
+      "name": "md5:Ae00b0f490b122ebab614d98bb2361f7",
+      "pattern": "[file:hashes.'MD5' = 'Ae00b0f490b122ebab614d98bb2361f7']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.813754Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Kaspersky-cascade-of-compromise-unveiling-Lazarus-new-campaign-1-d88076ab"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--6ec13157-4460-4749-a656-823f398a2bdb",
+      "created": "2025-10-09T11:46:58.813754Z",
+      "modified": "2025-10-09T11:46:58.813754Z",
+      "name": "md5:e6fa116ef2705ecf9677021e5e2f691e",
+      "pattern": "[file:hashes.'MD5' = 'e6fa116ef2705ecf9677021e5e2f691e']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.813754Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Kaspersky-cascade-of-compromise-unveiling-Lazarus-new-campaign-1-d88076ab"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--9cc35657-79db-46fb-8aca-c3fb78d826e7",
+      "created": "2025-10-09T11:46:58.813754Z",
+      "modified": "2025-10-09T11:46:58.813754Z",
+      "name": "md5:31af3e7fff79bc48a99b8679ea74b589",
+      "pattern": "[file:hashes.'MD5' = '31af3e7fff79bc48a99b8679ea74b589']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.813754Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Kaspersky-cascade-of-compromise-unveiling-Lazarus-new-campaign-1-d88076ab"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--b03eace3-9fb2-4bae-a51a-0f15e7879135",
+      "created": "2025-10-09T11:46:58.813754Z",
+      "modified": "2025-10-09T11:46:58.813754Z",
+      "name": "md5:9b62352851c9f82157d1d7fcafeb49d3",
+      "pattern": "[file:hashes.'MD5' = '9b62352851c9f82157d1d7fcafeb49d3']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.813754Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Kaspersky-cascade-of-compromise-unveiling-Lazarus-new-campaign-1-d88076ab"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--7430e475-6468-4310-9695-3a1e0f46eb8d",
+      "created": "2025-10-09T11:46:58.813754Z",
+      "modified": "2025-10-09T11:46:58.813754Z",
+      "name": "md5:3a77b5054c36e6812f07366fb70b007d",
+      "pattern": "[file:hashes.'MD5' = '3a77b5054c36e6812f07366fb70b007d']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.813754Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Kaspersky-cascade-of-compromise-unveiling-Lazarus-new-campaign-1-d88076ab"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--4755592c-dbad-43f4-af68-f6d5c602e796",
+      "created": "2025-10-09T11:46:58.813754Z",
+      "modified": "2025-10-09T11:46:58.813754Z",
+      "name": "md5:E89fa6345d06da32f9c8786b65111928",
+      "pattern": "[file:hashes.'MD5' = 'E89fa6345d06da32f9c8786b65111928']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-09T11:46:58.813754Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Kaspersky-cascade-of-compromise-unveiling-Lazarus-new-campaign-1-d88076ab"
+      ]
+    }
+  ]
+}

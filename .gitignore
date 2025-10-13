@@ -3,3 +3,4 @@ __pycache__/
 .env
 Data/extracted_pdfs/
 Data/extracted_pdfs/**
+.venv

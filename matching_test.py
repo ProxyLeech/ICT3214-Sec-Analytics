@@ -1,87 +1,132 @@
 #!/usr/bin/env python3
-import os
+from __future__ import annotations
+import csv
+import logging
+from pathlib import Path
 import re
 import sys
+from typing import Iterable, Set, Tuple
+
 import pandas as pd
-import csv
 
 TTP_RE = re.compile(r"^T\d{4}(?:\.\d{3})?$")
 
-def validate_ttps(ttps):
+PREFERRED_KEYS = [
+    "matched_exact", "matched_root_only", "ttps", "ttp",
+    "techniques", "technique", "attack"
+]
+
+def validate_ttps(ttps: Iterable[str]) -> Tuple[str, ...]:
+    ttps = tuple(t.strip().upper() for t in ttps if t.strip())
     if not ttps:
-        print("No TTPs entered.")
-        sys.exit(1)
+        raise ValueError("No TTPs entered.")
     if len(ttps) > 5:
-        print("Maximum of 5 TTPs allowed.")
-        sys.exit(1)
+        raise ValueError("Maximum of 5 TTPs allowed.")
     for t in ttps:
         if not TTP_RE.match(t):
-            print(f"Invalid TTP format: {t}")
-            sys.exit(1)
+            raise ValueError(f"Invalid TTP format: {t}")
+    return ttps
 
-def find_ttp_column(df):
-    preferred = ["matched_exact", "matched_root_only", "ttps", "ttp", "techniques", "technique", "attack"]
-    for p in preferred:
-        for c in df.columns:
-            if p in c.lower():
-                return c
-    for c in df.columns:
-        if any(x in c.lower() for x in ["ttp", "technique", "attack"]):
+def find_candidate_dataset(data_dir: Path) -> Path:
+    for name in ("group_ttps_detail.csv", "ranked_groups.csv"):
+        p = data_dir / name
+        if p.exists():
+            return p
+    raise FileNotFoundError(f"No dataset found in {data_dir}")
+
+def score_column(col: str) -> Tuple[int, int]:
+    """Higher is better: exact match first, then keyword count."""
+    cl = col.lower()
+    exact = any(cl == k for k in PREFERRED_KEYS)
+    hits = sum(1 for k in PREFERRED_KEYS if k in cl)
+    return (1 if exact else 0, hits)
+
+def find_ttp_column(df: pd.DataFrame) -> str:
+    ranked = sorted(df.columns, key=lambda c: score_column(c), reverse=True)
+    for c in ranked:
+        cl = c.lower()
+        if any(k in cl for k in PREFERRED_KEYS):
             return c
-    return None
+    for c in df.columns:
+        cl = c.lower()
+        if any(x in cl for x in ["ttp", "technique", "attack"]):
+            return c
+    raise KeyError("Could not find a TTP-related column.")
 
-def normalize_ttp_cell(cell):
+def split_tokens(cell) -> Set[str]:
     if pd.isna(cell):
         return set()
     s = str(cell)
-    for sep in [",", ";", "|"]:
+    for sep in (",", ";", "|"):
         if sep in s:
-            return set(p.strip() for p in s.split(sep) if p.strip())
-    return set(p.strip() for p in s.split() if p.strip())
+            toks = [p.strip().upper() for p in s.split(sep) if p.strip()]
+            return set(toks)
+    return set(p.strip().upper() for p in s.split() if p.strip())
 
-def match_ttps(ttps):
-    mapped_dir = os.path.join(os.getcwd(), "Data", "mapped")
-    candidates = [
-        os.path.join(mapped_dir, "group_ttps_detail.csv"),
-        os.path.join(mapped_dir, "ranked_groups.csv")
-    ]
-    dataset_path = next((p for p in candidates if os.path.exists(p)), None)
-    if not dataset_path:
-        print("No dataset found in mapped folder.")
-        sys.exit(1)
-    print(f"Using dataset: {dataset_path}")
+def with_roots(tts: Iterable[str]) -> Set[str]:
+    out: Set[str] = set()
+    for t in tts:
+        out.add(t)
+        if "." in t:
+            out.add(t.split(".", 1)[0])  # add root (e.g., T1110.001 → T1110)
+    return out
 
+def match_ttps(ttps: Tuple[str, ...], dataset_path: Path) -> pd.DataFrame:
     df = pd.read_csv(dataset_path)
     ttp_col = find_ttp_column(df)
-    if not ttp_col:
-        print("Could not find a TTP-related column.")
-        sys.exit(1)
 
-    df["_ttp_set"] = df[ttp_col].apply(normalize_ttp_cell)
-    input_set = set(t.strip() for t in ttps)
-    matched = df[df["_ttp_set"].apply(lambda s: len(input_set & s) > 0)].drop(columns=["_ttp_set"])
+    df["_ttp_set"] = df[ttp_col].map(split_tokens)
+    df["_ttp_root_set"] = df["_ttp_set"].map(with_roots)
 
-    root_path = os.getcwd()
-    matched_out = os.path.join(root_path, "matched_groups.csv")
-    ttps_out = os.path.join(root_path, "inputted_ttps.csv")
+    input_full = set(ttps)
+    input_plus_roots = with_roots(input_full)
+
+    mask = df["_ttp_root_set"].apply(lambda s: bool(input_plus_roots & s))
+    matched = df.loc[mask].drop(columns=["_ttp_set", "_ttp_root_set"])
+    return matched
+
+def write_outputs(matched: pd.DataFrame, ttps: Tuple[str, ...], out_dir: Path) -> Tuple[Path, Path]:
+    out_dir.mkdir(parents=True, exist_ok=True)
+    matched_out = out_dir / "matched_groups.csv"
+    ttps_out = out_dir / "inputted_ttps.csv"
 
     matched.to_csv(matched_out, index=False)
-    print(f"Matched {len(matched)} rows -> {matched_out}")
-
-    with open(ttps_out, "w", newline="", encoding="utf-8") as f:
+    with ttps_out.open("w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
         writer.writerow(["TTP"])
         for t in ttps:
             writer.writerow([t])
-    print(f"Saved inputted TTPs -> {ttps_out}")
+    return matched_out, ttps_out
 
-    if not matched.empty and "group_name" in matched.columns:
-        print("\nTop matched groups:")
-        for g in matched["group_name"].head(10):
-            print("-", g)
+def main() -> int:
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+
+    try:
+        data_dir = Path("Data/mapped")
+        out_dir = Path(".")
+        user_input = input("Enter up to 5 TTPs (e.g. T1110 T1110.001 ...): ").strip()
+        ttps = validate_ttps(user_input.split())
+
+        dataset = find_candidate_dataset(data_dir)
+        logging.info(f"Using dataset: {dataset}")
+
+        matched = match_ttps(ttps, dataset)
+        m_out, t_out = write_outputs(matched, ttps, out_dir)
+
+        logging.info(f"Matched {len(matched)} rows -> {m_out}")
+        logging.info(f"Saved inputted TTPs -> {t_out}")
+
+        if not matched.empty and "group_name" in matched.columns:
+            print("\nTop matched groups:")
+            for g in matched["group_name"].head(10):
+                print("-", g)
+        else:
+            print("No matches found.")
+        return 0
+
+    except Exception as e:
+        logging.error(str(e))
+        return 1
 
 if __name__ == "__main__":
-    user_input = input("Enter up to 5 TTPs (e.g. T1110 T1110.001 ...): ").strip()
-    ttps = [t.strip() for t in user_input.split() if t.strip()]
-    validate_ttps(ttps)
-    match_ttps(ttps)
+    sys.exit(main())

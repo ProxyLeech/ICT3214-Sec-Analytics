@@ -4,3 +4,7 @@ __pycache__/
 Data/extracted_pdfs/
 Data/extracted_pdfs/**
 .venv
+Generated_Reports
+inputted_ttps.csv
+matched_groups.csv
+tempCodeRunnerFile.py

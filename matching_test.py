@@ -1,103 +1,87 @@
 #!/usr/bin/env python3
-import sys, os, re
-from pathlib import Path
+import os
+import re
+import sys
 import pandas as pd
+import csv
 
 TTP_RE = re.compile(r"^T\d{4}(?:\.\d{3})?$")
 
 def validate_ttps(ttps):
-    if not ttps: print("no ttps entered"); sys.exit(1)
-    if len(ttps) > 5: print("maximum 5 ttps allowed"); sys.exit(1)
+    if not ttps:
+        print("No TTPs entered.")
+        sys.exit(1)
+    if len(ttps) > 5:
+        print("Maximum of 5 TTPs allowed.")
+        sys.exit(1)
     for t in ttps:
-        if not TTP_RE.match(t): print(f"invalid ttp format: {t}"); sys.exit(1)
+        if not TTP_RE.match(t):
+            print(f"Invalid TTP format: {t}")
+            sys.exit(1)
 
 def find_ttp_column(df):
-    prefs = ["matched_exact","matched_root_only","ttps","ttp","techniques","technique","attack"]
-    for p in prefs:
+    preferred = ["matched_exact", "matched_root_only", "ttps", "ttp", "techniques", "technique", "attack"]
+    for p in preferred:
         for c in df.columns:
-            if p in c.lower(): return c
+            if p in c.lower():
+                return c
     for c in df.columns:
-        if any(x in c.lower() for x in ["ttp","technique","attack"]): return c
+        if any(x in c.lower() for x in ["ttp", "technique", "attack"]):
+            return c
     return None
 
 def normalize_ttp_cell(cell):
-    if pd.isna(cell): return set()
+    if pd.isna(cell):
+        return set()
     s = str(cell)
-    seps = [",",";","|"]
-    if any(sep in s for sep in seps):
-        out = set()
-        for sep in seps:
-            if sep in s:
-                out.update(p.strip() for p in s.split(sep) if p.strip())
-                s = "|".join(p.strip() for p in s.split(sep) if p.strip())
-        return out
+    for sep in [",", ";", "|"]:
+        if sep in s:
+            return set(p.strip() for p in s.split(sep) if p.strip())
     return set(p.strip() for p in s.split() if p.strip())
 
-def candidate_dirs(script_dir: Path, cwd: Path):
-    c = []
-    c.append(Path(os.getenv("MAPPED_DIR", "")) if os.getenv("MAPPED_DIR") else None)
-    c += [
-        cwd/"mapped",
-        cwd/"Data"/"mapped",
-        script_dir/"mapped",
-        script_dir/"Data"/"mapped",
-        script_dir.parent/"mapped",
-        script_dir.parent/"Data"/"mapped",
-        script_dir.parent.parent/"mapped",
-        script_dir.parent.parent/"Data"/"mapped",
+def match_ttps(ttps):
+    mapped_dir = os.path.join(os.getcwd(), "Data", "mapped")
+    candidates = [
+        os.path.join(mapped_dir, "group_ttps_detail.csv"),
+        os.path.join(mapped_dir, "ranked_groups.csv")
     ]
-    return [p for p in c if p]
-
-def locate_mapped_dir():
-    script_dir = Path(__file__).resolve().parent
-    cwd = Path.cwd()
-    tried = []
-    for p in candidate_dirs(script_dir, cwd):
-        tried.append(str(p))
-        if p.exists() and p.is_dir(): return p, tried
-    return None, tried
-
-def load_dataset(mapped_dir: Path):
-    for name in ["group_ttps_detail.csv","ranked_groups.csv"]:
-        p = mapped_dir/name
-        if p.exists(): return p
-    return None
-
-def main():
-    mapped_dir, tried = locate_mapped_dir()
-    if not mapped_dir:
-        print("no mapped directory found. tried:")
-        for t in tried: print(" -", t)
-        sys.exit(1)
-    dataset_path = load_dataset(mapped_dir)
+    dataset_path = next((p for p in candidates if os.path.exists(p)), None)
     if not dataset_path:
-        print("no dataset found in:", mapped_dir)
-        print("expected one of: group_ttps_detail.csv, ranked_groups.csv")
+        print("No dataset found in mapped folder.")
         sys.exit(1)
-    print("using dataset:", dataset_path)
+    print(f"Using dataset: {dataset_path}")
 
     df = pd.read_csv(dataset_path)
     ttp_col = find_ttp_column(df)
     if not ttp_col:
-        print("could not find a ttp column in dataset"); sys.exit(1)
+        print("Could not find a TTP-related column.")
+        sys.exit(1)
 
     df["_ttp_set"] = df[ttp_col].apply(normalize_ttp_cell)
+    input_set = set(t.strip() for t in ttps)
+    matched = df[df["_ttp_set"].apply(lambda s: len(input_set & s) > 0)].drop(columns=["_ttp_set"])
 
+    root_path = os.getcwd()
+    matched_out = os.path.join(root_path, "matched_groups.csv")
+    ttps_out = os.path.join(root_path, "inputted_ttps.csv")
+
+    matched.to_csv(matched_out, index=False)
+    print(f"Matched {len(matched)} rows -> {matched_out}")
+
+    with open(ttps_out, "w", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        writer.writerow(["TTP"])
+        for t in ttps:
+            writer.writerow([t])
+    print(f"Saved inputted TTPs -> {ttps_out}")
+
+    if not matched.empty and "group_name" in matched.columns:
+        print("\nTop matched groups:")
+        for g in matched["group_name"].head(10):
+            print("-", g)
+
+if __name__ == "__main__":
     user_input = input("Enter up to 5 TTPs (e.g. T1110 T1110.001 ...): ").strip()
     ttps = [t.strip() for t in user_input.split() if t.strip()]
     validate_ttps(ttps)
-    input_set = set(ttps)
-
-    matched = df[df["_ttp_set"].apply(lambda s: len(input_set & s) > 0)].drop(columns=["_ttp_set"])
-    if matched.empty:
-        print("no matches found"); sys.exit(0)
-
-    out_path = mapped_dir/"matched_groups.csv"
-    matched.to_csv(out_path, index=False)
-    print(f"matched {len(matched)} rows -> {out_path}")
-    if "group_name" in matched.columns:
-        print("matched groups (top 10):")
-        for g in matched["group_name"].head(10): print(" -", g)
-
-if __name__ == "__main__":
-    main()
+    match_ttps(ttps)

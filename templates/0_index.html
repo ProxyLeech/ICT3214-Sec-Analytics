@@ -1,14 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
-    {% include 'common/head.html' %}
-    <body>
-        {% include 'common/navbar.html' %}
-        <div class="main">
-            <article>
-                <h1>hi</h1>
-                <p>test</p>
-            </article>
-        </div>
-    </body>
+  {% include 'common/head.html' %}
+  <body>
+    {% include 'common/navbar.html' %}
+    <div class="main">
+      <article class="container">
+        <h1>MITRE ATT&CK Threat Attribution</h1>
+        <p>Select up to 5 MITRE Techniques or Subtechniques:</p>
+
+        <form method="post" action="/match">
+          <div class="dropdown-container">
+            <div id="dropdown" class="dropdown">
+              <div id="dropdown-display" class="dropdown-display">Click to select TTPs...</div>
+              <div id="dropdown-options" class="dropdown-options">
+               {% for main, subs in grouped_ttps %}
+                <div class="dropdown-optgroup">
+                  <!-- Main technique itself is now selectable -->
+                  <div class="dropdown-option main-option" data-value="{{ main }}">
+                    {{ main }} (Main Technique)
+                  </div>
+
+                  {% if subs %}
+                    <div class="optgroup-label">Sub-techniques:</div>
+                    {% for sub in subs %}
+                      <div class="dropdown-option" data-value="{{ sub }}">{{ sub }}</div>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+              {% endfor %}
+
+              </div>
+            </div>
+          </div>
+
+          <!-- hidden input container -->
+          <div id="selected-container"></div>
+
+          <br><br>
+          <button type="submit">Submit</button>
+        </form>
+
+        <br>
+        <a href="/workflow">📘 View Workflow Documentation</a>
+      </article>
+    </div>
+
+    <style>
+      .dropdown-container {
+        position: relative;
+        width: 100%;
+      }
+
+      .dropdown {
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        background: #fff;
+        position: relative;
+      }
+
+      .dropdown-display {
+        padding: 0.6rem;
+        cursor: pointer;
+        border-radius: 6px;
+        color: #333;
+      }
+
+      .dropdown-options {
+        display: none;
+        position: absolute;
+        z-index: 99;
+        width: 100%;
+        max-height: 300px;
+        overflow-y: auto;
+        border: 1px solid #ccc;
+        background: white;
+        border-radius: 6px;
+        margin-top: 4px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+
+      .dropdown-option {
+        padding: 0.5rem;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .dropdown-option:hover {
+        background: #f2f2f2;
+      }
+
+      .dropdown-option.selected {
+        background: #007bff;
+        color: white;
+      }
+
+      .dropdown-optgroup {
+        border-top: 1px solid #eee;
+        padding-top: 0.3rem;
+        margin-top: 0.3rem;
+      }
+
+      .optgroup-label {
+        font-weight: bold;
+        color: #444;
+        margin-bottom: 0.3rem;
+      }
+    </style>
+
+    <script>
+      const dropdown = document.getElementById('dropdown');
+      const display = document.getElementById('dropdown-display');
+      const optionsContainer = document.getElementById('dropdown-options');
+      const selectedContainer = document.getElementById('selected-container');
+      const selectedValues = new Set();
+
+      // Toggle dropdown visibility
+      display.addEventListener('click', () => {
+        optionsContainer.style.display =
+          optionsContainer.style.display === 'block' ? 'none' : 'block';
+      });
+
+      // Close when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!dropdown.contains(e.target)) {
+          optionsContainer.style.display = 'none';
+        }
+      });
+
+      // Handle option click
+      document.querySelectorAll('.dropdown-option').forEach(option => {
+        option.addEventListener('click', () => {
+          const value = option.dataset.value;
+
+          if (selectedValues.has(value)) {
+            selectedValues.delete(value);
+            option.classList.remove('selected');
+          } else {
+            if (selectedValues.size >= 5) {
+              alert('You can only select up to 5 TTPs.');
+              return;
+            }
+            selectedValues.add(value);
+            option.classList.add('selected');
+          }
+
+          // Update display text
+          display.textContent = selectedValues.size > 0
+            ? Array.from(selectedValues).join(', ')
+            : 'Click to select TTPs...';
+
+          // Update hidden inputs
+          selectedContainer.innerHTML = '';
+          selectedValues.forEach(val => {
+            const hidden = document.createElement('input');
+            hidden.type = 'hidden';
+            hidden.name = 'ttps[]';
+            hidden.value = val;
+            selectedContainer.appendChild(hidden);
+          });
+        });
+      });
+    </script>
+  </body>
 </html>
-    

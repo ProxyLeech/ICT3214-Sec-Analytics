@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Workflow Overview</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/attribution.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>Step-by-Step Logic Flow</h1>
+
+    <h2>1. Extract IOCs from APTnotes PDFs</h2>
+    <p><code>python extract_pdfs.py</code></p>
+    <p>Parses PDFs into extracted IOCs → <code>Data/extracted_pdfs/extracted_iocs.csv</code></p>
+
+    <h2>2. Map IOCs to MITRE ATT&CK Groups</h2>
+    <p><code>python map_iocs_to_attack.py</code></p>
+    <p>Maps extracted IOCs to threat groups → <code>Data/mapped/group_ttps_detail.csv</code></p>
+
+    <h2>3. Match Specific TTPs</h2>
+    <p><code>python matching_test.py</code></p>
+    <p>Enter up to 5 TTPs to match → <code>matched_groups.csv</code></p>
+
+    <h2>4. Generate Intelligence Report</h2>
+    <p><code>python report_generator.py</code></p>
+    <p>Generates professional DOCX report → <code>Generated_Reports/Threat_Report_*.docx</code></p>
+
+    <h2>Web App Usage</h2>
+    <ol>
+      <li>Run: <code>python app.py</code></li>
+      <li>Visit: <a href="/">http://127.0.0.1:5000</a></li>
+      <li>Input up to 5 TTPs → View Results → Export via CLI</li>
+    </ol>
+
+    <a href="/">← Back to Home</a>
+  </div>
+</body>
+</html>

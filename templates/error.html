@@ -1,0 +1,15 @@
+<!-- templates/error.html -->
+<!DOCTYPE html>
+<html lang="en">
+  {% include 'common/head.html' %}
+  <body>
+    {% include 'common/navbar.html' %}
+    <div class="main">
+      <article class="container">
+        <h1 style="color: red;">⚠️ Error</h1>
+        <p>{{ error }}</p>
+        <a href="/">← Back to Home</a>
+      </article>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Threat Attribution Report</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/attribution.css') }}">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f9fa;
+      color: #222;
+      padding: 2rem;
+    }
+    .container {
+      background: #fff;
+      border-radius: 10px;
+      padding: 2rem 3rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    h1 {
+      color: #0056b3;
+      border-bottom: 2px solid #e0e0e0;
+      padding-bottom: 0.5rem;
+    }
+    h3 { margin-top: 2rem; color: #333; }
+    pre {
+      background: #f3f3f3;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      background: #fff;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background: #007bff;
+      color: white;
+    }
+    a {
+      display: inline-block;
+      margin-top: 2rem;
+      color: #007bff;
+      text-decoration: none;
+    }
+    a:hover { text-decoration: underline; }
+    .timestamp {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Threat Attribution Report</h1>
+    <p class="timestamp">Generated on: {{ timestamp }}</p>
+
+    <h3>Inputted Techniques</h3>
+    <p>{{ ttps | join(', ') }}</p>
+
+    <h3>Top 3 Matched Threat Groups</h3>
+    <table>
+      <tr>
+        {% for col in matched[0].keys() %}
+          <th>{{ col }}</th>
+        {% endfor %}
+      </tr>
+      {% for row in matched %}
+      <tr>
+        {% for val in row.values() %}
+          <td>{{ val }}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </table>
+
+    <h3>Analyst Report</h3>
+    <section>
+      <h4>1. Executive Summary</h4>
+      <pre>{{ analysis.summary }}</pre>
+
+      <h4>2. Technique Overlap Overview</h4>
+      <pre>{{ analysis.table }}</pre>
+
+      <h4>3. Probable Threat Actor(s)</h4>
+      <pre>{{ analysis.attacker }}</pre>
+
+      <h4>4. Defensive Mitigations</h4>
+      <pre>{{ analysis.mitigation }}</pre>
+
+      <h4>5. Analyst Recommendations</h4>
+      <pre>{{ analysis.suggestion }}</pre>
+    </section>
+
+    <a href="/">← Back to Selection</a>
+  </div>
+</body>
+</html>

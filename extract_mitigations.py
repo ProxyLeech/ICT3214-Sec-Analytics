@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+
 """
 Extract "target id", "target name", and "mapping description" from the
 "techniques addressed" sheet in a MITRE ATT&CK mitigations Excel export.

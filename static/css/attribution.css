@@ -1,5 +1,5 @@
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0 2rem 2rem;
   background-color: #f8f9fa;
@@ -119,6 +119,7 @@ button:hover {
   list-style-type: none;
   /* remove the bullets points from the list */
   max-width: 1000px;
+  margin-top: 0;
   margin: auto;
   background-color: lightslategray;
   padding: 1rem 2rem;

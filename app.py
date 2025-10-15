@@ -154,6 +154,7 @@ def match():
             "matched": top3_df.to_dict(orient="records"),
             "analysis": parsed,
             "timestamp": timestamp
+        }
 
         return render_template(
             'results.html',
@@ -169,7 +170,7 @@ def match():
 
 
 # =======================================================
-# EXPORT ROUTE
+# EXPORT ROUTE - Output the results to .doc file
 # =======================================================
 @app.route('/export')
 def export():

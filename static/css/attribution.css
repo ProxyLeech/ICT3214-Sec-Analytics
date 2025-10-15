@@ -12,10 +12,13 @@ body {
   background-color: white;
   padding: 2rem;
   border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   color: #343a40;
 }
 
@@ -33,7 +36,8 @@ table {
   font-size: 0.95rem;
 }
 
-table th, table td {
+table th,
+table td {
   border: 1px solid #ddd;
   padding: 0.5rem;
   vertical-align: top;
@@ -111,17 +115,19 @@ button:hover {
 }
 
 /* navbar styles */
-.navbar{
-  list-style-type: none; /* remove the bullets points from the list */
+.navbar {
+  list-style-type: none;
+  /* remove the bullets points from the list */
   max-width: 1000px;
   margin: auto;
   background-color: lightslategray;
   padding: 1rem 2rem;
   border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
-.navbar li{
+
+.navbar li {
   display: inline;
   padding: 0 2px;
   font-size: 24px;
@@ -129,11 +135,14 @@ button:hover {
   border: solid black 3px;
   background-color: lightsteelblue;
 }
-.navbar li a:link, .navbar li a:visited{
+
+.navbar li a:link,
+.navbar li a:visited {
   color: black;
   text-decoration: none;
-  
+
 }
+
 .navbar li:hover {
   background-color: lightskyblue;
   text-decoration: none;
@@ -142,4 +151,64 @@ button:hover {
 .navbar li:active {
   background-color: deepskyblue;
   text-decoration: none;
+}
+
+.dropdown-container {
+  position: relative;
+  width: 100%;
+}
+
+.dropdown {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fff;
+  position: relative;
+}
+
+.dropdown-display {
+  padding: 0.6rem;
+  cursor: pointer;
+  border-radius: 6px;
+  color: #333;
+}
+
+.dropdown-options {
+  display: none;
+  position: absolute;
+  z-index: 99;
+  width: 100%;
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  background: white;
+  border-radius: 6px;
+  margin-top: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+/* 0_index classes styles */
+.dropdown-option {
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.dropdown-option:hover {
+  background: #f2f2f2;
+}
+
+.dropdown-option.selected {
+  background: #007bff;
+  color: white;
+}
+
+.dropdown-optgroup {
+  border-top: 1px solid #eee;
+  padding-top: 0.3rem;
+  margin-top: 0.3rem;
+}
+
+.optgroup-label {
+  font-weight: bold;
+  color: #444;
+  margin-bottom: 0.3rem;
 }

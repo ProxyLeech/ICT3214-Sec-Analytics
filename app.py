@@ -3,23 +3,22 @@ import pandas as pd
 from matching import (
     validate_ttps,
     match_ttps,
-    find_ttp_column,
-    split_tokens,
-    load_combined_dataset
 )
 from report_generator import analyze_TTP, parse_ai_response
 from pathlib import Path
-from collections import defaultdict
-import re
 from datetime import datetime
+from collections import defaultdict
+from technique_labels import extract_techniques  # import the extractor
 
 app = Flask(__name__)
 
 # =======================================================
-# Project-relative data path
+# Project-relative paths
 # =======================================================
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "Data" / "mapped"
+EXCEL_PATH = BASE_DIR / "Data" / "excel" / "enterprise-attack-v17.1-techniques.xlsx"
+MAPPING_CSV = BASE_DIR / "techniques_mapping.csv"
 
 
 # =======================================================
@@ -28,61 +27,36 @@ DATA_DIR = BASE_DIR / "Data" / "mapped"
 @app.route('/')
 def index():
     try:
-        # Load and merge both datasets
-        df = load_combined_dataset(DATA_DIR)
+        # Always regenerate latest mapping from Excel
+        extract_techniques(EXCEL_PATH, MAPPING_CSV)
 
-        # =======================================================
-        # Parse and normalize TTPs (scan all relevant columns)
-        # =======================================================
-        valid_ttp_pattern = re.compile(r"^T\d{4}(?:\.\d{3})?$")
-        ttp_dict = defaultdict(set)
-        all_ttps = set()
+        # Load mapping: id, name, label
+        df_map = pd.read_csv(MAPPING_CSV)
 
-        # --- Identify all columns that may contain TTPs ---
-        ttp_columns = [
-            c for c in df.columns
-            if any(k in c.lower() for k in ["matched", "ttp", "technique", "attack"])
-        ]
+        # Group main + sub-techniques
+        ttp_dict = defaultdict(list)
+        for tid, label in zip(df_map["id"], df_map["label"]):
+            root = tid.split(".")[0]
+            if "." in tid:
+                ttp_dict[root].append((tid, label))
+            else:
+                ttp_dict.setdefault(tid, [])
 
-        # --- Parse across all those columns ---
-        for col in ttp_columns:
-            for val in df[col].dropna():
-                for ttp in split_tokens(val):
-                    ttp = ttp.strip().upper()
-                    if not valid_ttp_pattern.match(ttp):
-                        continue
-                    all_ttps.add(ttp)
-                    if "." in ttp:
-                        root = ttp.split(".")[0]
-                        ttp_dict[root].add(ttp)
-                        all_ttps.add(root)
-                    else:
-                        ttp_dict.setdefault(ttp, set())
+        # Build grouped list for dropdown
+        id_to_label = dict(zip(df_map["id"], df_map["label"]))
+        grouped_ttps = []
+        for root in sorted(ttp_dict.keys()):
+            root_label = id_to_label.get(root, root)
+            subs = [lbl for _, lbl in sorted(ttp_dict[root], key=lambda x: x[0])]
+            grouped_ttps.append((root_label, subs))
 
-        # --- Cleanup: ensure every root is initialized ---
-        for ttp in list(all_ttps):
-            if "." in ttp:
-                root = ttp.split(".")[0]
-                ttp_dict.setdefault(root, set())
-
-        # --- Sort for dropdown ---
-        grouped_ttps = [(root, sorted(subs)) for root, subs in sorted(ttp_dict.items())]
-
-        # =======================================================
-        # Debug / Sanity check counts
-        # =======================================================
-        all_subs = {s for subs in ttp_dict.values() for s in subs}
-        main_ttps = [t for t in all_ttps if "." not in t]
-        sub_ttps = [t for t in all_ttps if "." in t]
-
-        print("\n================ TTP SUMMARY ================")
-        print(f"✅ Total unique TTP IDs (main + sub): {len(all_ttps)}")
-        print(f"   ├── Main techniques: {len(main_ttps)}")
-        print(f"   └── Sub-techniques:  {len(sub_ttps)}")
-        print(f"✅ Total main technique entries in dict: {len(grouped_ttps)}")
-        print(f"🧪 Is T1110 in parsed TTPs? {'T1110' in all_ttps}")
-        print(f"🧪 T1110 subtechniques: {ttp_dict.get('T1110', '❌ Not Present')}")
-        print("============================================\n")
+        # Debug info
+        print("\n================ TECHNIQUE SUMMARY ================")
+        print(f"Total techniques loaded: {len(df_map)}")
+        print(f"Total root techniques: {len(ttp_dict)}")
+        print("Example entries:")
+        print(df_map.head(5))
+        print("===================================================\n")
 
         return render_template('0_index.html', grouped_ttps=grouped_ttps)
 
@@ -99,49 +73,49 @@ def workflow():
 
 
 # =======================================================
-# ROBERTA ROUTE – ....
+# ROBERTA ROUTE (placeholder)
 # =======================================================
 @app.route('/roberta', methods=['POST'])
 def roberta():
     try:
-
-        return False 
+        return False
     except Exception as e:
         return render_template('error.html', error=str(e))
-    
+
+
 # =======================================================
 # MATCH ROUTE – Match selected TTPs to threat groups
 # =======================================================
-
 @app.route('/match', methods=['POST'])
 def match():
     try:
-        ttps_input = request.form.getlist('ttps[]')
+        # Collect only clean Technique IDs
+        ttps_input = [t.split()[0].upper() for t in request.form.getlist('ttps[]')]
         ttps = validate_ttps(ttps_input)
+
         matched_df = match_ttps(ttps, DATA_DIR)
 
-        # Convert rank to numeric safely
+        # Convert numeric fields
         matched_df['rank'] = pd.to_numeric(matched_df.get('rank', float('nan')), errors='coerce')
         matched_df['score'] = pd.to_numeric(matched_df.get('score', float('nan')), errors='coerce')
 
-        # Prefer rank for sorting if available; fallback to score
+        # Sort results
         if matched_df['rank'].notna().any():
-            matched_df = matched_df.sort_values(by='rank', ascending=True)  # lower rank = higher priority
+            matched_df = matched_df.sort_values(by='rank', ascending=True)
         else:
             matched_df = matched_df.sort_values(by='score', ascending=False)
 
-        # Take only top 3 entries
+        # Top 3
         top3_df = matched_df.head(3)
 
-        # Save outputs for traceability
+        # Save traceability outputs
         matched_df.to_csv("matched_groups.csv", index=False)
         top3_df.to_csv("matched_top3.csv", index=False)
         pd.DataFrame({"TTP": ttps}).to_csv("inputted_ttps.csv", index=False)
 
-        # Analyze via GPT
+        # GPT Analysis
         gpt_response = analyze_TTP(ttps, matched_df)
         parsed = parse_ai_response(gpt_response)
-
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
         return render_template(

@@ -13,27 +13,29 @@
             <div id="dropdown" class="dropdown">
               <div id="dropdown-display" class="dropdown-display">Click to select TTPs...</div>
               <div id="dropdown-options" class="dropdown-options">
-               {% for main, subs in grouped_ttps %}
-                <div class="dropdown-optgroup">
-                  <!-- Main technique itself is now selectable -->
-                  <div class="dropdown-option main-option" data-value="{{ main }}">
-                    {{ main }} (Main Technique)
+                {% for main, subs in grouped_ttps %}
+                  <div class="dropdown-optgroup">
+                    {% set main_id = main.split(' ')[0] %}
+                    <div class="dropdown-option main-option" data-value="{{ main_id }}">
+                      {{ main }}
+                    </div>
+
+                    {% if subs %}
+                      <div class="optgroup-label">Sub-techniques:</div>
+                      {% for sub in subs %}
+                        {% set sub_id = sub.split(' ')[0] %}
+                        <div class="dropdown-option" data-value="{{ sub_id }}">
+                          {{ sub }}
+                        </div>
+                      {% endfor %}
+                    {% endif %}
                   </div>
-
-                  {% if subs %}
-                    <div class="optgroup-label">Sub-techniques:</div>
-                    {% for sub in subs %}
-                      <div class="dropdown-option" data-value="{{ sub }}">{{ sub }}</div>
-                    {% endfor %}
-                  {% endif %}
-                </div>
-              {% endfor %}
-
+                {% endfor %}
               </div>
             </div>
           </div>
 
-          <!-- hidden input container -->
+          <!-- Hidden container for selected TTPs -->
           <div id="selected-container"></div>
 
           <br><br>
@@ -46,7 +48,63 @@
     </div>
 
     <style>
-      
+      .dropdown-container {
+        position: relative;
+        width: 100%;
+        max-width: 800px;
+      }
+
+      .dropdown {
+        position: relative;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        background-color: #fff;
+        cursor: pointer;
+      }
+
+      .dropdown-display {
+        padding: 10px;
+        border-radius: 6px;
+      }
+
+      .dropdown-options {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        max-height: 350px;
+        overflow-y: auto;
+        border: 1px solid #ccc;
+        border-top: none;
+        background-color: #fff;
+        z-index: 100;
+      }
+
+      .dropdown-option {
+        padding: 8px 12px;
+        cursor: pointer;
+      }
+
+      .dropdown-option:hover {
+        background-color: #f2f2f2;
+      }
+
+      .dropdown-option.selected {
+        background-color: #d8e8ff;
+      }
+
+      .optgroup-label {
+        font-weight: bold;
+        background-color: #f7f7f7;
+        padding: 6px 10px;
+        border-top: 1px solid #e0e0e0;
+      }
+
+      .dropdown-optgroup {
+        border-bottom: 1px solid #eaeaea;
+        padding-bottom: 4px;
+      }
     </style>
 
     <script>
@@ -62,17 +120,17 @@
           optionsContainer.style.display === 'block' ? 'none' : 'block';
       });
 
-      // Close when clicking outside
+      // Close dropdown when clicking outside
       document.addEventListener('click', (e) => {
         if (!dropdown.contains(e.target)) {
           optionsContainer.style.display = 'none';
         }
       });
 
-      // Handle option click
+      // Handle selection of techniques
       document.querySelectorAll('.dropdown-option').forEach(option => {
         option.addEventListener('click', () => {
-          const value = option.dataset.value;
+          const value = option.dataset.value; // Technique ID only
 
           if (selectedValues.has(value)) {
             selectedValues.delete(value);
@@ -86,12 +144,12 @@
             option.classList.add('selected');
           }
 
-          // Update display text
+          // Update displayed text
           display.textContent = selectedValues.size > 0
             ? Array.from(selectedValues).join(', ')
             : 'Click to select TTPs...';
 
-          // Update hidden inputs
+          // Update hidden input fields
           selectedContainer.innerHTML = '';
           selectedValues.forEach(val => {
             const hidden = document.createElement('input');

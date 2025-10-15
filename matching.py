@@ -4,11 +4,12 @@ import logging
 from pathlib import Path
 import re
 import sys
-from typing import Iterable, Set, Tuple
+from typing import Iterable, Set, Tuple, Dict
 import pandas as pd
+from collections import defaultdict
 
 # ============================================
-# Regex definitions
+# Regex patterns
 # ============================================
 TTP_RE = re.compile(r"^T\d{4}(?:\.\d{3})?$")
 TTP_PATTERN = re.compile(r"\bT\d{4}(?:\.\d{3})?\b", re.IGNORECASE)
@@ -22,6 +23,10 @@ PREFERRED_KEYS = [
 # Validation
 # ============================================
 def validate_ttps(ttps: Iterable[str]) -> Tuple[str, ...]:
+    """
+    Validate that user-input TTPs follow MITRE format (T#### or T####.###)
+    and that there are at most 5.
+    """
     ttps = tuple(t.strip().upper() for t in ttps if t.strip())
     if not ttps:
         raise ValueError("No TTPs entered.")
@@ -33,13 +38,12 @@ def validate_ttps(ttps: Iterable[str]) -> Tuple[str, ...]:
     return ttps
 
 # ============================================
-# Dataset handling — now merges both CSVs
+# Dataset loading
 # ============================================
 def load_combined_dataset(data_dir: Path) -> pd.DataFrame:
     """
-    Load and merge both 'group_ttps_detail.csv' and 'ranked_groups.csv'
-    if they exist. This ensures that main and sub-techniques like
-    T1110 / T1110.002 are both represented.
+    Load and merge 'group_ttps_detail.csv' and 'ranked_groups.csv' if both exist.
+    Removes duplicates and returns a unified dataframe.
     """
     group_path = data_dir / "group_ttps_detail.csv"
     ranked_path = data_dir / "ranked_groups.csv"
@@ -69,6 +73,9 @@ def score_column(col: str) -> Tuple[int, int]:
     return (1 if exact else 0, hits)
 
 def find_ttp_column(df: pd.DataFrame) -> str:
+    """
+    Automatically detect which column in the dataset contains TTPs.
+    """
     ranked = sorted(df.columns, key=lambda c: score_column(c), reverse=True)
     for c in ranked:
         cl = c.lower()
@@ -84,42 +91,58 @@ def find_ttp_column(df: pd.DataFrame) -> str:
 # Token extraction
 # ============================================
 def split_tokens(cell) -> Set[str]:
+    """
+    Extract only the TTP IDs (T#### or T####.###) from dataset cells that may
+    include technique names, e.g., 'T1110.001 (Password Guessing)'.
+    """
     if pd.isna(cell):
         return set()
-    return set(m.upper() for m in TTP_PATTERN.findall(str(cell)))
-
-def with_roots(tts: Iterable[str]) -> Set[str]:
-    out: Set[str] = set()
-    for t in tts:
-        out.add(t)
-        if "." in t:
-            out.add(t.split(".", 1)[0])  # e.g., T1110.001 → T1110
-    return out
+    text = str(cell).upper()
+    matches = re.findall(TTP_PATTERN, text)
+    return set(matches)
 
 # ============================================
-# Matching logic
+# Strict matching logic
 # ============================================
 def match_ttps(ttps: Tuple[str, ...], data_dir: Path) -> pd.DataFrame:
     """
-    Match input TTPs against the combined dataset.
+    Perform strict matching: returns only rows containing the exact TTP IDs
+    provided by the user. No root/sub-technique inference.
     """
     df = load_combined_dataset(data_dir)
     ttp_col = find_ttp_column(df)
 
     df["_ttp_set"] = df[ttp_col].map(split_tokens)
-    df["_ttp_root_set"] = df["_ttp_set"].map(with_roots)
+    input_ttps = set(ttps)
 
-    input_full = set(ttps)
-    input_plus_roots = with_roots(input_full)
-
-    mask = df["_ttp_root_set"].apply(lambda s: bool(input_plus_roots & s))
-    matched = df.loc[mask].drop(columns=["_ttp_set", "_ttp_root_set"])
+    mask = df["_ttp_set"].apply(lambda s: bool(input_ttps & s))
+    matched = df.loc[mask].drop(columns=["_ttp_set"])
     return matched
+
+# ============================================
+# Extract mapping of ID -> full string (with name)
+# ============================================
+def extract_ttp_pairs(df: pd.DataFrame, ttp_col: str) -> Dict[str, str]:
+    """
+    Extract a mapping of 'T1110.001' -> 'T1110.001 (PASSWORD GUESSING)'
+    from the dataset for dropdown display.
+    """
+    mapping = {}
+    for val in df[ttp_col].dropna().unique():
+        val_str = str(val).strip()
+        matches = re.findall(TTP_PATTERN, val_str.upper())
+        for m in matches:
+            if m not in mapping:
+                mapping[m] = val_str
+    return mapping
 
 # ============================================
 # CSV output
 # ============================================
 def write_outputs(matched: pd.DataFrame, ttps: Tuple[str, ...], out_dir: Path) -> Tuple[Path, Path]:
+    """
+    Save matched groups and inputted TTPs to CSV for traceability.
+    """
     out_dir.mkdir(parents=True, exist_ok=True)
     matched_out = out_dir / "matched_groups.csv"
     ttps_out = out_dir / "inputted_ttps.csv"

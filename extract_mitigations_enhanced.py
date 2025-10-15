@@ -23,10 +23,8 @@ COLUMN_SYNONYMS: Dict[str, Tuple[str, ...]] = {
     ),
 }
 
-
 def _normalize(s: str) -> str:
     return s.strip().lower()
-
 
 def infer_output_path(input_path: str, out_arg: str | None, tsv: bool) -> str:
     if out_arg:
@@ -94,96 +92,43 @@ def clean_text_columns(df: pd.DataFrame, columns: Sequence[str]) -> pd.DataFrame
 
 
 def main() -> None:
-    ap = argparse.ArgumentParser(
-        description="Extract target/mapping fields from a MITRE ATT&CK mitigations workbook",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-    )
-    ap.add_argument("excel_path", help="Path to the enterprise-attack-*-mitigations.xlsx file")
-    ap.add_argument("--out", help="Optional output file path (CSV by default; TSV if --tsv is set)")
-    ap.add_argument("--stdout", action="store_true", help="Write output to stdout instead of a file")
-    ap.add_argument("--tsv", action="store_true", help="Use tab-separated output format")
-    ap.add_argument("--dedupe", action="store_true", help="Drop exact duplicate rows")
-    ap.add_argument("--list-sheets", action="store_true", help="List available sheets and exit")
-    ap.add_argument("--sheet", default=REQUIRED_SHEET, help="Name of the sheet that contains the mappings")
-    ap.add_argument(
-        "--columns",
-        help="Override the required columns (comma-separated, in order)",
-    )
-    args = ap.parse_args()
+    # Automatically set Excel file path
+    excel_path = r"C:\Users\bt\Downloads\enterprise-attack-v17.1-techniques.xlsx"
 
-    if not os.path.exists(args.excel_path):
-        print(f"Error: file not found: {args.excel_path}", file=sys.stderr)
-        sys.exit(1)
+    # Automatically output to the same folder as a CSV
+    out_path = os.path.join(os.path.dirname(excel_path), "enterprise-attack-v17.1-techniques_mappings.csv")
 
-    if args.list_sheets:
-        try:
-            xls = pd.ExcelFile(args.excel_path)
-        except Exception as e:  # noqa: BLE001
-            print(f"Error: cannot open workbook: {e}", file=sys.stderr)
-            sys.exit(1)
-        print("Sheets:")
-        for name in xls.sheet_names:
-            print(f"  - {name}")
-        return
-
-    # Resolve columns to use
-    required_columns: List[str] = (
-        [c.strip() for c in args.columns.split(",")] if args.columns else list(DEFAULT_REQUIRED_COLUMNS)
-    )
-
-    # Pick a suitable sheet (case-insensitive, fuzzy)
-    sheet_name = choose_sheet(args.excel_path, args.sheet)
+    # Configuration defaults
+    required_columns = list(DEFAULT_REQUIRED_COLUMNS)
+    sheet_name = choose_sheet(excel_path, REQUIRED_SHEET)
     if sheet_name is None:
-        try:
-            available = pd.ExcelFile(args.excel_path).sheet_names
-        except Exception:
-            available = []
-        print(
-            f"Error: required sheet '{args.sheet}' not found. Available sheets: {available}",
-            file=sys.stderr,
-        )
+        available = pd.ExcelFile(excel_path).sheet_names
+        print(f"Error: required sheet '{REQUIRED_SHEET}' not found. Available sheets: {available}")
         sys.exit(2)
 
-    try:
-        # Read only the chosen sheet for performance
-        df = pd.read_excel(args.excel_path, sheet_name=sheet_name, engine="openpyxl")
-    except ValueError as e:
-        print(f"Error: failed to read sheet '{sheet_name}': {e}", file=sys.stderr)
-        sys.exit(2)
-
-    # Normalize headers for robust selection (we preserve original df for values)
+    # Read Excel sheet
+    df = pd.read_excel(excel_path, sheet_name=sheet_name, engine="openpyxl")
     df.columns = [c.strip() for c in df.columns]
 
+    # Extract required columns
     out_df, missing = pick_columns(df, required_columns)
     if missing:
-        print(
-            f"Error: missing required columns {missing}. Found columns: {list(df.columns)}",
-            file=sys.stderr,
-        )
+        print(f"Error: missing required columns {missing}. Found columns: {list(df.columns)}")
         sys.exit(3)
 
-    # Clean up text cells safely
+    # Clean up text
     out_df = clean_text_columns(out_df, required_columns)
 
-    if args.dedupe:
-        before = len(out_df)
-        out_df = out_df.drop_duplicates().reset_index(drop=True)
-        after = len(out_df)
-        if before != after:
-            print(f"Info: dropped {before - after} duplicate rows.", file=sys.stderr)
+    # Drop duplicates
+    before = len(out_df)
+    out_df = out_df.drop_duplicates().reset_index(drop=True)
+    after = len(out_df)
+    if before != after:
+        print(f"Dropped {before - after} duplicate rows.")
 
-    # Decide output target
-    sep = "\t" if args.tsv else ","
-    if args.stdout:
-        out_df.to_csv(sys.stdout, index=False, encoding="utf-8", sep=sep, lineterminator="\n")
-        return
-
-    out_path = infer_output_path(args.excel_path, args.out, args.tsv)
-    # Ensure directory exists
-    os.makedirs(os.path.dirname(out_path) or ".", exist_ok=True)
-    out_df.to_csv(out_path, index=False, encoding="utf-8", sep=sep, lineterminator="\n")
+    # Write to CSV automatically
+    out_df.to_csv(out_path, index=False, encoding="utf-8")
     print(f"Wrote {len(out_df):,} rows to {out_path}")
-
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,11 @@
+[project]
+name = "ict3214-sec-analytics"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = ["pymupdf","transformers","torch","numpy"]  # etc.
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[project.scripts]
+ict3214-pipeline = "data.main_data:cli"  # or "app.main:cli" if you keep logic there

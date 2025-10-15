@@ -1,0 +1,8 @@
+Metadata-Version: 2.4
+Name: ict3214-sec-analytics
+Version: 0.1.0
+Requires-Python: >=3.10
+Requires-Dist: pymupdf
+Requires-Dist: transformers
+Requires-Dist: torch
+Requires-Dist: numpy

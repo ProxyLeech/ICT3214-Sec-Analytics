@@ -1,2 +1,21 @@
 Data/extracted_pdfs/
 Data/extracted_pdfs/**
+# Python
+__pycache__/
+*.pyc
+
+# Virtual envs
+.venv/
+venv/
+
+# Data & artifacts
+data/raw/
+data/interim/
+experiments/**/checkpoint*/
+experiments/**/runs/
+logs/
+
+# Models (keep only selected versions)
+models/*/pytorch_model.bin
+experiments/
+src/models/best_roberta_for_predict

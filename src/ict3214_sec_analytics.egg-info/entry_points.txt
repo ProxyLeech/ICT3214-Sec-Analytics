@@ -1,0 +1,2 @@
+[console_scripts]
+ict3214-pipeline = data.main_data:cli

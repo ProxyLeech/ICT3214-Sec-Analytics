@@ -1,0 +1,161 @@
+APT-C-36
+APT1
+APT12
+APT17
+APT18
+APT19
+APT28
+APT29
+APT3
+APT30
+APT32
+APT33
+APT37
+APT38
+APT39
+APT41
+APT42
+APT5
+Agrius
+Ajax Security Team
+Akira
+Andariel
+Aoqin Dragon
+Aquatic Panda
+Axiom
+BITTER
+BRONZE BUTLER
+BackdoorDiplomacy
+BlackByte
+BlackOasis
+BlackTech
+Blue Mockingbird
+CURIUM
+Carbanak
+Chimera
+Cinnamon Tempest
+Cleaver
+Cobalt Group
+Confucius
+CopyKittens
+Daggerfly
+Dark Caracal
+DarkHydrus
+DarkVishnya
+Darkhotel
+Deep Panda
+Dragonfly
+EXOTIC LILY
+Earth Lusca
+Elderwood
+Ember Bear
+Equation
+Evilnum
+FIN10
+FIN13
+FIN4
+FIN5
+FIN6
+FIN7
+FIN8
+Ferocious Kitten
+Fox Kitten
+GALLIUM
+GCMAN
+GOLD SOUTHFIELD
+Gallmaker
+Gamaredon Group
+Gorgon Group
+Group5
+HAFNIUM
+HEXANE
+Higaisa
+INC Ransom
+Inception
+IndigoZebra
+Indrik Spider
+Ke3chang
+Kimsuky
+LAPSUS$
+Lazarus Group
+LazyScripter
+Leafminer
+Leviathan
+Lotus Blossom
+LuminousMoth
+Machete
+Magic Hound
+Malteiro
+Metador
+Moafee
+Mofang
+Molerats
+Moonstone Sleet
+Moses Staff
+MoustachedBouncer
+MuddyWater
+Mustang Panda
+Mustard Tempest
+Naikon
+Nomadic Octopus
+OilRig
+Orangeworm
+PLATINUM
+POLONIUM
+PROMETHIUM
+Patchwork
+PittyTiger
+Play
+Poseidon Group
+Putter Panda
+RTM
+Rancor
+RedCurl
+RedEcho
+Rocke
+Saint Bear
+Salt Typhoon
+Sandworm Team
+Scarlet Mimic
+Scattered Spider
+Sea Turtle
+SideCopy
+Sidewinder
+Silence
+Silent Librarian
+SilverTerrier
+Sowbug
+Star Blizzard
+Stealth Falcon
+Storm-1811
+Strider
+Suckfly
+TA2541
+TA459
+TA505
+TA551
+TA577
+TA578
+TeamTNT
+The White Company
+Threat Group-1314
+Threat Group-3390
+Thrip
+ToddyCat
+Tonto Team
+Transparent Tribe
+Tropic Trooper
+Turla
+Velvet Ant
+Volatile Cedar
+Volt Typhoon
+WIRTE
+Whitefly
+Windigo
+Windshift
+Winnti Group
+Winter Vivern
+Wizard Spider
+ZIRCONIUM
+admin@338
+menuPass

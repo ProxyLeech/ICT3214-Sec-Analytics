@@ -1,0 +1,1100 @@
+{
+  "type": "bundle",
+  "id": "bundle--46efb595-76b0-4bd6-b42a-558916fbb634",
+  "objects": [
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--aa53e626-8289-40a0-a000-e897d10b0b3c",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1016",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1016"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--7cc7333e-0d4f-435e-b91b-ee3b88ea2950",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1021.004",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1021.004"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--625f8358-9f9e-42ff-a956-f92e5eb02d83",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1027",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1027"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--b508fc9b-58b8-46c7-9776-243f101757ba",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1033",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1033"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--2bd072dc-93a4-4526-9a2e-d741737a47f6",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1057",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1057"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--7945281d-059a-4e9a-812e-c50051bb1b0a",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1059",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1059"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--9a5f1a2c-65b4-48da-8284-dd696f536fa2",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1059.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1059.001"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--052ec265-f880-48e6-9611-e9d37f13f0ab",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1059.003",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1059.003"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--8a3973f4-a731-47ae-a645-29bc8f2406d2",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1059.004",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1059.004"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--307e6de1-df08-47c7-87d1-47a16bc8be09",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1059.006",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1059.006"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--7989a1da-38a2-434a-9340-87eaffe7d4b5",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1070",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1070"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--264b0e94-9c13-4489-99cc-0cc049ff1d0a",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1070.003",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1070.003"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--376d7fdd-2db2-4f09-813c-7e4cad259eea",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1070.004",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1070.004"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--e61f8109-fad9-4dae-8de8-1cc3b85ff050",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1074.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1074.001"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--998b8f1a-75d3-4a6a-912c-82c0142aee1d",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1078",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1078"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--f5f7b192-8abf-4e7b-ad66-8b5f98f73e4e",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1082",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1082"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--8ccaf8fc-f590-485f-81dd-7412ff259401",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1083",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1083"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--52b3f58e-b284-444a-aaeb-53d7fede269f",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1087",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1087"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--b3b51a01-f67e-4771-9da9-9f94a90f97be",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1095",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1095"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--1d63d5d3-d2e5-4b35-b612-e1d212d3fc6a",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1102.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1102.001"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--2405eb6e-e2d6-4e80-9e43-1878845b3016",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1105",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1105"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--24971768-ed24-480f-b171-1fe12358963d",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1129",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1129"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--becc2ea1-2ed0-4a45-b3f4-4841d01d045f",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1140",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1140"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--9e2f0626-6454-49d3-9616-cd9732ef80d9",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1202",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1202"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--0d45893d-56b5-40c7-9972-9b83042f3881",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1218.011",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1218.011"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--475e357d-4792-46a8-ae73-6b1478c357cd",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1222",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1222"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--1ddf7cab-0b88-485c-aeee-2d7048180709",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1497",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1497"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--46c264fa-97b4-4935-99b3-5016bb161598",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1497.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1497.001"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--faccf2c8-2e68-4ff1-b439-0680765b929f",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1518",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1518"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--87c3916a-a530-4149-8e8d-248a5456f8c5",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1552",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1552"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--d9ab1788-ca4a-431d-93b0-dec1ce7c7fe1",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1555.005",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1555.005"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--b757a01c-661f-4306-9011-1452c70bf742",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1560",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1560"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--40a8a430-5432-479d-af61-de75bf8f2a33",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1560.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1560.001"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--2579f2fd-7dea-499f-b68f-9dc6deb4f060",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1565.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1565.001"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--6508c681-e61f-4386-aa6f-f7c9283a505b",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1571",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1571"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--8a1f04e1-bf49-466a-b8db-ae5ab000618e",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1573.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1573.001"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--811438ac-907e-48ad-8e06-f34f111fa97e",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "T1620",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1620"
+        }
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--5e796edc-b637-498e-99ee-b697c153ea08",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "domain:mandiant.com",
+      "pattern": "[domain-name:value = 'mandiant.com']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--44ac2ed8-4800-4e3a-a4a7-d0cdb3f8f961",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "domain:tftp.server.buffer.overflow",
+      "pattern": "[domain-name:value = 'tftp.server.buffer.overflow']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--c1bbdf94-bd96-4590-87fb-3c55c0f2dee1",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "md5:9ce2459168cf4b5af494776a70e0feda",
+      "pattern": "[file:hashes.'MD5' = '9ce2459168cf4b5af494776a70e0feda']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--e02063f3-d7f3-4ee5-95f9-e918fe2790f7",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "md5:b6e92149efaf78e9ce7552297505b9d5",
+      "pattern": "[file:hashes.'MD5' = 'b6e92149efaf78e9ce7552297505b9d5']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--53773ce7-357f-400b-9158-0fa89bfe67c1",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "md5:53a69adac914808eced2bf8155a7512d",
+      "pattern": "[file:hashes.'MD5' = '53a69adac914808eced2bf8155a7512d']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--2940332a-1710-46ee-b811-4dc3c44892dd",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "md5:a388ebaef45add5da503e4bf2b9da546",
+      "pattern": "[file:hashes.'MD5' = 'a388ebaef45add5da503e4bf2b9da546']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--e6a95425-6269-49cb-9b82-4b1e19b9c20d",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "md5:9ce2459168cf4b5af494776a70e0feda",
+      "pattern": "[file:hashes.'MD5' = '9ce2459168cf4b5af494776a70e0feda']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--3310b58a-9431-4ec9-a768-2cdc826a3e18",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "md5:b6e92149efaf78e9ce7552297505b9d5",
+      "pattern": "[file:hashes.'MD5' = 'b6e92149efaf78e9ce7552297505b9d5']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--1fec33ec-f420-4bc5-8ef9-b5f50ae84e06",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "md5:53a69adac914808eced2bf8155a7512d",
+      "pattern": "[file:hashes.'MD5' = '53a69adac914808eced2bf8155a7512d']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--564840a2-e3b5-49cf-860b-aae03441ee6c",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "md5:a388ebaef45add5da503e4bf2b9da546",
+      "pattern": "[file:hashes.'MD5' = 'a388ebaef45add5da503e4bf2b9da546']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--e24361e3-577f-4b5d-8685-c413ffaa254b",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "md5:88711ebc99e1390f1ce2f42a6de0654d",
+      "pattern": "[file:hashes.'MD5' = '88711ebc99e1390f1ce2f42a6de0654d']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--3e7191e4-d823-462a-aeab-593bdab00157",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "md5:e2d2884869f48f40b32fb27cc3bdefff",
+      "pattern": "[file:hashes.'MD5' = 'e2d2884869f48f40b32fb27cc3bdefff']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--3eed90c8-413d-4b38-9d03-abf17056bdc0",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "md5:64bdf7a631bc76b01b985f1d46b35ea6",
+      "pattern": "[file:hashes.'MD5' = '64bdf7a631bc76b01b985f1d46b35ea6']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--a8ac8582-a542-4f3e-8964-d4910194a576",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "md5:a86a8fe875a89816e5808588154a067e",
+      "pattern": "[file:hashes.'MD5' = 'a86a8fe875a89816e5808588154a067e']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--65e4da97-1e46-4636-86bc-879807c245bd",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "md5:3e43511c4f7f551290292394c4e21de7",
+      "pattern": "[file:hashes.'MD5' = '3e43511c4f7f551290292394c4e21de7']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--8900259d-26b2-457b-ae8b-7c4b90ca73a8",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "sha1:86f3623b3fb8d5303b6c9d8295292a5c2ceb2889",
+      "pattern": "[file:hashes.'SHA1' = '86f3623b3fb8d5303b6c9d8295292a5c2ceb2889']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "sha1",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--edb84687-5ef9-450c-b0c2-4c1fa4f392d3",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "sha1:75c092098e3409d366a46fdde6a92ff97d29cee1",
+      "pattern": "[file:hashes.'SHA1' = '75c092098e3409d366a46fdde6a92ff97d29cee1']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "sha1",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--f0f8129d-33d9-482f-85b1-f2489e17dcaf",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "sha1:9dca7f1af5752bb007e5cc55acd2511f03049ee5",
+      "pattern": "[file:hashes.'SHA1' = '9dca7f1af5752bb007e5cc55acd2511f03049ee5']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "sha1",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--5944afa8-f344-4383-88bf-cd2021b35b0c",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "sha1:8c40fc87fa3b25a559585b10a8ca11c81fb09f75",
+      "pattern": "[file:hashes.'SHA1' = '8c40fc87fa3b25a559585b10a8ca11c81fb09f75']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "sha1",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--cd4ca72e-fbe9-4547-a16e-f9b89ea2bbf8",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "sha1:3109b890901499f7ebb90f8870a7d1617d27e7c9",
+      "pattern": "[file:hashes.'SHA1' = '3109b890901499f7ebb90f8870a7d1617d27e7c9']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "sha1",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--0917ba0f-b623-416f-abd5-42fe867ff1f4",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "sha1:b8bdaa1bd204a6c710875b0c4265655d1fd37d52",
+      "pattern": "[file:hashes.'SHA1' = 'b8bdaa1bd204a6c710875b0c4265655d1fd37d52']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "sha1",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--019f2596-2847-45c2-a62a-054da7e7038d",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "sha1:1a077212735617a665a6b631e34a6aedcbc41713",
+      "pattern": "[file:hashes.'SHA1' = '1a077212735617a665a6b631e34a6aedcbc41713']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "sha1",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--80f8c36a-4122-43de-bfa4-3e66604246e8",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "sha1:d5f8436e9815358e33b8243abda76c9b398943e2",
+      "pattern": "[file:hashes.'SHA1' = 'd5f8436e9815358e33b8243abda76c9b398943e2']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "sha1",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--b355148f-6014-4351-b023-2c1b1381810b",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "sha1:8ef5159944d048fe84e51a818c9b11ebcfa98517",
+      "pattern": "[file:hashes.'SHA1' = '8ef5159944d048fe84e51a818c9b11ebcfa98517']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "sha1",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--c78e1b89-74d9-439d-81b8-e2f26ca26ba1",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "sha256:245e4646e5d984c2da4cfe223bb2fae679441bcf42b254fc193ae97dc32af7ad",
+      "pattern": "[file:hashes.'SHA256' = '245e4646e5d984c2da4cfe223bb2fae679441bcf42b254fc193ae97dc32af7ad']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--fc8c5c50-d296-4a9a-bba9-9fac3e5672fc",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "sha256:9fb09fe6db61fbdd19ac9c368e2f64fb9606119649830762fa467719c480ed44",
+      "pattern": "[file:hashes.'SHA256' = '9fb09fe6db61fbdd19ac9c368e2f64fb9606119649830762fa467719c480ed44']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--69a760d6-1f02-45a3-9242-33c5a9f66edd",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "sha256:18afbad17dee0e4330a85b782e8e580c6125d8a7127cda69ad0e2728d505a6f5",
+      "pattern": "[file:hashes.'SHA256' = '18afbad17dee0e4330a85b782e8e580c6125d8a7127cda69ad0e2728d505a6f5']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--94398aad-ae09-4ff7-a3b8-f3c92e39ac73",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "md5:b6e92149efaf78e9ce7552297505b9d5",
+      "pattern": "[file:hashes.'MD5' = 'b6e92149efaf78e9ce7552297505b9d5']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--6dac91eb-39a5-4539-b815-4600aa744963",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "sha256:a00fed53b1ece4610c8b52934c20af3667d455f092a77f8d9bc46fdb9047e41a",
+      "pattern": "[file:hashes.'SHA256' = 'a00fed53b1ece4610c8b52934c20af3667d455f092a77f8d9bc46fdb9047e41a']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--bf6fa2bb-f35d-4afe-b9b5-19123ed66325",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "sha256:eb6af99148f0ce5b58e414162ff2b7567b4cf08953862a088996365ff306014b",
+      "pattern": "[file:hashes.'SHA256' = 'eb6af99148f0ce5b58e414162ff2b7567b4cf08953862a088996365ff306014b']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--4deb27a3-6e8b-4bea-a7b0-208d0ff2ce9c",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "sha256:33c22b2db8c0948c67204485972d2eb856e13dca16132371337fc3534e3df16d",
+      "pattern": "[file:hashes.'SHA256' = '33c22b2db8c0948c67204485972d2eb856e13dca16132371337fc3534e3df16d']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--230b929f-1bd7-4b70-aee6-4abb5190ca57",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "sha256:abefe121e5c895bf63be80152ccbe2d7bb5ad985aa3ab989bcb7c0804b90d004",
+      "pattern": "[file:hashes.'SHA256' = 'abefe121e5c895bf63be80152ccbe2d7bb5ad985aa3ab989bcb7c0804b90d004']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--b848a7ed-0e14-4d8b-b0eb-812b2575e351",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "sha256:2266667af7532a32b9c21c330a9fe56356ca66610e39654804a7262f2af61017",
+      "pattern": "[file:hashes.'SHA256' = '2266667af7532a32b9c21c330a9fe56356ca66610e39654804a7262f2af61017']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--1ae45184-9174-4705-8490-eaa1e9ea7be4",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "sha256:4e4c5e5ca588bd84b67a37b654ec522768fa83e535ff795a5c196da8f8b9737d",
+      "pattern": "[file:hashes.'SHA256' = '4e4c5e5ca588bd84b67a37b654ec522768fa83e535ff795a5c196da8f8b9737d']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--da1d761e-9a5c-4494-818c-96c979967a71",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "md5:53a69adac914808eced2bf8155a7512d",
+      "pattern": "[file:hashes.'MD5' = '53a69adac914808eced2bf8155a7512d']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--ab3d61d1-3d96-4316-9432-f840dd8fdb9e",
+      "created": "2025-10-13T16:31:07.152679Z",
+      "modified": "2025-10-13T16:31:07.152679Z",
+      "name": "md5:e2d2884869f48f40b32fb27cc3bdefff",
+      "pattern": "[file:hashes.'MD5' = 'e2d2884869f48f40b32fb27cc3bdefff']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.152679Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Mandiant-Fortinet-Zero-Day-Suspected-Chinese-Operation-03-16-202-d4d5053d"
+      ]
+    }
+  ]
+}

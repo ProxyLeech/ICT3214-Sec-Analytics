@@ -1,7 +1,7 @@
 body {
   font-family: 'Segoe UI', sans-serif;
   margin: 0;
-  padding: 2rem;
+  padding: 0 2rem 2rem;
   background-color: #f8f9fa;
   color: #212529;
 }
@@ -108,4 +108,38 @@ button:hover {
 
 #selected-container input {
   display: none;
+}
+
+/* navbar styles */
+.navbar{
+  list-style-type: none; /* remove the bullets points from the list */
+  max-width: 1000px;
+  margin: auto;
+  background-color: lightslategray;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  text-align: center;
+}
+.navbar li{
+  display: inline;
+  padding: 0 2px;
+  font-size: 24px;
+  border-radius: 10px;
+  border: solid black 3px;
+  background-color: lightsteelblue;
+}
+.navbar li a:link, .navbar li a:visited{
+  color: black;
+  text-decoration: none;
+  
+}
+.navbar li:hover {
+  background-color: lightskyblue;
+  text-decoration: none;
+}
+
+.navbar li:active {
+  background-color: deepskyblue;
+  text-decoration: none;
 }

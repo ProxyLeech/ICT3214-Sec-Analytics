@@ -7,4 +7,5 @@ Data/extracted_pdfs/**
 Generated_Reports
 inputted_ttps.csv
 matched_groups.csv
+matched_top3.csv
 tempCodeRunnerFile.py

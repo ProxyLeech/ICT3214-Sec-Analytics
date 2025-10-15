@@ -13,7 +13,6 @@
     .container {
       background: #fff;
       border-radius: 10px;
-      padding: 2rem 3rem;
       box-shadow: 0 4px 16px rgba(0,0,0,0.1);
       max-width: 1000px;
       margin: 0 auto;
@@ -48,7 +47,6 @@
     }
     a {
       display: inline-block;
-      margin-top: 2rem;
       color: #007bff;
       text-decoration: none;
     }
@@ -61,6 +59,7 @@
   </style>
 </head>
 <body>
+  {% include 'common/navbar.html' %}
   <div class="container">
     <h1>Threat Attribution Report</h1>
     <p class="timestamp">Generated on: {{ timestamp }}</p>

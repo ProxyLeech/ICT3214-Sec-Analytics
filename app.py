@@ -10,6 +10,7 @@ from datetime import datetime
 from collections import defaultdict
 from technique_labels import extract_techniques  # import the extractor
 import io
+import re
 
 app = Flask(__name__)
 
@@ -152,7 +153,6 @@ def export():
         if not LAST_RESULTS:
             return "No results available to export. Please generate a report first."
 
-
         # Render HTML with same template
         rendered = render_template(
             "results.html",
@@ -162,6 +162,19 @@ def export():
             timestamp=LAST_RESULTS["timestamp"],
             export_mode=True
         )
+
+        css_path = BASE_DIR / "static" / "css" / "attribution.css"
+        # Read the file contents into a variable
+        inline_css = ""
+        if css_path.exists():
+            with open(css_path, "r", encoding="utf-8") as f:
+                inline_css = f.read()
+        else:
+            print(f"CSS file not found: {css_path}")
+
+        # Replace the link tag with a <style> containing the CSS
+        pattern = r'<link rel="stylesheet" href="[^"]*attribution\.css">(\s*<style>)?'
+        rendered = re.sub(pattern, f"<style>{inline_css}", rendered, flags=re.IGNORECASE)
 
         # Convert HTML output to downloadable .doc file
         response = make_response(rendered)

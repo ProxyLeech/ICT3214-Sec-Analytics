@@ -1,15 +1,12 @@
-#!/usr/bin/env python3
-
 from __future__ import annotations
 
-import argparse
 import os
 import sys
 from typing import Dict, Iterable, List, Sequence, Tuple
 
 import pandas as pd
 
-REQUIRED_SHEET = "techniques addressed"
+REQUIRED_SHEET = "associated mitigations"
 DEFAULT_REQUIRED_COLUMNS = ["target id", "target name", "mapping description"]
 
 COLUMN_SYNONYMS: Dict[str, Tuple[str, ...]] = {
@@ -23,15 +20,9 @@ COLUMN_SYNONYMS: Dict[str, Tuple[str, ...]] = {
     ),
 }
 
+
 def _normalize(s: str) -> str:
     return s.strip().lower()
-
-def infer_output_path(input_path: str, out_arg: str | None, tsv: bool) -> str:
-    if out_arg:
-        return out_arg
-    base, _ext = os.path.splitext(os.path.basename(input_path))
-    suffix = "_mappings.tsv" if tsv else "_mappings.csv"
-    return os.path.join(os.path.dirname(input_path), f"{base}{suffix}")
 
 
 def choose_sheet(excel_path: str, requested: str) -> str | None:
@@ -52,12 +43,7 @@ def choose_sheet(excel_path: str, requested: str) -> str | None:
 
 
 def pick_columns(df: pd.DataFrame, required_columns: Sequence[str]) -> Tuple[pd.DataFrame, List[str]]:
-    """
-    Return a dataframe with the desired columns (renamed to canonical names),
-    searching with synonyms in a case-insensitive way.
-    Returns (out_df, missing) where missing is a list of canonical names not found.
-    """
-    # Build lookup from normalized header -> original header
+    """Return dataframe with required columns renamed to canonical names."""
     norm_to_original = {_normalize(col): col for col in df.columns}
     selected = {}
     missing = []
@@ -79,12 +65,12 @@ def pick_columns(df: pd.DataFrame, required_columns: Sequence[str]) -> Tuple[pd.
         return df, missing
 
     out = df[[selected[c] for c in required_columns]].copy()
-    out.columns = list(required_columns)  # rename to canonical order
+    out.columns = list(required_columns)
     return out, []
 
 
 def clean_text_columns(df: pd.DataFrame, columns: Sequence[str]) -> pd.DataFrame:
-    """Trim whitespace and replace NaN with empty strings without turning NaN into 'nan' strings."""
+    """Trim whitespace and replace NaN with empty strings."""
     for col in columns:
         if col in df.columns:
             df[col] = df[col].map(lambda v: v.strip() if isinstance(v, str) else ("" if pd.isna(v) else str(v)))
@@ -92,13 +78,16 @@ def clean_text_columns(df: pd.DataFrame, columns: Sequence[str]) -> pd.DataFrame
 
 
 def main() -> None:
-    # Automatically set Excel file path
-    excel_path = r"C:\Users\bt\Downloads\enterprise-attack-v17.1-techniques.xlsx"
+    # Input Excel path
+    excel_path = r"Data/excel/enterprise-attack-v17.1-techniques.xlsx"
 
-    # Automatically output to the same folder as a CSV
-    out_path = os.path.join(os.path.dirname(excel_path), "enterprise-attack-v17.1-techniques_mappings.csv")
+    # Ensure output folder Data/mapped/ exists
+    output_dir = os.path.join(os.path.dirname(excel_path), "..", "mapped")
+    os.makedirs(output_dir, exist_ok=True)
 
-    # Configuration defaults
+    # Output file in Data/mapped/
+    out_path = os.path.join(output_dir, "mitigations.csv")
+
     required_columns = list(DEFAULT_REQUIRED_COLUMNS)
     sheet_name = choose_sheet(excel_path, REQUIRED_SHEET)
     if sheet_name is None:
@@ -106,29 +95,24 @@ def main() -> None:
         print(f"Error: required sheet '{REQUIRED_SHEET}' not found. Available sheets: {available}")
         sys.exit(2)
 
-    # Read Excel sheet
     df = pd.read_excel(excel_path, sheet_name=sheet_name, engine="openpyxl")
     df.columns = [c.strip() for c in df.columns]
 
-    # Extract required columns
     out_df, missing = pick_columns(df, required_columns)
     if missing:
         print(f"Error: missing required columns {missing}. Found columns: {list(df.columns)}")
         sys.exit(3)
 
-    # Clean up text
     out_df = clean_text_columns(out_df, required_columns)
-
-    # Drop duplicates
     before = len(out_df)
     out_df = out_df.drop_duplicates().reset_index(drop=True)
     after = len(out_df)
     if before != after:
         print(f"Dropped {before - after} duplicate rows.")
 
-    # Write to CSV automatically
     out_df.to_csv(out_path, index=False, encoding="utf-8")
     print(f"Wrote {len(out_df):,} rows to {out_path}")
+
 
 if __name__ == "__main__":
     main()

@@ -173,8 +173,9 @@ def export():
             print(f"CSS file not found: {css_path}")
 
         # Replace the link tag with a <style> containing the CSS
-        pattern = r'<link rel="stylesheet" href="[^"]*attribution\.css">(\s*<style>)?'
-        rendered = re.sub(pattern, f"<style>{inline_css}", rendered, flags=re.IGNORECASE)
+        #pattern = r'<link rel="stylesheet" href="[^"]*attribution\.css">(\s*<style>)?'
+        pattern = r'<link rel="stylesheet" href="[^"]*attribution\.css">'
+        rendered = re.sub(pattern,"", rendered, flags=re.IGNORECASE)
 
         # Convert HTML output to downloadable .doc file
         response = make_response(rendered)

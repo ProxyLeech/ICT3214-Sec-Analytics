@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, make_response
 import pandas as pd
 from matching import (
     validate_ttps,
@@ -12,6 +12,7 @@ from pathlib import Path
 from collections import defaultdict
 import re
 from datetime import datetime
+import io
 
 app = Flask(__name__)
 
@@ -20,6 +21,9 @@ app = Flask(__name__)
 # =======================================================
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "Data" / "mapped"
+
+# Global cache for last results
+LAST_RESULTS = {}
 
 
 # =======================================================
@@ -144,6 +148,13 @@ def match():
 
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
+        global LAST_RESULTS
+        LAST_RESULTS = {
+            "ttps": ttps,
+            "matched": top3_df.to_dict(orient="records"),
+            "analysis": parsed,
+            "timestamp": timestamp
+
         return render_template(
             'results.html',
             ttps=ttps,
@@ -151,6 +162,7 @@ def match():
             analysis=parsed,
             timestamp=timestamp
         )
+        
 
     except Exception as e:
         return render_template('error.html', error=str(e))
@@ -161,7 +173,29 @@ def match():
 # =======================================================
 @app.route('/export')
 def export():
-    return render_template('export.html')
+    try:
+        if not LAST_RESULTS:
+            return "No results available to export. Please generate a report first."
+
+
+        # Render HTML with same template
+        rendered = render_template(
+            "results.html",
+            ttps=LAST_RESULTS["ttps"],
+            matched=LAST_RESULTS["matched"],
+            analysis=LAST_RESULTS["analysis"],
+            timestamp=LAST_RESULTS["timestamp"],
+            export_mode=True
+        )
+
+        # Convert HTML output to downloadable .doc file
+        response = make_response(rendered)
+        response.headers["Content-Type"] = "application/msword"
+        response.headers["Content-Disposition"] = "attachment; filename=threat_report.doc"
+        return response
+
+    except Exception as e:
+        return f"Error exporting to .doc: {e}"
 
 
 # =======================================================

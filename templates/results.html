@@ -44,7 +44,9 @@
   </style>
 </head>
 <body>
+  {% if not export_mode %}
   {% include 'common/navbar.html' %}
+  {% endif %}
   <div class="container">
     <h1>Threat Attribution Report</h1>
     <p class="timestamp">Generated on: {{ timestamp }}</p>
@@ -85,8 +87,11 @@
       <h4>5. Analyst Recommendations</h4>
       <pre>{{ analysis.suggestion }}</pre>
     </section>
-
+    {% if not export_mode %}
     <a href="/">← Back to Selection</a>
+    <br>
+    <a href="/export">Export Results</a>
+    {% endif %}
   </div>
 </body>
 </html>

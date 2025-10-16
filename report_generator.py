@@ -102,36 +102,145 @@ Keep the language concise, analytical, and professional.
 # ===========================
 # Parse Response
 # ===========================
-def parse_ai_response(text):
-    """Extract structured sections from GPT response."""
-    sections = {
-        "summary": "", "table": "", "attacker": "",
-        "mitigation": "", "suggestion": ""
+# def parse_ai_response(text):
+#     """Extract structured sections from GPT response."""
+#     sections = {
+#         "summary": "", "table": "", "attacker": "",
+#         "mitigation": "", "suggestion": ""
+#     }
+
+#     summary_match = re.search(r"\*\*Analysis Summary:\*\*(.*?)\*\*Overlap Table:", text, re.S)
+#     table_match = re.search(r"\*\*Overlap Table:\*\*(.*?)\*\*Most Likely Attacker:", text, re.S)
+#     attacker_match = re.search(r"\*\*Most Likely Attacker:\*\*(.*?)(\*\*Defensive Mitigations|\*\*Mitigations|\*\*Mitigation)", text, re.S)
+#     mitigation_match = re.search(r"\*\*Defensive Mitigations.*?\*\*(.*?)\*\*Confidence Rating", text, re.S)
+#     suggestion_match = re.search(r"\*\*Confidence Rating.*?\*\*(.*)", text, re.S)
+
+#     if summary_match:
+#         sections["summary"] = summary_match.group(1).strip()
+#     if table_match:
+#         sections["table"] = table_match.group(1).strip()
+#     if attacker_match:
+#         sections["attacker"] = attacker_match.group(1).strip()
+#     if mitigation_match:
+#         sections["mitigation"] = mitigation_match.group(1).strip()
+#     if suggestion_match:
+#         sections["suggestion"] = suggestion_match.group(1).strip()
+
+#     # Strip markdown bold markers (e.g. **text**)
+#     for key in sections:
+#         sections[key] = re.sub(r"\*\*(.*?)\*\*", r"\1", sections[key])
+
+#     return sections
+def parse_ai_response(text: str) -> dict:
+    """
+    Parse GPT output into sections expected by the HTML templates:
+      - summary
+      - table
+      - attacker
+      - mitigation
+      - suggestion
+
+    Tolerates multiple heading variants and formats (bold markdown, H3, plain).
+    """
+    import re
+
+    # Normalize whitespace and keep a working copy
+    t = text.replace("\r\n", "\n").strip()
+
+    # Map many possible headings to canonical tokens
+    heading_patterns = {
+        "SUMMARY": [
+            r"\*\*\s*Analysis\s+Summary\s*:\s*\*\*", r"^#{1,6}\s*Analysis\s+Summary\b", r"\bAnalysis\s+Summary\s*:"
+        ],
+        "TABLE": [
+            r"\*\*\s*Overlap\s*Table\s*:\s*\*\*", r"\*\*\s*Technique\s+Overlap\s+Overview\s*:\s*\*\*",
+            r"^#{1,6}\s*(Overlap\s*Table|Technique\s+Overlap\s+Overview)\b", r"\b(Overlap\s*Table|Technique\s+Overlap\s+Overview)\s*:"
+        ],
+        "ATTACKER": [
+            r"\*\*\s*Most\s+Likely\s+Attacker\s*:\s*\*\*", r"\*\*\s*Probable\s+Threat\s+Actor\(s\)\s*:\s*\*\*",
+            r"^#{1,6}\s*(Most\s+Likely\s+Attacker|Probable\s+Threat\s+Actor\(s\))\b",
+            r"\b(Most\s+Likely\s+Attacker|Probable\s+Threat\s+Actor\(s\))\s*:"
+        ],
+        "MITIGATION": [
+            r"\*\*\s*Defensive\s+Mitigations\s*.*?\*\*", r"\*\*\s*Mitigations?\s*.*?\*\*",
+            r"^#{1,6}\s*(Defensive\s+Mitigations?|Mitigations?)\b",
+            r"\b(Defensive\s+Mitigations?|Mitigations?)\s*:"
+        ],
+        "SUGGESTION": [
+            r"\*\*\s*Analyst\s+Recommendations\s*.*?\*\*", r"\*\*\s*Recommendations\s*.*?\*\*",
+            r"\*\*\s*Confidence\s+Rating\s*.*?\*\*",  # sometimes content ends up under this
+            r"^#{1,6}\s*(Analyst\s+Recommendations|Recommendations|Confidence\s+Rating)\b",
+            r"\b(Analyst\s+Recommendations|Recommendations|Confidence\s+Rating)\s*:"
+        ],
     }
 
-    summary_match = re.search(r"\*\*Analysis Summary:\*\*(.*?)\*\*Overlap Table:", text, re.S)
-    table_match = re.search(r"\*\*Overlap Table:\*\*(.*?)\*\*Most Likely Attacker:", text, re.S)
-    attacker_match = re.search(r"\*\*Most Likely Attacker:\*\*(.*?)(\*\*Defensive Mitigations|\*\*Mitigations|\*\*Mitigation)", text, re.S)
-    mitigation_match = re.search(r"\*\*Defensive Mitigations.*?\*\*(.*?)\*\*Confidence Rating", text, re.S)
-    suggestion_match = re.search(r"\*\*Confidence Rating.*?\*\*(.*)", text, re.S)
+    # Build a single alternation that turns any matching heading into a token line
+    token_map = {k: f"[[{k}]]" for k in heading_patterns}
+    alternations = []
+    for pats in heading_patterns.values():
+        alternations.extend(pats)
+    big_rx = re.compile("(" + "|".join(pats for pats in alternations) + ")", re.IGNORECASE | re.MULTILINE)
 
-    if summary_match:
-        sections["summary"] = summary_match.group(1).strip()
-    if table_match:
-        sections["table"] = table_match.group(1).strip()
-    if attacker_match:
-        sections["attacker"] = attacker_match.group(1).strip()
-    if mitigation_match:
-        sections["mitigation"] = mitigation_match.group(1).strip()
-    if suggestion_match:
-        sections["suggestion"] = suggestion_match.group(1).strip()
+    # Substitute matches with canonical tokens
+    def _sub(m):
+        s = m.group(0)
+        for key, pats in heading_patterns.items():
+            for p in pats:
+                if re.fullmatch(p, s, flags=re.IGNORECASE):
+                    return token_map[key]
+        # If we got here, it's a partial match – pick first that contains
+        for key, pats in heading_patterns.items():
+            if any(re.search(p, s, re.IGNORECASE) for p in pats):
+                return token_map[key]
+        return s
 
-    # Strip markdown bold markers (e.g. **text**)
-    for key in sections:
-        sections[key] = re.sub(r"\*\*(.*?)\*\*", r"\1", sections[key])
+    normalized = big_rx.sub(_sub, t)
+
+    # Split into sections by tokens
+    sections = {"summary": "", "table": "", "attacker": "", "mitigation": "", "suggestion": ""}
+    order = ["SUMMARY", "TABLE", "ATTACKER", "MITIGATION", "SUGGESTION"]
+    # Ensure the first token exists to simplify splitting logic
+    if "[[SUMMARY]]" not in normalized:
+        normalized = "[[SUMMARY]]\n" + normalized
+
+    # Extract text between tokens
+    def grab(block, start_tok, end_tok=None):
+        start_idx = block.find(start_tok)
+        if start_idx == -1:
+            return ""
+        start_idx += len(start_tok)
+        if end_tok:
+            end_idx = block.find(end_tok, start_idx)
+            return block[start_idx:end_idx].strip() if end_idx != -1 else block[start_idx:].strip()
+        return block[start_idx:].strip()
+
+    cur = normalized
+    for i, key in enumerate(order):
+        start_tok = f"[[{key}]]"
+        end_tok = f"[[{order[i+1]}]]" if i < len(order) - 1 else None
+        val = grab(cur, start_tok, end_tok)
+        # move window forward
+        if end_tok:
+            cur = cur[cur.find(end_tok):]
+        # save
+        k = key.lower()
+        if k == "suggestion" and not val:
+            # sometimes people dump suggestions under "Confidence Rating"
+            pass
+        sections_map = {
+            "summary": "summary",
+            "table": "table",
+            "attacker": "attacker",
+            "mitigation": "mitigation",
+            "suggestion": "suggestion",
+        }
+        sections[sections_map[k]] = val
+
+    # Strip stray bold markers
+    for k, v in sections.items():
+        sections[k] = re.sub(r"\*\*(.*?)\*\*", r"\1", v or "").strip()
 
     return sections
-
 
 # ===========================
 # Generate Word Report

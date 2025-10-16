@@ -10,3 +10,15 @@ matched_groups.csv
 matched_top3.csv
 tempCodeRunnerFile.py
 techniques_mappings.csv
+
+# Data & artifacts
+data/raw/
+data/interim/
+experiments/**/checkpoint*/
+experiments/**/runs/
+logs/
+
+models/*/pytorch_model.bin
+experiments/
+src/models/best_roberta_for_predict
+archive/data

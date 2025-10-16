@@ -1,0 +1,516 @@
+{
+  "type": "bundle",
+  "id": "bundle--9f90d451-7a7b-4104-a20a-3dc6494bc3bc",
+  "objects": [
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--5936751d-1e08-456e-b587-2a27f846e666",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "T1001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1001"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--314c86fd-09e3-4262-b5d2-52a865231a25",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "T1016",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1016"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--02506bb9-3133-45c7-b5cd-d54f66612477",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "T1027",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1027"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--33f3dbae-e3f1-4d06-9585-56e530aa440e",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "T1027.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1027.001"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--6ed3bce6-ddfb-4945-998f-b591fdf7eb71",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "T1029",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1029"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--cb29174e-0dfd-49d6-8472-ce614324c03f",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "T1033",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1033"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--30952176-9fcc-4da6-9aa1-e1a8abe3b565",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "T1036.005",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1036.005"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--6065aa1a-4dfa-4d2c-b8b5-7b8cb0ba12c5",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "T1041",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1041"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--b58f6d9d-88fc-4ce3-ac10-49ee336e20c4",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "T1053.005",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1053.005"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--5f370e97-6f0c-4bf4-bc33-92184e03d88d",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "T1059.003",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1059.003"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--7745fa54-b090-4fb6-9b5a-96d131ab7ba4",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "T1059.005",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1059.005"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--1ad759de-3d79-4b45-97ce-ebe5e07c3747",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "T1071.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1071.001"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--312bd99d-938b-47cc-87b2-ec1bd755c2b5",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "T1082",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1082"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--21478234-7b28-4e44-a948-2d98719f1cba",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "T1083",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1083"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--67477949-a089-4070-a0cc-854cb74d93e6",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "T1105",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1105"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--1bbe3b56-ff9e-46f1-abcb-75e87b3ec618",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "T1106",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1106"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--f27fc49e-cbba-45aa-8f89-effecced68fa",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "T1137.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1137.001"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--e7cdec47-9059-415d-a8b4-4fc68321d5fb",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "T1140",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1140"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--33690ece-b120-4d35-83ed-4d85c0fd1475",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "T1203",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1203"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--2e286d8f-902e-4b54-a6f2-6af9f19a0fc1",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "T1204.002",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1204.002"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--ae7f8346-ec03-44a9-9a14-a6ce843fa2d6",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "T1221",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1221"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--c66b4075-a173-4ede-9549-5f35ee83192a",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "T1559.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1559.001"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--fb2a0a89-26f4-4187-82d7-1d7d4593fe02",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "T1559.002",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1559.002"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--6e7754df-7f77-4aab-b1d3-f6b2b83ebdf5",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "T1566.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1566.001"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--ed388ecf-d092-4dae-95c4-edf3f006212f",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "T1573.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1573.001"
+        }
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--36a3ea67-2b6b-4607-bac6-ef3315435eb5",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "domain:blogs.blackberry.com",
+      "pattern": "[domain-name:value = 'blogs.blackberry.com']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.110316Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "Blackberry-AeroBlade-Targeting-US-Aerospace-Industry-11-30-2023-ef854d3a"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--a07fbaa7-62bb-4826-afe1-f74874af5d61",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "domain:redacted.redacted.com",
+      "pattern": "[domain-name:value = 'redacted.redacted.com']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.110316Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "Blackberry-AeroBlade-Targeting-US-Aerospace-Industry-11-30-2023-ef854d3a"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--2d55ede1-c544-40ba-95e7-4d3a569acf47",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "domain:blackberry.com",
+      "pattern": "[domain-name:value = 'blackberry.com']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.110316Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "Blackberry-AeroBlade-Targeting-US-Aerospace-Industry-11-30-2023-ef854d3a"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--f43ab511-d081-474c-be7b-0846a0b7ec7b",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "md5:885B04081BD89F5E23CBC59723052601",
+      "pattern": "[file:hashes.'MD5' = '885B04081BD89F5E23CBC59723052601']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.110316Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Blackberry-AeroBlade-Targeting-US-Aerospace-Industry-11-30-2023-ef854d3a"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--07f5db05-6324-45aa-8517-0be104b108c2",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "md5:62D3FF36EC8A721488E512E1C94B2744",
+      "pattern": "[file:hashes.'MD5' = '62D3FF36EC8A721488E512E1C94B2744']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.110316Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Blackberry-AeroBlade-Targeting-US-Aerospace-Industry-11-30-2023-ef854d3a"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--07de0bf0-c7a8-4748-aba5-c6535e6fa984",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "md5:A04D2C0AA0A798047161118B5D5816AA",
+      "pattern": "[file:hashes.'MD5' = 'A04D2C0AA0A798047161118B5D5816AA']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.110316Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Blackberry-AeroBlade-Targeting-US-Aerospace-Industry-11-30-2023-ef854d3a"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--51127d3c-e18f-40e6-b9c0-7fcbd4b9e991",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "sha256:16bd34c3f00288e46d8e3fdb67916aa7c68d8a0622f2c76c57112dae36c76875",
+      "pattern": "[file:hashes.'SHA256' = '16bd34c3f00288e46d8e3fdb67916aa7c68d8a0622f2c76c57112dae36c76875']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.110316Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "Blackberry-AeroBlade-Targeting-US-Aerospace-Industry-11-30-2023-ef854d3a"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--527342c7-ae9b-41ec-b6de-b7674a47f7f7",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "sha256:6d515dafef42a5648754de3c0fa6adfcb8b57af1c1d69e629b0d840dab7f91ec",
+      "pattern": "[file:hashes.'SHA256' = '6d515dafef42a5648754de3c0fa6adfcb8b57af1c1d69e629b0d840dab7f91ec']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.110316Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "Blackberry-AeroBlade-Targeting-US-Aerospace-Industry-11-30-2023-ef854d3a"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--1772f244-3b4a-4689-9608-0a73378db62e",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "sha256:abc348d3cc40521afc165aa6dc2d66fd9e654d91e3d66461724ac9490030697f",
+      "pattern": "[file:hashes.'SHA256' = 'abc348d3cc40521afc165aa6dc2d66fd9e654d91e3d66461724ac9490030697f']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.110316Z",
+      "labels": [
+        "sha256",
+        "extracted-from-report",
+        "Blackberry-AeroBlade-Targeting-US-Aerospace-Industry-11-30-2023-ef854d3a"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--8f77d6a4-c18e-4046-a9ff-ca48d34f45a4",
+      "created": "2025-10-13T16:31:07.110316Z",
+      "modified": "2025-10-13T16:31:07.110316Z",
+      "name": "email:cti@blackberry.com",
+      "pattern": "[email-addr:value = 'cti@blackberry.com']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.110316Z",
+      "labels": [
+        "email",
+        "extracted-from-report",
+        "Blackberry-AeroBlade-Targeting-US-Aerospace-Industry-11-30-2023-ef854d3a"
+      ]
+    }
+  ]
+}

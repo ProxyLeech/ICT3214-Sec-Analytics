@@ -5,3 +5,6 @@ python-docx
 pymupdf
 flask
 openpyxl
+torch
+transformers
+numpy

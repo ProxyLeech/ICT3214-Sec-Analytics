@@ -55,20 +55,29 @@
     <p>{{ ttps | join(', ') }}</p>
 
     <h3>Top 3 Matched Threat Groups</h3>
-    <table>
-      <tr>
-        {% for col in matched[0].keys() %}
-          <th>{{ col }}</th>
-        {% endfor %}
-      </tr>
-      {% for row in matched %}
-      <tr>
-        {% for val in row.values() %}
-          <td>{{ val }}</td>
-        {% endfor %}
-      </tr>
-      {% endfor %}
-    </table>
+    {% if matched and matched|length > 0 %}
+      <table>
+        <thead>
+          <tr>
+            {% for col in matched[0].keys() %}
+              <th>{{ col }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in matched %}
+          <tr>
+            {% for val in row.values() %}
+              <td>{{ val }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p style="color: red; font-weight: bold;">⚠️ No threat groups matched your selected TTPs.</p>
+    {% endif %}
+
 
     <h3>Analyst Report</h3>
     <section>

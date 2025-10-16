@@ -198,8 +198,14 @@ button:hover {
 }
 
 .dropdown-option.selected {
-  background: #007bff;
-  color: white;
+  background-color: #c0c0c0; /* darker gray */
+  color: #000000;            /* black text */
+  font-weight: 600;
+}
+
+
+.dropdown-option.selected:hover {
+  background-color: #a9a9a9; /* darker gray on hover */
 }
 
 .dropdown-optgroup {

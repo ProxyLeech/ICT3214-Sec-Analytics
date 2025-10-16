@@ -219,3 +219,7 @@ button:hover {
   color: #444;
   margin-bottom: 0.3rem;
 }
+
+#export {
+  float: right;
+}

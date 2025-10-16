@@ -17,9 +17,9 @@ from datetime import datetime
 from paths.paths import (
     RAW_DIR, 
     EXTRACTED_PDFS_DIR,
-    EXTRACTED_PDFS_DIR,  
+    PROCESSED_DIR,  
 )
-EXTRACTED_IOCS_CSV =EXTRACTED_PDFS_DIR / "extracted_iocs.csv"
+EXTRACTED_IOCS_CSV =PROCESSED_DIR / "extracted_iocs.csv"
 
 try:
     import fitz  # PyMuPDF

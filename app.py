@@ -203,9 +203,9 @@ def _run_roberta_flow(ttps: list[str]) -> dict:
 
     top3_df = df_ml.head(3)
 
-    df_ml.to_csv("matched_groups_roberta.csv", index=False)
+    df_ml.to_csv("matched_groups_rule.csv", index=False)
     top3_df.to_csv("matched_top3_roberta.csv", index=False)
-    pd.DataFrame({"TTP": ttps}).to_csv("inputted_ttps_roberta.csv", index=False)
+    pd.DataFrame({"TTP": ttps}).to_csv("inputted_ttps_rule.csv", index=False)
 
     # NEW: run mitigations and include in OpenAI context
     mit_csv_path = _run_mitigations_and_get_csv()
@@ -386,7 +386,7 @@ def roberta():
         # 4) Persist files for the report generator (keeps your current contract)
         df_ml.sort_values("score", ascending=False, inplace=True)
         df_ml.to_csv("matched_groups.csv", index=False)
-        pd.DataFrame({"TTP": ttps}).to_csv("inputted_ttps.csv", index=False)
+        pd.DataFrame({"TTP": ttps}).to_csv("inputted_ttps_rule.csv", index=False)
 
         # 5)  Show top 3 on the web page, like before
         top3_df = df_ml.head(3)
@@ -615,7 +615,7 @@ def match():
         # Save traceability outputs
         matched_df.to_csv("matched_groups.csv", index=False)
         top3_df.to_csv("matched_top3.csv", index=False)
-        pd.DataFrame({"TTP": ttps}).to_csv("inputted_ttps.csv", index=False)
+        pd.DataFrame({"TTP": ttps}).to_csv("inputted_ttps_rule.csv", index=False)
 
         # GPT Analysis
         mit_csv_path = _run_mitigations_and_get_csv()

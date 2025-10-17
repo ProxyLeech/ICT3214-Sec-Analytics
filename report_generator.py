@@ -21,10 +21,10 @@ if not key:
 client = OpenAI(api_key=key)
 
 def load_csv_data():
-    if not os.path.exists("inputted_ttps.csv"):
-        raise SystemExit("inputted_ttps.csv not found.")
-    if not os.path.exists("matched_groups.csv"):
-        raise SystemExit("matched_groups.csv not found.")
+    if not os.path.exists("inputted_ttps_rule.csv"):
+        raise SystemExit("inputted_ttps_rule.csv not found.")
+    if not os.path.exists("matched_groups_rule.csv"):
+        raise SystemExit("matched_groups_rule.csv not found.")
 
     ttps_df = pd.read_csv("inputted_ttps.csv")
     matched_df = pd.read_csv("matched_groups.csv")

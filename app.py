@@ -13,7 +13,7 @@ import re
 from typing import Iterable
 import subprocess, sys
 import sys
-
+import os, tempfile
 from pathlib import Path
 
 # =======================================================
@@ -37,10 +37,7 @@ SRC_ROOT       = BASE_DIR / "src"
 MODELS_ROOT    = SRC_ROOT / "models"
 DATASCRIPT_ROOT= SRC_ROOT / "data"
 #Trained model
-BEST_MODEL_DIR = SRC_ROOT / "models" / "best_roberta_for_predict"
-BEST_REQUIRED  = [
-    BEST_MODEL_DIR / "README.txt"
-]
+BEST_MODEL_DIR = MODELS_ROOT / "best_roberta_for_predict"
 DATA_DIR = BASE_DIR / "Data" / "mapped"
 EXCEL_PATH = BASE_DIR / "Data" / "excel" / "enterprise-attack-v17.1-techniques.xlsx"
 MAPPING_CSV = BASE_DIR / "techniques_mapping.csv"
@@ -105,25 +102,15 @@ def output_dir_for_folds(n_folds: int, model_slug: str = "roberta_base"):
     return EXPERIMENTS_ROOT / f"{n_folds}foldruns" / model_slug
 
 def _ensure_score_and_rank(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Ensure df has numeric 'score' and 'rank' columns.
-
-    Accepts common alternatives: 'prob', 'probability', 'confidence', 'logit', 'logprob'.
-    If none are present, falls back to:
-      - if 'rank' exists: score = 1 / (1 + rank)
-      - else: score = numpy.linspace(1.0, 0.0, len(df), endpoint=False)
-    """
     import numpy as np
-
     if df is None or df.empty:
         return df
 
-    # 1) find a score-like column
-    candidates = ["score", "prob", "probability", "confidence", "logit", "logprob"]
+    # include group_score here
+    candidates = ["score", "group_score", "prob", "probability", "confidence", "logit", "logprob"]
     src = next((c for c in candidates if c in df.columns), None)
 
     if src is None:
-        # fallbacks
         if "rank" in df.columns:
             df["score"] = pd.to_numeric(df["rank"], errors="coerce")
             df["score"] = 1.0 / (1.0 + df["score"].fillna(df["score"].max() or 1))
@@ -133,12 +120,11 @@ def _ensure_score_and_rank(df: pd.DataFrame) -> pd.DataFrame:
     else:
         df["score"] = pd.to_numeric(df[src], errors="coerce").fillna(0.0)
 
-    # 2) ensure rank exists (high score => low rank number)
     if "rank" not in df.columns or df["rank"].isna().all():
-        # stable ranking: highest score gets rank 1
         df["rank"] = (-df["score"]).rank(method="first").astype(int)
 
     return df
+
 def run(cmd: list[str], cwd: Path | None = None) -> None:
     print(f"\n$ {' '.join(map(str, cmd))}")
     res = subprocess.run(cmd, cwd=str(cwd) if cwd else None)
@@ -160,6 +146,14 @@ def needs_run(outputs: Iterable[Path], inputs: Iterable[Path] = ()) -> bool:
 def ensure_dirs():
     for p in [DATA_ROOT, RAW_DIR, EXTRACTED_PDFS_DIR, PROCESSED_DIR, MODELS_ROOT, EXPERIMENTS_ROOT]:
         p.mkdir(parents=True, exist_ok=True)
+
+def _atomic_to_csv(df, path: str):
+    d = Path(path).parent
+    d.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile("w", delete=False, dir=d, newline="", suffix=".tmp") as tmp:
+        tmp_name = tmp.name
+        df.to_csv(tmp, index=False)
+    os.replace(tmp_name, path)  # atomic on POSIX & Windows
 
 # =======================================================
 # Matching Flow
@@ -201,6 +195,9 @@ def _run_rule_match_flow(ttps: list[str]) -> dict:
 # =======================================================
 # RoBERTa Flow
 # =======================================================
+def _save_roberta_traces(df_ml):
+    _atomic_to_csv(df_ml, "matched_groups_roberta.csv")
+
 def _run_roberta_flow(ttps: list[str]) -> dict:
     ml = _predict_with_module({
         "id": "from_ttps",
@@ -218,11 +215,16 @@ def _run_roberta_flow(ttps: list[str]) -> dict:
 
     df_ml = _ensure_score_and_rank(df_ml)
     df_ml.sort_values("score", ascending=False, inplace=True)
-
-    top3_df = df_ml.head(3)
+    # after df_ml.sort_values("score", ascending=False, inplace=True)
+    df_ml.drop(columns=["score","origin"], errors="ignore", inplace=True)
+    # Persist files for the report script
+    _save_roberta_traces(df_ml)
+    top3_df = df_ml.head(3).drop(columns=["origin"], errors="ignore")
     # GPT narrative for roberta
     gpt_response = analyze_TTP(ttps, df_ml)
     parsed = parse_ai_response(gpt_response)
+    # NEW: run mitigations and include in OpenAI context
+    mit_csv_path = _run_mitigations_and_get_csv()
     
     from report_generator import load_mitigations_summary
     parsed["mitigation"] = load_mitigations_summary(str(mit_csv_path))
@@ -387,7 +389,6 @@ def roberta():
 
         # 4) Persist files for the report generator (keeps your current contract)
         df_ml.sort_values("score", ascending=False, inplace=True)
-        df_ml.to_csv("matched_groups_roberta.csv", index=False)
 
         # 5)  Show top 3 on the web page, like before
         top3_df = df_ml.head(3)
@@ -474,11 +475,9 @@ def submit_both():
 # -------------------------------------------------------
 # PREDICT ROUTE – JSON in, ranked groups out
 # -------------------------------------------------------
+import json
+
 def _predict_with_module(payload: dict):
-    """
-    Try importing predict_roberta.py and using its functions directly.
-    Fallback to subprocess if import fails (e.g., path mismatches).
-    """
     try:
         # Late import to avoid circulars during app startup
         import importlib.util
@@ -524,7 +523,6 @@ def _predict_with_module(payload: dict):
         return {"text": text, "groups": group_rows}
 
     except Exception as e:
-        # Subprocess fallback using CLI
         print(f"[WARN] Direct import predict_roberta failed: {e}; falling back to subprocess.")
         args = [
             sys.executable, str(PREDICT_SCRIPT),
@@ -538,13 +536,28 @@ def _predict_with_module(payload: dict):
                 args += [flag, str(v)]
         if payload.get("text"):
             args += ["--text", payload["text"]]
-        args += ["--threshold", str(payload.get("threshold", 0.5)), "--top-k", str(payload.get("top_k", 10))]
+        args += ["--threshold", str(payload.get("threshold", 0.5)),
+                 "--top-k", str(payload.get("top_k", 10))]
 
         res = subprocess.run(args, capture_output=True, text=True)
         if res.returncode != 0:
+            print(res.stdout)
+            print(res.stderr)
             raise RuntimeError(res.stderr or "predict_roberta failed")
 
-        return {"raw": res.stdout}
+        # NEW: try to parse JSON from CLI and normalize the shape
+        try:
+            payload = json.loads(res.stdout)
+            if isinstance(payload, dict) and "groups" in payload:
+                return payload
+            # allow older CLIs: maybe the top-level is a list
+            if isinstance(payload, list):
+                return {"groups": payload}
+            # last resort: empty groups
+            return {"groups": []}
+        except Exception:
+            print("[WARN] CLI output was not JSON; returning empty groups.")
+            return {"groups": []}
 
 @app.route('/predict', methods=['POST'])
 def predict_api():
@@ -589,11 +602,7 @@ def match():
 
         # Top 3
         top3_df = matched_df.head(3)
-
-        # Save traceability outputs
-        matched_df.to_csv("matched_groups.csv", index=False)
-        top3_df.to_csv("matched_top3.csv", index=False)
-        pd.DataFrame({"TTP": ttps}).to_csv("inputted_ttps_rule.csv", index=False)
+        pd.DataFrame({"TTP": ttps}).to_csv("inputted_ttps.csv", index=False)
 
         # GPT Analysis
         mit_csv_path = _run_mitigations_and_get_csv()

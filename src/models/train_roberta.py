@@ -32,7 +32,7 @@ from transformers import (
     TrainingArguments,
 )
 from paths.paths import (
-    PROJECT_ROOT, DATA_ROOT, PROCESSED_DIR, MODELS_ROOT, LOGS_ROOT, output_dir_for_folds, EXPERIMENTS_ROOT  ,
+    PROJECT_ROOT, DATA_ROOT, PROCESSED_DIR, MODELS_ROOT, output_dir_for_folds, EXPERIMENTS_ROOT  ,
 )
 from pathlib import Path
 # EarlyStopping is optional; present on most recent transformers
@@ -564,8 +564,14 @@ def main():
                 test_ds = MultiLabelCSVDataset(cfg.CSV_PATH, split=None, tokenizer=tokenizer,
                                                label2id=label2id, max_len=cfg.MAX_LEN, index_subset=test_idx)
                 targs_noeval = build_training_args(cfg, do_eval_in_training=False, out_dir=run_dir)
-                trainer_test = Trainer(model=base_model, args=targs_noeval, data_collator=data_collator, tokenizer=tokenizer)
+                trainer_test = WeightedBCETrainer(
+                    model=base_model,
+                    args=targs_noeval,
+                    data_collator=data_collator,
+                    tokenizer=tokenizer,
+                )
                 logits, labels_np, _ = trainer_test.predict(test_ds)
+
                 probs = 1 / (1 + np.exp(-logits))
                 preds = (probs >= cfg.THRESHOLD).astype(np.int32)
                 metrics_json["test"] = _precision_recall_f1(labels_np.astype(np.int32), preds)

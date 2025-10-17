@@ -1,6 +1,6 @@
 # LLM-Assisted Adversary Attribution
 
-A modular pipeline for automating cyber threat attribution using MITRE ATT&CK, APTnotes, and GPT-based analysis.
+A modular pipeline for automating cyber threat attribution using MITRE ATT&CK, APTnotes, and GPT-based analysis. 
 
 ---
 
@@ -8,14 +8,15 @@ A modular pipeline for automating cyber threat attribution using MITRE ATT&CK, A
 
 - [System Overview](#system-overview)
 - [Workflow Overview](#workflow-overview)
+- [System Architecture](#system-architecture)
 - [Dependencies](#dependencies)
 - [Installation](#installation)
-- [Step-by-Step Logic Flow and Preparation](#step-by-step-logic-flow-and-preparation)
+- [Prerequisites to run](#prerequisites-to-run)
   - [1. Extract IOCs from APTnotes PDFs](#1-extract-iocs-from-aptnotes-pdfs)
   - [2. Map IOCs to MITRE ATT&CK Groups](#2-map-iocs-to-mitre-attck-groups)
-  - [3. Match Specific MITRE TTPs](#3-match-specific-mitre-ttps)
-  - [4. Generate the Intelligence Report](#4-generate-the-intelligence-report)
-- [How to Use (Web App)](#how-to-use-web-app)
+  - [3. Process and Normalize the MITRE Dataset](#3-process-and-normalize-the-mitre-dataset)
+  - [4. Build the Labeled Dataset for Roberta Model Training](#4-build-the-labeled-dataset-for-roberta-model-training)
+- [Usage](#usage)
 - [Notes](#notes)
 - [Troubleshooting](#troubleshooting)
 
@@ -23,23 +24,67 @@ A modular pipeline for automating cyber threat attribution using MITRE ATT&CK, A
 
 ## System Overview
 
-This toolchain extracts Indicators of Compromise (IOCs) and MITRE ATT&CK Technique IDs (TTPs) from APT reports, maps them to known attacker groups using MITRE STIX data, and generates structured intelligence reports via GPT-based analysis.
+This toolchain extracts Indicators of Compromise (IOCs) and MITRE ATT&CK Technique IDs (TTPs) from APT reports, maps them to known attacker groups using MITRE STIX data, and generates structured intelligence reports via GPT-based analysis. It supports two analysis modes. Rule-based TTP matching and Roberta model inference, both of which converge into a unified GPT-assisted report generation stage.
 
+---
+
+## System Architecture
+```
+ICT3214-SEC-ANALYTICS/
+├──► app.py - Flask web app
+├──► data/
+│     ├──► raw/
+│           ├──► attack_stix/ - contains enterprise-attack from MITRE
+│           ├──► pdfs/ - contains APTnotes PDF files
+│     ├──► excel/ - contains extracted enterprise-attack MITRE ATT&CK & mitigation techniques
+│     ├──► extracted_pdfs/ - contains extracted information from data/raw/pdfs. This will be generated when app.py is run
+│     ├──► mapped/ - HELP
+│     ├──► mappedPDFs/ - HELP
+│     ├──► processed/ 
+│              ├──► rules/ - HELP
+│              ├──► extracted_iocs.csv - Stores extracted Indicators of Compromise (IOCs) such as domains, IPs, URLs, hashes, and emails parsed from APTnotes PDFs for later threat group mapping.
+│              ├──► ti_groups_techniques.csv - HELP
+├──► logs/ - contains materials used to train RoBERTa model  
+├──► src/
+│     ├──► data/ - contains scripts to create .csv in data/ folders 
+│     ├──► models/ - contains latest and best RoBERTa model as well as scripts to train and predict
+│     ├──► paths/ - contains script that has static variables used by other scripts that is related to path locations 
+├──► templates/
+│       ├──► common/ - contains html that are used by all other pages
+│       ├──► cleaned_report_template.docx - report template used by OpenAI to generate the adversary attribution report
+│       ├──► index.html - Serves as the main landing page and user interface for the Flask-based MITRE ATT&CK Threat Attribution system. 
+│       ├──► error.html - Error page rendered when invalid input, missing files, or API-related exceptions occur during app execution.
+│       ├──► results_compare.html - Displays the dual-output comparison between the rule-based and RoBERTa-based threat attribution flows.  
+│       ├──► results.html -  Displays **LLM-assisted adversary attribution results** for both **rule-based matching pipeline** and the **machine learning (RoBERTa)**
+│      
+├──► matching.py - Validates and normalizes user-entered MITRE ATT&CK TTPs and performs correlation to identify matching threat groups based on exact and root-technique overlaps; outputs ranked matches and input TTP lists for downstream analysis and report generation.
+├──► mitigations.py - HELP
+├──► report_generation.py - script to generate report using OpenAI and the results of RoBERTa, Matching and Mitigations
+├──► technique_labels.py - HELP
+├──► requirements.txt - list of dependencies that need to be installed via "pip install -r requirements"
+```
 ---
 
 ## Workflow Overview
 
-APTnotes PDFs  
-│  
-├──► `extract_pdfs.py` → Extracted IOCs & ATT&CK IDs  
-│  
-MITRE ATT&CK Enterprise JSON  
-│  
-└──► `map_iocs_to_attack.py` → Mapped Threat Groups (CSV)  
-  │  
-  ├──► `matching_test.py` → User-Selected TTPs  
-  │  
-  └──► `report_generator.py` → GPT-based DOCX Intelligence Report  
+```
+APTnotes PDFs
+│
+├──► extract_pdfs.py → Extracts IOCs & TTPs from APTnotes PDF reports
+│
+├──► build_dataset.py → Creates labeled dataset for the RoBERTa model
+│
+├──► enterprise_attack.py → Processes and normalizes the MITRE ATT&CK Enterprise dataset, extracting relationships between techniques, mitigations, and associated tactics
+│
+├──► map_iocs_to_attack.py → Correlates extracted IOCs and ATT&CK technique IDs with known MITRE ATT&CK threat groups
+│
+├──► matching.py → Matches input TTPs using both rule-based and RoBERTa inference modes
+│
+├──► mitigations.py → Retrieves defensive mitigations corresponding to the TTPs associated with matched groups
+│
+└──► report_generator.py → Generates GenAI-based structured intelligence reports summarizing group matches, mitigations, and analyst insights
+```
+
 
 ---
 
@@ -53,31 +98,33 @@ To install them, follow the setup steps in the Installation section.
 
 ## Installation
 
-1. **Create and activate a virtual environment:**
+```bash
+# 1. Clone the repository
+git clone https://github.com/ProxyLeech/ICT3214-Sec-Analytics
+cd ICT3214-Sec-Analytics
 
-- Windows:  
-  `python -m venv .venv`  
-  `.venv\Scripts\activate`
+# 2. Create a virtual environment
+python -m venv .venv
 
-- macOS/Linux:  
-  `python3 -m venv .venv`  
-  `source .venv/bin/activate`
+# 3. Activate the virtual environment
+# On macOS / Linux:
+source .venv/bin/activate
+# On Windows:
+.venv\Scripts\activate
 
-2. **Install the dependencies:**
+# 4. Install dependencies
+pip install -r requirements.txt
 
-  pip install -r requirements.txt
-
-
-
-3. **Create a `.env` file in the root directory with your API key:**
-
-  OPENAI_API_KEY=sk-your-api-key-here
+# 5. Create a .env file and add your OpenAI API key
+# (Replace YOUR_KEY_HERE with your actual API key, look in user manual for more details)
+echo "OPENAI_API_KEY=YOUR_KEY_HERE" > .env
+```
 
 
 
 ---
 
-## Step-by-Step Logic Flow and Preparation
+## Prerequisites to run
 
 ### 1. Extract IOCs from APTnotes PDFs
 
@@ -106,73 +153,63 @@ This script maps observed IOCs from PDF reports to MITRE ATT&CK techniques and t
 
 ---
 
-### 3. Match Specific MITRE TTPs
+### 3. Process and Normalize the MITRE Dataset
 
-python matching_test.py
+python enterprise_attack.py
 
 
+This script parses the local MITRE ATT&CK Enterprise bundle (enterprise-attack.json) and builds the relational mapping between intrusion sets (groups) and techniques/sub-techniques.
+The resulting CSV is essential for both the IOC mapping process and Roberta model training.
 
-- Prompts you to enter up to five MITRE ATT&CK Technique IDs (e.g., `T1059.003`, `T1110`)  
-- Checks for overlap with known threat groups based on your input  
+- Input: `Data/attack_stix/enterprise-attack/enterprise-attack-<version>.json`
+
+- Output: `Data/attack_stix/processed/ti_groups_techniques.csv`
+
+Contains columns: `group_sid, group_id, group_name, technique_id, technique_name, is_subtechnique`
+
+---
+
+### 4. Build the Labeled Dataset for Roberta Model Training
+
+python build_dataset.py
+
+This script consolidates the outputs from the IOC mapping (map_iocs_to_attack.py) and MITRE ATT&CK dataset (enterprise_attack.py) into a labeled dataset suitable for Roberta model fine-tuning and evaluation.
+It constructs a multi-label classification dataset that maps threat groups to their observed techniques.
+
+- Input:
+`Data/mapped/group_ttps_detail.csv`
+`Data/attack_stix/processed/ti_groups_techniques.csv`
 
 - Output:
-  - `matched_groups.csv`
-  - `inputted_ttps.csv`
-
-Note: This script is part of the prototype logic behind the dropdown interface in the Flask web app. It is not the core logic of the attribution pipeline but acts as a lightweight test utility for debugging and manual use.
+`Data/processed/dataset.csv` – Text dataset for model training
+`Data/processed/labels.txt` – Class label reference file
 
 ---
 
-### 4. Generate the Intelligence Report
+## Usage
 
-python report_generator.py
+```
+## 1. Create all the necessary files
+Run the following scripts sequentially to extract IOCs, build datasets, and map ATT&CK relationships:
 
 
+python src\data\extract_pdfs.py
+python src\data\build_dataset.py
+python src\data\enterprise_attack.py
+python Data\map_iocs_to_attack.py
 
-This script uses the OpenAI API to automatically generate a structured threat intelligence report, based on your selected or extracted TTPs and mapped threat groups.
+## 2. Run the web application
 
-It consolidates results from previous steps and produces a professional, human-readable DOCX report that includes:
-
-- Threat group summary  
-- TTP overlap table  
-- Most likely adversaries  
-- Recommended defensive mitigations  
-- GPT-generated analyst insights
-
-- Output: `/Generated_Reports/Threat_Report_<timestamp>.docx`
-
-Note: This is currently a standalone CLI prototype. This logic will be triggered by the "Export Report" button in the Flask web app.
-
----
-
-## How to Use (Web App)
-
-This is the intended user-facing experience via the Flask web interface:
-
-1. Start the app  
-   Run: `python app.py`
-
-2. Visit the interface  
-   Open your browser and go to: `http://127.0.0.1:5000`
-
-3. Choose TTPs  
-   Use the dropdown to select up to five MITRE Technique IDs (e.g., T1059.003, T1110)
-
-4. Click "Submit Button"  
-   The system will match your TTPs to known threat groups and show you the result
-
-5. Export the Report  
-   Click the "Export" button to download the generated DOCX report
+python app.py
+navigate to `http://127.0.0.1:5000`
+```
 
 ---
 
 ## Notes
 
-- You must download the MITRE ATT&CK JSON (`enterprise-attack.json`) and place it in `Data/attack_stix/`
-- Input TTPs should follow MITRE format (e.g., `T1059.001`)
 - Limit input to five TTPs max for optimal GPT performance
 - Output folders are automatically created if missing
-- Reports are timestamped and saved in `/Generated_Reports/`
 
 ---
 
@@ -187,54 +224,5 @@ This is the intended user-facing experience via the Flask web interface:
 
 ---
 
-# System Architecture
-ICT3214-SEC-ANALYTICS/
-├──► app.py - Flask web app
-├──► data/
-│     ├──► raw/
-│           ├──► attack_stix/ - contains enterprise-attack from MITRE
-│           ├──► pdfs/ - contains APTnotes PDF files
-│     ├──► excel/ - contains extracted enterprise-attack MITRE ATT&CK & mitigation techniques
-│     ├──► extracted_pdfs/ - contains extracted information from data/raw/pdfs. This will be generated when app.py is run
-│     ├──► mapped/ - HELP
-│     ├──► mappedPDFs/ - HELP
-│     ├──► processed/ 
-│              ├──► rules/ - HELP
-│              ├──► extracted_iocs.csv - HELP
-│              ├──► ti_groups_techniques.csv - HELP
-├──► logs/ - contains materials used to train RoBERTa model  
-├──► src/
-│     ├──► data/ - contains scripts to create .csv in data/ folders 
-│     ├──► models/ - contains latest and best RoBERTa model as well as scripts to train and predict
-│     ├──► paths/ - contains script that has static variables used by other scripts that is related to path locations 
-├──► templates/
-│       ├──► common/ - contains html that are used by all other pages
-│       ├──► cleaned_report_template.docx - report template used by OpenAI to generate the adversary attribution report
-│       ├──► 0_index.html - HELP
-│       ├──► error.html - HELP
-│       ├──► results_compare.html - HELP
-│       ├──► results.html - HELP
-│       ├──► workflow.html - HELP
-├──► matching.py - HELP
-├──► mitigations.py - HELP
-├──► report_generation.py - script to generate report using OpenAI and the results of RoBERTa, Matching and Mitigations
-├──► technique_labels.py - HELP
-├──► requirements.txt - list of dependencies that need to be installed via "pip install -r requirements"
 
-# Installation
-git clone https://github.com/ProxyLeech/ICT3214-Sec-Analytics
-cd ICT3214-Sec-Analytics
-python -m venv .venv
-source .venv/bin/activate OR .venv\Scripts\activate (on Windows)
-pip install -r requirements.txt
-create a .env file with OPENAI_API_KEY=<OpenAI API key>
 
-# Usage
-
-## 1. Create all the necessary files
-python src\data\extract_pdfs.py
-python src\data\build_dataset.py
-python src\data\enterprise_attack.py
-
-## 2. Run the web applicatio
-python app.py

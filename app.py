@@ -16,7 +16,9 @@ import sys
 
 from pathlib import Path
 
-
+BASE_DIR = Path(__file__).resolve().parent
+SRC_PATH = BASE_DIR / "src"   # ✅ src is inside ICT3214-Sec-Analytics
+sys.path.insert(0, str(SRC_PATH))
 app = Flask(__name__)
 
 # =======================================================
@@ -24,9 +26,7 @@ app = Flask(__name__)
 # =======================================================
 # BASE_DIR = Path(__file__).resolve().parent
 
-BASE_DIR = Path(__file__).resolve().parent
-SRC_PATH = BASE_DIR / "src"   # ✅ src is inside ICT3214-Sec-Analytics
-sys.path.insert(0, str(SRC_PATH))
+
 
 DATA_DIR = BASE_DIR / "Data" / "mapped"
 EXCEL_PATH = BASE_DIR / "Data" / "excel" / "enterprise-attack-v17.1-techniques.xlsx"
@@ -34,7 +34,7 @@ MAPPING_CSV = BASE_DIR / "techniques_mapping.csv"
 #ADDITIONAL ADDED PATHS
 #=================================================
 ROOT = Path(__file__).resolve().parents[1]   
-# sys.path.insert(0, str(ROOT / "src"))        # make common/, data/, models/ importable
+sys.path.insert(0, str(ROOT / "src"))        # make common/, data/, models/ importable
 from paths.paths import (
     DATA_ROOT, RAW_DIR,
     EXTRACTED_PDFS_DIR, 

@@ -1,4 +1,5 @@
 import os
+from typing import Optional
 import re
 import pandas as pd
 from dotenv import load_dotenv

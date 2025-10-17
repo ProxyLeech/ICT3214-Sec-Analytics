@@ -70,6 +70,29 @@ def load_mitigations_summary(mitigations_csv: str) -> str:
 
     except Exception as e:
         return f"Error reading mitigations CSV: {e}"
+    
+def load_filtered_mitigations(mitigations_csv: str, ttps: list[str]) -> pd.DataFrame:
+    """
+    Filter mitigations.csv so that only rows relevant to the given TTP IDs remain.
+    Includes sub-techniques (e.g., T1110.001 matched by T1110).
+    """
+    if not os.path.exists(mitigations_csv):
+        raise FileNotFoundError(f"{mitigations_csv} not found")
+
+    df = pd.read_csv(mitigations_csv)
+    if "target id" not in df.columns:
+        raise ValueError("mitigations.csv missing 'target id' column")
+
+    df["target id"] = df["target id"].astype(str).str.strip().str.upper()
+
+    def _matches(tid):
+        for t in ttps:
+            if tid == t or tid.startswith(f"{t}."):
+                return True
+        return False
+
+    filtered = df[df["target id"].apply(_matches)].copy()
+    return filtered
 
 # ===========================
 # GPT Analysis

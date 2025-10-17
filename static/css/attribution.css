@@ -181,7 +181,7 @@ button:hover {
   margin-top: 4px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
-/* 0_index classes styles */
+/* Index classes styles */
 .dropdown-option {
   padding: 0.5rem;
   cursor: pointer;
@@ -211,4 +211,37 @@ button:hover {
 
 #export {
   float: right;
+}
+
+/* --- Mitigation list styling --- */
+.mitigation-list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 1rem;
+}
+
+.mitigation-list li {
+  background-color: #f8f9fa;
+  border-left: 5px solid #007bff;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.75rem;
+  border-radius: 6px;
+  transition: background 0.2s ease-in-out;
+}
+
+.mitigation-list li:hover {
+  background-color: #eef4ff;
+}
+
+.mitigation-list strong {
+  color: #0056b3;
+  display: inline-block;
+  margin-bottom: 0.25rem;
+}
+
+.mitigation-list span {
+  display: block;
+  color: #333;
+  margin-top: 0.25rem;
+  line-height: 1.4;
 }

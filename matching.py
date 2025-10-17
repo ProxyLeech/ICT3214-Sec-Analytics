@@ -90,10 +90,17 @@ def split_tokens(cell) -> Set[str]:
 
 def with_roots(tts: Iterable[str]) -> Set[str]:
     out: Set[str] = set()
+    input_roots = {t.split(".", 1)[0] for t in tts if "." in t}
+
     for t in tts:
         out.add(t)
-        if "." in t:
-            out.add(t.split(".", 1)[0])  # e.g., T1110.001 → T1110
+        # Add root only if:
+        # - it’s not already in the input list, AND
+        # - this TTP is a sub-technique (has a dot)
+        root = t.split(".", 1)[0]
+        if "." in t and root not in input_roots:
+            out.add(root)
+
     return out
 
 # ============================================

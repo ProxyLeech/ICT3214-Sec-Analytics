@@ -12,10 +12,18 @@
           <div class="dropdown-container">
             <div id="dropdown" class="dropdown">
               <div id="dropdown-display" class="dropdown-display">Click to select TTPs...</div>
+
               <div id="dropdown-options" class="dropdown-options">
-               {% for main, subs in grouped_ttps %}
+                <!-- 🔍 Search box -->
+                <input
+                  type="text"
+                  id="dropdown-search"
+                  placeholder="Search techniques..."
+                  style="width: 95%; margin: 8px; padding: 6px; border: 1px solid #ccc; border-radius: 4px;"
+                />
+
+                {% for main, subs in grouped_ttps %}
                 <div class="dropdown-optgroup">
-                  <!-- Main technique itself is now selectable -->
                   <div class="dropdown-option main-option" data-value="{{ main }}">
                     {{ main }} (Main Technique)
                   </div>
@@ -27,81 +35,122 @@
                     {% endfor %}
                   {% endif %}
                 </div>
-              {% endfor %}
-
+                {% endfor %}
               </div>
             </div>
           </div>
 
-          <!-- hidden input container -->
+          <!-- Hidden input container -->
           <div id="selected-container"></div>
 
           <br><br>
           <button type="submit">Submit</button>
+          <button type="button" id="clear-btn" style="background-color: #6c757d;">Clear</button>
         </form>
 
         <br>
         <a href="/workflow">📘 View Workflow Documentation</a>
       </article>
     </div>
+<script>
+  const dropdown = document.getElementById('dropdown');
+  const display = document.getElementById('dropdown-display');
+  const optionsContainer = document.getElementById('dropdown-options');
+  const searchInput = document.getElementById('dropdown-search');
+  const selectedContainer = document.getElementById('selected-container');
+  const clearBtn = document.getElementById('clear-btn');
+  const selectedValues = new Set();
 
-    <style>
-      
-    </style>
+  // Toggle dropdown
+  display.addEventListener('click', () => {
+    const isOpen = optionsContainer.style.display === 'block';
+    optionsContainer.style.display = isOpen ? 'none' : 'block';
+    if (!isOpen) searchInput.focus();
+  });
 
-    <script>
-      const dropdown = document.getElementById('dropdown');
-      const display = document.getElementById('dropdown-display');
-      const optionsContainer = document.getElementById('dropdown-options');
-      const selectedContainer = document.getElementById('selected-container');
-      const selectedValues = new Set();
+  // Close when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!dropdown.contains(e.target)) {
+      optionsContainer.style.display = 'none';
+    }
+  });
 
-      // Toggle dropdown visibility
-      display.addEventListener('click', () => {
-        optionsContainer.style.display =
-          optionsContainer.style.display === 'block' ? 'none' : 'block';
+  // Handle option click
+  document.addEventListener('click', (e) => {
+    const option = e.target.closest('.dropdown-option');
+    if (!option) return;
+    const value = option.dataset.value;
+
+    if (selectedValues.has(value)) {
+      selectedValues.delete(value);
+      option.classList.remove('selected');
+    } else {
+      if (selectedValues.size >= 5) {
+        alert('You can only select up to 5 TTPs.');
+        return;
+      }
+      selectedValues.add(value);
+      option.classList.add('selected');
+    }
+    updateDisplay();
+    e.stopPropagation(); // Keep dropdown open while selecting
+  });
+
+  // 🔍 Dynamic filtering: hide non-matches & empty groups
+  searchInput.addEventListener('input', (e) => {
+    const query = e.target.value.toLowerCase().trim();
+
+    const groups = document.querySelectorAll('.dropdown-optgroup');
+    groups.forEach(group => {
+      const options = group.querySelectorAll('.dropdown-option');
+      const label = group.querySelector('.optgroup-label');
+      let matchFound = false;
+
+      options.forEach(opt => {
+        const text = opt.textContent.toLowerCase();
+        const isMatch = text.includes(query);
+        opt.style.display = isMatch || query === '' ? 'block' : 'none';
+        if (isMatch) matchFound = true;
       });
 
-      // Close when clicking outside
-      document.addEventListener('click', (e) => {
-        if (!dropdown.contains(e.target)) {
-          optionsContainer.style.display = 'none';
-        }
-      });
+      // hide group label if no matches
+      if (label) label.style.display = matchFound && query !== '' ? 'block' : (query === '' ? 'block' : 'none');
 
-      // Handle option click
-      document.querySelectorAll('.dropdown-option').forEach(option => {
-        option.addEventListener('click', () => {
-          const value = option.dataset.value;
+      // hide entire group if nothing inside matches
+      group.style.display = matchFound || query === '' ? 'block' : 'none';
+    });
+  });
 
-          if (selectedValues.has(value)) {
-            selectedValues.delete(value);
-            option.classList.remove('selected');
-          } else {
-            if (selectedValues.size >= 5) {
-              alert('You can only select up to 5 TTPs.');
-              return;
-            }
-            selectedValues.add(value);
-            option.classList.add('selected');
-          }
+  // 🧹 Clear all selections
+  clearBtn.addEventListener('click', () => {
+    selectedValues.clear();
+    document.querySelectorAll('.dropdown-option.selected').forEach(opt => opt.classList.remove('selected'));
+    searchInput.value = '';
+    showAllOptions();
+    updateDisplay();
+  });
 
-          // Update display text
-          display.textContent = selectedValues.size > 0
-            ? Array.from(selectedValues).join(', ')
-            : 'Click to select TTPs...';
+  // Reset all options to visible
+  function showAllOptions() {
+    document.querySelectorAll('.dropdown-optgroup, .dropdown-option, .optgroup-label')
+      .forEach(el => el.style.display = 'block');
+  }
 
-          // Update hidden inputs
-          selectedContainer.innerHTML = '';
-          selectedValues.forEach(val => {
-            const hidden = document.createElement('input');
-            hidden.type = 'hidden';
-            hidden.name = 'ttps[]';
-            hidden.value = val;
-            selectedContainer.appendChild(hidden);
-          });
-        });
-      });
-    </script>
+  function updateDisplay() {
+    display.textContent = selectedValues.size > 0
+      ? Array.from(selectedValues).join(', ')
+      : 'Click to select TTPs...';
+
+    selectedContainer.innerHTML = '';
+    selectedValues.forEach(val => {
+      const hidden = document.createElement('input');
+      hidden.type = 'hidden';
+      hidden.name = 'ttps[]';
+      hidden.value = val;
+      selectedContainer.appendChild(hidden);
+    });
+  }
+</script>
+
   </body>
 </html>

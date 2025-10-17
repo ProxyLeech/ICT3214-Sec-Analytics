@@ -12,7 +12,6 @@ tempCodeRunnerFile.py
 techniques_mappings.csv
 
 # Data & artifacts
-data/raw/
 data/interim/
 experiments/**/checkpoint*/
 experiments/**/runs/

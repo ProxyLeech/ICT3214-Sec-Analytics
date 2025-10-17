@@ -44,7 +44,7 @@ SEED            = 42
 MAX_PER_KIND    = 10
 
 # Rule options
-REBUILD_RULES_FROM_BUNDLE = True  # set True to regenerate RULES_JSON from local ATT&CK bundle
+REBUILD_RULES_FROM_BUNDLE = False  # set True to regenerate RULES_JSON from local ATT&CK bundle
 WEAK_RULES_JSON_PATH: pathlib.Path | None = RULES_JSON  # set None to skip weak rules
 
 # =======================================================================

@@ -19,9 +19,13 @@ import random
 import pathlib
 from typing import Dict, List, Set, Tuple
 from collections import defaultdict
-
+import sys
+from pathlib import Path
 # =================== CONFIG  ===================
-
+CURRENT_DIR = Path(__file__).resolve().parent
+SRC_ROOT = CURRENT_DIR.parent  # goes up from models → src
+if str(SRC_ROOT) not in sys.path:
+    sys.path.insert(0, str(SRC_ROOT))
 from paths.paths import (
     PROCESSED_DIR,        
     RULES_DIR,

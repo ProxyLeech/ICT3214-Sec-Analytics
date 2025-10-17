@@ -13,7 +13,10 @@ import sys
 import urllib.parse
 from pathlib import Path
 from datetime import datetime
-
+CURRENT_DIR = Path(__file__).resolve().parent
+SRC_ROOT = CURRENT_DIR.parent  # goes up from models → src
+if str(SRC_ROOT) not in sys.path:
+    sys.path.insert(0, str(SRC_ROOT))
 from paths.paths import (
     RAW_DIR, 
     EXTRACTED_PDFS_DIR,

@@ -37,22 +37,52 @@ def load_csv_data():
 # ===========================
 # GPT Analysis
 # ===========================
-def analyze_TTP(input_ttps, matched_df):
+def analyze_TTP(input_ttps, matched_df, mitigations_csv: Optional[str] = None):
     mapping_summary = "\n".join([
         f"{row['group_name']}: {row.to_dict()}"
         for _, row in matched_df.head(10).iterrows()
         if "group_name" in row
     ])
 
+    # NEW: If a mitigations CSV is provided, load & summarize succinctly
+    mitigations_block = ""
+    if mitigations_csv and os.path.exists(mitigations_csv):
+        try:
+            mdf = pd.read_csv(mitigations_csv)
+            # keep only the canonical columns if present
+            cols = [c for c in ["target id", "target name", "mapping description"] if c in mdf.columns]
+            if cols:
+                mdf = mdf[cols].dropna(how="all")
+                # compact: group by technique, take up to 2 example mappings each, limit overall lines
+                lines = []
+                for (tid, tname), grp in mdf.groupby([c for c in ["target id", "target name"] if c in mdf.columns]):
+                    desc_col = "mapping description" if "mapping description" in grp.columns else None
+                    examples = []
+                    if desc_col:
+                        for d in grp[desc_col].dropna().astype(str).head(2).tolist():
+                            examples.append(f"- {d[:200]}")
+                    header = f"{tid} – {tname}" if isinstance(tid, str) and isinstance(tname, str) else str((tid, tname))
+                    block = header if not examples else header + "\n" + "\n".join(examples)
+                    lines.append(block)
+                    if len(lines) >= 40:  # cap to keep prompt small
+                        break
+                if lines:
+                    mitigations_block = "Associated Mitigations (sample):\n" + "\n".join(lines)
+        except Exception as _e:
+            # Non-fatal: just skip extra context if anything goes wrong
+            mitigations_block = ""
+
     prompt = f"""
 You are a cyber threat intelligence analyst.
 You are given:
 1. A list of matched attacker groups (with details) from a TTP matching engine.
 2. A list of detected MITRE ATT&CK TTPs from a security incident.
+3. Additional CSV-derived **associated mitigations** for techniques (if provided).
 
 Your task:
 - Compare the detected TTPs with known attacker groups.
 - Identify the most likely actor(s) based on overlapping TTPs.
+- Weigh the **associated mitigations** context when proposing defensive actions.
 - Explain reasoning clearly and end with a confidence rating.
 
 Matched Actor Groups:
@@ -60,6 +90,8 @@ Matched Actor Groups:
 
 Detected Input TTPs:
 {', '.join(input_ttps)}
+
+{mitigations_block if mitigations_block else ""}
 
 Return your analysis formatted as:
 ---
@@ -82,7 +114,7 @@ Return your analysis formatted as:
 Also include:
 - A concise **summary** explaining overall findings and observed behavior patterns.
 - A **justification** for why specific attacker groups are likely involved based on technique overlap.
-- A section suggesting **defensive mitigations or detections** organizations can apply to counter these TTPs.
+- A section suggesting **defensive mitigations or detections** organizations can apply to counter these TTPs (use the **associated mitigations** context if available).
 - Conclude with a short **confidence rating** (High/Medium/Low) and brief reasoning for this rating.
 
 Keep the language concise, analytical, and professional.

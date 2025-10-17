@@ -81,11 +81,11 @@ def main() -> None:
     # Input Excel path
     excel_path = r"Data/excel/enterprise-attack-v17.1-techniques.xlsx"
 
-    # Ensure output folder Data/mapped/ exists
-    output_dir = os.path.join(os.path.dirname(excel_path), "..", "mapped")
+    # Ensure output folder Data/mitigations/ exists
+    output_dir = os.path.join(os.path.dirname(excel_path), "..", "mitigations")
     os.makedirs(output_dir, exist_ok=True)
 
-    # Output file in Data/mapped/
+    # Output file in Data/mitigations/
     out_path = os.path.join(output_dir, "mitigations.csv")
 
     required_columns = list(DEFAULT_REQUIRED_COLUMNS)

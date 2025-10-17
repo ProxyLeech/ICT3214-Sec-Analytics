@@ -26,8 +26,8 @@ def load_csv_data():
     if not os.path.exists("matched_groups_rule.csv"):
         raise SystemExit("matched_groups_rule.csv not found.")
 
-    ttps_df = pd.read_csv("inputted_ttps.csv")
-    matched_df = pd.read_csv("matched_groups.csv")
+    ttps_df = pd.read_csv("inputted_ttps_rule.csv")
+    matched_df = pd.read_csv("matched_groups_rule.csv")
 
     if "score" in matched_df.columns:
         matched_df = matched_df.sort_values(by="score", ascending=False)

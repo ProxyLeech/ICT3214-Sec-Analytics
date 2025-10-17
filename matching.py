@@ -121,8 +121,8 @@ def match_ttps(ttps: Tuple[str, ...], data_dir: Path) -> pd.DataFrame:
 # ============================================
 def write_outputs(matched: pd.DataFrame, ttps: Tuple[str, ...], out_dir: Path) -> Tuple[Path, Path]:
     out_dir.mkdir(parents=True, exist_ok=True)
-    matched_out = out_dir / "matched_groups.csv"
-    ttps_out = out_dir / "inputted_ttps.csv"
+    matched_out = out_dir / "matched_groups_rule.csv"
+    ttps_out = out_dir / "inputted_ttps_rule.csv"
 
     matched.to_csv(matched_out, index=False)
     with ttps_out.open("w", newline="", encoding="utf-8") as f:

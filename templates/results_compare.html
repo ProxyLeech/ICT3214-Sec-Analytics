@@ -12,7 +12,7 @@
     }
     table { width: 100%; border-collapse: collapse; margin-top: 1rem; background: #fff; }
     th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-    th { background: #007bff; color: #fff; }
+    th { text-align: left; background: #007bff; color: #fff; }
     a { display: inline-block; color: #007bff; text-decoration: none; }
     a:hover { text-decoration: underline; }
     .timestamp { font-size: 0.9rem; color: #666; }
@@ -72,8 +72,7 @@
 
     {% if not export_mode %}
     <a href="/">← Back to Selection</a>
-    <br>
-    <a href="/export?which=rule">Export Results (Rule-based)</a>
+    <a id="export" href="/export?which=rule">Export Results (Rule-based)</a>
     {% endif %}
 
     <div class="divider"></div>
@@ -125,8 +124,7 @@
 
     {% if not export_mode %}
     <a href="/">← Back to Selection</a>
-    <br>
-    <a href="/export?which=roberta">Export Results (RoBERTa)</a>
+    <a id="export" href="/export?which=roberta">Export Results (RoBERTa)</a>
     {% endif %}
   </div>
 </body>

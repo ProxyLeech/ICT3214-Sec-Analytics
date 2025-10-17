@@ -633,6 +633,9 @@ def match():
     except Exception as e:
         return render_template('error.html', error=str(e))
 
+# =======================================================
+# EXPORT ROUTE - For when printing results to document
+# =======================================================
 @app.route('/export')
 def export():
     try:

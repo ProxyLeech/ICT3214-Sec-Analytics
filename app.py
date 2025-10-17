@@ -36,7 +36,7 @@ def _run_mitigations_and_get_csv() -> Path:
       Data/mapped/mitigations.csv
     """
     script = BASE_DIR / "mitigations.py"
-    out_csv = BASE_DIR / "Data" / "mapped" / "mitigations.csv"
+    out_csv = BASE_DIR / "Data" / "mitigations" / "mitigations.csv"
 
     # Run mitigations.py in the same directory
     res = subprocess.run([sys.executable, str(script)], cwd=str(BASE_DIR))

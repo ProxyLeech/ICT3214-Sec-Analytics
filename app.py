@@ -16,23 +16,19 @@ import sys
 
 from pathlib import Path
 
+# =======================================================
+# Project-relative paths
+# =======================================================
+
 BASE_DIR = Path(__file__).resolve().parent
 SRC_PATH = BASE_DIR / "src"   # ✅ src is inside ICT3214-Sec-Analytics
 sys.path.insert(0, str(SRC_PATH))
 app = Flask(__name__)
 
-# =======================================================
-# Project-relative paths
-# =======================================================
-# BASE_DIR = Path(__file__).resolve().parent
-
-
 
 DATA_DIR = BASE_DIR / "Data" / "mapped"
 EXCEL_PATH = BASE_DIR / "Data" / "excel" / "enterprise-attack-v17.1-techniques.xlsx"
 MAPPING_CSV = BASE_DIR / "techniques_mapping.csv"
-#ADDITIONAL ADDED PATHS
-#=================================================
 ROOT = Path(__file__).resolve().parents[1]   
 sys.path.insert(0, str(ROOT / "src"))        # make common/, data/, models/ importable
 from paths.paths import (
@@ -67,15 +63,19 @@ BEST_REQUIRED  = [
 ]
 #=================================================
 
-def output_dir_for_folds(n_folds: int, model_slug: str = "roberta_base"):
-    return EXPERIMENTS_ROOT / f"{n_folds}foldruns" / model_slug
+# Cache
+LAST_RESULTS = {} #Global
+LAST_RESULTS_RULE = {}
+LAST_RESULTS_ROBERTA = {}
 
 
-# Global cache for last results
-LAST_RESULTS = {}
 # -------------------------------------------------------
 # Small helpers
 # -------------------------------------------------------
+#For Roberta 0-10 fold runs. 
+def output_dir_for_folds(n_folds: int, model_slug: str = "roberta_base"):
+    return EXPERIMENTS_ROOT / f"{n_folds}foldruns" / model_slug
+
 def _ensure_score_and_rank(df: pd.DataFrame) -> pd.DataFrame:
     """
     Ensure df has numeric 'score' and 'rank' columns.
@@ -111,7 +111,6 @@ def _ensure_score_and_rank(df: pd.DataFrame) -> pd.DataFrame:
         df["rank"] = (-df["score"]).rank(method="first").astype(int)
 
     return df
-
 def run(cmd: list[str], cwd: Path | None = None) -> None:
     print(f"\n$ {' '.join(map(str, cmd))}")
     res = subprocess.run(cmd, cwd=str(cwd) if cwd else None)
@@ -125,13 +124,11 @@ def ensure_dirs():
     for p in [DATA_ROOT, RAW_DIR, EXTRACTED_PDFS_DIR, PROCESSED_DIR, MODELS_ROOT, EXPERIMENTS_ROOT]:
         p.mkdir(parents=True, exist_ok=True)
 
-# ---- Result caches for export ----
-LAST_RESULTS_RULE = {}
-LAST_RESULTS_ROBERTA = {}
-
+# =======================================================
+# Matching Flow
+# =======================================================
 def _run_rule_match_flow(ttps: list[str]) -> dict:
     matched_df = match_ttps(ttps, DATA_DIR).copy()
-
     # Try to standardize columns the same way
     matched_df = _ensure_score_and_rank(matched_df)
 
@@ -142,12 +139,6 @@ def _run_rule_match_flow(ttps: list[str]) -> dict:
         matched_df = matched_df.sort_values(by="score", ascending=False)
 
     top3_df = matched_df.head(3)
-
-    
-
-    # Save files for traceability (rule-based)
-    matched_df.to_csv("matched_groups_rule.csv", index=False)
-    top3_df.to_csv("matched_top3_rule.csv", index=False)
     pd.DataFrame({"TTP": ttps}).to_csv("inputted_ttps_rule.csv", index=False)
 
     # GPT narrative for rule-based
@@ -171,7 +162,9 @@ def _run_rule_match_flow(ttps: list[str]) -> dict:
         "doc_path": out_path,
     }
 
-
+# =======================================================
+# RoBERTa Flow
+# =======================================================
 def _run_roberta_flow(ttps: list[str]) -> dict:
     """Run your RoBERTa flow (using your /roberta route’s core) and return result."""
     ml = _predict_with_module({
@@ -223,11 +216,9 @@ def _run_roberta_flow(ttps: list[str]) -> dict:
         "analysis": parsed,
         "doc_path": out_path,
     }
-
-
-# -------------------------------------------------------
-# Pipeline steps 
-# -------------------------------------------------------
+# =======================================================
+# Pipeline steps (extract pdf → extract stix → build → train)
+# =======================================================
 def step_extract_pdfs(force: bool) -> None:
     """
     Run extract_pdfs.py to produce:
@@ -283,9 +274,9 @@ def step_train_roberta(force: bool) -> None:
         return
     run([sys.executable, str(TRAIN_ROBERTA_SCRIPT)])
 
-
 # =======================================================
-# INDEX ROUTE – Build dropdown of all MITRE TTPs
+# Flask Routes
+#index, workflow, roberta, submit_both, predict with module, predict api, match, export
 # =======================================================
 @app.route('/')
 def index():
@@ -341,7 +332,7 @@ def workflow():
 @app.route('/roberta', methods=['POST'])
 def roberta():
     try:
-        # 1) Grab user selections (up to 5 TTPs from your UI)
+        # 1) Grab user selections 
         ttps_input = [t.split()[0].upper() for t in request.form.getlist('ttps[]')]
         ttps = validate_ttps(ttps_input)
 
@@ -377,8 +368,7 @@ def roberta():
 
         # 4) Persist files for the report generator (keeps your current contract)
         df_ml.sort_values("score", ascending=False, inplace=True)
-        df_ml.to_csv("matched_groups.csv", index=False)
-        pd.DataFrame({"TTP": ttps}).to_csv("inputted_ttps.csv", index=False)
+        df_ml.to_csv("matched_groups_roberta.csv", index=False)
 
         # 5)  Show top 3 on the web page, like before
         top3_df = df_ml.head(3)
@@ -418,6 +408,9 @@ def roberta():
     except Exception as e:
         return render_template('error.html', error=str(e))
     
+# =======================================================
+# Submit to HTML
+# =======================================================
 @app.route('/submit_both', methods=['POST'])
 def submit_both():
     try:
@@ -632,7 +625,9 @@ def match():
 
     except Exception as e:
         return render_template('error.html', error=str(e))
-
+# =======================================================
+# Export
+# =======================================================
 @app.route('/export')
 def export():
     try:
@@ -666,8 +661,9 @@ def export():
     except Exception as e:
         return f"Error exporting to .doc: {e}"
 
+
 # =======================================================
-# MAIN ENTRY POINT
+# Entry Point
 # =======================================================
 def main():
     import argparse

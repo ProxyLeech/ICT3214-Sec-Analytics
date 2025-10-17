@@ -163,7 +163,7 @@ def _run_rule_match_flow(ttps: list[str]) -> dict:
     parsed = parse_ai_response(gpt_response)
 
     try:
-        out_path = generate_word_report(gpt_response, ttps)
+        out_path = generate_word_report(gpt_response, ttps, mitigations_csv=str(mit_csv_path))
         if not out_path:
             out_path = "threat_report_rule.docx"
     except Exception as e:
@@ -212,7 +212,7 @@ def _run_roberta_flow(ttps: list[str]) -> dict:
     parsed = parse_ai_response(gpt_response)
 
     try:
-        out_path = generate_word_report(gpt_response, ttps)
+        out_path = generate_word_report(gpt_response, ttps, mitigations_csv=str(mit_csv_path))
         if not out_path:
             out_path = "threat_report_roberta.docx"
     except Exception as e:

@@ -35,6 +35,42 @@ def load_csv_data():
     input_ttps = ttps_df["TTP"].dropna().tolist()
     return input_ttps, matched_df
 
+
+def load_mitigations_summary(mitigations_csv: str) -> str:
+    """
+    Load and summarize mitigations.csv content to inject directly into the report
+    (without GPT generation).
+    """
+    if not os.path.exists(mitigations_csv):
+        return "No mitigations file found."
+    
+    try:
+        df = pd.read_csv(mitigations_csv)
+        cols = [c for c in ["target id", "target name", "mapping description"] if c in df.columns]
+        if not cols:
+            return "Mitigations data is missing expected columns."
+
+        df = df[cols].dropna(how="all")
+
+        lines = []
+        for (tid, tname), grp in df.groupby([c for c in ["target id", "target name"] if c in df.columns]):
+            desc_col = "mapping description" if "mapping description" in grp.columns else None
+            descs = []
+            if desc_col:
+                descs = grp[desc_col].dropna().astype(str).head(2).tolist()
+            line = f"{tid} – {tname}\n" + "\n".join(f"• {d}" for d in descs)
+            lines.append(line)
+            if len(lines) > 40:
+                break
+
+        if not lines:
+            return "No mitigation mappings available."
+
+        return "\n".join(lines)
+
+    except Exception as e:
+        return f"Error reading mitigations CSV: {e}"
+
 # ===========================
 # GPT Analysis
 # ===========================
@@ -91,8 +127,6 @@ Matched Actor Groups:
 
 Detected Input TTPs:
 {', '.join(input_ttps)}
-
-{mitigations_block if mitigations_block else ""}
 
 Return your analysis formatted as:
 ---
@@ -278,7 +312,38 @@ def parse_ai_response(text: str) -> dict:
 # ===========================
 # Generate Word Report
 # ===========================
-def generate_word_report(report_text, input_ttps):
+def load_mitigations_summary(mitigations_csv: str) -> str:
+    """
+    Load and summarize mitigations.csv content for the defensive mitigations section.
+    """
+    if not os.path.exists(mitigations_csv):
+        return "No mitigations file found."
+
+    try:
+        df = pd.read_csv(mitigations_csv)
+        cols = [c for c in ["target id", "target name", "mapping description"] if c in df.columns]
+        if not cols:
+            return "Mitigations file missing expected columns."
+
+        df = df[cols].dropna(how="all")
+
+        lines = []
+        for (tid, tname), grp in df.groupby([c for c in ["target id", "target name"] if c in df.columns]):
+            desc_col = "mapping description" if "mapping description" in grp.columns else None
+            descs = []
+            if desc_col:
+                descs = grp[desc_col].dropna().astype(str).head(2).tolist()
+            line = f"{tid} – {tname}\n" + "\n".join(f"• {d}" for d in descs)
+            lines.append(line)
+            if len(lines) >= 40:
+                break
+
+        return "\n".join(lines) if lines else "No mitigation mappings found."
+
+    except Exception as e:
+        return f"Error reading mitigations CSV: {e}"
+
+def generate_word_report(report_text, input_ttps, mitigations_csv=None):
     parsed = parse_ai_response(report_text)
 
     # Resolve base directory relative to this script
@@ -317,7 +382,12 @@ def generate_word_report(report_text, input_ttps):
             doc.paragraphs[i + 1].text = parsed["attacker"] or "N/A"
 
         elif "4. defensive mitigations" in text:
-            doc.paragraphs[i + 1].text = parsed["mitigation"] or "[Add blue-team detection strategies here.]"
+            if mitigations_csv and os.path.exists(mitigations_csv):
+                mitigations_text = load_mitigations_summary(mitigations_csv)
+                doc.paragraphs[i + 1].text = mitigations_text
+            else:
+                # fallback to parsed mitigation if CSV missing
+                doc.paragraphs[i + 1].text = parsed.get("mitigation", "[Mitigations CSV not found or invalid.]")
 
         elif "5. analyst suggestions" in text:
             doc.paragraphs[i + 1].text = parsed["suggestion"] or "[Add reflection, lessons learned, or recommendations here.]"

@@ -26,11 +26,21 @@ app = Flask(__name__)
 # =======================================================
 # BASE_DIR = Path(__file__).resolve().parent
 
+def _run_mitigations_and_get_csv() -> Path:
+    """
+    Run mitigations.py synchronously and return the output CSV path:
+      Data/mapped/mitigations.csv
+    """
+    script = BASE_DIR / "mitigations.py"
+    out_csv = BASE_DIR / "Data" / "mapped" / "mitigations.csv"
 
-
-DATA_DIR = BASE_DIR / "Data" / "mapped"
-EXCEL_PATH = BASE_DIR / "Data" / "excel" / "enterprise-attack-v17.1-techniques.xlsx"
-MAPPING_CSV = BASE_DIR / "techniques_mapping.csv"
+    # Run mitigations.py in the same directory
+    res = subprocess.run([sys.executable, str(script)], cwd=str(BASE_DIR))
+    if res.returncode != 0:
+        raise RuntimeError(f"mitigations.py failed with exit code {res.returncode}")
+    if not out_csv.exists():
+        raise FileNotFoundError(f"Expected mitigations CSV not found at: {out_csv}")
+    return out_csv
 #ADDITIONAL ADDED PATHS
 #=================================================
 ROOT = Path(__file__).resolve().parents[1]   

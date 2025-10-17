@@ -4,7 +4,7 @@ from matching import (
     validate_ttps,
     match_ttps,
 )
-from report_generator import analyze_TTP, parse_ai_response, generate_word_report
+from report_generator import analyze_TTP, load_mitigations_summary, parse_ai_response, generate_word_report
 from datetime import datetime
 from collections import defaultdict
 from technique_labels import extract_techniques  # import the extractor
@@ -26,11 +26,25 @@ app = Flask(__name__)
 # =======================================================
 # BASE_DIR = Path(__file__).resolve().parent
 
-
-
 DATA_DIR = BASE_DIR / "Data" / "mapped"
 EXCEL_PATH = BASE_DIR / "Data" / "excel" / "enterprise-attack-v17.1-techniques.xlsx"
 MAPPING_CSV = BASE_DIR / "techniques_mapping.csv"
+
+def _run_mitigations_and_get_csv() -> Path:
+    """
+    Run mitigations.py synchronously and return the output CSV path:
+      Data/mapped/mitigations.csv
+    """
+    script = BASE_DIR / "mitigations.py"
+    out_csv = BASE_DIR / "Data" / "mitigations" / "mitigations.csv"
+
+    # Run mitigations.py in the same directory
+    res = subprocess.run([sys.executable, str(script)], cwd=str(BASE_DIR))
+    if res.returncode != 0:
+        raise RuntimeError(f"mitigations.py failed with exit code {res.returncode}")
+    if not out_csv.exists():
+        raise FileNotFoundError(f"Expected mitigations CSV not found at: {out_csv}")
+    return out_csv
 #ADDITIONAL ADDED PATHS
 #=================================================
 ROOT = Path(__file__).resolve().parents[1]   
@@ -131,32 +145,27 @@ LAST_RESULTS_ROBERTA = {}
 
 def _run_rule_match_flow(ttps: list[str]) -> dict:
     matched_df = match_ttps(ttps, DATA_DIR).copy()
-
-    # Try to standardize columns the same way
     matched_df = _ensure_score_and_rank(matched_df)
-
-    # Prefer explicit rank if present; otherwise sort by score
     if "rank" in matched_df.columns and matched_df["rank"].notna().any():
         matched_df = matched_df.sort_values(by=["rank", "score"], ascending=[True, False])
     else:
         matched_df = matched_df.sort_values(by="score", ascending=False)
-
     top3_df = matched_df.head(3)
 
-    
-
-    # Save files for traceability (rule-based)
     matched_df.to_csv("matched_groups_rule.csv", index=False)
     top3_df.to_csv("matched_top3_rule.csv", index=False)
     pd.DataFrame({"TTP": ttps}).to_csv("inputted_ttps_rule.csv", index=False)
 
-    # GPT narrative for rule-based
-    gpt_response = analyze_TTP(ttps, matched_df)
-    parsed = parse_ai_response(gpt_response)
+    # NEW: run mitigations and include in OpenAI context
+    mit_csv_path = _run_mitigations_and_get_csv()
 
-    # Try to build a distinct doc for rule-based
+    gpt_response = analyze_TTP(ttps, matched_df, mitigations_csv=str(mit_csv_path))
+    parsed = parse_ai_response(gpt_response)
+    from report_generator import load_mitigations_summary
+    parsed["mitigation"] = load_mitigations_summary(str(mit_csv_path))
+
     try:
-        out_path = generate_word_report(gpt_response, ttps)  # if it returns a path, great
+        out_path = generate_word_report(gpt_response, ttps, mitigations_csv=str(mit_csv_path))
         if not out_path:
             out_path = "threat_report_rule.docx"
     except Exception as e:
@@ -172,8 +181,9 @@ def _run_rule_match_flow(ttps: list[str]) -> dict:
     }
 
 
+# --- PATCH inside _run_roberta_flow(ttps: list[str]) ---
+
 def _run_roberta_flow(ttps: list[str]) -> dict:
-    """Run your RoBERTa flow (using your /roberta route’s core) and return result."""
     ml = _predict_with_module({
         "id": "from_ttps",
         "attacks": ttps,
@@ -185,31 +195,29 @@ def _run_roberta_flow(ttps: list[str]) -> dict:
         raise RuntimeError("RoBERTa returned no groups. Check model artifacts and labels.")
     df_ml = pd.DataFrame(group_rows)
 
-    # normalize column names commonly seen from predictors
     if "group" in df_ml.columns and "group_name" not in df_ml.columns:
         df_ml.rename(columns={"group": "group_name"}, inplace=True)
 
-    # ensure score + rank exist and are numeric
     df_ml = _ensure_score_and_rank(df_ml)
-
-    # finally sort by score
     df_ml.sort_values("score", ascending=False, inplace=True)
 
     top3_df = df_ml.head(3)
 
-
-    # Save files for traceability (roberta)
     df_ml.to_csv("matched_groups_roberta.csv", index=False)
     top3_df.to_csv("matched_top3_roberta.csv", index=False)
     pd.DataFrame({"TTP": ttps}).to_csv("inputted_ttps_roberta.csv", index=False)
 
-    # GPT narrative for roberta
-    gpt_response = analyze_TTP(ttps, df_ml)
-    parsed = parse_ai_response(gpt_response)
+    # NEW: run mitigations and include in OpenAI context
+    mit_csv_path = _run_mitigations_and_get_csv()
 
-    # Try to build a distinct doc for roberta
+    gpt_response = analyze_TTP(ttps, df_ml, mitigations_csv=str(mit_csv_path))
+    parsed = parse_ai_response(gpt_response)
+    
+    from report_generator import load_mitigations_summary
+    parsed["mitigation"] = load_mitigations_summary(str(mit_csv_path))
+
     try:
-        out_path = generate_word_report(gpt_response, ttps)  # if function returns a path
+        out_path = generate_word_report(gpt_response, ttps, mitigations_csv=str(mit_csv_path))
         if not out_path:
             out_path = "threat_report_roberta.docx"
     except Exception as e:
@@ -385,7 +393,8 @@ def roberta():
 
         # 6) Produce the AI narrative and the DOCX report
         #    If you don't have OPENAI_API_KEY set, wrap this with your earlier "disable AI" flag.
-        gpt_response = analyze_TTP(ttps, df_ml)
+        mit_csv_path = _run_mitigations_and_get_csv()
+        gpt_response = analyze_TTP(ttps, df_ml, mitigations_csv=str(mit_csv_path))
         parsed = parse_ai_response(gpt_response)
 
         # If you want the .docx to be generated immediately on submit:
@@ -609,7 +618,10 @@ def match():
         pd.DataFrame({"TTP": ttps}).to_csv("inputted_ttps.csv", index=False)
 
         # GPT Analysis
-        gpt_response = analyze_TTP(ttps, matched_df)
+        mit_csv_path = _run_mitigations_and_get_csv()
+        gpt_response = analyze_TTP(ttps, matched_df, mitigations_csv=str(mit_csv_path))
+        from report_generator import load_mitigations_summary
+        parsed["mitigation"] = load_mitigations_summary(str(mit_csv_path))
         parsed = parse_ai_response(gpt_response)
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 

@@ -393,11 +393,11 @@ def generate_word_report(report_text, input_ttps, mitigations_csv=None):
             doc.paragraphs[i + 1].text = parsed["suggestion"] or "[Add reflection, lessons learned, or recommendations here.]"
 
     # Save generated file
-    output_dir = base_dir / "Generated_Reports"
-    output_dir.mkdir(exist_ok=True)
-    filepath = output_dir / f"Threat_Report_{datetime.now():%Y%m%d_%H%M%S}.docx"
-    doc.save(filepath)
-    print(f"✅ Report saved: {filepath}")
+    ##output_dir = base_dir / "Generated_Reports"
+    ##output_dir.mkdir(exist_ok=True)
+    ## filepath = output_dir / f"Threat_Report_{datetime.now():%Y%m%d_%H%M%S}.docx"
+    # doc.save(filepath)
+    # print(f"✅ Report saved: {filepath}")
 
 
 

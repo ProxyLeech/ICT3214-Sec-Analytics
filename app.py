@@ -4,7 +4,7 @@ from matching import (
     validate_ttps,
     match_ttps,
 )
-from report_generator import analyze_TTP, parse_ai_response, generate_word_report
+from report_generator import analyze_TTP, load_mitigations_summary, parse_ai_response, generate_word_report
 from datetime import datetime
 from collections import defaultdict
 from technique_labels import extract_techniques  # import the extractor
@@ -161,6 +161,8 @@ def _run_rule_match_flow(ttps: list[str]) -> dict:
 
     gpt_response = analyze_TTP(ttps, matched_df, mitigations_csv=str(mit_csv_path))
     parsed = parse_ai_response(gpt_response)
+    from report_generator import load_mitigations_summary
+    parsed["mitigation"] = load_mitigations_summary(str(mit_csv_path))
 
     try:
         out_path = generate_word_report(gpt_response, ttps, mitigations_csv=str(mit_csv_path))
@@ -210,6 +212,9 @@ def _run_roberta_flow(ttps: list[str]) -> dict:
 
     gpt_response = analyze_TTP(ttps, df_ml, mitigations_csv=str(mit_csv_path))
     parsed = parse_ai_response(gpt_response)
+    
+    from report_generator import load_mitigations_summary
+    parsed["mitigation"] = load_mitigations_summary(str(mit_csv_path))
 
     try:
         out_path = generate_word_report(gpt_response, ttps, mitigations_csv=str(mit_csv_path))
@@ -615,6 +620,8 @@ def match():
         # GPT Analysis
         mit_csv_path = _run_mitigations_and_get_csv()
         gpt_response = analyze_TTP(ttps, matched_df, mitigations_csv=str(mit_csv_path))
+        from report_generator import load_mitigations_summary
+        parsed["mitigation"] = load_mitigations_summary(str(mit_csv_path))
         parsed = parse_ai_response(gpt_response)
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 

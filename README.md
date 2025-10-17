@@ -29,21 +29,23 @@ This toolchain extracts Indicators of Compromise (IOCs) and MITRE ATT&CK Techniq
 
 ## Workflow Overview
 
+```
 APTnotes PDFs
 │
-├──► `extract_pdfs.py` → Extracted IOCs & TTPs
+├──► extract_pdfs.py → Extracts IOCs & TTPs from APTnotes PDF reports
 │
-├──► `build_dataset.py` → Creates labeled dataset for Roberta model
+├──► build_dataset.py → Creates labeled dataset for the RoBERTa model
 │
-├──► `enterprise_attack.py` → Processes and normalizes the MITRE ATT&CK Enterprise dataset, extracting relationships between techniques, mitigations, and associated tactics.  
+├──► enterprise_attack.py → Processes and normalizes the MITRE ATT&CK Enterprise dataset, extracting relationships between techniques, mitigations, and associated tactics
 │
-├──►`map_iocs_to_attack.py` → Correlates extracted IOCs and ATT&CK technique IDs with known MITRE ATT&CK threat groups.
+├──► map_iocs_to_attack.py → Correlates extracted IOCs and ATT&CK technique IDs with known MITRE ATT&CK threat groups
 │
-├──► `matching.py` → Matches input TTPs (rule-based and Roberta modes)
+├──► matching.py → Matches input TTPs using both rule-based and RoBERTa inference modes
 │
-├──► `mitigations.py` → Retrieves defensive mitigations corresponding to the TTPs associated with matched groups. 
+├──► mitigations.py → Retrieves defensive mitigations corresponding to the TTPs associated with matched groups
 │
-└──► `report_generator.py` → Generates GenAI-based structured intelligence report summarizing group matches, mitigations, and analyst insights.
+└──► report_generator.py → Generates GenAI-based structured intelligence reports summarizing group matches, mitigations, and analyst insights
+```
 
 
 ---
@@ -58,25 +60,27 @@ To install them, follow the setup steps in the Installation section.
 
 ## Installation
 
-1. **Create and activate a virtual environment:**
+```bash
+# 1. Clone the repository
+git clone https://github.com/ProxyLeech/ICT3214-Sec-Analytics
+cd ICT3214-Sec-Analytics
 
-- Windows:  
-  `python -m venv .venv`  
-  `.venv\Scripts\activate`
+# 2. Create a virtual environment
+python -m venv .venv
 
-- macOS/Linux:  
-  `python3 -m venv .venv`  
-  `source .venv/bin/activate`
+# 3. Activate the virtual environment
+# On macOS / Linux:
+source .venv/bin/activate
+# On Windows:
+.venv\Scripts\activate
 
-2. **Install the dependencies:**
+# 4. Install dependencies
+pip install -r requirements.txt
 
-  pip install -r requirements.txt
-
-
-
-3. **Create a `.env` file in the root directory with your API key:**
-
-  OPENAI_API_KEY=sk-your-api-key-here (More details can be found in the user manual)
+# 5. Create a .env file and add your OpenAI API key
+# (Replace YOUR_KEY_HERE with your actual API key, look in user manual for more details)
+echo "OPENAI_API_KEY=YOUR_KEY_HERE" > .env
+```
 
 
 
@@ -182,7 +186,7 @@ This is the intended user-facing experience via the Flask web interface:
 | Empty report output         | Invalid TTP input format        | Use valid MITRE IDs (e.g., `T1059.003`) |
 
 ---
-
+```
 # System Architecture
 ICT3214-SEC-ANALYTICS/
 ├──► app.py - Flask web app
@@ -216,21 +220,16 @@ ICT3214-SEC-ANALYTICS/
 ├──► report_generation.py - script to generate report using OpenAI and the results of RoBERTa, Matching and Mitigations
 ├──► technique_labels.py - HELP
 ├──► requirements.txt - list of dependencies that need to be installed via "pip install -r requirements"
+```
 
-<img width="1487" height="547" alt="image" src="https://github.com/user-attachments/assets/068a145f-45e1-4d49-96fe-e76338311e8f" />
 
-
-# Installation
-git clone https://github.com/ProxyLeech/ICT3214-Sec-Analytics
-cd ICT3214-Sec-Analytics
-python -m venv .venv
-source .venv/bin/activate OR .venv\Scripts\activate (on Windows)
-pip install -r requirements.txt
-create a .env file with OPENAI_API_KEY=<OpenAI API key>
 
 # Usage
 
 ## 1. Create all the necessary files
+Run the following scripts sequentially to extract IOCs, build datasets, and map ATT&CK relationships:
+
+```bash
 python src\data\extract_pdfs.py
 python src\data\build_dataset.py
 python src\data\enterprise_attack.py
@@ -240,3 +239,4 @@ python Data\map_iocs_to_attack.py
 
 python app.py
 navigate to `http://127.0.0.1:5000`
+

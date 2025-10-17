@@ -1,4 +1,5 @@
 import os
+from typing import Optional
 import re
 import pandas as pd
 from dotenv import load_dotenv
@@ -20,13 +21,13 @@ if not key:
 client = OpenAI(api_key=key)
 
 def load_csv_data():
-    if not os.path.exists("inputted_ttps.csv"):
-        raise SystemExit("inputted_ttps.csv not found.")
-    if not os.path.exists("matched_groups.csv"):
-        raise SystemExit("matched_groups.csv not found.")
+    if not os.path.exists("inputted_ttps_rule.csv"):
+        raise SystemExit("inputted_ttps_rule.csv not found.")
+    if not os.path.exists("matched_groups_rule.csv"):
+        raise SystemExit("matched_groups_rule.csv not found.")
 
-    ttps_df = pd.read_csv("inputted_ttps.csv")
-    matched_df = pd.read_csv("matched_groups.csv")
+    ttps_df = pd.read_csv("inputted_ttps_rule.csv")
+    matched_df = pd.read_csv("matched_groups_rule.csv")
 
     if "score" in matched_df.columns:
         matched_df = matched_df.sort_values(by="score", ascending=False)
@@ -34,25 +35,91 @@ def load_csv_data():
     input_ttps = ttps_df["TTP"].dropna().tolist()
     return input_ttps, matched_df
 
+
+def load_mitigations_summary(mitigations_csv: str) -> str:
+    """
+    Load and summarize mitigations.csv content to inject directly into the report
+    (without GPT generation).
+    """
+    if not os.path.exists(mitigations_csv):
+        return "No mitigations file found."
+    
+    try:
+        df = pd.read_csv(mitigations_csv)
+        cols = [c for c in ["target id", "target name", "mapping description"] if c in df.columns]
+        if not cols:
+            return "Mitigations data is missing expected columns."
+
+        df = df[cols].dropna(how="all")
+
+        lines = []
+        for (tid, tname), grp in df.groupby([c for c in ["target id", "target name"] if c in df.columns]):
+            desc_col = "mapping description" if "mapping description" in grp.columns else None
+            descs = []
+            if desc_col:
+                descs = grp[desc_col].dropna().astype(str).head(2).tolist()
+            line = f"{tid} – {tname}\n" + "\n".join(f"• {d}" for d in descs)
+            lines.append(line)
+            if len(lines) > 40:
+                break
+
+        if not lines:
+            return "No mitigation mappings available."
+
+        return "\n".join(lines)
+
+    except Exception as e:
+        return f"Error reading mitigations CSV: {e}"
+
 # ===========================
 # GPT Analysis
 # ===========================
-def analyze_TTP(input_ttps, matched_df):
+def analyze_TTP(input_ttps, matched_df, mitigations_csv: Optional[str] = None):
     mapping_summary = "\n".join([
         f"{row['group_name']}: {row.to_dict()}"
         for _, row in matched_df.head(10).iterrows()
         if "group_name" in row
     ])
 
+    # NEW: If a mitigations CSV is provided, load & summarize succinctly
+    mitigations_block = ""
+    if mitigations_csv and os.path.exists(mitigations_csv):
+        try:
+            mdf = pd.read_csv(mitigations_csv)
+            # keep only the canonical columns if present
+            cols = [c for c in ["target id", "target name", "mapping description"] if c in mdf.columns]
+            if cols:
+                mdf = mdf[cols].dropna(how="all")
+                # compact: group by technique, take up to 2 example mappings each, limit overall lines
+                lines = []
+                for (tid, tname), grp in mdf.groupby([c for c in ["target id", "target name"] if c in mdf.columns]):
+                    desc_col = "mapping description" if "mapping description" in grp.columns else None
+                    examples = []
+                    if desc_col:
+                        for d in grp[desc_col].dropna().astype(str).head(2).tolist():
+                            examples.append(f"- {d[:200]}")
+                    header = f"{tid} – {tname}" if isinstance(tid, str) and isinstance(tname, str) else str((tid, tname))
+                    block = header if not examples else header + "\n" + "\n".join(examples)
+                    lines.append(block)
+                    if len(lines) >= 40:  # cap to keep prompt small
+                        break
+                if lines:
+                    mitigations_block = "Associated Mitigations (sample):\n" + "\n".join(lines)
+        except Exception as _e:
+            # Non-fatal: just skip extra context if anything goes wrong
+            mitigations_block = ""
+
     prompt = f"""
 You are a cyber threat intelligence analyst.
 You are given:
 1. A list of matched attacker groups (with details) from a TTP matching engine.
 2. A list of detected MITRE ATT&CK TTPs from a security incident.
+3. Additional CSV-derived **associated mitigations** for techniques (if provided).
 
 Your task:
 - Compare the detected TTPs with known attacker groups.
 - Identify the most likely actor(s) based on overlapping TTPs.
+- Weigh the **associated mitigations** context when proposing defensive actions.
 - Explain reasoning clearly and end with a confidence rating.
 
 Matched Actor Groups:
@@ -82,7 +149,7 @@ Return your analysis formatted as:
 Also include:
 - A concise **summary** explaining overall findings and observed behavior patterns.
 - A **justification** for why specific attacker groups are likely involved based on technique overlap.
-- A section suggesting **defensive mitigations or detections** organizations can apply to counter these TTPs.
+- A section suggesting **defensive mitigations or detections** organizations can apply to counter these TTPs (use the **associated mitigations** context if available).
 - Conclude with a short **confidence rating** (High/Medium/Low) and brief reasoning for this rating.
 
 Keep the language concise, analytical, and professional.
@@ -245,7 +312,38 @@ def parse_ai_response(text: str) -> dict:
 # ===========================
 # Generate Word Report
 # ===========================
-def generate_word_report(report_text, input_ttps):
+def load_mitigations_summary(mitigations_csv: str) -> str:
+    """
+    Load and summarize mitigations.csv content for the defensive mitigations section.
+    """
+    if not os.path.exists(mitigations_csv):
+        return "No mitigations file found."
+
+    try:
+        df = pd.read_csv(mitigations_csv)
+        cols = [c for c in ["target id", "target name", "mapping description"] if c in df.columns]
+        if not cols:
+            return "Mitigations file missing expected columns."
+
+        df = df[cols].dropna(how="all")
+
+        lines = []
+        for (tid, tname), grp in df.groupby([c for c in ["target id", "target name"] if c in df.columns]):
+            desc_col = "mapping description" if "mapping description" in grp.columns else None
+            descs = []
+            if desc_col:
+                descs = grp[desc_col].dropna().astype(str).head(2).tolist()
+            line = f"{tid} – {tname}\n" + "\n".join(f"• {d}" for d in descs)
+            lines.append(line)
+            if len(lines) >= 40:
+                break
+
+        return "\n".join(lines) if lines else "No mitigation mappings found."
+
+    except Exception as e:
+        return f"Error reading mitigations CSV: {e}"
+
+def generate_word_report(report_text, input_ttps, mitigations_csv=None):
     parsed = parse_ai_response(report_text)
 
     # Resolve base directory relative to this script
@@ -284,17 +382,22 @@ def generate_word_report(report_text, input_ttps):
             doc.paragraphs[i + 1].text = parsed["attacker"] or "N/A"
 
         elif "4. defensive mitigations" in text:
-            doc.paragraphs[i + 1].text = parsed["mitigation"] or "[Add blue-team detection strategies here.]"
+            if mitigations_csv and os.path.exists(mitigations_csv):
+                mitigations_text = load_mitigations_summary(mitigations_csv)
+                doc.paragraphs[i + 1].text = mitigations_text
+            else:
+                # fallback to parsed mitigation if CSV missing
+                doc.paragraphs[i + 1].text = parsed.get("mitigation", "[Mitigations CSV not found or invalid.]")
 
         elif "5. analyst suggestions" in text:
             doc.paragraphs[i + 1].text = parsed["suggestion"] or "[Add reflection, lessons learned, or recommendations here.]"
 
     # Save generated file
-    output_dir = base_dir / "Generated_Reports"
-    output_dir.mkdir(exist_ok=True)
-    filepath = output_dir / f"Threat_Report_{datetime.now():%Y%m%d_%H%M%S}.docx"
-    doc.save(filepath)
-    print(f"✅ Report saved: {filepath}")
+    ##output_dir = base_dir / "Generated_Reports"
+    ##output_dir.mkdir(exist_ok=True)
+    ## filepath = output_dir / f"Threat_Report_{datetime.now():%Y%m%d_%H%M%S}.docx"
+    # doc.save(filepath)
+    # print(f"✅ Report saved: {filepath}")
 
 
 

@@ -21,3 +21,5 @@ archive/data
 
 enterprise-attack-v17.1-mitigations_mappings.csv
 techniques_mapping.csv
+
+Data/mitigations/mitigations.csv

@@ -186,3 +186,55 @@ This is the intended user-facing experience via the Flask web interface:
 | Empty report output         | Invalid TTP input format        | Use valid MITRE IDs (e.g., `T1059.003`) |
 
 ---
+
+# System Architecture
+ICT3214-SEC-ANALYTICS/
+├──► app.py - Flask web app
+├──► data/
+│     ├──► raw/
+│           ├──► attack_stix/ - contains enterprise-attack from MITRE
+│           ├──► pdfs/ - contains APTnotes PDF files
+│     ├──► excel/ - contains extracted enterprise-attack MITRE ATT&CK & mitigation techniques
+│     ├──► extracted_pdfs/ - contains extracted information from data/raw/pdfs. This will be generated when app.py is run
+│     ├──► mapped/ - HELP
+│     ├──► mappedPDFs/ - HELP
+│     ├──► processed/ 
+│              ├──► rules/ - HELP
+│              ├──► extracted_iocs.csv - HELP
+│              ├──► ti_groups_techniques.csv - HELP
+├──► logs/ - contains materials used to train RoBERTa model  
+├──► src/
+│     ├──► data/ - contains scripts to create .csv in data/ folders 
+│     ├──► models/ - contains latest and best RoBERTa model as well as scripts to train and predict
+│     ├──► paths/ - contains script that has static variables used by other scripts that is related to path locations 
+├──► templates/
+│       ├──► common/ - contains html that are used by all other pages
+│       ├──► cleaned_report_template.docx - report template used by OpenAI to generate the adversary attribution report
+│       ├──► 0_index.html - HELP
+│       ├──► error.html - HELP
+│       ├──► results_compare.html - HELP
+│       ├──► results.html - HELP
+│       ├──► workflow.html - HELP
+├──► matching.py - HELP
+├──► mitigations.py - HELP
+├──► report_generation.py - script to generate report using OpenAI and the results of RoBERTa, Matching and Mitigations
+├──► technique_labels.py - HELP
+├──► requirements.txt - list of dependencies that need to be installed via "pip install -r requirements"
+
+# Installation
+git clone https://github.com/ProxyLeech/ICT3214-Sec-Analytics
+cd ICT3214-Sec-Analytics
+python -m venv .venv
+source .venv/bin/activate OR .venv\Scripts\activate (on Windows)
+pip install -r requirements.txt
+create a .env file with OPENAI_API_KEY=<OpenAI API key>
+
+# Usage
+
+## 1. Create all the necessary files
+python src\data\extract_pdfs.py
+python src\data\build_dataset.py
+python src\data\enterprise_attack.py
+
+## 2. Run the web applicatio
+python app.py

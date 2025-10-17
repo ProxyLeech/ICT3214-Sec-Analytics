@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import os
 import sys
+import re
+from collections import defaultdict
 from typing import Dict, Iterable, List, Sequence, Tuple
 
 import pandas as pd
@@ -76,16 +78,129 @@ def clean_text_columns(df: pd.DataFrame, columns: Sequence[str]) -> pd.DataFrame
             df[col] = df[col].map(lambda v: v.strip() if isinstance(v, str) else ("" if pd.isna(v) else str(v)))
     return df
 
+_ID_RE = re.compile(r'^\s*[tT]\s*(\d{4})(?:\.(\d{3}))?\s*$')
+_WS_RE = re.compile(r'\s+')
+_PUNCT_TRIM_RE = re.compile(r'^[\s\-\u2022•·\:;,_\.\|\(\)\[\]\{\}]+|[\s\-\u2022•·\:;,_\.\|\(\)\[\]\{\}]+$')
+
+def _norm_ws(s: str) -> str:
+    """Collapse internal whitespace to a single space and strip ends."""
+    return _WS_RE.sub(' ', s).strip()
+
+def _norm_punct_edges(s: str) -> str:
+    """Trim common bullet/punctuation clutter on the edges."""
+    return _PUNCT_TRIM_RE.sub('', s).strip()
+
+def _norm_text(s: str) -> str:
+    """General text normalization used for names & descriptions."""
+    s = str(s)
+    s = _norm_ws(s)
+    s = _norm_punct_edges(s)
+    return s
+
+def _norm_desc_for_dedupe(s: str) -> str:
+    """A stricter normalization for de-duplication: lower, no trailing dots, collapse spaces."""
+    s = _norm_text(s)
+    s = s.rstrip('.').lower()
+    return s
+
+def _norm_tech_id(s: str) -> str:
+    """
+    Normalize MITRE technique/sub-technique IDs:
+    - Accepts 't1059', 'T 1059.003', '  t1059.003  ' etc.
+    - Returns 'T1059' or 'T1059.003'
+    """
+    if s is None:
+        return ''
+    m = _ID_RE.match(str(s))
+    if not m:
+        # If it already looks uppercase and reasonable, just tidy whitespace
+        s = _norm_ws(str(s))
+        # Final fallback: uppercase T- prefix if present
+        if s and s[0].lower() == 't':
+            s = 'T' + s[1:]
+        return s
+    major, minor = m.group(1), m.group(2)
+    return f"T{major}" + (f".{minor}" if minor else "")
+
+def tidy_mitigations_dataframe(df: pd.DataFrame,
+                               col_id: str = "target id",
+                               col_name: str = "target name",
+                               col_desc: str = "mapping description") -> pd.DataFrame:
+    """
+    - Normalize columns (ID, Name, Desc)
+    - Remove exact & case-insensitive dupes
+    - Group by (ID, Name) and merge unique descriptions
+    """
+    # Ensure columns exist
+    for c in (col_id, col_name, col_desc):
+        if c not in df.columns:
+            raise ValueError(f"Expected column '{c}' not found in mitigations dataframe.")
+
+    # Normalize fields
+    df[col_id] = df[col_id].map(_norm_tech_id)
+    df[col_name] = df[col_name].map(lambda x: _norm_text(x).strip())
+    df[col_desc] = df[col_desc].map(_norm_text)
+
+    # Drop rows missing both id and name (junk)
+    df = df[~(df[col_id].eq('') & df[col_name].eq(''))].copy()
+
+    # Remove full-row duplicates first
+    before = len(df)
+    df = df.drop_duplicates().reset_index(drop=True)
+    after = len(df)
+    if after != before:
+        print(f"Dropped {before - after} exact duplicate rows.")
+
+    # De-duplicate by (id,name,desc) with stricter normalization on desc
+    df["_dedupe_desc_norm"] = df[col_desc].map(_norm_desc_for_dedupe)
+    before = len(df)
+    df = df.drop_duplicates(subset=[col_id, col_name, "_dedupe_desc_norm"]).reset_index(drop=True)
+    after = len(df)
+    if after != before:
+        print(f"Dropped {before - after} near-duplicate (id,name,desc) rows.")
+
+    grouped = []
+    for (tid, tname), g in df.groupby([col_id, col_name], dropna=False, sort=False):
+        
+        seen = set()
+        uniq_descs = []
+        for desc, normd in zip(g[col_desc].tolist(), g["_dedupe_desc_norm"].tolist()):
+            if not normd:
+                continue
+            if normd in seen:
+                continue
+            seen.add(normd)
+            uniq_descs.append(desc)
+
+        merged_desc = " | ".join(uniq_descs)
+        grouped.append({col_id: tid, col_name: tname, col_desc: merged_desc})
+
+    out = pd.DataFrame(grouped, columns=[col_id, col_name, col_desc])
+
+    def _id_sort_key(v: str):
+        m = _ID_RE.match(v or "")
+        if not m:
+            return (9999, 999) 
+        major = int(m.group(1))
+        minor = int(m.group(2) or 999) 
+        return (major, minor)
+
+    out = out.sort_values(by=[col_id, col_name],
+                          key=lambda s: s.map(_id_sort_key) if s.name == col_id else s.str.lower(),
+                          kind="mergesort").reset_index(drop=True)
+
+    return out
+
 
 def main() -> None:
     # Input Excel path
     excel_path = r"Data/excel/enterprise-attack-v17.1-techniques.xlsx"
 
-    # Ensure output folder Data/mapped/ exists
-    output_dir = os.path.join(os.path.dirname(excel_path), "..", "mapped")
+    # Ensure output folder Data/mitigations/ exists
+    output_dir = os.path.join(os.path.dirname(excel_path), "..", "mitigations")
     os.makedirs(output_dir, exist_ok=True)
 
-    # Output file in Data/mapped/
+    # Output file in Data/mitigations/
     out_path = os.path.join(output_dir, "mitigations.csv")
 
     required_columns = list(DEFAULT_REQUIRED_COLUMNS)
@@ -104,14 +219,16 @@ def main() -> None:
         sys.exit(3)
 
     out_df = clean_text_columns(out_df, required_columns)
-    before = len(out_df)
-    out_df = out_df.drop_duplicates().reset_index(drop=True)
-    after = len(out_df)
-    if before != after:
-        print(f"Dropped {before - after} duplicate rows.")
+
+    out_df = tidy_mitigations_dataframe(
+        out_df,
+        col_id=required_columns[0],         # "target id"
+        col_name=required_columns[1],       # "target name"
+        col_desc=required_columns[2],       # "mapping description"
+    )
 
     out_df.to_csv(out_path, index=False, encoding="utf-8")
-    print(f"Wrote {len(out_df):,} rows to {out_path}")
+    print(f"Wrote {len(out_df):,} cleaned mitigation rows to {out_path}")
 
 
 if __name__ == "__main__":

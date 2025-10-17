@@ -12,8 +12,6 @@ from __future__ import annotations
 import csv
 import json
 import re
-import hashlib
-import random
 import pathlib
 from typing import Dict, List, Set, Tuple
 from collections import defaultdict

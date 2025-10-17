@@ -26,6 +26,10 @@ app = Flask(__name__)
 # =======================================================
 # BASE_DIR = Path(__file__).resolve().parent
 
+DATA_DIR = BASE_DIR / "Data" / "mapped"
+EXCEL_PATH = BASE_DIR / "Data" / "excel" / "enterprise-attack-v17.1-techniques.xlsx"
+MAPPING_CSV = BASE_DIR / "techniques_mapping.csv"
+
 def _run_mitigations_and_get_csv() -> Path:
     """
     Run mitigations.py synchronously and return the output CSV path:

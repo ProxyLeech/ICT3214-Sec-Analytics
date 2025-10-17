@@ -9,7 +9,8 @@ from report_generator import (
     load_mitigations_summary,
     parse_ai_response,
     generate_word_report,
-    load_filtered_mitigations,  
+    load_filtered_mitigations,
+    summarize_mitigations
 )
 from datetime import datetime
 from collections import defaultdict
@@ -139,46 +140,58 @@ def ensure_dirs():
     for p in [DATA_ROOT, RAW_DIR, EXTRACTED_PDFS_DIR, PROCESSED_DIR, MODELS_ROOT, EXPERIMENTS_ROOT]:
         p.mkdir(parents=True, exist_ok=True)
 
-def _collect_group_ttps(df: pd.DataFrame, ttps_input: list[str]) -> list[str]:
+# =========================
+# STRICT group → TTP lookup
+# =========================
+def _collect_group_ttps(matched_df: pd.DataFrame) -> list[str]:
     """
-    Determine technique IDs relevant to matched groups for mitigation filtering.
-    Priority:
-      1) technique_id column in df (if present)
-      2) group_ttps_detail.csv lookup by matched group_name
-      3) fallback to the input ttps list
+    Extract unique MITRE technique IDs (e.g. T1110, T1110.003) from
+    Data/mapped/group_ttps_detail.csv for the matched groups.
+    Falls back gracefully if columns differ between datasets.
     """
-    # 1) direct technique_id column
-    if "technique_id" in df.columns:
-        vals = (
-            df["technique_id"]
-            .dropna()
-            .astype(str).str.upper()
-            .unique()
-            .tolist()
-        )
-        if vals:
-            return vals
-
-    # 2) lookup by group name
     map_path = BASE_DIR / "Data" / "mapped" / "group_ttps_detail.csv"
-    if map_path.exists():
-        try:
-            g = pd.read_csv(map_path)
-            groups = df["group_name"].dropna().unique().tolist() if "group_name" in df.columns else []
-            vals = (
-                g[g["group_name"].isin(groups)]["technique_id"]
-                .dropna()
-                .astype(str).str.upper()
-                .unique()
-                .tolist()
-            )
-            if vals:
-                return vals
-        except Exception as e:
-            print(f"[WARN] Failed reading group_ttps_detail.csv: {e}")
+    if not map_path.exists():
+        print(f"[ERROR] {map_path} not found.")
+        return []
 
-    # 3) fallback to input ttps
-    return list({t.strip().upper() for t in ttps_input if t})
+    try:
+        g = pd.read_csv(map_path)
+    except Exception as e:
+        print(f"[ERROR] Failed reading {map_path}: {e}")
+        return []
+
+    # Validate required minimal columns
+    expected_cols = {"group_name", "group_id", "matched_exact", "matched_root_only"}
+    missing = expected_cols - set(g.columns.str.lower())
+    if missing:
+        print(f"[WARN] group_ttps_detail.csv missing columns: {missing}; using best-effort extraction.")
+
+    # Normalization helpers
+    import re
+    id_re = re.compile(r"\bT\d{4}(?:\.\d{3})?\b", re.IGNORECASE)
+
+    def _extract_ttps(text: str) -> list[str]:
+        if not isinstance(text, str):
+            return []
+        found = id_re.findall(text)
+        return [f"T{f[1:]}" if not f.startswith("T") else f.upper() for f in found]
+
+    # Collect TTPs from relevant columns
+    all_ttps = []
+    for col in ["matched_exact", "matched_root_only"]:
+        if col in g.columns:
+            g[col] = g[col].fillna("")
+            for entry in g[col].tolist():
+                all_ttps.extend(_extract_ttps(entry))
+
+    # Remove duplicates + sort by numeric order
+    def _sort_key(tid: str):
+        m = re.match(r"T(\d{4})(?:\.(\d{3}))?", tid)
+        return (int(m.group(1)), int(m.group(2) or 999)) if m else (9999, 999)
+
+    uniq_ttps = sorted(set(all_ttps), key=_sort_key)
+    print(f"[DEBUG] Extracted {len(uniq_ttps)} unique technique IDs from group_ttps_detail.csv")
+    return uniq_ttps
 
 # ============================================
 # Index & Workflow
@@ -248,10 +261,22 @@ def _run_rule_match_flow(ttps: list[str]) -> dict:
     parsed = parse_ai_response(gpt_response)
 
     # Filter mitigations for the matched groups' techniques
-    group_ttps = _collect_group_ttps(matched_df, ttps)
-    mit_filtered = load_filtered_mitigations(str(mit_csv_path), group_ttps)
-    parsed["mitigation"] = mit_filtered.to_dict(orient="records")
+    # 1) get group-based TTPs (strict CSV mapping)
+    group_ttps = _collect_group_ttps(matched_df)
 
+    # 2) fallback ONLY if none found
+    if not group_ttps:
+      print("[INFO] No group-mapped TTPs found; falling back to inputted TTPs.")
+      group_ttps = list({t.strip().upper() for t in ttps if t})
+
+    # 3) filter mitigations using those TTPs (includes sub-techniques)
+    mit_filtered = load_filtered_mitigations(str(mit_csv_path), group_ttps)
+    if mit_filtered.empty:
+        parsed["mitigation"] = "No mitigations found for these techniques."
+    else:
+        mit_dicts = mit_filtered.to_dict(orient="records")
+        parsed["mitigation"] = summarize_mitigations(mit_dicts)
+    
     # Try generating docx (non-fatal)
     try:
         out_path = generate_word_report(gpt_response, ttps, mitigations_csv=str(mit_csv_path))
@@ -371,9 +396,21 @@ def _run_roberta_flow(ttps: list[str]) -> dict:
     parsed = parse_ai_response(gpt_response)
 
     # Filter mitigations for the matched groups' techniques
-    group_ttps = _collect_group_ttps(df_ml, ttps)
+    # 1) get group-based TTPs (strict CSV mapping)
+    group_ttps = _collect_group_ttps(df_ml)
+
+    # 2) fallback ONLY if none found
+    if not group_ttps:
+      print("[INFO] No group-mapped TTPs found; falling back to inputted TTPs.")
+      group_ttps = list({t.strip().upper() for t in ttps if t})
+
+    # 3) filter mitigations using those TTPs (includes sub-techniques)
     mit_filtered = load_filtered_mitigations(str(mit_csv_path), group_ttps)
-    parsed["mitigation"] = mit_filtered.to_dict(orient="records")
+    if mit_filtered.empty:
+        parsed["mitigation"] = "No mitigations found for these techniques."
+    else:
+        mit_dicts = mit_filtered.to_dict(orient="records")
+        parsed["mitigation"] = summarize_mitigations(mit_dicts)
 
     # Try generating docx (non-fatal)
     try:
@@ -422,8 +459,8 @@ def roberta():
     except Exception as e:
         return render_template('error.html', error=str(e))
 
-@app.route('/submit_both', methods=['POST'])
-def submit_both():
+@app.route('/results', methods=['POST'])
+def results():
     try:
         ttps_input = [t.split()[0].upper() for t in request.form.getlist('ttps[]')]
         ttps = validate_ttps(ttps_input)
@@ -528,9 +565,17 @@ def match():
         gpt_response = analyze_TTP(ttps, matched_df, mitigations_csv=str(mit_csv_path))
         parsed = parse_ai_response(gpt_response)
 
-        # Filter mitigations to matched group techniques (NOT first lines)
-        group_ttps = _collect_group_ttps(matched_df, ttps)
+        # Filter mitigations for matched group techniques
+        group_ttps = list({t.strip().upper() for t in _collect_group_ttps(matched_df, ttps)})
+
         mit_filtered = load_filtered_mitigations(str(mit_csv_path), group_ttps)
+
+        # Remove duplicate mitigation descriptions
+        if not mit_filtered.empty:
+         mit_filtered = mit_filtered.drop_duplicates(
+         subset=["target id", "target name", "mapping description"], keep="first"
+        )
+
         parsed["mitigation"] = mit_filtered.to_dict(orient="records")
 
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")

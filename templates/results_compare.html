@@ -2,44 +2,7 @@
 <html lang="en">
 <head>
   <title>Adversary Attribution Report</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/attribution.css') }}">
-  <style>
-    h1 { color: #0056b3; border-bottom: 2px solid #e0e0e0; padding-bottom: 0.5rem; }
-    h3 { margin-top: 2rem; color: #333; }
-    pre {
-      background: #f3f3f3; padding: 1rem; border-radius: 6px;
-      overflow-x: auto; white-space: pre-wrap;
-    }
-    table { width: 100%; border-collapse: collapse; margin-top: 1rem; background: #fff; }
-    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-    th { text-align: left; background: #007bff; color: #fff; }
-    a { display: inline-block; color: #007bff; text-decoration: none; margin-top: 1rem; }
-    a:hover { text-decoration: underline; }
-    .timestamp { font-size: 0.9rem; color: #666; }
-    .divider { margin: 32px 0; border-top: 2px dashed #e0e0e0; }
-
-    /* --- NEW --- */
-    .mitigation-list {
-      list-style: none;
-      padding-left: 0;
-      margin-top: 1rem;
-    }
-    .mitigation-list li {
-      background: #f8f9fa;
-      border-left: 4px solid #0d6efd;
-      padding: 0.75rem 1rem;
-      margin-bottom: 0.75rem;
-      border-radius: 6px;
-    }
-    .mitigation-list strong {
-      color: #0056b3;
-    }
-    .mitigation-list span {
-      display: block;
-      color: #333;
-      margin-top: 0.25rem;
-    }
-  </style>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
   {% if not export_mode %}
@@ -86,18 +49,7 @@
       <pre>{{ rule_analysis.attacker }}</pre>
 
       <h4>4. Defensive Mitigations</h4>
-      {% if rule_analysis.mitigation %}
-        <ul class="mitigation-list">
-          {% for m in rule_analysis.mitigation %}
-            <li>
-              <strong>{{ m['target id'] }}</strong> – {{ m['target name'] }}
-              <span>{{ m['mapping description'] }}</span>
-            </li>
-          {% endfor %}
-        </ul>
-      {% else %}
-        <p>No mitigations found for these techniques.</p>
-      {% endif %}
+      <pre>{{ rule_analysis.mitigation }}</pre>
 
       <h4>5. Analyst Recommendations</h4>
       <pre>{{ rule_analysis.suggestion }}</pre>
@@ -149,18 +101,7 @@
       <pre>{{ rob_analysis.attacker }}</pre>
 
       <h4>4. Defensive Mitigations</h4>
-      {% if rob_analysis.mitigation %}
-        <ul class="mitigation-list">
-          {% for m in rob_analysis.mitigation %}
-            <li>
-              <strong>{{ m['target id'] }}</strong> – {{ m['target name'] }}
-              <span>{{ m['mapping description'] }}</span>
-            </li>
-          {% endfor %}
-        </ul>
-      {% else %}
-        <p>No mitigations found for these techniques.</p>
-      {% endif %}
+      <pre>{{ rob_analysis.mitigation }}</pre>
 
       <h4>5. Analyst Recommendations</h4>
       <pre>{{ rob_analysis.suggestion }}</pre>

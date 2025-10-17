@@ -73,8 +73,8 @@ def load_mitigations_summary(mitigations_csv: str) -> str:
     
 def load_filtered_mitigations(mitigations_csv: str, ttps: list[str]) -> pd.DataFrame:
     """
-    Filter mitigations.csv so that only rows relevant to the given TTP IDs remain.
-    Includes sub-techniques (e.g., T1110.001 matched by T1110).
+    Return only mitigation rows whose 'target id' matches any TTP in `ttps`,
+    including sub-techniques (e.g., T1110.x matches T1110).
     """
     if not os.path.exists(mitigations_csv):
         raise FileNotFoundError(f"{mitigations_csv} not found")
@@ -85,14 +85,13 @@ def load_filtered_mitigations(mitigations_csv: str, ttps: list[str]) -> pd.DataF
 
     df["target id"] = df["target id"].astype(str).str.strip().str.upper()
 
-    def _matches(tid):
-        for t in ttps:
-            if tid == t or tid.startswith(f"{t}."):
-                return True
-        return False
+    roots = {t.split(".")[0] for t in ttps}
+    def _match(tid: str) -> bool:
+        tid = tid.upper().strip()
+        return any(tid == t or tid.startswith(f"{t}.") for t in ttps) or tid.split(".")[0] in roots
 
-    filtered = df[df["target id"].apply(_matches)].copy()
-    return filtered
+    return df[df["target id"].apply(_match)].copy()
+
 
 # ===========================
 # GPT Analysis
@@ -422,6 +421,38 @@ def generate_word_report(report_text, input_ttps, mitigations_csv=None):
     # doc.save(filepath)
     # print(f"✅ Report saved: {filepath}")
 
+def summarize_mitigations(mitigations: list[dict]) -> str:
+    """
+    Cleanly summarize mitigations by technique ID.
+    Groups repeated mappings and shortens redundant text.
+    """
+    if not mitigations:
+        return "No mitigations found for these techniques."
+
+    import re
+    grouped = {}
+    for m in mitigations:
+        tid = m.get("target id", "").strip()
+        name = m.get("target name", "").strip()
+        desc = m.get("mapping description", "").strip()
+
+        # Extract first sentence or concise action
+        desc = desc.split(".")[0].strip()
+        desc = re.sub(r"\s+", " ", desc)
+
+        if not tid:
+            continue
+        grouped.setdefault(tid, {"name": name, "actions": set()})
+        if desc:
+            grouped[tid]["actions"].add(desc)
+
+    summarized = []
+    for tid, info in grouped.items():
+        actions = sorted(info["actions"])
+        block = f"{tid} – {info['name']}\n" + "\n".join(f"• {a}" for a in actions)
+        summarized.append(block)
+
+    return "\n\n".join(summarized)
 
 
 # ===========================

@@ -12,17 +12,17 @@ from __future__ import annotations
 import csv
 import json
 import re
-import pathlib
 from typing import Dict, List, Set, Tuple
 from collections import defaultdict
-
-# =================== PATHS ===================
-
-from paths.paths import (
-    PROCESSED_DIR,        # <DATA_ROOT>/processed
-    ATTACK_STIX_DIR,
-    RULES_DIR,
-    DATA_ROOT
+import sys
+from pathlib import Path
+ROOT = Path(__file__).resolve().parents[2]  # repo root
+sys.path.insert(0, str(ROOT))
+from project_paths import (
+    PROJECT_ROOT, DATA_ROOT, SRC_ROOT, MODELS_ROOT, EXPERIMENTS_ROOT,
+    RAW_DIR, PROCESSED_DIR, EXTRACTED_PDFS_DIR,
+    MAPPED_DIR, EXCEL_DIR, MITIGATIONS_DIR,
+    output_dir_for_folds, project_path, ATTACK_STIX_DIR, RULES_DIR,
 )
 
 EXTRACTED_IOCS_CSV = PROCESSED_DIR / "extracted_iocs.csv"

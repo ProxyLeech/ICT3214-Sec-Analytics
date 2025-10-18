@@ -24,46 +24,39 @@ import json
 # =======================================================
 # Project-relative paths
 # =======================================================
+from project_paths import (
+    PROJECT_ROOT, DATA_ROOT, SRC_ROOT, MODELS_ROOT, EXPERIMENTS_ROOT,
+    RAW_DIR, PROCESSED_DIR, EXTRACTED_PDFS_DIR,
+    MAPPED_DIR, EXCEL_DIR, MITIGATIONS_DIR,
+    output_dir_for_folds, project_path,
+)
 
-BASE_DIR = Path(__file__).resolve().parent
-SRC_PATH = BASE_DIR / "src"   # ✅ src is inside ICT3214-Sec-Analytics
-sys.path.insert(0, str(SRC_PATH))
 app = Flask(__name__)
+BASE_DIR= PROJECT_ROOT
+# === App-specific locations (built from canonical paths) ===
+# Data sources
+DATA_DIR      = MAPPED_DIR
+EXCEL_PATH    = EXCEL_DIR / "enterprise-attack-v17.1-techniques.xlsx"
+MAPPING_CSV   = PROJECT_ROOT / "techniques_mapping.csv"
 
+# Processed outputs
+PDFS_IN_DIR           = RAW_DIR / "pdfs"
+EXTRACTED_IOCS_CSV    = PROCESSED_DIR / "extracted_iocs.csv"
+TI_GROUPS_TECHS_CSV   = PROCESSED_DIR / "ti_groups_techniques.csv"
+DATASET_CSV           = PROCESSED_DIR / "dataset.csv"
+LABELS_TXT            = PROCESSED_DIR / "labels.txt"
 
-DATA_DIR = BASE_DIR / "Data" / "mapped"
-EXCEL_PATH = BASE_DIR / "Data" / "excel" / "enterprise-attack-v17.1-techniques.xlsx"
-MAPPING_CSV = BASE_DIR / "techniques_mapping.csv"
-EXPERIMENTS_ROOT = BASE_DIR / "experiments"
-DATA_ROOT      = BASE_DIR / "data"
-RAW_DIR        = DATA_ROOT / "raw"
-PROCESSED_DIR  = DATA_ROOT / "processed"
-SRC_ROOT       = BASE_DIR / "src"
-MODELS_ROOT    = SRC_ROOT / "models"
-DATASCRIPT_ROOT= SRC_ROOT / "data"
-#Trained model
-BEST_MODEL_DIR = MODELS_ROOT / "best_roberta_for_predict"
-DATA_DIR = BASE_DIR / "Data" / "mapped"
-EXCEL_PATH = BASE_DIR / "Data" / "excel" / "enterprise-attack-v17.1-techniques.xlsx"
-MAPPING_CSV = BASE_DIR / "techniques_mapping.csv"
-# ---- Expected inputs/outputs per step ----
-PDFS_IN_DIR            = RAW_DIR / "pdfs"
-EXTRACTED_IOCS_CSV     = PROCESSED_DIR / "extracted_iocs.csv"
-TI_GROUPS_TECHS_CSV    = PROCESSED_DIR / "ti_groups_techniques.csv"
-DATASET_CSV   = PROCESSED_DIR / "dataset.csv"
-LABELS_TXT    = PROCESSED_DIR / "labels.txt"
-EXTRACTED_PDFS_DIR   = DATA_ROOT / "extracted_pdfs"
-
-# Scripts (relative to repo root)
-EXTRACT_SCRIPT         = DATASCRIPT_ROOT  / "extract_pdfs.py"
-ATTACK_SCRIPT          = DATASCRIPT_ROOT / "enterprise_attack.py"
+# Script entry points
+DATASCRIPT_ROOT   = SRC_ROOT / "data"
+EXTRACT_SCRIPT    = DATASCRIPT_ROOT / "extract_pdfs.py"
+ATTACK_SCRIPT     = DATASCRIPT_ROOT / "enterprise_attack.py"
 BUILD_DATASET_SCRIPT = DATASCRIPT_ROOT / "build_dataset.py"
-TRAIN_ROBERTA_SCRIPT = MODELS_ROOT  / "train_roberta.py"
-PREDICT_SCRIPT         = MODELS_ROOT     / "predict_roberta.py"
 
-# Trained model
-BEST_MODEL_DIR = MODELS_ROOT / "best_roberta_for_predict"
-BEST_REQUIRED = [
+# Models
+TRAIN_ROBERTA_SCRIPT  = MODELS_ROOT / "train_roberta.py"
+PREDICT_SCRIPT        = MODELS_ROOT / "predict_roberta.py"
+BEST_MODEL_DIR        = MODELS_ROOT / "best_roberta_for_predict"
+BEST_REQUIRED         = [
     BEST_MODEL_DIR / "config.json",
     BEST_MODEL_DIR / "tokenizer.json",
     BEST_MODEL_DIR / "id2label.json",
@@ -73,17 +66,41 @@ LAST_RESULTS = {} #Global
 LAST_RESULTS_RULE = {}
 LAST_RESULTS_ROBERTA = {}
 
-# Idempotent mitigations runner
-def _run_mitigations_and_get_csv() -> Path:
+
+def _run_mitigations_and_get_csv(force: bool = False) -> Path:
     """
-    Run mitigations.py synchronously ONCE and return the output CSV path:
-      Data/mitigations/mitigations.csv
+    Generate Data/mitigations/mitigations.csv (idempotent).
+    Re-runs if:
+      - force=True, or
+      - mitigations.py is newer than the CSV, or
+      - any known inputs (mapping files) are newer than the CSV, or
+      - the CSV does not exist.
     """
-    script = BASE_DIR / "mitigations.py"
+    script  = BASE_DIR / "mitigations.py"
     out_csv = BASE_DIR / "Data" / "mitigations" / "mitigations.csv"
 
-    # Only run if the CSV doesn't exist (idempotent)
-    if out_csv.exists():
+    # Inputs the mitigations depend on (add more if your script reads others)
+    inputs = [
+        script,
+        BASE_DIR / "Data" / "mapped" / "group_ttps_detail.csv",
+        EXCEL_PATH,
+        MAPPING_CSV,
+    ]
+
+    def _needs_rerun() -> bool:
+        if not out_csv.exists():
+            return True
+        out_mtime = out_csv.stat().st_mtime
+        for p in inputs:
+            try:
+                if p.exists() and p.stat().st_mtime > out_mtime:
+                    return True
+            except Exception:
+                # If we can't stat something, be conservative and rerun
+                return True
+        return False
+
+    if not force and not _needs_rerun():
         print(f"[SKIP] mitigations.py — up to date: {out_csv}")
         return out_csv
 
@@ -95,13 +112,6 @@ def _run_mitigations_and_get_csv() -> Path:
         raise FileNotFoundError(f"Expected mitigations CSV not found at: {out_csv}")
     return out_csv
 
-
-# ============================================
-# Small helpers
-# ============================================
-#For Roberta 0-10 fold runs. 
-def output_dir_for_folds(n_folds: int, model_slug: str = "roberta_base"):
-    return EXPERIMENTS_ROOT / f"{n_folds}foldruns" / model_slug
 
 def _ensure_score_and_rank_rule(df: pd.DataFrame) -> pd.DataFrame:
     """
@@ -432,28 +442,6 @@ def _predict_with_module(payload: dict):
 
         return {"text": text, "groups": group_rows}
 
-    # except Exception as e:
-    #     print(f"[WARN] Direct import predict_roberta failed: {e}; falling back to subprocess.")
-    #     args = [
-    #         sys.executable, str(PREDICT_SCRIPT),
-    #         "--id", payload.get("id") or "adhoc",
-    #     ]
-    #     for k, flag in [
-    #         ("urls", "--url"), ("domains", "--domain"), ("ips", "--ip"),
-    #         ("md5s", "--md5"), ("sha256s", "--sha256"), ("attacks", "--attack")
-    #     ]:
-    #         for v in payload.get(k) or []:
-    #             args += [flag, str(v)]
-    #     if payload.get("text"):
-    #         args += ["--text", payload["text"]]
-    #     args += ["--threshold", str(payload.get("threshold", 0.5)), "--top-k", str(payload.get("top_k", 10))]
-
-    #     res = subprocess.run(args, capture_output=True, text=True)
-    #     if res.returncode != 0:
-    #         raise RuntimeError(res.stderr or "predict_roberta failed")
-
-    #     return {"raw": res.stdout}
-
     except Exception as e:
         print(f"[WARN] Direct import predict_roberta failed: {e}; falling back to subprocess.")
         args = [
@@ -556,6 +544,13 @@ def _run_roberta_flow(ttps: list[str]) -> dict:
         "doc_path": out_path,
     }
 
+# ============================================
+# Small helpers
+# ============================================
+#For Roberta 0-10 fold runs. 
+# def output_dir_for_folds(n_folds: int, model_slug: str = "roberta_base"):
+#     return EXPERIMENTS_ROOT / f"{n_folds}foldruns" / model_slug
+   
 # =======================================================
 # Pipeline steps (extract pdf → extract stix → build → train)
 # =======================================================
@@ -665,107 +660,32 @@ def roberta():
         ttps_input = [t.split()[0].upper() for t in request.form.getlist('ttps[]')]
         ttps = validate_ttps(ttps_input)
 
-    #     res = _run_roberta_flow(ttps)
+        # ✅ Single source of truth
+        res = _run_roberta_flow(ttps)
 
-    #     global LAST_RESULTS
-    #     LAST_RESULTS = {
-    #         "ttps": res["ttps"],
-    #         "matched": res["matched_top3"],
-    #         "analysis": res["analysis"],
-    #         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    #     }
-
-    #     return render_template(
-    #         'results.html',
-    #         ttps=res["ttps"],
-    #         matched=res["matched_top3"],
-    #         analysis=res["analysis"],
-    #         timestamp=LAST_RESULTS["timestamp"]
-    #     )
-
-    # except Exception as e:
-    #     return render_template('error.html', error=str(e))
-# 2) Call RoBERTa prediction using ATT&CK IDs as inputs
-        #    This uses the predictor functions from predict_roberta.py via the helper.
-        ml = _predict_with_module({
-            "id": "from_ttps",
-            "attacks": ttps,        # <- IMPORTANT: pass the selected TTPs
-            "top_k": 50,
-            "threshold": 0.0
-        })
-
-        # 3) Normalize the predictor output into a DataFrame
-        #    Expecting a list[dict] like [{"group_name": "...", "score": 0.87, ...}, ...]
-        group_rows = ml.get("groups", [])
-        if not group_rows:
-            raise RuntimeError("ML predictor returned no groups. Check model artifacts and inputs.")
-
-        df_ml = pd.DataFrame(group_rows)
-        if "group" in df_ml.columns and "group_name" not in df_ml.columns:
-            df_ml.rename(columns={"group": "group_name"}, inplace=True)
-
-        df_ml = _ensure_score_and_rank(df_ml)
-        df_ml.sort_values("score", ascending=False, inplace=True)
-
-        if "prob" in df_ml.columns and "score" not in df_ml.columns:
-            df_ml.rename(columns={"prob": "score"}, inplace=True)
-
-
-        # Rank by score if no rank provided
-        if "rank" not in df_ml.columns:
-            df_ml["rank"] = df_ml["score"].rank(ascending=False, method="first")
-
-        # 4) Persist files for the report generator (keeps your current contract)
-        df_ml.sort_values("score", ascending=False, inplace=True)
-
-        # 5)  Show top 3 on the web page, like before
-        top3_df = df_ml.head(3)
-
-        mit_csv_path = _run_mitigations_and_get_csv()
-        top_group_ttps = _collect_top_group_ttps(df_ml)
-        gpt_response = analyze_TTP(ttps, df_ml, mitigations_csv=str(mit_csv_path))
-
-        # Top-group only; if none, we skip mitigations rather than expanding scope.
-        mit_filtered = pd.DataFrame()
-        if top_group_ttps:
-            mit_filtered = load_filtered_mitigations(str(mit_csv_path), top_group_ttps)
-
-        mit_for_docx = None
-        if not mit_filtered.empty:
-            mit_filtered = mit_filtered.drop_duplicates(
-                subset=["target id", "target name", "mapping description"], keep="first"
-            )
-            _atomic_to_csv(mit_filtered, "mitigations_roberta_top.csv")
-            mit_for_docx = "mitigations_roberta_top.csv"
-
-        try:
-            generate_word_report(gpt_response, ttps, mitigations_csv=mit_for_docx)
-        except Exception as e:
-            print("[WARN] DOCX generation failed:", e)
-
-        parsed = parse_ai_response(gpt_response)
-        # 7) Render your HTML results page as before
-        from datetime import datetime
+        # cache for export
+        global LAST_RESULTS, LAST_RESULTS_ROBERTA
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
-        global LAST_RESULTS
         LAST_RESULTS = {
-            "ttps": ttps,
-            "matched": top3_df.to_dict(orient="records"),
-            "analysis": parsed,
-            "timestamp": timestamp
+            "ttps": res["ttps"],
+            "matched": res["matched_top3"],
+            "analysis": res["analysis"],
+            "timestamp": timestamp,
         }
+        LAST_RESULTS_ROBERTA = LAST_RESULTS.copy()
 
+        # render using roberta keys
         return render_template(
             'results.html',
-            ttps=ttps,
-            matched=top3_df.to_dict(orient='records'),
-            analysis=parsed,
-            timestamp=timestamp
+            ttps=res["ttps"],
+            rob_matched=res["matched_top3"],
+            rob_analysis=res["analysis"],
+            export_mode=False,
+            timestamp=timestamp,
         )
-
     except Exception as e:
         return render_template('error.html', error=str(e))
+
     
 @app.route('/results', methods=['POST'])
 def results():
@@ -843,8 +763,6 @@ def match():
 
         # Save traceability outputs
         matched_df.to_csv("matched_groups_rule.csv", index=False)
-        top3_df.to_csv("matched_top3_rule.csv", index=False)
-        # pd.DataFrame({"TTP": ttps}).to_csv("inputted_ttps.csv", index=False)
 
         # GPT Analysis
         mit_csv_path = _run_mitigations_and_get_csv()
@@ -890,38 +808,6 @@ def match():
 # EXPORT ROUTE - For when printing results to document
 # =======================================================
 
-# @app.route('/export')
-# def export():
-#     try:
-#         which = (request.args.get("which") or "rule").lower()
-#         if which == "roberta":
-#             ctx = LAST_RESULTS_ROBERTA
-#         else:
-#             ctx = LAST_RESULTS_RULE if LAST_RESULTS_RULE else LAST_RESULTS
-
-#         if not ctx:
-#             return "No results available to export. Please generate a report first."
-
-#         rendered = render_template(
-#             "results.html",
-#             ttps=ctx["ttps"],
-#             matched=ctx["matched"],
-#             analysis=ctx["analysis"],
-#             timestamp=ctx["timestamp"],
-#             export_mode=True
-#         )
-
-#         # strip CSS link
-#         rendered = re.sub(r'<link rel="stylesheet" href="[^"]*attribution\.css">', "", rendered, flags=re.IGNORECASE)
-
-#         response = make_response(rendered)
-#         response.headers["Content-Type"] = "application/msword"
-#         fname = "threat_report_roberta.doc" if which == "roberta" else "threat_report_rule.doc"
-#         response.headers["Content-Disposition"] = f"attachment; filename={fname}"
-#         return response
-
-#     except Exception as e:
-#         return f"Error exporting to .doc: {e}"
 @app.route('/export')
 def export():
     try:
@@ -962,46 +848,6 @@ def export():
 
     except Exception as e:
         return f"Error exporting to .doc: {e}"
-
-# # ============================================
-# # Pipeline steps
-# # ============================================
-# def step_extract_pdfs(force: bool) -> None:
-#     ensure_dirs()
-#     if not needs_run([EXTRACTED_IOCS_CSV], force):
-#         print(f"[SKIP] extract_pdfs.py — up to date: {EXTRACTED_IOCS_CSV}")
-#         return
-#     run([sys.executable, str(EXTRACT_SCRIPT)])
-
-# def step_enterprise_attack(force: bool) -> None:
-#     ensure_dirs()
-#     if not needs_run([TI_GROUPS_TECHS_CSV], force):
-#         print(f"[SKIP] enterprise_attack.py — up to date: {TI_GROUPS_TECHS_CSV}")
-#         return
-#     run([sys.executable, str(ATTACK_SCRIPT)])
-
-# def step_build_dataset(force: bool) -> None:
-#     ensure_dirs()
-#     if not needs_run([DATASET_CSV, LABELS_TXT], force):
-#         print(f"[SKIP] build_dataset.py — up to date: {DATASET_CSV}, {LABELS_TXT}")
-#         return
-#     run([sys.executable, str(BUILD_DATASET_SCRIPT)])
-
-# def step_train_roberta(force: bool) -> None:
-#     ensure_dirs()
-#     print(f"\n[DEBUG] BEST_MODEL_DIR: {BEST_MODEL_DIR}")
-#     if BEST_MODEL_DIR.exists():
-#         try:
-#             print("[DEBUG] best dir contents:", sorted(p.name for p in BEST_MODEL_DIR.iterdir()))
-#         except Exception as e:
-#             print("[DEBUG] failed to list best dir:", e)
-
-#     if not needs_run(BEST_REQUIRED, force):
-#         print(f"[SKIP] train_roberta.py — best model already present: {BEST_MODEL_DIR}")
-#         return
-#     run([sys.executable, str(TRAIN_ROBERTA_SCRIPT)])
-
-
 
 if __name__ == '__main__':
     app.run(debug=True, threaded=True)

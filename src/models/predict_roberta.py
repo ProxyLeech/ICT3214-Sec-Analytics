@@ -4,16 +4,12 @@ import argparse, json, re, csv
 from pathlib import Path
 from typing import List, Dict, Tuple, Iterable
 import sys
-import numpy as np
 import torch
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
-
-
-CURRENT_DIR = Path(__file__).resolve().parent
-SRC_ROOT = CURRENT_DIR.parent  # goes up from models → src
-if str(SRC_ROOT) not in sys.path:
-    sys.path.insert(0, str(SRC_ROOT))
-from paths.paths import MODELS_ROOT, PROCESSED_DIR
+# ensure we can import the paths module (layout A example)
+ROOT = Path(__file__).resolve().parents[2]  # repo root
+sys.path.insert(0, str(ROOT))
+from project_paths import PROJECT_ROOT, DATA_ROOT, PROCESSED_DIR, MODELS_ROOT, EXPERIMENTS_ROOT, MAPPED_DIR, EXCEL_DIR
 EXTRACTED_IOCS_CSV = PROCESSED_DIR / "extracted_iocs.csv"
 DEFAULT_MODEL_DIR = MODELS_ROOT / "best_roberta_for_predict"  
 DEFAULT_THRESHOLD = 0.5

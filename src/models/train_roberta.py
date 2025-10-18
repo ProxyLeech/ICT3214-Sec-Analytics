@@ -31,10 +31,15 @@ from transformers import (
     Trainer,
     TrainingArguments,
 )
-from paths.paths import (
+from pathlib import Path
+import sys
+
+# ensure we can import the paths module (layout A example)
+ROOT = Path(__file__).resolve().parents[2]  # repo root
+sys.path.insert(0, str(ROOT))
+from project_paths import (
     PROJECT_ROOT, DATA_ROOT, PROCESSED_DIR, MODELS_ROOT, output_dir_for_folds, EXPERIMENTS_ROOT  ,
 )
-from pathlib import Path
 # EarlyStopping is optional; present on most recent transformers
 try:
     from transformers import EarlyStoppingCallback  # type: ignore

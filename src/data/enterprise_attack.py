@@ -18,11 +18,9 @@ import re
 from typing import Dict, List, Tuple
 import sys
 from pathlib import Path
-CURRENT_DIR = Path(__file__).resolve().parent
-SRC_ROOT = CURRENT_DIR.parent  # goes up from models → src
-if str(SRC_ROOT) not in sys.path:
-    sys.path.insert(0, str(SRC_ROOT))
-from paths.paths import (
+ROOT = Path(__file__).resolve().parents[2]  # repo root
+sys.path.insert(0, str(ROOT))
+from project_paths import (
     PROJECT_ROOT, DATA_ROOT, ATTACK_STIX_DIR, PROCESSED_DIR,
 )
 

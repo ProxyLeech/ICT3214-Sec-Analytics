@@ -135,8 +135,6 @@ def needs_run(outputs: Iterable[Path], inputs: Iterable[Path] = ()) -> bool:
         return False
     return max(Path(p).stat().st_mtime for p in ins) > out_mtime
 
-
-
 def _atomic_to_csv(df, path: str):
     d = Path(path).parent
     d.mkdir(parents=True, exist_ok=True)
@@ -517,6 +515,13 @@ def step_extract_pdfs(in_dir: Path = PDFS_DIR, out_dir: Path = EXTRACTED_PDFS_DI
 
     run([sys.executable, str(EXTRACT_SCRIPT), "--in", str(in_dir), "--out", str(out_dir)])
 
+def step_map_iocs_to_attack():
+    outputs = [GROUP_TTPS_DETAIL_CSV, RANKED_GROUPS_CSV]
+    inputs  = [MAP_IOCS_SCRIPT]
+    if not needs_run(outputs, inputs=inputs):
+        print(f"[SKIP] map_iocs_to_attack.py — up to date: {EXTRACTED_IOCS_CSV}")
+        return
+    run([sys.executable, str(MAP_IOCS_SCRIPT)])
 
 def step_enterprise_attack():
     outputs = [TI_GROUPS_TECHS_CSV]
@@ -631,6 +636,7 @@ def index():
         #END of debug
         step_extract_pdfs()
         step_enterprise_attack()
+        step_map_iocs_to_attack()
         step_build_dataset()
         step_mitigations()
         step_map_iocs_to_attack()

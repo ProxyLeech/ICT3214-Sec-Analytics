@@ -1,6 +1,4 @@
 """
-build_dataset.py
-
 Build a multi-label text classification dataset from:
 - extracted IOCs:      <DATA_ROOT>/extracted_pdfs/extracted_iocs.csv
 - ATT&CK group->tech:  <DATA_ROOT>/attack_stix/processed/ti_groups_techniques.csv
@@ -19,351 +17,60 @@ import random
 import pathlib
 from typing import Dict, List, Set, Tuple
 from collections import defaultdict
-import sys
-from pathlib import Path
-# =================== CONFIG  ===================
-CURRENT_DIR = Path(__file__).resolve().parent
-SRC_ROOT = CURRENT_DIR.parent  # goes up from models → src
-if str(SRC_ROOT) not in sys.path:
-    sys.path.insert(0, str(SRC_ROOT))
+
+# =================== PATHS ===================
+
 from paths.paths import (
-    PROCESSED_DIR,        
+    PROCESSED_DIR,        # <DATA_ROOT>/processed
+    ATTACK_STIX_DIR,
     RULES_DIR,
-    DATA_ROOT, ATTACK_STIX_DIR,
+    DATA_ROOT
 )
 
-# Paths
-BUNDLES_DIR = ATTACK_STIX_DIR / "enterprise-attack"
-RULES_JSON  = RULES_DIR / "attack_rules_auto.json"
-INDEX_JSON  = ATTACK_STIX_DIR / "index.json"
-ATTACK_DIR  = DATA_ROOT / "attack_stix"
 EXTRACTED_IOCS_CSV = PROCESSED_DIR / "extracted_iocs.csv"
-DEFAULT_TI_CSV = PROCESSED_DIR / "ti_groups_techniques.csv"
-OUT_CSV    = PROCESSED_DIR / "dataset.csv"
-OUT_LABELS = PROCESSED_DIR / "labels.txt"
-
-# Build options
-INCLUDE_GROUPS  = True
-SEED            = 42
-MAX_PER_KIND    = 10
-
-# Rule options
-REBUILD_RULES_FROM_BUNDLE = True  # set True to regenerate RULES_JSON from local ATT&CK bundle
-WEAK_RULES_JSON_PATH: pathlib.Path | None = RULES_JSON  # set None to skip weak rules
-
-# =======================================================================
-
-ATTACK_ID_RX = re.compile(r"^T\d{4}(?:\.\d{3})?$", re.I)
-
-DEFAULT_WEAK_RULES: list[dict] = []
+DEFAULT_TI_CSV     = PROCESSED_DIR / "ti_groups_techniques.csv"
+OUT_CSV            = PROCESSED_DIR / "dataset.csv"
+OUT_LABELS         = PROCESSED_DIR / "labels.txt"
+BUNDLES_DIR = ATTACK_STIX_DIR / "enterprise-attack"  
+OUT = RULES_DIR / "attack_rules_auto.json"
+INDEX_JSON   = ATTACK_STIX_DIR / "index.json"
+ATTACK_DIR   = DATA_ROOT / "attack_stix"
 
 
-def load_weak_rules(json_path: pathlib.Path | None) -> list[dict]:
-    """
-    Args:
-        json_path: Path to a JSON file containing a list of rule dicts. If None
-                   or missing/invalid, returns an empty list.
+# =================== HARD-CODED SETTINGS ===================
 
-    Returns:
-        A list of rules (each rule is a dict with "when" and "add_techniques" fields).
-    """
-    if json_path and json_path.exists():
-        try:
-            rules = json.loads(json_path.read_text(encoding="utf-8"))
-            if isinstance(rules, list):
-                print(f"[OK] Loaded {len(rules)} rules from {json_path}")
-                return rules
-            else:
-                print(f"[WARN] {json_path} is not a JSON list; ignoring.")
-        except Exception as e:
-            print(f"[WARN] Failed to read rules from {json_path}: {e}")
-    else:
-        print(f"[WARN] Rules file not found: {json_path} — proceeding with NO rules.")
-    return []
+INCLUDE_GROUPS: bool = True
+MAX_PER_KIND: int = 10
+SEED: int = 42
+TRAIN_RATIO: float = 0.8
+VAL_RATIO: float   = 0.1
+TEST_RATIO: float  = 0.1
 
+# If you have extra weak rules, point this to the JSON file; else set to None
+WEAK_RULES_JSON: pathlib.Path | None = None  # e.g., PROCESSED_DIR / "rules" / "attack_rules_auto.json"
 
-def load_tech_to_groups(ti_csv: pathlib.Path) -> Dict[str, Set[str]]:
-    """
-    Build a mapping from technique_id -> set of group_names.
+import time
 
-    Also maps technique roots (e.g., T1059.001 contributes to T1059) so that
-    either the exact or root form will resolve to group sets.
+def dbg(msg: str):
+    print(f"[{time.strftime('%H:%M:%S')}] {msg}", flush=True)
 
-    Args:
-        ti_csv: Path to ti_groups_techniques.csv with columns: technique_id, group_name.
+def assert_really_csv(path: pathlib.Path):
+    """Detects common 'xlsx renamed to .csv' mistake."""
+    with path.open("rb") as f:
+        sig = f.read(4)
+    if sig[:2] == b"PK":  # ZIP header = likely XLSX
+        raise RuntimeError(f"{path} appears to be an Excel .xlsx (ZIP). Export a real CSV.")
 
-    Returns:
-        Dict mapping technique or root technique to a set of group names.
-    """
-    m: Dict[str, Set[str]] = defaultdict(set)
-    with ti_csv.open("r", encoding="utf-8") as f:
-        for r in csv.DictReader(f):
-            t = (r.get("technique_id") or "").strip()
-            g = (r.get("group_name")   or "").strip()
-            if not t or not g:
-                continue
-            m[t].add(g)
-            root = t.split(".", 1)[0]
-            m[root].add(g)
-    return m
-
-
-def apply_rules(kind: str, value: str, rules: List[dict]) -> Set[str]:
-    """
-    Apply weak rules to an IOC (kind, value) to produce ATT&CK technique IDs.
-
-    Args:
-        kind: IOC kind (e.g., 'url', 'domain', 'md5', 'sha256', 'ipv4', or 'attack_id').
-        value: IOC value string.
-        rules: List of rule dicts as loaded by load_weak_rules().
-
-    Returns:
-        Set of ATT&CK technique IDs inferred (e.g., {'T1566.002', 'T1204.002'}).
-    """
-    k = (kind or "").lower().strip()
-    v = value or ""
-    out: Set[str] = set()
-
-    # Pass-through: if IOC itself is an ATT&CK ID, keep it
-    if k == "attack_id" and ATTACK_ID_RX.fullmatch(v or ""):
-        out.add(v.upper())
-
-    for rule in rules:
-        when = rule.get("when", {}) or {}
-        want_kind = (when.get("kind") or "").lower().strip()
-
-        # Support wildcard kind
-        if want_kind and want_kind not in ("*", k):
-            continue
-
-        contains = when.get("contains") or []
-        if contains and not any(str(c).lower() in v.lower() for c in contains):
-            continue
-
-        regexes = when.get("regex") or []
-        if regexes:
-            try:
-                if not any(re.search(rx, v) for rx in regexes):
-                    continue
-            except re.error:
-                # ignore bad regex entry
-                continue
-
-        for t in rule.get("add_techniques", []) or []:
-            t = (t or "").strip()
-            if ATTACK_ID_RX.fullmatch(t):
-                out.add(t.upper())
-
-    return out
-
-
-def _join(vals: List[str], n: int) -> str:
-    """
-    Join up to n values into a single space-separated string.
-
-    Args:
-        vals: List of strings.
-        n: Maximum number of items to include.
-
-    Returns:
-        A single string with up to n values separated by spaces.
-    """
-    return " ".join(str(x) for x in vals[:n])
-
-
-def build_rows_from_iocs(
-    iocs_csv: pathlib.Path,
-    ti_csv: pathlib.Path,
-    include_groups: bool = True,
-    max_per_kind: int = 10,
-    rules_json: pathlib.Path | None = None,
-) -> List[dict]:
-    """
-    Construct dataset rows by reading IOC records and mapping to techniques/groups.
-
-    Args:
-        iocs_csv: Path to extracted_iocs.csv with columns: file, kind, value.
-        ti_csv:   Path to ti_groups_techniques.csv for technique->group expansion.
-        include_groups: If True, include group names as labels (in addition to techniques).
-        max_per_kind: Max number of values to include per IOC kind in the 'text' field.
-        rules_json: Optional path to a weak-rules JSON to infer techniques from IOC text.
-
-    Returns:
-        A list of row dicts with keys: id, text, labels, split (split may be overwritten later).
-    """
-    rules = load_weak_rules(rules_json)
-    tech2groups = load_tech_to_groups(ti_csv)
-
-    per_file: Dict[str, dict] = defaultdict(
-        lambda: {"iocs": [], "tech_labels": set(), "group_labels": set()}
-    )
-
-    with iocs_csv.open("r", encoding="utf-8") as f:
-        for r in csv.DictReader(f):
-            fid  = (r.get("file")  or "").strip()
-            kind = (r.get("kind")  or "").strip().lower()
-            val  = (r.get("value") or "").strip()
-            if not fid or not kind:
-                continue
-
-            per_file[fid]["iocs"].append((kind, val))
-            per_file[fid]["tech_labels"].update(apply_rules(kind, val, rules))
-
-    # Expand techniques -> groups
-    if include_groups:
-        for rec in per_file.values():
-            for t in list(rec["tech_labels"]):
-                rec["group_labels"].update(tech2groups.get(t, set()))
-                root = t.split(".", 1)[0]
-                rec["group_labels"].update(tech2groups.get(root, set()))
-
-    # Build dataset rows
-    rows: List[dict] = []
-    for fid, rec in per_file.items():
-        by_kind: Dict[str, List[str]] = defaultdict(list)
-        for k, v in rec["iocs"]:
-            by_kind[k].append(v)
-
-        parts = [f"Report:{fid}"]
-        if by_kind.get("url"):    parts.append(f"URLs: {_join(by_kind['url'],    max_per_kind)}")
-        if by_kind.get("domain"): parts.append(f"Domains: {_join(by_kind['domain'], max_per_kind)}")
-        if by_kind.get("ipv4"):   parts.append(f"IPs: {_join(by_kind['ipv4'],     max_per_kind)}")
-        if by_kind.get("md5"):    parts.append(f"MD5: {_join(by_kind['md5'],     max_per_kind)}")
-        if by_kind.get("sha256"): parts.append(f"SHA256: {_join(by_kind['sha256'], max_per_kind)}")
-
-        labels: Set[str] = set(rec["tech_labels"])
-        if include_groups:
-            labels |= set(rec["group_labels"])
-
-        rows.append({
-            "id": fid,
-            "text": " | ".join(parts),
-            "labels": "|".join(sorted(labels)) if labels else "",
-            "split": "train",  # overwritten by assign_splits_inplace if enabled
-        })
-
-    return rows
-
-
-
-def write_dataset_csv(path: pathlib.Path, rows: List[dict]) -> None:
-    """
-    Write dataset rows to CSV with header: id,text,labels,split.
-
-    Args:
-        path: Output CSV path.
-        rows: List of row dicts as produced by build_rows_from_iocs().
-
-    Returns:
-        None. Writes CSV to disk and prints a short summary.
-    """
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=["id", "text", "labels", "split"])
-        w.writeheader()
-        w.writerows(rows)
-    labeled = sum(1 for r in rows if r["labels"])
-    print(f"[OK] Wrote {path} ({len(rows)} rows; labeled={labeled}, unlabeled={len(rows) - labeled})")
-
-
-def autobuild_labels_from_csv(csv_path: pathlib.Path, out_labels: pathlib.Path) -> None:
-    """
-    Derive unique labels from the dataset CSV and write them to labels.txt.
-
-    Args:
-        csv_path: Path to the dataset CSV written by write_dataset_csv().
-        out_labels: Destination path for labels.txt (one label per line).
-
-    Returns:
-        None. Writes labels file and prints a summary.
-    """
-    uniq: Set[str] = set()
-    with csv_path.open("r", encoding="utf-8") as f:
-        for r in csv.DictReader(f):
-            s = (r.get("labels") or "").strip()
-            if s:
-                uniq.update(x for x in s.split("|") if x)
-
-    # Techniques first, then groups
-    tech = sorted([x for x in uniq if x.startswith("T")])
-    grp  = sorted([x for x in uniq if not x.startswith("T")])
-    labels = tech + grp
-
-    out_labels.write_text("\n".join(labels) + "\n", encoding="utf-8")
-    print(f"[OK] Wrote {out_labels} with {len(labels)} labels.")
-
-
-def run_build(
-    ti_csv: pathlib.Path,
-    out_csv: pathlib.Path = OUT_CSV,
-    out_labels: pathlib.Path = OUT_LABELS,
-    include_groups: bool = INCLUDE_GROUPS,
-    seed: int = SEED,
-    max_per_kind: int = MAX_PER_KIND,
-    weak_rules_json: pathlib.Path | None = WEAK_RULES_JSON_PATH,
-    ioc_csv: pathlib.Path = EXTRACTED_IOCS_CSV,
-) -> tuple[pathlib.Path, pathlib.Path]:
-    """
-    One-call dataset builder. Reads IOCs, applies weak rules, expands to groups,
-    writes dataset.csv and labels.txt.
-
-    Args:
-        ti_csv: Path to ti_groups_techniques.csv.
-        out_csv: Destination dataset.csv path.
-        out_labels: Destination labels.txt path.
-        include_groups: Include group names as labels (in addition to techniques).
-        seed:        Random seed for deterministic splitting.
-        max_per_kind: Max number of values per IOC kind included in the text.
-        weak_rules_json: Optional path to a weak-rules JSON.
-        ioc_csv: Path to extracted_iocs.csv.
-
-    Returns:
-        Tuple of (out_csv_path, out_labels_path).
-    """
-    rows = build_rows_from_iocs(
-        iocs_csv=ioc_csv,
-        ti_csv=ti_csv,
-        include_groups=include_groups,
-        max_per_kind=max_per_kind,
-        rules_json=weak_rules_json,
-    )
-    return out_csv, out_labels
-
-
-# =================== RULE GENERATION (from ATT&CK bundle) ===================
-
-def norm(s): 
-    """Trim whitespace from a string; returns empty string if None."""
-    return (s or "").strip()
-
+# =================== BUILD RULES ===================
+def norm(s): return (s or "").strip()
 
 def mk_regex(words):
-    """
-    Build a single case-insensitive word-boundary regex that matches any of the input words.
-
-    Args:
-        words: Iterable of strings.
-
-    Returns:
-        Regex string or None if no eligible words.
-    """
     w = sorted({w.lower() for w in words if w and len(w) >= 3})
-    if not w: 
-        return None
+    if not w: return None
     body = "|".join(re.escape(x) for x in w)
     return f"(?i)\\b({body})\\b"
 
-
 def extract_terms(obj):
-    """
-    Extract token-like terms from an ATT&CK attack-pattern object.
-
-    Args:
-        obj: A dict for one STIX 'attack-pattern' object.
-
-    Returns:
-        A set of candidate terms (strings) for regex construction.
-    """
     terms = set()
     terms.add(norm(obj.get("name")))
     blob = " ".join([obj.get("description") or "",
@@ -379,14 +86,7 @@ def extract_terms(obj):
                 terms.add(t)
     return terms
 
-
 def _latest_local_bundle() -> pathlib.Path | None:
-    """
-    Find the latest enterprise-attack-<ver>.json in BUNDLES_DIR, or fallback.
-
-    Returns:
-        Path to the newest ATT&CK bundle if present, else fallback path, else None.
-    """
     candidates = list(BUNDLES_DIR.glob("enterprise-attack-*.json"))
     if not candidates:
         fallback = ATTACK_DIR / "enterprise-attack.json"
@@ -398,17 +98,7 @@ def _latest_local_bundle() -> pathlib.Path | None:
 
     return sorted(candidates, key=vernum, reverse=True)[0]
 
-
 def _find_bundle() -> pathlib.Path:
-    """
-    Locate an ATT&CK bundle to use for rule generation.
-
-    Returns:
-        Path to the selected ATT&CK bundle JSON.
-
-    Raises:
-        FileNotFoundError if no appropriate bundle can be located.
-    """
     path = _latest_local_bundle()
     if path:
         return path
@@ -434,26 +124,285 @@ def _find_bundle() -> pathlib.Path:
     )
 
 
-def buildrules() -> None:
+# =================== RULES & MAPPERS ===================
+ATTACK_ID_RX = re.compile(r"^T\d{4}(?:\.\d{3})?$", re.I)
+
+def load_weak_rules(extra_json: pathlib.Path | None) -> List[dict]:
     """
-    Generate weak rules from the local ATT&CK bundle and write to RULES_JSON.
-
-    Inputs:
-        Uses the ATT&CK bundle found by _find_bundle().
-
-    Outputs:
-        Writes RULES_JSON containing a list of rules:
-        [
-          {"when": {"kind": "*", "regex": ["(?i)\\b(term1|term2|...)\\b"]},
-           "add_techniques": ["T####(.###)"]},
-          ...
-        ]
-
-    Returns:
-        None. Prints a summary and writes the JSON file.
+    Load rules; convert wildcard kind '*' to 'text'; precompile regex.
     """
+    t0 = time.perf_counter()
+    rules: List[dict] = []
+
+    if extra_json and extra_json.exists():
+        raw = json.loads(extra_json.read_text(encoding="utf-8"))
+        if not isinstance(raw, list):
+            print(f"[WARN] rules file is not a list: {extra_json}")
+            raw = []
+
+        for r in raw:
+            when = r.get("when", {}) or {}
+            k = when.get("kind", "*")
+
+            # ---- normalize kind: treat '*' as 'text'
+            if isinstance(k, str):
+                k = k.lower().strip()
+                k = "text" if k == "*" else k
+            elif isinstance(k, (list, tuple)):
+                k = [("text" if str(x).lower().strip() == "*" else str(x).lower().strip()) for x in k]
+            else:
+                k = "text"
+
+            # ---- pre-compile
+            contains = [str(c).lower() for c in (when.get("contains") or [])]
+            compiled = []
+            for rx in (when.get("regex") or []):
+                try:
+                    compiled.append(re.compile(rx))
+                except re.error:
+                    pass
+
+            rules.append({
+                "kind": k,
+                "_contains": contains,
+                "_regex": compiled,
+                "add_techniques": r.get("add_techniques", []) or [],
+            })
+
+        dt = time.perf_counter() - t0
+        kinds = sorted({kk for rr in rules for kk in (rr["kind"] if isinstance(rr["kind"], list) else [rr["kind"]])})
+        print(f"[OK] Loaded {len(rules)} rules from {extra_json} (kinds={kinds}) in {dt:.2f}s")
+    else:
+        print(f"[INFO] No weak rules file found: {extra_json} (0 rules)")
+
+    return rules
+
+def index_rules_by_kind(rules: List[dict]) -> Dict[str, List[dict]]:
+    by_kind: Dict[str, List[dict]] = defaultdict(list)
+    for r in rules:
+        k = r.get("kind", "text")
+        if isinstance(k, list):
+            for kk in k:
+                by_kind[kk].append(r)
+        else:
+            by_kind[k].append(r)
+    return by_kind
+
+def apply_rules_prepared(kind: str, value: str, candidate_rules: List[dict]) -> Set[str]:
+    out: Set[str] = set()
+    v = value or ""
+    vl = v.lower()
+
+    # pass-through if IOC already labeled as an ATT&CK ID
+    if kind == "attack_id" and ATTACK_ID_RX.fullmatch(v):
+        out.add(v.upper())
+
+    for r in candidate_rules:
+        cs = r.get("_contains") or []
+        if cs and not any(c in vl for c in cs):
+            continue
+        rxs = r.get("_regex") or []
+        if rxs and not any(rx.search(v) for rx in rxs):
+            continue
+        for t in r.get("add_techniques", []) or []:
+            t = (t or "").strip().upper()
+            if ATTACK_ID_RX.fullmatch(t):
+                out.add(t)
+    return out
+
+def load_tech_to_groups(ti_csv: pathlib.Path) -> Dict[str, Set[str]]:
+    """Build mapping technique_id -> {group_names}, plus root technique mapping."""
+    dbg(f"Reading technique→group map from {ti_csv} …")
+    assert_really_csv(ti_csv)
+    t0 = time.perf_counter()
+    m: Dict[str, Set[str]] = defaultdict(set)
+    rows = 0
+    # try a few encodings defensively
+    for enc in ("utf-8", "utf-8-sig", "latin-1"):
+        try:
+            with ti_csv.open("r", encoding=enc, newline="") as f:
+                reader = csv.DictReader(f)
+                for rows, r in enumerate(reader, start=1):
+                    if rows % 100000 == 0:
+                        dbg(f"…tech2groups parsed {rows:,} rows (encoding={enc})")
+                    t = (r.get("technique_id") or "").strip()
+                    g = (r.get("group_name")   or "").strip()
+                    if not t or not g:
+                        continue
+                    m[t].add(g)
+            break
+        except UnicodeDecodeError:
+            dbg(f"[WARN] Unicode decode error with {enc}, trying next …")
+    dbg(f"[OK] technique→group map: {len(m)} technique keys from {rows:,} rows in {(time.perf_counter()-t0):.2f}s")
+    return m
+
+
+# =================== DATASET BUILD HELPERS ===================
+
+def _join(vals: List[str], n: int) -> str:
+    return " ".join(str(x) for x in vals[:n])
+def normalize_kind(k: str) -> str:
+    k = (k or "").lower().strip()
+    aliases = {
+        "ip": "ipv4",
+        "ipv6": "ipv6",
+        "sha-256": "sha256",
+        "sha256sum": "sha256",
+        "md5sum": "md5",
+        "fqdn": "domain",
+        "host": "domain",
+        "hostname": "domain",
+        "link": "url",
+        "uri": "url",
+        "mail": "email",
+        "email_address": "email",
+        "hash": "md5",  # if you want a default
+    }
+    return aliases.get(k, k)
+def build_rows_from_iocs(iocs_csv: pathlib.Path, ti_csv: pathlib.Path,
+                         include_groups: bool = True, max_per_kind: int = 10,
+                         rules_json: pathlib.Path | None = None) -> List[dict]:
+
+    # 1) load + index rules
+    rules = load_weak_rules(rules_json)
+    rule_index = index_rules_by_kind(rules)
+
+    tech2groups = load_tech_to_groups(ti_csv)
+
+    per_file: Dict[str, dict] = defaultdict(
+        lambda: {"iocs": [], "tech_labels": set(), "group_labels": set()}
+    )
+
+    # 2) read IOCs
+    with iocs_csv.open("r", encoding="utf-8") as f:
+        for r in csv.DictReader(f):
+            fid  = (r.get("file")  or "").strip()
+            kind = normalize_kind(r.get("kind") or "")
+            val  = (r.get("value") or "").strip()
+            if not fid or not kind:
+                continue
+            per_file[fid]["iocs"].append((kind, val))
+
+    # 3) synthesize ONE "text" IOC per file & apply TEXT rules to it
+    from collections import defaultdict as _dd
+    for fid, rec in per_file.items():
+        by_kind = _dd(list)
+        for k, v in rec["iocs"]:
+            by_kind[k].append(v)
+
+        text_blob = " ".join(
+            by_kind.get("url", []) +
+            by_kind.get("domain", []) +
+            by_kind.get("ipv4", []) +
+            by_kind.get("email", []) +
+            by_kind.get("md5", []) +
+            by_kind.get("sha256", [])
+        )
+        if text_blob:
+            text_hits = apply_rules_prepared("text", text_blob, rule_index.get("text", []))
+            if text_hits:
+                rec["tech_labels"].update(text_hits)
+
+        # 4) apply any per-kind rules (if you add such rules later)
+        for k, vals in by_kind.items():
+            if k == "text":  # skip the synthetic one
+                continue
+            cand = rule_index.get(k, [])
+            if not cand:
+                continue
+            for v in vals:
+                hits = apply_rules_prepared(k, v, cand)
+                if hits:
+                    rec["tech_labels"].update(hits)
+
+        # 5) expand techniques → groups
+        if include_groups and rec["tech_labels"]:
+            for t in list(rec["tech_labels"]):
+                rec["group_labels"].update(tech2groups.get(t, set()))
+                rec["group_labels"].update(tech2groups.get(t.split(".", 1)[0], set()))
+
+    # 6) build final rows (unchanged from your version)
+    rows: List[dict] = []
+    for fid, rec in per_file.items():
+        by_kind = _dd(list)
+        for k, v in rec["iocs"]:
+            by_kind[k].append(v)
+
+        parts = [f"Report:{fid}"]
+        if by_kind.get("url"):    parts.append(f"URLs: {' '.join(by_kind['url'][:max_per_kind])}")
+        if by_kind.get("domain"): parts.append(f"Domains: {' '.join(by_kind['domain'][:max_per_kind])}")
+        if by_kind.get("ipv4"):   parts.append(f"IPs: {' '.join(by_kind['ipv4'][:max_per_kind])}")
+        if by_kind.get("email"):  parts.append(f"Emails: {' '.join(by_kind['email'][:max_per_kind])}")
+        if by_kind.get("md5"):    parts.append(f"MD5: {' '.join(by_kind['md5'][:max_per_kind])}")
+        if by_kind.get("sha256"): parts.append(f"SHA256: {' '.join(by_kind['sha256'][:max_per_kind])}")
+
+        labels: Set[str] = set(rec["tech_labels"])
+        if include_groups:
+            labels |= set(rec["group_labels"])
+        # after you've computed labels / rule hits per file
+        rule_hits = sorted(rec["tech_labels"])                  # techniques inferred by rules
+        if rule_hits:
+            parts.append("RULES: " + " ".join(rule_hits))       # <-- prepend heuristic cues
+        has_attack_id = any(k == "attack_id" for k, _ in rec["iocs"])
+        weight = 1.0 if has_attack_id else 0.6      # tune as you like
+        rows.append({
+            "id": fid,
+            "text": " | ".join(parts),
+            "labels": "|".join(sorted(labels)) if labels else "",
+            "weight": weight,                        
+        })
+
+    return rows
+
+
+def write_dataset_csv(path: pathlib.Path, rows: List[dict]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=["id", "text", "labels", "weight"])
+        w.writeheader()
+        w.writerows(rows)
+    num_unlabeled = sum(1 for r in rows if not r["labels"])
+    print(f"[OK] Wrote {path} (total={len(rows)} labeled={len(rows)-num_unlabeled} unlabeled={num_unlabeled})")
+
+def autobuild_labels_from_csv(csv_path: pathlib.Path, out_labels: pathlib.Path) -> None:
+    uniq: Set[str] = set()
+    with csv_path.open("r", encoding="utf-8") as f:
+        for r in csv.DictReader(f):
+            s = (r.get("labels") or "").strip()
+            if s:
+                uniq.update(x for x in s.split("|") if x)
+
+    # Techniques first, then groups
+    tech = sorted([x for x in uniq if x.startswith("T")])
+    grp  = sorted([x for x in uniq if not x.startswith("T")])
+    labels = tech + grp
+
+    out_labels.write_text("\n".join(labels) + "\n", encoding="utf-8")
+    print(f"[OK] Wrote {out_labels} with {len(labels)} labels.")
+
+# =================== ONE-CALL BUILD ===================
+
+def run_build(
+    ti_csv: pathlib.Path = DEFAULT_TI_CSV,
+    out_csv: pathlib.Path = OUT_CSV,
+    out_labels: pathlib.Path = OUT_LABELS,
+) -> tuple[pathlib.Path, pathlib.Path]:
+    rows = build_rows_from_iocs(
+        iocs_csv=EXTRACTED_IOCS_CSV,
+        ti_csv=ti_csv,
+        include_groups=INCLUDE_GROUPS,
+        max_per_kind=MAX_PER_KIND,
+        rules_json=OUT,
+    )
+    write_dataset_csv(out_csv, rows)
+    autobuild_labels_from_csv(out_csv, out_labels)
+    return out_csv, out_labels
+
+def main():
+    # pick the newest bundle
     bundle = _find_bundle()
     print(f"[INFO] Using ATT&CK bundle: {bundle}")
+    # bundle = sorted(ATTACK.glob("enterprise-attack-*.json"))[-1]
     data = json.loads(bundle.read_text(encoding="utf-8"))
     rules = []
     for o in data.get("objects", []):
@@ -465,37 +414,26 @@ def buildrules() -> None:
             if ref.get("source_name") == "mitre-attack":
                 ext = ref.get("external_id")
                 break
-        if not ext:
+        if not ext: 
             continue
         terms = extract_terms(o)
         rx = mk_regex(terms)
         if not rx:
             continue
+        # rules.append({
+        #     "when": {"kind": "*", "regex": [rx]},
+        #     "add_techniques": [ext]
         rules.append({
-            "when": {"kind": "*", "regex": [rx]},
-            "add_techniques": [ext]
-        })
-    RULES_JSON.parent.mkdir(parents=True, exist_ok=True)
-    RULES_JSON.write_text(json.dumps(rules, indent=2), encoding="utf-8")
-    print(f"[OK] wrote {RULES_JSON} with {len(rules)} rules")
+    "when": {"kind": "text", "regex": [rx]},
+    "add_techniques": [ext]
+    })
 
-
-# =================== ENTRY POINT (hard-coded run) ===================
+    OUT.parent.mkdir(parents=True, exist_ok=True)
+    OUT.write_text(json.dumps(rules, indent=2), encoding="utf-8")
+    print(f"[OK] wrote {OUT} with {len(rules)} rules")
+# =================== ENTRY POINT ===================
 
 if __name__ == "__main__":
-    # Optionally regenerate weak rules from local ATT&CK bundle
-    if REBUILD_RULES_FROM_BUNDLE:
-        buildrules()
-
-    # Build dataset (no CLI args — uses CONFIG above)
-    out_csv_path, out_labels_path = run_build(
-        ti_csv=DEFAULT_TI_CSV,
-        out_csv=OUT_CSV,
-        out_labels=OUT_LABELS,
-        include_groups=INCLUDE_GROUPS,
-        seed=SEED,
-        max_per_kind=MAX_PER_KIND,
-        weak_rules_json=WEAK_RULES_JSON_PATH,
-        ioc_csv=EXTRACTED_IOCS_CSV,
-    )
+    main()
+    out_csv_path, out_labels_path = run_build()
     print(f"[DONE] dataset={out_csv_path} labels={out_labels_path}")

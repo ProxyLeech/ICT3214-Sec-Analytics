@@ -17,18 +17,33 @@ from collections import defaultdict
 from technique_labels import extract_techniques  # import the extractor
 import io
 import re
-import subprocess
+from typing import Iterable
+import subprocess, sys
 import sys
+import os, tempfile
 from pathlib import Path
 
-# ============================================
-# Paths / App
-# ============================================
+# =======================================================
+# Project-relative paths
+# =======================================================
+
 BASE_DIR = Path(__file__).resolve().parent
 SRC_PATH = BASE_DIR / "src"  # ✅ src is inside ICT3214-Sec-Analytics
 sys.path.insert(0, str(SRC_PATH))
 app = Flask(__name__)
 
+DATA_DIR = BASE_DIR / "Data" / "mapped"
+EXCEL_PATH = BASE_DIR / "Data" / "excel" / "enterprise-attack-v17.1-techniques.xlsx"
+MAPPING_CSV = BASE_DIR / "techniques_mapping.csv"
+EXPERIMENTS_ROOT = BASE_DIR / "experiments"
+DATA_ROOT      = BASE_DIR / "data"
+RAW_DIR        = DATA_ROOT / "raw"
+PROCESSED_DIR  = DATA_ROOT / "processed"
+SRC_ROOT       = BASE_DIR / "src"
+MODELS_ROOT    = SRC_ROOT / "models"
+DATASCRIPT_ROOT= SRC_ROOT / "data"
+#Trained model
+BEST_MODEL_DIR = MODELS_ROOT / "best_roberta_for_predict"
 DATA_DIR = BASE_DIR / "Data" / "mapped"
 EXCEL_PATH = BASE_DIR / "Data" / "excel" / "enterprise-attack-v17.1-techniques.xlsx"
 MAPPING_CSV = BASE_DIR / "techniques_mapping.csv"
@@ -68,11 +83,12 @@ from paths.paths import (  # type: ignore  # noqa: E402
 )
 
 # ---- Expected inputs/outputs per step ----
-PDFS_IN_DIR         = RAW_DIR / "pdfs"
-EXTRACTED_IOCS_CSV  = PROCESSED_DIR / "extracted_iocs.csv"
-TI_GROUPS_TECHS_CSV = PROCESSED_DIR / "ti_groups_techniques.csv"
-DATASET_CSV         = PROCESSED_DIR / "dataset.csv"
-LABELS_TXT          = PROCESSED_DIR / "labels.txt"
+PDFS_IN_DIR            = RAW_DIR / "pdfs"
+EXTRACTED_IOCS_CSV     = PROCESSED_DIR / "extracted_iocs.csv"
+TI_GROUPS_TECHS_CSV    = PROCESSED_DIR / "ti_groups_techniques.csv"
+DATASET_CSV   = PROCESSED_DIR / "dataset.csv"
+LABELS_TXT    = PROCESSED_DIR / "labels.txt"
+EXTRACTED_PDFS_DIR   = DATA_ROOT / "extracted_pdfs"
 
 # Scripts (relative to repo root)
 EXTRACT_SCRIPT       = DATASCRIPT_ROOT / "extract_pdfs.py"
@@ -81,35 +97,29 @@ BUILD_DATASET_SCRIPT = DATASCRIPT_ROOT / "build_dataset.py"
 TRAIN_ROBERTA_SCRIPT = MODELS_ROOT     / "train_roberta.py"
 PREDICT_SCRIPT       = MODELS_ROOT     / "predict_roberta.py"
 
-# Trained model
-BEST_MODEL_DIR = MODELS_ROOT / "best_roberta_for_predict"
-BEST_REQUIRED = [
-    BEST_MODEL_DIR / "config.json",
-    BEST_MODEL_DIR / "tokenizer.json",
-    BEST_MODEL_DIR / "id2label.json",
-]
 
-def output_dir_for_folds(n_folds: int, model_slug: str = "roberta_base"):
-    return EXPERIMENTS_ROOT / f"{n_folds}foldruns" / model_slug
+#=================================================
 
-# Global caches
-LAST_RESULTS = {}
+# Cache
+LAST_RESULTS = {} #Global
 LAST_RESULTS_RULE = {}
 LAST_RESULTS_ROBERTA = {}
 
-# ============================================
-# Small helpers
-# ============================================
-def _ensure_score_and_rank(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Ensure df has numeric 'score' and 'rank' columns.
-    """
-    import numpy as np
 
+# -------------------------------------------------------
+# Small helpers
+# -------------------------------------------------------
+#For Roberta 0-10 fold runs. 
+def output_dir_for_folds(n_folds: int, model_slug: str = "roberta_base"):
+    return EXPERIMENTS_ROOT / f"{n_folds}foldruns" / model_slug
+
+def _ensure_score_and_rank(df: pd.DataFrame) -> pd.DataFrame:
+    import numpy as np
     if df is None or df.empty:
         return df
 
-    candidates = ["score", "prob", "probability", "confidence", "logit", "logprob"]
+    # include group_score here
+    candidates = ["score", "group_score", "prob", "probability", "confidence", "logit", "logprob"]
     src = next((c for c in candidates if c in df.columns), None)
 
     if src is None:
@@ -132,9 +142,18 @@ def run(cmd: list[str], cwd: Path | None = None) -> None:
     res = subprocess.run(cmd, cwd=str(cwd) if cwd else None)
     if res.returncode != 0:
         raise SystemExit(res.returncode)
+    
+def needs_run(outputs: Iterable[Path], inputs: Iterable[Path] = ()) -> bool:
+    outs = list(outputs)
+    if not outs or any(not p.exists() for p in outs):
+        return True  # missing outputs => run
 
-def needs_run(outputs: list[Path], force: bool) -> bool:
-    return force or not all(p.exists() for p in outputs)
+    # If any input (or the script itself) is newer than any output => run
+    out_mtime = min(p.stat().st_mtime for p in outs)
+    ins = [p for p in inputs if p is not None and Path(p).exists()]
+    if not ins:
+        return False
+    return max(Path(p).stat().st_mtime for p in ins) > out_mtime
 
 def ensure_dirs():
     for p in [DATA_ROOT, RAW_DIR, EXTRACTED_PDFS_DIR, PROCESSED_DIR, MODELS_ROOT, EXPERIMENTS_ROOT]:
@@ -194,54 +213,19 @@ def _collect_group_ttps(matched_df: pd.DataFrame) -> list[str]:
     return uniq_ttps
 
 # ============================================
-# Index & Workflow
-# ============================================
-@app.route('/')
-def index():
-    try:
-        # Always regenerate latest mapping from Excel
-        extract_techniques(EXCEL_PATH, MAPPING_CSV)
-
-        # Load mapping: id, name, label
-        df_map = pd.read_csv(MAPPING_CSV)
-
-        # Group main + sub-techniques
-        ttp_dict = defaultdict(list)
-        for tid, label in zip(df_map["id"], df_map["label"]):
-            root = tid.split(".")[0]
-            if "." in tid:
-                ttp_dict[root].append((tid, label))
-            else:
-                ttp_dict.setdefault(tid, [])
-
-        # Build grouped list for dropdown
-        id_to_label = dict(zip(df_map["id"], df_map["label"]))
-        grouped_ttps = []
-        for root in sorted(ttp_dict.keys()):
-            root_label = id_to_label.get(root, root)
-            subs = [lbl for _, lbl in sorted(ttp_dict[root], key=lambda x: x[0])]
-            grouped_ttps.append((root_label, subs))
-
-        # Debug info
-        print("\n================ TECHNIQUE SUMMARY ================")
-        print(f"Total techniques loaded: {len(df_map)}")
-        print(f"Total root techniques: {len(ttp_dict)}")
-        print("Example entries:")
-        print(df_map.head(5))
-        print("===================================================\n")
-
-        return render_template('index.html', grouped_ttps=grouped_ttps)
-
-    except Exception as e:
-        return render_template('error.html', error=str(e))
-
-@app.route('/workflow')
-def workflow():
-    return render_template('workflow.html')
-
-# ============================================
 # Rule-based flow helper
 # ============================================
+def _atomic_to_csv(df, path: str):
+    d = Path(path).parent
+    d.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile("w", delete=False, dir=d, newline="", suffix=".tmp") as tmp:
+        tmp_name = tmp.name
+        df.to_csv(tmp, index=False)
+    os.replace(tmp_name, path)  # atomic on POSIX & Windows
+
+# =======================================================
+# Matching Flow
+# =======================================================
 def _run_rule_match_flow(ttps: list[str]) -> dict:
     matched_df = match_ttps(ttps, DATA_DIR).copy()
     matched_df = _ensure_score_and_rank(matched_df)
@@ -250,10 +234,7 @@ def _run_rule_match_flow(ttps: list[str]) -> dict:
     else:
         matched_df = matched_df.sort_values(by="score", ascending=False)
     top3_df = matched_df.head(3)
-
-    matched_df.to_csv("matched_groups_rule.csv", index=False)
-    top3_df.to_csv("matched_top3_rule.csv", index=False)
-    pd.DataFrame({"TTP": ttps}).to_csv("inputted_ttps_rule.csv", index=False)
+    pd.DataFrame({"TTP": ttps}).to_csv("inputted_ttps.csv", index=False)
 
     # Mitigations (idempotent) + GPT analysis
     mit_csv_path = _run_mitigations_and_get_csv()
@@ -294,77 +275,11 @@ def _run_rule_match_flow(ttps: list[str]) -> dict:
         "doc_path": out_path,
     }
 
-# ============================================
-# RoBERTa flow helper
-# ============================================
-def _predict_with_module(payload: dict):
-    """
-    Try importing predict_roberta.py and using its functions directly.
-    Fallback to subprocess if import fails.
-    """
-    try:
-        import importlib.util
-        spec = importlib.util.spec_from_file_location("predict_roberta", str(PREDICT_SCRIPT))
-        pr = importlib.util.module_from_spec(spec)
-        assert spec and spec.loader
-        spec.loader.exec_module(pr)  # type: ignore
-
-        text = pr.build_text(
-            report_id=payload.get("id") or "adhoc",
-            urls=payload.get("urls") or [],
-            domains=payload.get("domains") or [],
-            ips=payload.get("ips") or [],
-            md5s=payload.get("md5s") or [],
-            sha256s=payload.get("sha256s") or [],
-            attack_ids=payload.get("attacks") or [],
-            free_text=payload.get("text") or None,
-        )
-        preds = pr.predict(
-            text=text,
-            threshold=float(payload.get("threshold", 0.5)),
-            top_k=int(payload.get("top_k", 10)),
-        )
-        attack_rows = pr.load_attack_index()
-
-        srcs = pr.resolve_sources_from_inputs(
-            payload.get("urls") or [], payload.get("domains") or [], payload.get("ips") or [],
-            payload.get("md5s") or [], payload.get("sha256s") or [], payload.get("attacks") or []
-        )
-        origin_doc = ", ".join(srcs) if srcs else (payload.get("id") or "adhoc")
-
-        attack_ids_in_input = {a.strip().upper() for a in (payload.get("attacks") or []) if a}
-
-        flat = pr.expand_to_attack_rows(
-            preds,
-            attack_rows,
-            attack_ids_in_input=attack_ids_in_input,
-            origin_doc=origin_doc,
-        )
-        group_rows = pr.aggregate_by_group(flat)
-
-        return {"text": text, "groups": group_rows}
-
-    except Exception as e:
-        print(f"[WARN] Direct import predict_roberta failed: {e}; falling back to subprocess.")
-        args = [
-            sys.executable, str(PREDICT_SCRIPT),
-            "--id", payload.get("id") or "adhoc",
-        ]
-        for k, flag in [
-            ("urls", "--url"), ("domains", "--domain"), ("ips", "--ip"),
-            ("md5s", "--md5"), ("sha256s", "--sha256"), ("attacks", "--attack")
-        ]:
-            for v in payload.get(k) or []:
-                args += [flag, str(v)]
-        if payload.get("text"):
-            args += ["--text", payload["text"]]
-        args += ["--threshold", str(payload.get("threshold", 0.5)), "--top-k", str(payload.get("top_k", 10))]
-
-        res = subprocess.run(args, capture_output=True, text=True)
-        if res.returncode != 0:
-            raise RuntimeError(res.stderr or "predict_roberta failed")
-
-        return {"raw": res.stdout}
+# =======================================================
+# RoBERTa Flow
+# =======================================================
+def _save_roberta_traces(df_ml):
+    _atomic_to_csv(df_ml, "matched_groups_roberta.csv")
 
 def _run_roberta_flow(ttps: list[str]) -> dict:
     ml = _predict_with_module({
@@ -383,17 +298,19 @@ def _run_roberta_flow(ttps: list[str]) -> dict:
 
     df_ml = _ensure_score_and_rank(df_ml)
     df_ml.sort_values("score", ascending=False, inplace=True)
-    top3_df = df_ml.head(3)
-
-    # Keep file names distinct for clarity
-    df_ml.to_csv("matched_groups_roberta.csv", index=False)
-    top3_df.to_csv("matched_top3_roberta.csv", index=False)
-    pd.DataFrame({"TTP": ttps}).to_csv("inputted_ttps_rule.csv", index=False)  # shared for report_generator
-
-    # Mitigations (idempotent) + GPT analysis
-    mit_csv_path = _run_mitigations_and_get_csv()
-    gpt_response = analyze_TTP(ttps, df_ml, mitigations_csv=str(mit_csv_path))
+    # after df_ml.sort_values("score", ascending=False, inplace=True)
+    df_ml.drop(columns=["score","origin"], errors="ignore", inplace=True)
+    # Persist files for the report script
+    _save_roberta_traces(df_ml)
+    top3_df = df_ml.head(3).drop(columns=["origin"], errors="ignore")
+    # GPT narrative for roberta
+    gpt_response = analyze_TTP(ttps, df_ml)
     parsed = parse_ai_response(gpt_response)
+    # NEW: run mitigations and include in OpenAI context
+    mit_csv_path = _run_mitigations_and_get_csv()
+    
+    from report_generator import load_mitigations_summary
+    parsed["mitigation"] = load_mitigations_summary(str(mit_csv_path))
 
     # Filter mitigations for the matched groups' techniques
     # 1) get group-based TTPs (strict CSV mapping)
@@ -428,39 +345,196 @@ def _run_roberta_flow(ttps: list[str]) -> dict:
         "analysis": parsed,
         "doc_path": out_path,
     }
+# =======================================================
+# Pipeline steps (extract pdf → extract stix → build → train)
+# =======================================================
+def step_extract_pdfs(in_dir: Path = PDFS_IN_DIR, out_dir: Path = EXTRACTED_PDFS_DIR):
+    out_dir.mkdir(parents=True, exist_ok=True)
+    out_csv = EXTRACTED_IOCS_CSV
 
-# ============================================
-# Routes
-# ============================================
-@app.route('/roberta', methods=['POST'])
-def roberta():
+    # Treat the extractor script and input folder as inputs
+    inputs = [EXTRACT_SCRIPT] + list(in_dir.glob("*.pdf"))
+    if not needs_run([out_csv], inputs=inputs):
+        print(f"[SKIP] extract_pdfs.py — up to date: {out_csv}")
+        return
+
+    run([sys.executable, str(EXTRACT_SCRIPT), "--in", str(in_dir), "--out", str(out_dir)])
+
+
+def step_enterprise_attack():
+    outputs = [TI_GROUPS_TECHS_CSV]
+    inputs  = [ATTACK_SCRIPT]  # add STIX source dirs/files if you have them
+    if not needs_run(outputs, inputs=inputs):
+        print(f"[SKIP] enterprise_attack.py — up to date: {TI_GROUPS_TECHS_CSV}")
+        return
+    run([sys.executable, str(ATTACK_SCRIPT)])
+
+
+def step_build_dataset():
+    outputs = [DATASET_CSV, LABELS_TXT]
+    inputs  = [BUILD_DATASET_SCRIPT, EXTRACTED_IOCS_CSV, TI_GROUPS_TECHS_CSV]
+    if not needs_run(outputs, inputs=inputs):
+        print(f"[SKIP] build_dataset.py — up to date: {DATASET_CSV}, {LABELS_TXT}")
+        return
+    run([sys.executable, str(BUILD_DATASET_SCRIPT)])
+
+def _is_empty_dir(p: Path) -> bool:
+    return (not p.exists()) or (next(p.iterdir(), None) is None)
+
+def step_train_roberta():
+    if not _is_empty_dir(BEST_MODEL_DIR):
+        print(f"[SKIP] train_roberta.py — best model exists in {BEST_MODEL_DIR}")
+        return
+    run([sys.executable, str(TRAIN_ROBERTA_SCRIPT)])
+
+
+# =======================================================
+# Flask Routes
+#index, workflow, roberta, submit_both, predict with module, predict api, match, export
+# =======================================================
+@app.route('/')
+def index():
     try:
-        ttps_input = [t.split()[0].upper() for t in request.form.getlist('ttps[]')]
-        ttps = validate_ttps(ttps_input)
+        # Always regenerate latest mapping from Excel
+        extract_techniques(EXCEL_PATH, MAPPING_CSV)
 
-        res = _run_roberta_flow(ttps)
+        # Load mapping: id, name, label
+        df_map = pd.read_csv(MAPPING_CSV)
 
-        global LAST_RESULTS
-        LAST_RESULTS = {
-            "ttps": res["ttps"],
-            "matched": res["matched_top3"],
-            "analysis": res["analysis"],
-            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        }
+        # Group main + sub-techniques
+        ttp_dict = defaultdict(list)
+        for tid, label in zip(df_map["id"], df_map["label"]):
+            root = tid.split(".")[0]
+            if "." in tid:
+                ttp_dict[root].append((tid, label))
+            else:
+                ttp_dict.setdefault(tid, [])
 
-        return render_template(
-            'results.html',
-            ttps=res["ttps"],
-            matched=res["matched_top3"],
-            analysis=res["analysis"],
-            timestamp=LAST_RESULTS["timestamp"]
-        )
+        # Build grouped list for dropdown
+        id_to_label = dict(zip(df_map["id"], df_map["label"]))
+        grouped_ttps = []
+        for root in sorted(ttp_dict.keys()):
+            root_label = id_to_label.get(root, root)
+            subs = [lbl for _, lbl in sorted(ttp_dict[root], key=lambda x: x[0])]
+            grouped_ttps.append((root_label, subs))
+
+        # Debug info
+        print("\n================ TECHNIQUE SUMMARY ================")
+        print(f"Total techniques loaded: {len(df_map)}")
+        print(f"Total root techniques: {len(ttp_dict)}")
+        print("Example entries:")
+        print(df_map.head(5))
+        print("===================================================\n")
+        print(f"[ROOT] {BASE_DIR}")
+        print(f"[DATA] {DATA_ROOT}")
+        print(f"[PROC] {PROCESSED_DIR}")
+        print(f"[MODELS] {MODELS_ROOT}")
+
+        step_extract_pdfs()
+        step_enterprise_attack()
+        step_build_dataset()
+        step_train_roberta()
+        return render_template('0_index.html', grouped_ttps=grouped_ttps)
 
     except Exception as e:
         return render_template('error.html', error=str(e))
 
-@app.route('/results', methods=['POST'])
-def results():
+
+# =======================================================
+# WORKFLOW ROUTE
+# =======================================================
+@app.route('/workflow')
+def workflow():
+    return render_template('workflow.html')
+
+
+# =======================================================
+# ROBERTA ROUTE 
+# =======================================================
+@app.route('/roberta', methods=['POST'])
+def roberta():
+    try:
+        # 1) Grab user selections 
+        ttps_input = [t.split()[0].upper() for t in request.form.getlist('ttps[]')]
+        ttps = validate_ttps(ttps_input)
+
+        # 2) Call RoBERTa prediction using ATT&CK IDs as inputs
+        #    This uses the predictor functions from predict_roberta.py via the helper.
+        ml = _predict_with_module({
+            "id": "from_ttps",
+            "attacks": ttps,        # <- IMPORTANT: pass the selected TTPs
+            "top_k": 50,
+            "threshold": 0.0
+        })
+
+        # 3) Normalize the predictor output into a DataFrame
+        #    Expecting a list[dict] like [{"group_name": "...", "score": 0.87, ...}, ...]
+        group_rows = ml.get("groups", [])
+        if not group_rows:
+            raise RuntimeError("ML predictor returned no groups. Check model artifacts and inputs.")
+
+        df_ml = pd.DataFrame(group_rows)
+        if "group" in df_ml.columns and "group_name" not in df_ml.columns:
+            df_ml.rename(columns={"group": "group_name"}, inplace=True)
+
+        df_ml = _ensure_score_and_rank(df_ml)
+        df_ml.sort_values("score", ascending=False, inplace=True)
+
+        if "prob" in df_ml.columns and "score" not in df_ml.columns:
+            df_ml.rename(columns={"prob": "score"}, inplace=True)
+
+
+        # Rank by score if no rank provided
+        if "rank" not in df_ml.columns:
+            df_ml["rank"] = df_ml["score"].rank(ascending=False, method="first")
+
+        # 4) Persist files for the report generator (keeps your current contract)
+        df_ml.sort_values("score", ascending=False, inplace=True)
+
+        # 5)  Show top 3 on the web page, like before
+        top3_df = df_ml.head(3)
+
+        # 6) Produce the AI narrative and the DOCX report
+        #    If you don't have OPENAI_API_KEY set, wrap this with your earlier "disable AI" flag.
+        mit_csv_path = _run_mitigations_and_get_csv()
+        gpt_response = analyze_TTP(ttps, df_ml, mitigations_csv=str(mit_csv_path))
+        parsed = parse_ai_response(gpt_response)
+
+        # If you want the .docx to be generated immediately on submit:
+        try:
+            generate_word_report(gpt_response, ttps)
+        except Exception as e:
+            # Non-fatal: still render HTML even if DOCX write fails
+            print("[WARN] DOCX generation failed:", e)
+
+        # 7) Render your HTML results page as before
+        from datetime import datetime
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        global LAST_RESULTS
+        LAST_RESULTS = {
+            "ttps": ttps,
+            "matched": top3_df.to_dict(orient="records"),
+            "analysis": parsed,
+            "timestamp": timestamp
+        }
+
+        return render_template(
+            'results.html',
+            ttps=ttps,
+            matched=top3_df.to_dict(orient='records'),
+            analysis=parsed,
+            timestamp=timestamp
+        )
+
+    except Exception as e:
+        return render_template('error.html', error=str(e))
+    
+# =======================================================
+# Submit to HTML
+# =======================================================
+@app.route('/submit_both', methods=['POST'])
+def submit_both():
     try:
         ttps_input = [t.split()[0].upper() for t in request.form.getlist('ttps[]')]
         ttps = validate_ttps(ttps_input)
@@ -496,27 +570,92 @@ def results():
     except Exception as e:
         return render_template('error.html', error=str(e)), 500
 
-@app.route('/pipeline', methods=['POST'])
-def pipeline():
-    try:
-        force = bool(request.form.get('force') or request.json.get('force') if request.is_json else request.form.get('force'))
-        # Run in order
-        step_extract_pdfs(force=force)
-        step_enterprise_attack(force=force)
-        step_build_dataset(force=force)
-        step_train_roberta(force=force)
+# -------------------------------------------------------
+# PREDICT ROUTE – JSON in, ranked groups out
+# -------------------------------------------------------
+import json
 
-        ok = all(p.exists() for p in BEST_REQUIRED)
-        return jsonify({
-            "status": "ok" if ok else "warning",
-            "message": "Pipeline completed" if ok else "Pipeline finished but best model looks incomplete.",
-            "best_model_dir": str(BEST_MODEL_DIR),
-            "have_best_files": {p.name: p.exists() for p in BEST_REQUIRED}
-        })
-    except SystemExit as e:
-        return jsonify({"status": "error", "message": f"Subprocess exited with code {int(e.code)}"}), 500
+def _predict_with_module(payload: dict):
+    try:
+        # Late import to avoid circulars during app startup
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("predict_roberta", str(PREDICT_SCRIPT))
+        pr = importlib.util.module_from_spec(spec)
+        assert spec and spec.loader
+        spec.loader.exec_module(pr)  # type: ignore
+
+        text = pr.build_text(
+            report_id=payload.get("id") or "adhoc",
+            urls=payload.get("urls") or [],
+            domains=payload.get("domains") or [],
+            ips=payload.get("ips") or [],
+            md5s=payload.get("md5s") or [],
+            sha256s=payload.get("sha256s") or [],
+            attack_ids=payload.get("attacks") or [],
+            free_text=payload.get("text") or None,
+        )
+        preds = pr.predict(text=text, threshold=float(payload.get("threshold", 0.5)), top_k=int(payload.get("top_k", 10)))
+        attack_rows = pr.load_attack_index()
+
+        # Build doc_source (provenance of the input document) just like your CLI does
+        srcs = pr.resolve_sources_from_inputs(
+            payload.get("urls") or [], payload.get("domains") or [], payload.get("ips") or [],
+            payload.get("md5s") or [], payload.get("sha256s") or [], payload.get("attacks") or []
+        )
+        origin_doc = ", ".join(srcs) if srcs else (payload.get("id") or "adhoc")
+
+        # Pass the ATT&CK IDs you received from the user so techniques that were also input
+        # are tagged with 'attack_input' in the origin field.
+        attack_ids_in_input = {a.strip().upper() for a in (payload.get("attacks") or []) if a}
+
+        # Expand & aggregate with the NEW signatures
+        flat = pr.expand_to_attack_rows(
+            preds,
+            attack_rows,
+            attack_ids_in_input=attack_ids_in_input,
+            origin_doc=origin_doc,
+        )
+
+        group_rows = pr.aggregate_by_group(flat)
+
+        return {"text": text, "groups": group_rows}
+
     except Exception as e:
-        return jsonify({"status": "error", "message": str(e)}), 500
+        print(f"[WARN] Direct import predict_roberta failed: {e}; falling back to subprocess.")
+        args = [
+            sys.executable, str(PREDICT_SCRIPT),
+            "--id", payload.get("id") or "adhoc",
+        ]
+        for k, flag in [
+            ("urls", "--url"), ("domains", "--domain"), ("ips", "--ip"),
+            ("md5s", "--md5"), ("sha256s", "--sha256"), ("attacks", "--attack")
+        ]:
+            for v in payload.get(k) or []:
+                args += [flag, str(v)]
+        if payload.get("text"):
+            args += ["--text", payload["text"]]
+        args += ["--threshold", str(payload.get("threshold", 0.5)),
+                 "--top-k", str(payload.get("top_k", 10))]
+
+        res = subprocess.run(args, capture_output=True, text=True)
+        if res.returncode != 0:
+            print(res.stdout)
+            print(res.stderr)
+            raise RuntimeError(res.stderr or "predict_roberta failed")
+
+        # NEW: try to parse JSON from CLI and normalize the shape
+        try:
+            payload = json.loads(res.stdout)
+            if isinstance(payload, dict) and "groups" in payload:
+                return payload
+            # allow older CLIs: maybe the top-level is a list
+            if isinstance(payload, list):
+                return {"groups": payload}
+            # last resort: empty groups
+            return {"groups": []}
+        except Exception:
+            print("[WARN] CLI output was not JSON; returning empty groups.")
+            return {"groups": []}
 
 @app.route('/predict', methods=['POST'])
 def predict_api():
@@ -554,11 +693,7 @@ def match():
         else:
             matched_df = matched_df.sort_values(by="score", ascending=False)
         top3_df = matched_df.head(3)
-
-        # Save traceability outputs
-        matched_df.to_csv("matched_groups_rule.csv", index=False)
-        top3_df.to_csv("matched_top3_rule.csv", index=False)
-        pd.DataFrame({"TTP": ttps}).to_csv("inputted_ttps_rule.csv", index=False)
+        pd.DataFrame({"TTP": ttps}).to_csv("inputted_ttps.csv", index=False)
 
         # GPT Analysis
         mit_csv_path = _run_mitigations_and_get_csv()
@@ -598,6 +733,8 @@ def match():
 
     except Exception as e:
         return render_template('error.html', error=str(e))
+# =======================================================
+# Export
 
 @app.route('/export')
 def export():
@@ -631,75 +768,6 @@ def export():
 
     except Exception as e:
         return f"Error exporting to .doc: {e}"
-
-# ============================================
-# Pipeline steps
-# ============================================
-def step_extract_pdfs(force: bool) -> None:
-    ensure_dirs()
-    if not needs_run([EXTRACTED_IOCS_CSV], force):
-        print(f"[SKIP] extract_pdfs.py — up to date: {EXTRACTED_IOCS_CSV}")
-        return
-    run([sys.executable, str(EXTRACT_SCRIPT)])
-
-def step_enterprise_attack(force: bool) -> None:
-    ensure_dirs()
-    if not needs_run([TI_GROUPS_TECHS_CSV], force):
-        print(f"[SKIP] enterprise_attack.py — up to date: {TI_GROUPS_TECHS_CSV}")
-        return
-    run([sys.executable, str(ATTACK_SCRIPT)])
-
-def step_build_dataset(force: bool) -> None:
-    ensure_dirs()
-    if not needs_run([DATASET_CSV, LABELS_TXT], force):
-        print(f"[SKIP] build_dataset.py — up to date: {DATASET_CSV}, {LABELS_TXT}")
-        return
-    run([sys.executable, str(BUILD_DATASET_SCRIPT)])
-
-def step_train_roberta(force: bool) -> None:
-    ensure_dirs()
-    print(f"\n[DEBUG] BEST_MODEL_DIR: {BEST_MODEL_DIR}")
-    if BEST_MODEL_DIR.exists():
-        try:
-            print("[DEBUG] best dir contents:", sorted(p.name for p in BEST_MODEL_DIR.iterdir()))
-        except Exception as e:
-            print("[DEBUG] failed to list best dir:", e)
-
-    if not needs_run(BEST_REQUIRED, force):
-        print(f"[SKIP] train_roberta.py — best model already present: {BEST_MODEL_DIR}")
-        return
-    run([sys.executable, str(TRAIN_ROBERTA_SCRIPT)])
-
-# ============================================
-# Main
-# ============================================
-def main():
-    import argparse
-    ap = argparse.ArgumentParser(description="Build dataset + train RoBERTa (skip if already built).")
-    ap.add_argument("--force", action="store_true", help="Re-run steps even if outputs exist.")
-    ap.add_argument("--skip-build", action="store_true", help="Skip dataset build step.")
-    ap.add_argument("--skip-train", action="store_true", help="Skip training step.")
-    args = ap.parse_args()
-
-    print(f"[ROOT] {BASE_DIR}")
-    print(f"[DATA] {DATA_ROOT}")
-    print(f"[PROC] {PROCESSED_DIR}")
-    print(f"[MODELS] {MODELS_ROOT}")
-
-    if not args.skip_build:
-        step_build_dataset(force=args.force)
-    else:
-        print("[SKIP] Step: build dataset")
-
-    if not args.skip_train:
-        if not DATASET_CSV.exists():
-            print(f"[WARN] {DATASET_CSV} not found; training may fail. Run without --skip-build or use --force.")
-        step_train_roberta(force=args.force)
-    else:
-        print("[SKIP] Step: train roberta")
-
-    ok = all(p.exists() for p in BEST_REQUIRED)
-    print(f"\nBest model: {BEST_MODEL_DIR} {'(OK)' if ok else '(incomplete)'}")
 
 if __name__ == '__main__':
     app.run(debug=True, threaded=True)

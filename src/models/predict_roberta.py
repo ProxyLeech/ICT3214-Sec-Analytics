@@ -273,8 +273,6 @@ def resolve_sources_from_inputs(
 def main():
     p = argparse.ArgumentParser(description="Predict and expand to ATT&CK rows.")
     p.add_argument("--id", default="adhoc")
-    # p.add_argument("--source", help="Source label (e.g., PDF filename). Defaults to --id.")
-    p.add_argument("--text")
     p.add_argument("--url", action="append", default=[])
     p.add_argument("--domain", action="append", default=[])
     p.add_argument("--ip", action="append", default=[])
@@ -293,8 +291,7 @@ def main():
         ips=args.ip,
         md5s=args.md5,
         sha256s=args.sha256,
-        attack_ids=args.attack,
-        free_text=args.text,
+        attack_ids=args.attack
     )
 
     # Infer document provenance (PDF folders or fallback to id)
@@ -309,9 +306,6 @@ def main():
     attack_ids_from_input = {a.strip().upper() for a in args.attack if ATTACK_ID_RX.match(a or "")}
     flat_rows = expand_to_attack_rows(preds, attack_rows, attack_ids_in_input=attack_ids_from_input, origin_doc=doc_src)
     group_rows = aggregate_by_group(flat_rows)
-
-    print("\nINPUT TEXT:")
-    print(text)
     print_group_table(group_rows)
 
 

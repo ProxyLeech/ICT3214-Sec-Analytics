@@ -5,7 +5,6 @@ Data/extracted_pdfs/
 Data/extracted_pdfs/**
 .venv
 Generated_Reports
-inputted_ttps.csv
 matched_groups.csv
 matched_top3.csv
 tempCodeRunnerFile.py
@@ -18,16 +17,8 @@ experiments/**/runs/
 logs/
 
 models/*/pytorch_model.bin
-experiments/
-src/models/best_roberta_for_predict
 archive/data
 
-inputted_ttps_roberta.csv
-inputted_ttps_rule.csv
-matched_groups_roberta.csv
-matched_groups_rule.csv  
-matched_top3_roberta.csv 
-matched_top3_rule.csv 
 enterprise-attack-v17.1-mitigations_mappings.csv
 techniques_mapping.csv
 

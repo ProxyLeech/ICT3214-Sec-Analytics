@@ -4,76 +4,194 @@
   <title>Adversary Attribution Report</title>
 
   {% if not export_mode %}
-    <!-- ========================= Browser Mode ========================= -->
+    <!-- ========================= Browser Styling ========================= -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+      body {
+        font-family: "Segoe UI", Roboto, Arial, sans-serif;
+        background-color: #f5f7fa;
+        color: #222;
+        line-height: 1.6;
+      }
+
+      h1 {
+        color: #003366;
+        border-bottom: 3px solid #0056b3;
+        padding-bottom: 6px;
+        margin-top: 1.2rem;
+      }
+
+      h3 {
+        color: #004c99;
+        margin-top: 2rem;
+      }
+
+      .timestamp {
+        font-size: 0.9em;
+        color: #777;
+        margin-bottom: 20px;
+      }
+
+      .card {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        padding: 20px 25px;
+        margin-bottom: 20px;
+      }
+
+      .card h4 {
+        color: #003366;
+        border-left: 4px solid #0056b3;
+        padding-left: 8px;
+        margin-top: 0;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        background-color: #fff;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+      }
+
+      th, td {
+        border: 1px solid #ccc;
+        padding: 8px 10px;
+        font-size: 13px;
+        text-align: left;
+        vertical-align: top;
+      }
+
+      th {
+        background: #e8f0ff;
+        color: #002b5c;
+        font-weight: 600;
+      }
+
+      tr:hover {
+        background: #f3f7ff;
+      }
+
+      .ttp-cell {
+        max-height: 120px;
+        overflow-y: auto;
+        background: #f9fafc;
+        border-radius: 6px;
+        padding: 6px;
+        font-family: Consolas, monospace;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+
+      pre {
+        background: #f8f9fb;
+        border-left: 4px solid #0056b3;
+        padding: 10px 12px;
+        border-radius: 6px;
+        font-family: Consolas, monospace;
+        font-size: 13px;
+        white-space: pre-wrap;
+        word-break: break-word;
+        color: #333;
+      }
+
+      .mitigation-block {
+        background: #fefefe;
+        border-left: 5px solid #2b6cb0;
+        border-radius: 8px;
+        padding: 12px 16px;
+        margin-bottom: 15px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      }
+
+      .mitigation-block strong {
+        color: #0d47a1;
+        display: block;
+        margin-bottom: 4px;
+        font-size: 14px;
+      }
+
+      .mitigation-block ul {
+        margin: 0;
+        padding-left: 20px;
+      }
+
+      .divider {
+        margin: 40px 0;
+        border-top: 2px solid #ccc;
+      }
+
+      a#export {
+        display: inline-block;
+        background-color: #0056b3;
+        color: white;
+        text-decoration: none;
+        padding: 6px 12px;
+        border-radius: 4px;
+        margin-left: 10px;
+        transition: background-color 0.2s ease;
+      }
+
+      a#export:hover {
+        background-color: #003f7f;
+      }
+    </style>
+
   {% else %}
-  <!-- ========================= Export Mode (Word) ========================= -->
-  <style>
-    body { font-family: Arial, sans-serif; margin: 30px; font-size: 12px; }
-    h1 { color: #003366; border-bottom: 2px solid #ccc; padding-bottom: 4px; }
-    h3 { color: #004c99; margin-top: 20px; }
-
-    /* ✅ Table styling (Word compatible) */
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      table-layout: fixed;
-      word-wrap: break-word;
-    }
-    th, td {
-      border: 1px solid #999;
-      text-align: left;
-      padding: 6px 8px;
-      vertical-align: top;
-      white-space: pre-wrap;
-      word-break: break-word;
-      font-size: 11px;
-    }
-    th {
-      background-color: #e6f0ff;
-      color: #002b5c;
-      font-weight: bold;
-    }
-    tr:nth-child(even) { background-color: #f9f9f9; }
-
-    /* Ensure proper rendering in Word */
-    table, thead, tbody, tr, th, td {
-      display: table;
-    }
-
-    pre {
-      background: #f8f8f8;
-      border: 1px solid #ddd;
-      padding: 8px;
-      white-space: pre-wrap;
-      word-break: break-word;
-      font-size: 11px;
-    }
-
-    .timestamp { font-size: 0.85em; color: #666; }
-    a { color: #0056b3; text-decoration: none; }
-    a#export {
-      display: inline-block;
-      background-color: #0056b3;
-      color: white;
-      text-decoration: none;
-      padding: 6px 12px;
-      border-radius: 4px;
-      margin-left: 10px;
-    }
-    a#export:hover { background-color: #003f7f; }
-
-    /* Scrollable long TTP list */
-    .ttp-cell {
-      max-height: 100px;
-      overflow-y: auto;
-      display: block;
-      font-family: monospace;
-      background-color: #fafafa;
-      border: 1px solid #ddd;
-      padding: 4px;
-    }
-  </style>
+    <!-- ========================= Word Export (Safe HTML) ========================= -->
+    <style>
+      body { font-family: Arial, sans-serif; margin: 30px; font-size: 12px; color: #111; }
+      h1 { color: #003366; border-bottom: 2px solid #ccc; padding-bottom: 4px; }
+      h3, h4 { color: #004c99; margin-top: 16px; }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        table-layout: fixed;
+        word-wrap: break-word;
+      }
+      th, td {
+        border: 1px solid #999;
+        text-align: left;
+        padding: 6px 8px;
+        vertical-align: top;
+        white-space: pre-wrap;
+        word-break: break-word;
+        font-size: 11px;
+      }
+      th {
+        background-color: #e6f0ff;
+        color: #002b5c;
+        font-weight: bold;
+      }
+      tr:nth-child(even) { background-color: #f9f9f9; }
+      pre {
+        background: #f8f8f8;
+        border: 1px solid #ddd;
+        padding: 8px;
+        white-space: pre-wrap;
+        word-break: break-word;
+        font-size: 11px;
+      }
+      .timestamp { font-size: 0.85em; color: #666; }
+      .ttp-cell {
+        max-height: none;
+        overflow: visible;
+        display: block;
+        font-family: monospace;
+        background-color: #fafafa;
+        border: 1px solid #ddd;
+        padding: 4px;
+      }
+      .mitigation-block {
+        border-left: 3px solid #004c99;
+        margin: 6px 0;
+        padding: 4px 8px;
+      }
+      .mitigation-block strong {
+        color: #004c99;
+      }
+    </style>
   {% endif %}
 </head>
 
@@ -84,121 +202,170 @@
 
   <div class="container">
 
-    <!-- ========================= RULE-BASED SECTION ========================= -->
+    <!-- ========================= RULE-BASED ========================= -->
     {% if not export_mode or request.args.get('which') == 'rule' %}
-    <h1>Adversary Attribution Report (Rule-based)</h1>
-    <p class="timestamp">Generated on: {{ timestamp }}</p>
+      <h1>Adversary Attribution Report (Rule-based)</h1>
+      <p class="timestamp">Generated on: {{ timestamp }}</p>
 
-    <h3>Inputted Techniques</h3>
-    <p>{{ ttps | join(', ') }}</p>
+      <div class="card">
+        <h4>Inputted Techniques</h4>
+        <p><code>{{ ttps | join(', ') }}</code></p>
+      </div>
 
-    <h3>Top 3 Matched Threat Groups</h3>
-    <div style="overflow-x:auto;">
-      <table>
-        {% if rule_matched and rule_matched|length > 0 %}
-        <thead>
-          <tr>
-            {% for col in rule_matched[0].keys() if col != 'combined_ttps' %}
-              <th>{{ col }}</th>
-            {% endfor %}
-            <th>All Associated TTPs (combined across reports)</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for row in rule_matched %}
-          <tr>
-            {% for col in rule_matched[0].keys() if col != 'combined_ttps' %}
-              <td>{{ row[col] }}</td>
-            {% endfor %}
-            <td><div class="ttp-cell">{{ row.get('combined_ttps', '—') }}</div></td>
-          </tr>
-          {% endfor %}
-        </tbody>
-        {% else %}
-        <tr><td>No matches.</td></tr>
-        {% endif %}
-      </table>
-    </div>
+      <div class="card">
+        <h4>Top 3 Matched Threat Groups</h4>
+        <div style="overflow-x:auto;">
+          <table>
+            {% if rule_matched and rule_matched|length > 0 %}
+              <thead>
+                <tr>
+                  {% for col in rule_matched[0].keys() if col != 'combined_ttps' %}
+                    <th>{{ col }}</th>
+                  {% endfor %}
+                  <th>All Associated TTPs</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for row in rule_matched %}
+                <tr>
+                  {% for col in rule_matched[0].keys() if col != 'combined_ttps' %}
+                    <td>{{ row[col] }}</td>
+                  {% endfor %}
+                  <td><div class="ttp-cell">{{ row.get('combined_ttps', '—') }}</div></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            {% else %}
+              <tr><td>No matches found.</td></tr>
+            {% endif %}
+          </table>
+        </div>
+      </div>
 
-    <h3>Analyst Report</h3>
-    <section>
-      <h4>1. Executive Summary</h4>
-      <pre>{{ rule_analysis.summary }}</pre>
-      <h4>2. Technique Overlap Overview</h4>
-      <pre>{{ rule_analysis.table }}</pre>
-      <h4>3. Probable Threat Actor(s)</h4>
-      <pre>{{ rule_analysis.attacker }}</pre>
-      <h4>4. Defensive Mitigations</h4>
-      <pre>{{ rule_analysis.mitigation }}</pre>
-      <h4>5. Analyst Recommendations</h4>
-      <pre>{{ rule_analysis.suggestion }}</pre>
-    </section>
+      <div class="card">
+        <h4>1. Executive Summary</h4>
+        <pre>{{ rule_analysis.summary }}</pre>
+      </div>
+
+      <div class="card">
+        <h4>2. Technique Overlap Overview</h4>
+        <pre>{{ rule_analysis.table }}</pre>
+      </div>
+
+      <div class="card">
+        <h4>3. Probable Threat Actor(s)</h4>
+        <pre>{{ rule_analysis.attacker }}</pre>
+      </div>
+
+      <div class="card">
+        <h4>4. Defensive Mitigations</h4>
+        {% for line in rule_analysis.mitigation.split('\n\n') if line.strip() %}
+          {% set parts = line.split('\n') %}
+          <div class="mitigation-block">
+            <strong>{{ parts[0] }}</strong>
+            <ul>
+              {% for d in parts[1:] if d.strip() %}
+                <li>{{ d.strip().lstrip('•').strip() }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="card">
+        <h4>5. Analyst Recommendations</h4>
+        <pre>{{ rule_analysis.suggestion }}</pre>
+      </div>
+
+      {% if not export_mode %}
+        <a href="/">← Back to Selection</a>
+        <a id="export" href="/export?which=rule">Export Results (Rule-based)</a>
+      {% endif %}
+    {% endif %}
 
     {% if not export_mode %}
-      <a href="/">← Back to Selection</a>
-      <a id="export" href="/export?which=rule">Export Results (Rule-based)</a>
-    {% endif %}
+      <div class="divider"></div>
     {% endif %}
 
-    {% if not export_mode %}
-      <div class="divider" style="margin:40px 0;border-top:2px solid #ccc;"></div>
-    {% endif %}
-
-    <!-- ========================= ROBERTA SECTION ========================= -->
+    <!-- ========================= ROBERTA ========================= -->
     {% if not export_mode or request.args.get('which') == 'roberta' %}
-    <h1>Adversary Attribution Report (RoBERTa)</h1>
-    <p class="timestamp">Generated on: {{ timestamp }}</p>
+      <h1>Adversary Attribution Report (RoBERTa)</h1>
+      <p class="timestamp">Generated on: {{ timestamp }}</p>
 
-    <h3>Inputted Techniques</h3>
-    <p>{{ ttps | join(', ') }}</p>
+      <div class="card">
+        <h4>Inputted Techniques</h4>
+        <p><code>{{ ttps | join(', ') }}</code></p>
+      </div>
 
-    <h3>Top 3 Matched Threat Groups</h3>
-    <div style="overflow-x:auto;">
-      <table>
-        {% if rob_matched and rob_matched|length > 0 %}
-        <thead>
-          <tr>
-            {# ✅ Remove doc_source and score columns for clarity #}
-            {% for col in rob_matched[0].keys() if col not in ['combined_ttps', 'doc_source', 'score'] %}
-              <th>{{ col }}</th>
-            {% endfor %}
-            <th>All Associated TTPs (combined across reports)</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for row in rob_matched %}
-          <tr>
-            {% for col in rob_matched[0].keys() if col not in ['combined_ttps', 'doc_source', 'score'] %}
-              <td>{{ row[col] }}</td>
-            {% endfor %}
-            <td><div class="ttp-cell">{{ row.get('combined_ttps', '—') }}</div></td>
-          </tr>
-          {% endfor %}
-        </tbody>
-        {% else %}
-        <tr><td>No matches.</td></tr>
-        {% endif %}
-      </table>
-    </div>
+      <div class="card">
+        <h4>Top 3 Matched Threat Groups</h4>
+        <div style="overflow-x:auto;">
+          <table>
+            {% if rob_matched and rob_matched|length > 0 %}
+              <thead>
+                <tr>
+                  {% for col in rob_matched[0].keys() if col not in ['combined_ttps', 'doc_source', 'score'] %}
+                    <th>{{ col }}</th>
+                  {% endfor %}
+                  <th>All Associated TTPs</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for row in rob_matched %}
+                <tr>
+                  {% for col in rob_matched[0].keys() if col not in ['combined_ttps', 'doc_source', 'score'] %}
+                    <td>{{ row[col] }}</td>
+                  {% endfor %}
+                  <td><div class="ttp-cell">{{ row.get('combined_ttps', '—') }}</div></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            {% else %}
+              <tr><td>No matches found.</td></tr>
+            {% endif %}
+          </table>
+        </div>
+      </div>
 
-    <h3>Analyst Report</h3>
-    <section>
-      <h4>1. Executive Summary</h4>
-      <pre>{{ rob_analysis.summary }}</pre>
-      <h4>2. Technique Overlap Overview</h4>
-      <pre>{{ rob_analysis.table }}</pre>
-      <h4>3. Probable Threat Actor(s)</h4>
-      <pre>{{ rob_analysis.attacker }}</pre>
-      <h4>4. Defensive Mitigations</h4>
-      <pre>{{ rob_analysis.mitigation }}</pre>
-      <h4>5. Analyst Recommendations</h4>
-      <pre>{{ rob_analysis.suggestion }}</pre>
-    </section>
+      <div class="card">
+        <h4>1. Executive Summary</h4>
+        <pre>{{ rob_analysis.summary }}</pre>
+      </div>
 
-    {% if not export_mode %}
-      <a href="/">← Back to Selection</a>
-      <a id="export" href="/export?which=roberta">Export Results (RoBERTa)</a>
-    {% endif %}
+      <div class="card">
+        <h4>2. Technique Overlap Overview</h4>
+        <pre>{{ rob_analysis.table }}</pre>
+      </div>
+
+      <div class="card">
+        <h4>3. Probable Threat Actor(s)</h4>
+        <pre>{{ rob_analysis.attacker }}</pre>
+      </div>
+
+      <div class="card">
+        <h4>4. Defensive Mitigations</h4>
+        {% for line in rob_analysis.mitigation.split('\n\n') if line.strip() %}
+          {% set parts = line.split('\n') %}
+          <div class="mitigation-block">
+            <strong>{{ parts[0] }}</strong>
+            <ul>
+              {% for d in parts[1:] if d.strip() %}
+                <li>{{ d.strip().lstrip('•').strip() }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="card">
+        <h4>5. Analyst Recommendations</h4>
+        <pre>{{ rob_analysis.suggestion }}</pre>
+      </div>
+
+      {% if not export_mode %}
+        <a href="/">← Back to Selection</a>
+        <a id="export" href="/export?which=roberta">Export Results (RoBERTa)</a>
+      {% endif %}
     {% endif %}
   </div>
 </body>

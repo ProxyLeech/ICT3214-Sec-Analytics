@@ -35,6 +35,6 @@ inputted_ttps.csv
 mitigations_roberta_top.csv
 mitigations_rule_top.csv
 data/processed
-data/mapped
+Data/mapped/*
 
 

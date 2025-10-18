@@ -1,0 +1,26 @@
+{
+  "MODEL_NAME": "roberta-base",
+  "EPOCHS": 5,
+  "LR": 3e-05,
+  "MAX_LEN": 384,
+  "TRAIN_BATCH": 8,
+  "EVAL_BATCH": 16,
+  "WARMUP_RATIO": 0.06,
+  "WEIGHT_DECAY": 0.01,
+  "FP16": true,
+  "SEED": 42,
+  "SAVE_BEST": true,
+  "SAVE_TOTAL_LIMIT": 3,
+  "LOGGING_STEPS": 50,
+  "EVAL_STEPS": 200,
+  "THRESHOLD": 0.5,
+  "USE_KFOLD": false,
+  "USE_RANDOM_SPLIT": true,
+  "SPLIT_RATIOS": [
+    0.8,
+    0.1,
+    0.1
+  ],
+  "N_FOLDS": 0,
+  "SHUFFLE_POOL": true
+}

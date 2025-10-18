@@ -24,7 +24,6 @@ PROCESSED_DIR  = DATA_ROOT / "processed"
 EXTRACTED_PDFS_DIR   = DATA_ROOT / "extracted_pdfs"
 
 #SRC Roots
-LOGS_ROOT      = SRC_ROOT / "logs"
 MODELS_ROOT    = SRC_ROOT / "models"
 DATASCRIPT_ROOT= SRC_ROOT / "data"
 
@@ -37,7 +36,7 @@ PDFS_DIR = RAW_DIR / "pdfs"
 
 
 # Ensure directories exist 
-for d in [DATA_ROOT,EXPERIMENTS_ROOT, RAW_DIR, PROCESSED_DIR,SRC_ROOT, LOGS_ROOT, MODELS_ROOT, DATASCRIPT_ROOT,RULES_DIR,
+for d in [DATA_ROOT,EXPERIMENTS_ROOT, RAW_DIR, PROCESSED_DIR,SRC_ROOT, MODELS_ROOT, DATASCRIPT_ROOT,RULES_DIR,
           EXTRACTED_PDFS_DIR, ATTACK_STIX_DIR, PDFS_DIR,
           ]:
     d.mkdir(parents=True, exist_ok=True)

@@ -21,6 +21,7 @@ from torch.utils.data import Dataset
 import numpy as np
 import torch
 import shutil
+import torch.nn.functional as F
 
 from transformers import (
     AutoTokenizer,
@@ -31,7 +32,7 @@ from transformers import (
     TrainingArguments,
 )
 from paths.paths import (
-    PROJECT_ROOT, DATA_ROOT, PROCESSED_DIR, MODELS_ROOT, LOGS_ROOT, output_dir_for_folds, EXPERIMENTS_ROOT  ,
+    PROJECT_ROOT, DATA_ROOT, PROCESSED_DIR, MODELS_ROOT, output_dir_for_folds, EXPERIMENTS_ROOT  ,
 )
 from pathlib import Path
 # EarlyStopping is optional; present on most recent transformers
@@ -49,7 +50,6 @@ except Exception:
 
 @dataclass
 class Config:      
-    PREDICT_GROUPS_ONLY: bool = False
     MODEL_NAME: str = "roberta-base"  # e.g., "roberta-base", "roberta-large", "microsoft/deberta-v3-base", local path, etc.
 
     # --- Training hyperparams ---
@@ -91,7 +91,7 @@ class Config:
 
 
     # ensure dirs exist
-    for d in [DATA_ROOT, PROCESSED_DIR, MODELS_ROOT, LOGS_ROOT, OUTPUT_DIR,]:
+    for d in [DATA_ROOT, PROCESSED_DIR, MODELS_ROOT, OUTPUT_DIR,]:
         d.mkdir(parents=True, exist_ok=True)
 
 CFG = Config()
@@ -115,66 +115,72 @@ def scan_split_counts(csv_path: pathlib.Path) -> Dict[str, int]:
     print(f"[INFO] Split counts: train={counts['train']}  val={counts['val']}  test={counts['test']}")
     return counts
 
-def read_labels_from_csv(csv_path: pathlib.Path, groups_only: bool, tech2groups: dict[str, set[str]]) -> List[str]:
+# def read_labels_from_csv(csv_path: pathlib.Path, groups_only: bool, tech2groups: dict[str, set[str]]) -> List[str]:
+#     uniq = set()
+#     with csv_path.open("r", encoding="utf-8") as f:
+#         for r in csv.DictReader(f):
+#             labs = (r.get("labels") or "").strip()
+#             if not labs:
+#                 continue
+#             if groups_only:
+#                 # expand techniques -> groups; keep any groups already present
+#                 row_groups = set()
+#                 for x in labs.split("|"):
+#                     x = x.strip()
+#                     if not x:
+#                         continue
+#                     if x.startswith("T"):
+#                         # use exact T#### or T####.### first; if nothing, also try root T####
+#                         if x in tech2groups:
+#                             row_groups |= tech2groups[x]
+#                         else:
+#                             root = x.split(".", 1)[0]
+#                             row_groups |= tech2groups.get(root, set())
+#                     else:
+#                         row_groups.add(x)
+#                 uniq |= {g for g in row_groups if g}
+#             else:
+#                 for x in labs.split("|"):
+#                     x = x.strip()
+#                     if x:
+#                         uniq.add(x)
+
+#     if groups_only:
+#         labels = sorted(uniq)  # groups only
+#     else:
+#         tech = sorted([x for x in uniq if x.startswith("T")])
+#         grp  = sorted([x for x in uniq if not x.startswith("T")])
+#         labels = tech + grp
+#     return labels
+def read_labels_from_csv(csv_path: pathlib.Path) -> List[str]:
     uniq = set()
     with csv_path.open("r", encoding="utf-8") as f:
         for r in csv.DictReader(f):
             labs = (r.get("labels") or "").strip()
             if not labs:
                 continue
-            if groups_only:
-                # expand techniques -> groups; keep any groups already present
-                row_groups = set()
-                for x in labs.split("|"):
-                    x = x.strip()
-                    if not x:
-                        continue
-                    if x.startswith("T"):
-                        # use exact T#### or T####.### first; if nothing, also try root T####
-                        if x in tech2groups:
-                            row_groups |= tech2groups[x]
-                        else:
-                            root = x.split(".", 1)[0]
-                            row_groups |= tech2groups.get(root, set())
-                    else:
-                        row_groups.add(x)
-                uniq |= {g for g in row_groups if g}
-            else:
-                for x in labs.split("|"):
-                    x = x.strip()
-                    if x:
-                        uniq.add(x)
+            for x in labs.split("|"):
+                x = x.strip()
+                if x:
+                    uniq.add(x)
+    # keep a stable order: techniques first, then groups/others
+    tech = sorted([x for x in uniq if x.startswith("T")])
+    grp  = sorted([x for x in uniq if not x.startswith("T")])
+    return tech + grp
 
-    if groups_only:
-        labels = sorted(uniq)  # groups only
-    else:
-        tech = sorted([x for x in uniq if x.startswith("T")])
-        grp  = sorted([x for x in uniq if not x.startswith("T")])
-        labels = tech + grp
-    return labels
-
-def ensure_labels_file(labels_path: pathlib.Path, csv_path: pathlib.Path, groups_only: bool, tech2groups: dict[str, set[str]]) -> List[str]:
+# def ensure_labels_file(labels_path: pathlib.Path, csv_path: pathlib.Path, groups_only: bool, tech2groups: dict[str, set[str]]) -> List[str]:
+#     if not labels_path.exists():
+#         labels = read_labels_from_csv(csv_path, groups_only=groups_only, tech2groups=tech2groups)
+#         labels_path.write_text("\n".join(labels) + "\n", encoding="utf-8")
+#         return labels
+#     return [l.strip() for l in labels_path.read_text(encoding="utf-8").splitlines() if l.strip()]
+def ensure_labels_file(labels_path: pathlib.Path, csv_path: pathlib.Path) -> List[str]:
     if not labels_path.exists():
-        labels = read_labels_from_csv(csv_path, groups_only=groups_only, tech2groups=tech2groups)
+        labels = read_labels_from_csv(csv_path)
         labels_path.write_text("\n".join(labels) + "\n", encoding="utf-8")
         return labels
     return [l.strip() for l in labels_path.read_text(encoding="utf-8").splitlines() if l.strip()]
 
-def load_tech_to_groups_map(csv_path: pathlib.Path) -> dict[str, set[str]]:
-    m: dict[str, set[str]] = {}
-    path = csv_path
-    if not path.exists():
-        print(f"[WARN] Missing technique→group map at {path}. Groups-only mapping will be empty.")
-        return m
-    with path.open("r", encoding="utf-8") as f:
-        r = csv.DictReader(f)
-        for row in r:
-            tid = (row.get("technique_id") or "").strip()
-            g   = (row.get("group_name") or "").strip()
-            if not tid or not g:
-                continue
-            m.setdefault(tid, set()).add(g)
-    return m
 
 def print_run_banner(labels: List[str], cfg: Config, out_dir: pathlib.Path):
     # Console banner with folds + hyperparameters
@@ -221,7 +227,6 @@ def compute_output_dir(cfg: Config) -> pathlib.Path:
 class MultiLabelCSVDataset(Dataset):
     """
     CSV-backed multi-label dataset.
-    - If groups_only=True, technique labels (Txxxx / Txxxx.xxx) are expanded to groups via tech2groups.
     """
     def __init__(
         self,
@@ -230,34 +235,12 @@ class MultiLabelCSVDataset(Dataset):
         tokenizer,
         label2id: Dict[str, int],
         max_len: int = 256,
-        index_subset: Optional[List[int]] = None,
-        groups_only: bool = False,
-        tech2groups: Optional[Dict[str, Set[str]]] = None,
+        index_subset: Optional[List[int]] = None
     ):
         self.tokenizer = tokenizer
         self.max_len = int(max_len)
         self.label2id = dict(label2id)
-        self.groups_only = bool(groups_only)
-        self.tech2groups = tech2groups or {}
         self.records: List[Tuple[str, np.ndarray]] = []
-
-        def expand_to_groups(labels_str: str) -> List[str]:
-            """Map technique labels to groups using tech2groups; pass group labels through."""
-            labs_out: Set[str] = set()
-            for l in (labels_str or "").split("|"):
-                l = (l or "").strip()
-                if not l:
-                    continue
-                if l.startswith("T"):
-                    # exact technique first; fallback to root (e.g., T1059 from T1059.001)
-                    if l in self.tech2groups:
-                        labs_out |= self.tech2groups[l]
-                    else:
-                        root = l.split(".", 1)[0]
-                        labs_out |= self.tech2groups.get(root, set())
-                else:
-                    labs_out.add(l)
-            return sorted(labs_out)
 
         # ---- load rows and build records ----
         import csv, pathlib
@@ -267,17 +250,14 @@ class MultiLabelCSVDataset(Dataset):
         def add_row(r):
             text = (r.get("text") or "").strip()
             labs = (r.get("labels") or "").strip()
-
-            if self.groups_only:
-                effective_labels = expand_to_groups(labs)
-            else:
-                effective_labels = [x.strip() for x in labs.split("|") if x.strip()]
+            w = float(r.get("weight") or 1.0)    
+            effective_labels = [x.strip() for x in labs.split("|") if x.strip()]
 
             y = np.zeros(len(self.label2id), dtype=np.float32)
             for l in effective_labels:
                 if l in self.label2id:
                     y[self.label2id[l]] = 1.0
-            self.records.append((text, y))
+            self.records.append((text, y, w))
 
         if index_subset is not None:
             for i in list(index_subset):
@@ -298,14 +278,10 @@ class MultiLabelCSVDataset(Dataset):
         return self._length
 
     def __getitem__(self, idx: int):
-        text, y = self.records[idx]
-        enc = self.tokenizer(
-            text,
-            truncation=True,
-            max_length=self.max_len,
-            padding=False,
-        )
+        text, y, w = self.records[idx]
+        enc = self.tokenizer(text, truncation=True, max_length=self.max_len, padding=False)
         enc["labels"] = y
+        enc["sample_weight"] = np.float32(w) 
         return enc
 
 # --- Multi-label metrics ---
@@ -422,19 +398,11 @@ def main():
     cfg = CFG
     set_seed(cfg.SEED)
 
-    # --- Load CSV stats and technique->groups map (once) ---
-    # counts = scan_split_counts(cfg.CSV_PATH)
-    tech2groups_path = PROCESSED_DIR / "ti_groups_techniques.csv"
-    tech2groups = load_tech_to_groups_map(tech2groups_path)
-
     # --- Build/Load labels (once) ---
-    labels = ensure_labels_file(
-        cfg.LABELS_PATH, cfg.CSV_PATH,
-        groups_only=cfg.PREDICT_GROUPS_ONLY,
-        tech2groups=tech2groups
-    )
+    labels = ensure_labels_file(cfg.LABELS_PATH, cfg.CSV_PATH)
+
     if len(labels) == 0:
-        print("[ERROR] Label space is empty. Either set PREDICT_GROUPS_ONLY=False or ensure ti_groups_techniques.csv maps your techniques to groups.")
+        print("[ERROR] Label space is empty. Ensure ti_groups_techniques.csv maps your techniques to groups.")
         return
 
     # --- Static artifacts for model init (shared across runs) ---
@@ -524,16 +492,57 @@ def main():
             targs = build_training_args(cfg, do_eval_in_training=use_eval_in_training, out_dir=run_dir)
             callbacks = maybe_early_stopping(use_eval_in_training, cfg, targs) or []
 
-            trainer = Trainer(
-                model=base_model,
-                args=targs,
-                train_dataset=train_ds,
-                eval_dataset=val_ds if use_eval_in_training else None,
-                tokenizer=tokenizer,
-                data_collator=data_collator,
-                compute_metrics=make_compute_metrics(cfg.THRESHOLD) if use_eval_in_training else None,
-                callbacks=callbacks,
-            )
+            # trainer = Trainer(
+            #     model=base_model,
+            #     args=targs,
+            #     train_dataset=train_ds,
+            #     eval_dataset=val_ds if use_eval_in_training else None,
+            #     tokenizer=tokenizer,
+            #     data_collator=data_collator,
+            #     compute_metrics=make_compute_metrics(cfg.THRESHOLD) if use_eval_in_training else None,
+            #     callbacks=callbacks,
+            # )
+            class WeightedBCETrainer(Trainer):
+                def compute_loss(
+                    self,
+                    model,
+                    inputs,
+                    return_outputs: bool = False,
+                    num_items_in_batch: Optional[int] = None,  # <-- accept the new kwarg
+                ):
+                    labels = inputs.pop("labels")
+                    weights = inputs.pop("sample_weight", None)
+
+                    # forward
+                    outputs = model(**inputs)
+                    logits = outputs.logits
+
+                    # ensure float dtype
+                    if not torch.is_floating_point(labels):
+                        labels = labels.float()
+                    loss = F.binary_cross_entropy_with_logits(logits, labels, reduction="none")
+                    loss = loss.mean(dim=1)  # per-example
+
+                    if weights is not None:
+                        if not torch.is_floating_point(weights):
+                            weights = weights.float()
+                        # match device/shape
+                        weights = weights.to(loss.device)
+                        loss = loss * weights
+
+                    loss = loss.mean()
+                    return (loss, outputs) if return_outputs else loss
+            trainer = WeightedBCETrainer(
+            model=base_model,
+            args=targs,
+            train_dataset=train_ds,
+            eval_dataset=val_ds if use_eval_in_training else None,
+            tokenizer=tokenizer,
+            data_collator=data_collator,
+            compute_metrics=make_compute_metrics(cfg.THRESHOLD) if use_eval_in_training else None,
+            callbacks=callbacks,
+
+        )
 
             print("[INFO] Training…")
             trainer.train()
@@ -555,8 +564,14 @@ def main():
                 test_ds = MultiLabelCSVDataset(cfg.CSV_PATH, split=None, tokenizer=tokenizer,
                                                label2id=label2id, max_len=cfg.MAX_LEN, index_subset=test_idx)
                 targs_noeval = build_training_args(cfg, do_eval_in_training=False, out_dir=run_dir)
-                trainer_test = Trainer(model=base_model, args=targs_noeval, data_collator=data_collator, tokenizer=tokenizer)
+                trainer_test = WeightedBCETrainer(
+                    model=base_model,
+                    args=targs_noeval,
+                    data_collator=data_collator,
+                    tokenizer=tokenizer,
+                )
                 logits, labels_np, _ = trainer_test.predict(test_ds)
+
                 probs = 1 / (1 + np.exp(-logits))
                 preds = (probs >= cfg.THRESHOLD).astype(np.int32)
                 metrics_json["test"] = _precision_recall_f1(labels_np.astype(np.int32), preds)

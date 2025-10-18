@@ -3,8 +3,8 @@ import json, re
 import pathlib
 from typing import Dict, List, Tuple
 
-from common.paths import (
-    PROJECT_ROOT, DATA_ROOT, ATTACK_STIX_DIR, ENTERPRISE_DIR, PROCESSED_DIR,RULES_DIR,
+from paths.paths import (
+    PROJECT_ROOT, DATA_ROOT, ATTACK_STIX_DIR,  PROCESSED_DIR,RULES_DIR,
 )
 BUNDLES_DIR = ATTACK_STIX_DIR / "enterprise-attack"  
 OUT = RULES_DIR / "attack_rules_auto.json"

@@ -24,10 +24,10 @@ techniques_mapping.csv
 
 Data/mitigations/mitigations.csv
 
-matched_top3_roberta.csv
-matched_top3_rule.csv
-inputted_ttps_rule.csv
-Data\processed\extracted_iocs.csv
+Data\mapped\*
+Data\processed\*
 matched_groups_roberta.csv
-
-
+matched_groups_rule.csv
+mitigations_roberta_top.csv
+mitigations_rule_top.csv
+inputted_ttps.csv

@@ -1,13 +1,13 @@
 {
   "type": "bundle",
-  "id": "bundle--63d792e4-7e2f-44b3-b7eb-23c8560aed11",
+  "id": "bundle--8c83f2b1-64d7-4f6e-9133-cd7f793a5b80",
   "objects": [
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--26d6f6d1-1867-4541-ac91-8435a10c9ee9",
-      "created": "2025-10-18T12:56:34.771932Z",
-      "modified": "2025-10-18T12:56:34.771932Z",
+      "id": "x-attack-pattern-ref--5c6a2814-c9fa-42c6-a109-760d97909b8e",
+      "created": "2025-10-18T14:48:16.894547Z",
+      "modified": "2025-10-18T14:48:16.894547Z",
       "name": "T1003.001",
       "external_references": [
         {
@@ -19,9 +19,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--2517a6ac-5915-4f98-bd6e-6574e24ce4dd",
-      "created": "2025-10-18T12:56:34.771932Z",
-      "modified": "2025-10-18T12:56:34.771932Z",
+      "id": "x-attack-pattern-ref--f8c63a91-9a40-4e4a-879a-7f580c19001c",
+      "created": "2025-10-18T14:48:16.894547Z",
+      "modified": "2025-10-18T14:48:16.894547Z",
       "name": "T1027.001",
       "external_references": [
         {
@@ -33,9 +33,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--80f7e118-a0d3-4c88-a10b-46106ea410ed",
-      "created": "2025-10-18T12:56:34.771932Z",
-      "modified": "2025-10-18T12:56:34.771932Z",
+      "id": "x-attack-pattern-ref--966e529c-a986-4318-a965-219502966f43",
+      "created": "2025-10-18T14:48:16.894547Z",
+      "modified": "2025-10-18T14:48:16.894547Z",
       "name": "T1027.002",
       "external_references": [
         {
@@ -47,9 +47,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--c98f16a8-efc7-4b69-b87d-a0d3fc675a76",
-      "created": "2025-10-18T12:56:34.771932Z",
-      "modified": "2025-10-18T12:56:34.771932Z",
+      "id": "x-attack-pattern-ref--b0317658-2e93-4047-ba6e-987679bf2fc0",
+      "created": "2025-10-18T14:48:16.894547Z",
+      "modified": "2025-10-18T14:48:16.894547Z",
       "name": "T1041",
       "external_references": [
         {
@@ -61,9 +61,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--75478817-cc81-47ca-b180-ca70fb03786d",
-      "created": "2025-10-18T12:56:34.771932Z",
-      "modified": "2025-10-18T12:56:34.771932Z",
+      "id": "x-attack-pattern-ref--235d60ca-5816-4245-b89e-3286d4df3426",
+      "created": "2025-10-18T14:48:16.894547Z",
+      "modified": "2025-10-18T14:48:16.894547Z",
       "name": "T1057",
       "external_references": [
         {
@@ -75,9 +75,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--8fb0b187-ba0d-4a0d-856c-ab20ab1f4517",
-      "created": "2025-10-18T12:56:34.771932Z",
-      "modified": "2025-10-18T12:56:34.771932Z",
+      "id": "x-attack-pattern-ref--e7465e10-dd2e-44ee-90b1-fa7c02fc4d36",
+      "created": "2025-10-18T14:48:16.894547Z",
+      "modified": "2025-10-18T14:48:16.894547Z",
       "name": "T1071.001",
       "external_references": [
         {
@@ -89,9 +89,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--d8e3630a-2080-44ca-b780-7402fd6be0f5",
-      "created": "2025-10-18T12:56:34.771932Z",
-      "modified": "2025-10-18T12:56:34.771932Z",
+      "id": "x-attack-pattern-ref--5f717cf7-e0a8-4ed4-aae5-70c1c9dad8c8",
+      "created": "2025-10-18T14:48:16.894547Z",
+      "modified": "2025-10-18T14:48:16.894547Z",
       "name": "T1082",
       "external_references": [
         {
@@ -103,9 +103,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--c72f20e7-4714-4bff-9d7a-18c8702976f1",
-      "created": "2025-10-18T12:56:34.771932Z",
-      "modified": "2025-10-18T12:56:34.771932Z",
+      "id": "x-attack-pattern-ref--34771972-aee6-4fb9-997c-9cc18f324e99",
+      "created": "2025-10-18T14:48:16.894547Z",
+      "modified": "2025-10-18T14:48:16.894547Z",
       "name": "T1083",
       "external_references": [
         {
@@ -117,9 +117,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--0232fcf7-4513-4005-ab18-3ec2667bf9a1",
-      "created": "2025-10-18T12:56:34.771932Z",
-      "modified": "2025-10-18T12:56:34.771932Z",
+      "id": "x-attack-pattern-ref--c4979420-0dbb-4ee0-8941-1406c1a8bc4c",
+      "created": "2025-10-18T14:48:16.894547Z",
+      "modified": "2025-10-18T14:48:16.894547Z",
       "name": "T1113",
       "external_references": [
         {
@@ -131,9 +131,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--e010f757-8fc8-4892-994b-6d2833083929",
-      "created": "2025-10-18T12:56:34.771932Z",
-      "modified": "2025-10-18T12:56:34.771932Z",
+      "id": "x-attack-pattern-ref--27ade1da-b181-46a0-8199-a0fe0e4f06c4",
+      "created": "2025-10-18T14:48:16.894547Z",
+      "modified": "2025-10-18T14:48:16.894547Z",
       "name": "T1132.002",
       "external_references": [
         {
@@ -145,9 +145,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--4fa19d61-39e3-4b6f-8e1e-dcd6d8f21040",
-      "created": "2025-10-18T12:56:34.771932Z",
-      "modified": "2025-10-18T12:56:34.771932Z",
+      "id": "x-attack-pattern-ref--406b826c-450f-410d-99cb-2151000fc164",
+      "created": "2025-10-18T14:48:16.894547Z",
+      "modified": "2025-10-18T14:48:16.894547Z",
       "name": "T1140",
       "external_references": [
         {
@@ -159,9 +159,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--214df7d0-837a-4218-a764-f2d3a1b04343",
-      "created": "2025-10-18T12:56:34.771932Z",
-      "modified": "2025-10-18T12:56:34.771932Z",
+      "id": "x-attack-pattern-ref--d28a9344-2c49-4cee-9e96-d37ef0e5fc98",
+      "created": "2025-10-18T14:48:16.894547Z",
+      "modified": "2025-10-18T14:48:16.894547Z",
       "name": "T1189",
       "external_references": [
         {
@@ -173,9 +173,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--64ea6e12-f060-47f7-8cd6-a40c40c55ce1",
-      "created": "2025-10-18T12:56:34.771932Z",
-      "modified": "2025-10-18T12:56:34.771932Z",
+      "id": "x-attack-pattern-ref--1d93cd35-d468-4005-9c05-9846b2f8401b",
+      "created": "2025-10-18T14:48:16.894547Z",
+      "modified": "2025-10-18T14:48:16.894547Z",
       "name": "T1203",
       "external_references": [
         {
@@ -187,9 +187,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--7ee8741c-29fe-420b-a871-037287e100a1",
-      "created": "2025-10-18T12:56:34.771932Z",
-      "modified": "2025-10-18T12:56:34.771932Z",
+      "id": "x-attack-pattern-ref--f46bf781-fe3f-41e5-a567-ee163315c20d",
+      "created": "2025-10-18T14:48:16.894547Z",
+      "modified": "2025-10-18T14:48:16.894547Z",
       "name": "T1547.012",
       "external_references": [
         {
@@ -201,9 +201,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--95c3de1f-fac1-4ae6-934a-4801dfb07af6",
-      "created": "2025-10-18T12:56:34.771932Z",
-      "modified": "2025-10-18T12:56:34.771932Z",
+      "id": "x-attack-pattern-ref--9605e1b5-05ee-4b7a-b6b1-c8dabe85bb0b",
+      "created": "2025-10-18T14:48:16.894547Z",
+      "modified": "2025-10-18T14:48:16.894547Z",
       "name": "T1573.001",
       "external_references": [
         {
@@ -215,9 +215,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--fed709c0-fb68-4437-903f-fd763acae71a",
-      "created": "2025-10-18T12:56:34.771932Z",
-      "modified": "2025-10-18T12:56:34.771932Z",
+      "id": "x-attack-pattern-ref--5be51ea3-36b8-400b-9f4c-fd8c6ea7f8aa",
+      "created": "2025-10-18T14:48:16.894547Z",
+      "modified": "2025-10-18T14:48:16.894547Z",
       "name": "T1574.002",
       "external_references": [
         {
@@ -229,9 +229,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--2dcce002-f8f6-43c2-8f41-0348a5468226",
-      "created": "2025-10-18T12:56:34.771932Z",
-      "modified": "2025-10-18T12:56:34.771932Z",
+      "id": "x-attack-pattern-ref--a47f6cef-0522-4b9d-8422-6cebe9728910",
+      "created": "2025-10-18T14:48:16.894547Z",
+      "modified": "2025-10-18T14:48:16.894547Z",
       "name": "T1620",
       "external_references": [
         {
@@ -243,13 +243,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--1f6f1f99-70d4-4706-8213-5a64a6b9a3c2",
-      "created": "2025-10-18T12:56:34.771932Z",
-      "modified": "2025-10-18T12:56:34.771932Z",
+      "id": "indicator--8dc54f1d-a44d-40f5-976f-ba9a4b618bf9",
+      "created": "2025-10-18T14:48:16.894547Z",
+      "modified": "2025-10-18T14:48:16.894547Z",
       "name": "domain:securelist.com",
       "pattern": "[domain-name:value = 'securelist.com']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.771932Z",
+      "valid_from": "2025-10-18T14:48:16.894547Z",
       "labels": [
         "domain",
         "extracted-from-report",
@@ -259,13 +259,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--bae354bc-98ee-430a-8b07-207ff78040c9",
-      "created": "2025-10-18T12:56:34.771932Z",
-      "modified": "2025-10-18T12:56:34.771932Z",
+      "id": "indicator--78a0cacf-88c7-46fe-8e13-e820784c0513",
+      "created": "2025-10-18T14:48:16.894547Z",
+      "modified": "2025-10-18T14:48:16.894547Z",
       "name": "domain:kaspersky.com",
       "pattern": "[domain-name:value = 'kaspersky.com']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.771932Z",
+      "valid_from": "2025-10-18T14:48:16.894547Z",
       "labels": [
         "domain",
         "extracted-from-report",
@@ -275,13 +275,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--abed5e09-c410-4ef0-86c7-d5538c66eec1",
-      "created": "2025-10-18T12:56:34.771932Z",
-      "modified": "2025-10-18T12:56:34.771932Z",
+      "id": "indicator--5aa9176c-7eb1-4c86-937f-122dfc90b637",
+      "created": "2025-10-18T14:48:16.894547Z",
+      "modified": "2025-10-18T14:48:16.894547Z",
       "name": "email:intelreports@kaspersky.com",
       "pattern": "[email-addr:value = 'intelreports@kaspersky.com']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.771932Z",
+      "valid_from": "2025-10-18T14:48:16.894547Z",
       "labels": [
         "email",
         "extracted-from-report",
@@ -291,13 +291,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--0fa2a51d-9da2-4e2d-a996-1d1f6b71e399",
-      "created": "2025-10-18T12:56:34.771932Z",
-      "modified": "2025-10-18T12:56:34.771932Z",
+      "id": "indicator--2ae6b1cf-bec8-47bf-9aab-ec97b5deaccf",
+      "created": "2025-10-18T14:48:16.894547Z",
+      "modified": "2025-10-18T14:48:16.894547Z",
       "name": "md5:9cd90dff2d9d56654dbecdcd409e1ef3",
       "pattern": "[file:hashes.'MD5' = '9cd90dff2d9d56654dbecdcd409e1ef3']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.771932Z",
+      "valid_from": "2025-10-18T14:48:16.894547Z",
       "labels": [
         "md5",
         "extracted-from-report",
@@ -307,13 +307,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--38de30e2-5c3c-4911-a3b9-572b467684ae",
-      "created": "2025-10-18T12:56:34.771932Z",
-      "modified": "2025-10-18T12:56:34.771932Z",
+      "id": "indicator--c8f1e541-272e-4323-bd2c-5d15eeb1c2ea",
+      "created": "2025-10-18T14:48:16.894547Z",
+      "modified": "2025-10-18T14:48:16.894547Z",
       "name": "md5:88a96f8730b35c7406d57f23bbba734d",
       "pattern": "[file:hashes.'MD5' = '88a96f8730b35c7406d57f23bbba734d']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.771932Z",
+      "valid_from": "2025-10-18T14:48:16.894547Z",
       "labels": [
         "md5",
         "extracted-from-report",
@@ -323,13 +323,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--6074b9a9-d907-4c75-84de-0ec40084ef85",
-      "created": "2025-10-18T12:56:34.771932Z",
-      "modified": "2025-10-18T12:56:34.771932Z",
+      "id": "indicator--e139a931-cbe0-4966-b096-ec755c1eaead",
+      "created": "2025-10-18T14:48:16.894547Z",
+      "modified": "2025-10-18T14:48:16.894547Z",
       "name": "md5:54df2984e833ba2854de670cce43b823",
       "pattern": "[file:hashes.'MD5' = '54df2984e833ba2854de670cce43b823']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.771932Z",
+      "valid_from": "2025-10-18T14:48:16.894547Z",
       "labels": [
         "md5",
         "extracted-from-report",
@@ -339,13 +339,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--1f1646a7-3cba-4d24-b4a4-50e2f3dc89f6",
-      "created": "2025-10-18T12:56:34.771932Z",
-      "modified": "2025-10-18T12:56:34.771932Z",
+      "id": "indicator--76fe905a-d3c6-4e32-ab9e-b37cf9c5d894",
+      "created": "2025-10-18T14:48:16.894547Z",
+      "modified": "2025-10-18T14:48:16.894547Z",
       "name": "md5:Ae00b0f490b122ebab614d98bb2361f7",
       "pattern": "[file:hashes.'MD5' = 'Ae00b0f490b122ebab614d98bb2361f7']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.771932Z",
+      "valid_from": "2025-10-18T14:48:16.894547Z",
       "labels": [
         "md5",
         "extracted-from-report",
@@ -355,13 +355,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--2fa62336-8436-4805-9332-82ab075a1d3b",
-      "created": "2025-10-18T12:56:34.771932Z",
-      "modified": "2025-10-18T12:56:34.771932Z",
+      "id": "indicator--a82e4862-7150-45c6-be8d-2ebf925524b6",
+      "created": "2025-10-18T14:48:16.894547Z",
+      "modified": "2025-10-18T14:48:16.894547Z",
       "name": "md5:e6fa116ef2705ecf9677021e5e2f691e",
       "pattern": "[file:hashes.'MD5' = 'e6fa116ef2705ecf9677021e5e2f691e']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.771932Z",
+      "valid_from": "2025-10-18T14:48:16.894547Z",
       "labels": [
         "md5",
         "extracted-from-report",
@@ -371,13 +371,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--3bed62cc-2b67-44a3-806c-ad28cab16cb0",
-      "created": "2025-10-18T12:56:34.771932Z",
-      "modified": "2025-10-18T12:56:34.771932Z",
+      "id": "indicator--e61e1b8e-3016-4401-bb2f-8a04b62da1a4",
+      "created": "2025-10-18T14:48:16.894547Z",
+      "modified": "2025-10-18T14:48:16.894547Z",
       "name": "md5:31af3e7fff79bc48a99b8679ea74b589",
       "pattern": "[file:hashes.'MD5' = '31af3e7fff79bc48a99b8679ea74b589']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.771932Z",
+      "valid_from": "2025-10-18T14:48:16.894547Z",
       "labels": [
         "md5",
         "extracted-from-report",
@@ -387,13 +387,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--a839089e-8834-4c80-acf3-0e929071e161",
-      "created": "2025-10-18T12:56:34.771932Z",
-      "modified": "2025-10-18T12:56:34.771932Z",
+      "id": "indicator--8079acf6-b937-4e37-a824-28f681647e78",
+      "created": "2025-10-18T14:48:16.894547Z",
+      "modified": "2025-10-18T14:48:16.894547Z",
       "name": "md5:9b62352851c9f82157d1d7fcafeb49d3",
       "pattern": "[file:hashes.'MD5' = '9b62352851c9f82157d1d7fcafeb49d3']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.771932Z",
+      "valid_from": "2025-10-18T14:48:16.894547Z",
       "labels": [
         "md5",
         "extracted-from-report",
@@ -403,13 +403,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--73f6abdc-d50e-4b76-ac64-28a2fff92edf",
-      "created": "2025-10-18T12:56:34.771932Z",
-      "modified": "2025-10-18T12:56:34.771932Z",
+      "id": "indicator--325cdadc-a6d1-4bdb-bea3-b7394a0c5204",
+      "created": "2025-10-18T14:48:16.894547Z",
+      "modified": "2025-10-18T14:48:16.894547Z",
       "name": "md5:3a77b5054c36e6812f07366fb70b007d",
       "pattern": "[file:hashes.'MD5' = '3a77b5054c36e6812f07366fb70b007d']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.771932Z",
+      "valid_from": "2025-10-18T14:48:16.894547Z",
       "labels": [
         "md5",
         "extracted-from-report",
@@ -419,13 +419,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--7a59cffd-5af8-4ed9-bf6a-7301b87e9ca1",
-      "created": "2025-10-18T12:56:34.771932Z",
-      "modified": "2025-10-18T12:56:34.771932Z",
+      "id": "indicator--6b79b792-76bd-4409-9e45-1ceef45f2a7c",
+      "created": "2025-10-18T14:48:16.894547Z",
+      "modified": "2025-10-18T14:48:16.894547Z",
       "name": "md5:E89fa6345d06da32f9c8786b65111928",
       "pattern": "[file:hashes.'MD5' = 'E89fa6345d06da32f9c8786b65111928']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.771932Z",
+      "valid_from": "2025-10-18T14:48:16.894547Z",
       "labels": [
         "md5",
         "extracted-from-report",

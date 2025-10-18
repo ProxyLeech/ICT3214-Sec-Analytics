@@ -1,13 +1,13 @@
 {
   "type": "bundle",
-  "id": "bundle--23f561ab-96e7-488c-bed1-b45cff2ee573",
+  "id": "bundle--62128f79-eff1-4315-a249-ccb3a70b6d8e",
   "objects": [
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--1ac498a1-cf4d-451c-b85e-993148446c90",
-      "created": "2025-10-18T12:56:34.743774Z",
-      "modified": "2025-10-18T12:56:34.743774Z",
+      "id": "x-attack-pattern-ref--7ad5ecdc-3e23-4736-a1ee-b355b5024a7c",
+      "created": "2025-10-18T14:48:16.871459Z",
+      "modified": "2025-10-18T14:48:16.871459Z",
       "name": "T1053.005",
       "external_references": [
         {
@@ -19,9 +19,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--c5d7a2fe-eda0-4136-8aad-71a1bb1f16d1",
-      "created": "2025-10-18T12:56:34.743774Z",
-      "modified": "2025-10-18T12:56:34.743774Z",
+      "id": "x-attack-pattern-ref--e50d357d-667c-4643-9396-9dd0cae7e42b",
+      "created": "2025-10-18T14:48:16.871459Z",
+      "modified": "2025-10-18T14:48:16.871459Z",
       "name": "T1059.001",
       "external_references": [
         {
@@ -33,9 +33,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--1ada9ce3-67e6-49ed-bdbe-e783a119da5b",
-      "created": "2025-10-18T12:56:34.743774Z",
-      "modified": "2025-10-18T12:56:34.743774Z",
+      "id": "x-attack-pattern-ref--556d9d16-e74e-4ae3-b7c5-393134e1bb0d",
+      "created": "2025-10-18T14:48:16.871459Z",
+      "modified": "2025-10-18T14:48:16.871459Z",
       "name": "T1059.003",
       "external_references": [
         {
@@ -47,9 +47,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--fd0d5dcc-ef6d-4a16-8c77-c2631d1e6562",
-      "created": "2025-10-18T12:56:34.743774Z",
-      "modified": "2025-10-18T12:56:34.743774Z",
+      "id": "x-attack-pattern-ref--a147dd60-e36e-452e-9e7a-c6235763fd0b",
+      "created": "2025-10-18T14:48:16.871459Z",
+      "modified": "2025-10-18T14:48:16.871459Z",
       "name": "T1059.005",
       "external_references": [
         {
@@ -61,9 +61,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--a1f4f1ca-9014-4aec-b10f-68532658a4cb",
-      "created": "2025-10-18T12:56:34.743774Z",
-      "modified": "2025-10-18T12:56:34.743774Z",
+      "id": "x-attack-pattern-ref--c0bb3794-cd8e-4666-b51f-03f9e9ce207d",
+      "created": "2025-10-18T14:48:16.871459Z",
+      "modified": "2025-10-18T14:48:16.871459Z",
       "name": "T1204.001",
       "external_references": [
         {
@@ -75,9 +75,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--a99624ff-e5c7-41c7-9feb-a28483907693",
-      "created": "2025-10-18T12:56:34.743774Z",
-      "modified": "2025-10-18T12:56:34.743774Z",
+      "id": "x-attack-pattern-ref--8fda968b-a32f-478b-8209-6371383217bb",
+      "created": "2025-10-18T14:48:16.871459Z",
+      "modified": "2025-10-18T14:48:16.871459Z",
       "name": "T1204.002",
       "external_references": [
         {
@@ -89,9 +89,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--5b421326-a8c3-4424-a1fe-f06edf0bf939",
-      "created": "2025-10-18T12:56:34.743774Z",
-      "modified": "2025-10-18T12:56:34.743774Z",
+      "id": "x-attack-pattern-ref--d0a6dde9-517b-4482-87d7-fb7750e544c6",
+      "created": "2025-10-18T14:48:16.871459Z",
+      "modified": "2025-10-18T14:48:16.871459Z",
       "name": "T1218.009",
       "external_references": [
         {
@@ -103,9 +103,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--582f002c-ca77-49cc-b747-b6e30386dd3c",
-      "created": "2025-10-18T12:56:34.743774Z",
-      "modified": "2025-10-18T12:56:34.743774Z",
+      "id": "x-attack-pattern-ref--9a7860be-06f3-4a58-a871-e490c665ebdd",
+      "created": "2025-10-18T14:48:16.871459Z",
+      "modified": "2025-10-18T14:48:16.871459Z",
       "name": "T1547.001",
       "external_references": [
         {
@@ -117,9 +117,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--6c638f30-318d-4685-8d25-e5f14c280b63",
-      "created": "2025-10-18T12:56:34.743774Z",
-      "modified": "2025-10-18T12:56:34.743774Z",
+      "id": "x-attack-pattern-ref--07c5ab64-2854-42ae-9cd1-b44b569576ae",
+      "created": "2025-10-18T14:48:16.871459Z",
+      "modified": "2025-10-18T14:48:16.871459Z",
       "name": "T1566.001",
       "external_references": [
         {
@@ -131,13 +131,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--ae4e904d-a082-45e4-84f5-165c8333557a",
-      "created": "2025-10-18T12:56:34.743774Z",
-      "modified": "2025-10-18T12:56:34.743774Z",
+      "id": "indicator--8c8cbc86-90f6-4655-993e-1fa7ab32a2f1",
+      "created": "2025-10-18T14:48:16.871459Z",
+      "modified": "2025-10-18T14:48:16.871459Z",
       "name": "domain:blogs.blackberry.com",
       "pattern": "[domain-name:value = 'blogs.blackberry.com']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.743774Z",
+      "valid_from": "2025-10-18T14:48:16.871459Z",
       "labels": [
         "domain",
         "extracted-from-report",
@@ -147,13 +147,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--b81729d4-b9b5-42f3-a2be-6417e28f8730",
-      "created": "2025-10-18T12:56:34.743774Z",
-      "modified": "2025-10-18T12:56:34.743774Z",
+      "id": "indicator--9cb1726a-78e2-4598-b792-43a6bccd8fee",
+      "created": "2025-10-18T14:48:16.871459Z",
+      "modified": "2025-10-18T14:48:16.871459Z",
       "name": "domain:ccb.org.co",
       "pattern": "[domain-name:value = 'ccb.org.co']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.743774Z",
+      "valid_from": "2025-10-18T14:48:16.871459Z",
       "labels": [
         "domain",
         "extracted-from-report",
@@ -163,13 +163,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--661bbed9-0535-4666-849e-35d7b49a8c72",
-      "created": "2025-10-18T12:56:34.743774Z",
-      "modified": "2025-10-18T12:56:34.743774Z",
+      "id": "indicator--1bcd3b21-79b6-46f5-9ca9-f9c88b5cfe61",
+      "created": "2025-10-18T14:48:16.871459Z",
+      "modified": "2025-10-18T14:48:16.871459Z",
       "name": "email:correspondencia@ccb.org.co",
       "pattern": "[email-addr:value = 'correspondencia@ccb.org.co']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.743774Z",
+      "valid_from": "2025-10-18T14:48:16.871459Z",
       "labels": [
         "email",
         "extracted-from-report",
@@ -179,13 +179,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--a8977c9a-7731-463c-ae81-39fa1ba3ca06",
-      "created": "2025-10-18T12:56:34.743774Z",
-      "modified": "2025-10-18T12:56:34.743774Z",
+      "id": "indicator--d726fb52-0c8e-4608-88b9-4789db338f89",
+      "created": "2025-10-18T14:48:16.871459Z",
+      "modified": "2025-10-18T14:48:16.871459Z",
       "name": "url:https://www.dian.gov.co/",
       "pattern": "[url:value = 'https://www.dian.gov.co/']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.743774Z",
+      "valid_from": "2025-10-18T14:48:16.871459Z",
       "labels": [
         "url",
         "extracted-from-report",
@@ -195,13 +195,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--9e02f797-c1d5-4684-a466-cf8e2b0b36cc",
-      "created": "2025-10-18T12:56:34.743774Z",
-      "modified": "2025-10-18T12:56:34.743774Z",
+      "id": "indicator--37caae49-e9b4-42bb-ba74-466e4cf3d36a",
+      "created": "2025-10-18T14:48:16.871459Z",
+      "modified": "2025-10-18T14:48:16.871459Z",
       "name": "domain:dian.gov.co",
       "pattern": "[domain-name:value = 'dian.gov.co']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.743774Z",
+      "valid_from": "2025-10-18T14:48:16.871459Z",
       "labels": [
         "domain",
         "extracted-from-report",
@@ -211,13 +211,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--be01e9dc-d632-4e60-8d3a-b705a5eba9d9",
-      "created": "2025-10-18T12:56:34.743774Z",
-      "modified": "2025-10-18T12:56:34.743774Z",
+      "id": "indicator--03d7e6d9-dc75-4bcb-acd0-8064f9902aa0",
+      "created": "2025-10-18T14:48:16.871459Z",
+      "modified": "2025-10-18T14:48:16.871459Z",
       "name": "domain:www.dian.gov.co",
       "pattern": "[domain-name:value = 'www.dian.gov.co']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.743774Z",
+      "valid_from": "2025-10-18T14:48:16.871459Z",
       "labels": [
         "domain",
         "extracted-from-report",
@@ -227,13 +227,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--cfefe059-5486-484e-bf67-d5301e243db6",
-      "created": "2025-10-18T12:56:34.743774Z",
-      "modified": "2025-10-18T12:56:34.743774Z",
+      "id": "indicator--b0fe9c26-0311-44f1-9e15-57a5af282275",
+      "created": "2025-10-18T14:48:16.871459Z",
+      "modified": "2025-10-18T14:48:16.871459Z",
       "name": "md5:e4d2799f3001a531d15939b1898399b4",
       "pattern": "[file:hashes.'MD5' = 'e4d2799f3001a531d15939b1898399b4']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.743774Z",
+      "valid_from": "2025-10-18T14:48:16.871459Z",
       "labels": [
         "md5",
         "extracted-from-report",
@@ -243,13 +243,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--f7a008b0-d297-4169-8b5a-4b710b8de029",
-      "created": "2025-10-18T12:56:34.743774Z",
-      "modified": "2025-10-18T12:56:34.743774Z",
+      "id": "indicator--82c866c7-ef29-4680-88e2-17744eb3d75d",
+      "created": "2025-10-18T14:48:16.871459Z",
+      "modified": "2025-10-18T14:48:16.871459Z",
       "name": "sha256:fc85d3da6401b0764a2e8a5f55334a7d683ec20fb8210213feb6148f02a30554",
       "pattern": "[file:hashes.'SHA256' = 'fc85d3da6401b0764a2e8a5f55334a7d683ec20fb8210213feb6148f02a30554']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.743774Z",
+      "valid_from": "2025-10-18T14:48:16.871459Z",
       "labels": [
         "sha256",
         "extracted-from-report",
@@ -259,13 +259,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--094da581-0a79-4037-b5cc-6e3962ecc157",
-      "created": "2025-10-18T12:56:34.743774Z",
-      "modified": "2025-10-18T12:56:34.743774Z",
+      "id": "indicator--df7a0ae7-5f00-4d36-a03b-fc61b72b99a8",
+      "created": "2025-10-18T14:48:16.871459Z",
+      "modified": "2025-10-18T14:48:16.871459Z",
       "name": "md5:B432202CF7F00B4A4CBE377C284F3F28",
       "pattern": "[file:hashes.'MD5' = 'B432202CF7F00B4A4CBE377C284F3F28']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.743774Z",
+      "valid_from": "2025-10-18T14:48:16.871459Z",
       "labels": [
         "md5",
         "extracted-from-report",
@@ -275,13 +275,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--1ecde1d5-4c8a-4ef5-b614-d420af138abf",
-      "created": "2025-10-18T12:56:34.743774Z",
-      "modified": "2025-10-18T12:56:34.743774Z",
+      "id": "indicator--d06e69db-49bb-4db5-a70d-4763ba8d68e9",
+      "created": "2025-10-18T14:48:16.871459Z",
+      "modified": "2025-10-18T14:48:16.871459Z",
       "name": "sha256:6D9D0EB5E8E69FFE9914C63676D293DA1B7D3B7B9F3D2C8035ABE0A3DE8B9FCA",
       "pattern": "[file:hashes.'SHA256' = '6D9D0EB5E8E69FFE9914C63676D293DA1B7D3B7B9F3D2C8035ABE0A3DE8B9FCA']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.743774Z",
+      "valid_from": "2025-10-18T14:48:16.871459Z",
       "labels": [
         "sha256",
         "extracted-from-report",
@@ -291,13 +291,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--a30e2faa-dd02-486e-915d-dad8fed1d78d",
-      "created": "2025-10-18T12:56:34.743774Z",
-      "modified": "2025-10-18T12:56:34.743774Z",
+      "id": "indicator--8aa7172c-4ebd-442f-86d2-f4d844652075",
+      "created": "2025-10-18T14:48:16.871459Z",
+      "modified": "2025-10-18T14:48:16.871459Z",
       "name": "md5:6BEF68F58AFCFDD93943AFCC894F8740",
       "pattern": "[file:hashes.'MD5' = '6BEF68F58AFCFDD93943AFCC894F8740']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.743774Z",
+      "valid_from": "2025-10-18T14:48:16.871459Z",
       "labels": [
         "md5",
         "extracted-from-report",
@@ -307,13 +307,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--c97b33e3-c01a-4df8-bc67-9f1ab032b5f6",
-      "created": "2025-10-18T12:56:34.743774Z",
-      "modified": "2025-10-18T12:56:34.743774Z",
+      "id": "indicator--986c1dfd-ded3-4e0f-9bce-f0ab6f8b6de8",
+      "created": "2025-10-18T14:48:16.871459Z",
+      "modified": "2025-10-18T14:48:16.871459Z",
       "name": "sha256:430BE2A37BAC2173CF47CA1376126A3E78A94904DBC5F304576D87F5A17ED366",
       "pattern": "[file:hashes.'SHA256' = '430BE2A37BAC2173CF47CA1376126A3E78A94904DBC5F304576D87F5A17ED366']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.743774Z",
+      "valid_from": "2025-10-18T14:48:16.871459Z",
       "labels": [
         "sha256",
         "extracted-from-report",
@@ -323,13 +323,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--29f74c95-a1e6-44d7-9997-2c7b0d646617",
-      "created": "2025-10-18T12:56:34.743774Z",
-      "modified": "2025-10-18T12:56:34.743774Z",
+      "id": "indicator--7af5ceab-3676-4191-b6e8-6fe119a3a5de",
+      "created": "2025-10-18T14:48:16.871459Z",
+      "modified": "2025-10-18T14:48:16.871459Z",
       "name": "domain:moc.ppadrocsid.ndc",
       "pattern": "[domain-name:value = 'moc.ppadrocsid.ndc']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.743774Z",
+      "valid_from": "2025-10-18T14:48:16.871459Z",
       "labels": [
         "domain",
         "extracted-from-report",
@@ -339,13 +339,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--3ae423f0-c978-4ced-82bb-66bcc9e19fce",
-      "created": "2025-10-18T12:56:34.743774Z",
-      "modified": "2025-10-18T12:56:34.743774Z",
+      "id": "indicator--fa4d156d-0937-4f29-ba15-3b79d738b45d",
+      "created": "2025-10-18T14:48:16.871459Z",
+      "modified": "2025-10-18T14:48:16.871459Z",
       "name": "domain:microsoft.net",
       "pattern": "[domain-name:value = 'microsoft.net']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.743774Z",
+      "valid_from": "2025-10-18T14:48:16.871459Z",
       "labels": [
         "domain",
         "extracted-from-report",
@@ -355,13 +355,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--3d2798bd-e9e6-48d4-9dcf-213de31eecf7",
-      "created": "2025-10-18T12:56:34.743774Z",
-      "modified": "2025-10-18T12:56:34.743774Z",
+      "id": "indicator--6e78da47-1712-4084-b92c-f07328333994",
+      "created": "2025-10-18T14:48:16.871459Z",
+      "modified": "2025-10-18T14:48:16.871459Z",
       "name": "md5:C75F9D3DA98E57B973077FDE8EC3780F",
       "pattern": "[file:hashes.'MD5' = 'C75F9D3DA98E57B973077FDE8EC3780F']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.743774Z",
+      "valid_from": "2025-10-18T14:48:16.871459Z",
       "labels": [
         "md5",
         "extracted-from-report",
@@ -371,13 +371,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--8c2ae9ef-632f-464f-8f59-c12d320c9c32",
-      "created": "2025-10-18T12:56:34.743774Z",
-      "modified": "2025-10-18T12:56:34.743774Z",
+      "id": "indicator--7aeb751a-81ad-4b18-bba0-f680c533992a",
+      "created": "2025-10-18T14:48:16.871459Z",
+      "modified": "2025-10-18T14:48:16.871459Z",
       "name": "sha256:5399BF1F18AFCC125007D127493082005421C5DDEBC34697313D62D8BC88DAEC",
       "pattern": "[file:hashes.'SHA256' = '5399BF1F18AFCC125007D127493082005421C5DDEBC34697313D62D8BC88DAEC']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.743774Z",
+      "valid_from": "2025-10-18T14:48:16.871459Z",
       "labels": [
         "sha256",
         "extracted-from-report",
@@ -387,13 +387,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--24b852dc-ff51-45ac-9000-16d9b901f86b",
-      "created": "2025-10-18T12:56:34.743774Z",
-      "modified": "2025-10-18T12:56:34.743774Z",
+      "id": "indicator--9345e754-9258-4819-a249-02473f0c7ef0",
+      "created": "2025-10-18T14:48:16.871459Z",
+      "modified": "2025-10-18T14:48:16.871459Z",
       "name": "md5:07AF8778DE9F2BC53899AAC7AD671A72",
       "pattern": "[file:hashes.'MD5' = '07AF8778DE9F2BC53899AAC7AD671A72']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.743774Z",
+      "valid_from": "2025-10-18T14:48:16.871459Z",
       "labels": [
         "md5",
         "extracted-from-report",
@@ -403,13 +403,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--7cf782c0-9ee4-4adf-aae4-9fbd5c88edb7",
-      "created": "2025-10-18T12:56:34.743774Z",
-      "modified": "2025-10-18T12:56:34.743774Z",
+      "id": "indicator--0f8fed34-037c-4a5b-85a5-87681f7b8484",
+      "created": "2025-10-18T14:48:16.871459Z",
+      "modified": "2025-10-18T14:48:16.871459Z",
       "name": "md5:5E518B80C701E17259F3E7323EFFC83F",
       "pattern": "[file:hashes.'MD5' = '5E518B80C701E17259F3E7323EFFC83F']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.743774Z",
+      "valid_from": "2025-10-18T14:48:16.871459Z",
       "labels": [
         "md5",
         "extracted-from-report",
@@ -419,13 +419,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--28f308b3-10a5-4d68-9dd6-99ea40ee0f44",
-      "created": "2025-10-18T12:56:34.743774Z",
-      "modified": "2025-10-18T12:56:34.743774Z",
+      "id": "indicator--fef02c5c-63e1-4a8c-9a02-15b659580189",
+      "created": "2025-10-18T14:48:16.871459Z",
+      "modified": "2025-10-18T14:48:16.871459Z",
       "name": "sha256:03B7D19202F596FE4DC556B7DA818F0F76195912E29D728B14863DDA7B91D9B5",
       "pattern": "[file:hashes.'SHA256' = '03B7D19202F596FE4DC556B7DA818F0F76195912E29D728B14863DDA7B91D9B5']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.743774Z",
+      "valid_from": "2025-10-18T14:48:16.871459Z",
       "labels": [
         "sha256",
         "extracted-from-report",
@@ -435,13 +435,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--f26f6275-d653-487f-beb3-e4b3b664a649",
-      "created": "2025-10-18T12:56:34.743774Z",
-      "modified": "2025-10-18T12:56:34.743774Z",
+      "id": "indicator--dfb7622a-818f-4421-b527-673a3a80328f",
+      "created": "2025-10-18T14:48:16.871459Z",
+      "modified": "2025-10-18T14:48:16.871459Z",
       "name": "sha256:64A08714BD5D04DA6E2476A46EA620E3F7D2C8A438EDA8110C3F1917D63DFCFC",
       "pattern": "[file:hashes.'SHA256' = '64A08714BD5D04DA6E2476A46EA620E3F7D2C8A438EDA8110C3F1917D63DFCFC']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.743774Z",
+      "valid_from": "2025-10-18T14:48:16.871459Z",
       "labels": [
         "sha256",
         "extracted-from-report",
@@ -451,13 +451,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--aa57c66e-deac-48a9-bf65-6d21431c0caf",
-      "created": "2025-10-18T12:56:34.743774Z",
-      "modified": "2025-10-18T12:56:34.743774Z",
+      "id": "indicator--e5c9d177-21b8-40b8-aa25-16c04e592674",
+      "created": "2025-10-18T14:48:16.871459Z",
+      "modified": "2025-10-18T14:48:16.871459Z",
       "name": "domain:blackberry.com",
       "pattern": "[domain-name:value = 'blackberry.com']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.743774Z",
+      "valid_from": "2025-10-18T14:48:16.871459Z",
       "labels": [
         "domain",
         "extracted-from-report",
@@ -467,13 +467,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--fbebee11-1ad5-4c1e-9524-f796b9a55c35",
-      "created": "2025-10-18T12:56:34.743774Z",
-      "modified": "2025-10-18T12:56:34.743774Z",
+      "id": "indicator--b7ee1738-d8b5-4496-a882-e05f4c54e65c",
+      "created": "2025-10-18T14:48:16.871459Z",
+      "modified": "2025-10-18T14:48:16.871459Z",
       "name": "email:cti@blackberry.com",
       "pattern": "[email-addr:value = 'cti@blackberry.com']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.743774Z",
+      "valid_from": "2025-10-18T14:48:16.871459Z",
       "labels": [
         "email",
         "extracted-from-report",

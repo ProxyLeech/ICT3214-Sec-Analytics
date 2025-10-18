@@ -1,13 +1,13 @@
 {
   "type": "bundle",
-  "id": "bundle--e80846c3-1b29-48d5-9765-3f26bf0ae662",
+  "id": "bundle--62bd11ce-cac3-4d33-8f1d-3371a8ffd85e",
   "objects": [
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--93627cc5-d6ae-4a98-bb28-5ff56fd4472e",
-      "created": "2025-10-18T12:56:34.747797Z",
-      "modified": "2025-10-18T12:56:34.747797Z",
+      "id": "x-attack-pattern-ref--8e55ed4d-68fd-44c9-bf68-60a2043a76a6",
+      "created": "2025-10-18T14:48:16.873459Z",
+      "modified": "2025-10-18T14:48:16.873459Z",
       "name": "T1003.003",
       "external_references": [
         {
@@ -19,9 +19,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--2eb47962-c031-4e0c-b6ad-7522176a0819",
-      "created": "2025-10-18T12:56:34.747797Z",
-      "modified": "2025-10-18T12:56:34.747797Z",
+      "id": "x-attack-pattern-ref--53a0d417-d5f3-4bcb-8c56-6f8ba38b41c8",
+      "created": "2025-10-18T14:48:16.873459Z",
+      "modified": "2025-10-18T14:48:16.873459Z",
       "name": "T1059.003",
       "external_references": [
         {
@@ -33,9 +33,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--680ae053-53af-44e6-9335-5a6359370167",
-      "created": "2025-10-18T12:56:34.747797Z",
-      "modified": "2025-10-18T12:56:34.747797Z",
+      "id": "x-attack-pattern-ref--ab66e4fa-1e26-409b-9d8e-462f53a2b089",
+      "created": "2025-10-18T14:48:16.873459Z",
+      "modified": "2025-10-18T14:48:16.873459Z",
       "name": "T1078",
       "external_references": [
         {
@@ -47,9 +47,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--32c9eefa-67a7-4e10-a5ff-30b5c540eea1",
-      "created": "2025-10-18T12:56:34.747797Z",
-      "modified": "2025-10-18T12:56:34.747797Z",
+      "id": "x-attack-pattern-ref--d4412bcb-2bba-4ea7-883c-b113342c02ce",
+      "created": "2025-10-18T14:48:16.873459Z",
+      "modified": "2025-10-18T14:48:16.873459Z",
       "name": "T1090.003",
       "external_references": [
         {
@@ -61,9 +61,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--c024af94-5ab6-4c80-aae3-299788e62b8e",
-      "created": "2025-10-18T12:56:34.747797Z",
-      "modified": "2025-10-18T12:56:34.747797Z",
+      "id": "x-attack-pattern-ref--19d66f0f-1b46-4f81-a6d9-4faa77c5d862",
+      "created": "2025-10-18T14:48:16.873459Z",
+      "modified": "2025-10-18T14:48:16.873459Z",
       "name": "T1110.001",
       "external_references": [
         {
@@ -75,9 +75,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--2760cffc-843d-4279-9592-e0d2a424804d",
-      "created": "2025-10-18T12:56:34.747797Z",
-      "modified": "2025-10-18T12:56:34.747797Z",
+      "id": "x-attack-pattern-ref--37eef67a-a246-420c-b651-15cb3b190d8f",
+      "created": "2025-10-18T14:48:16.873459Z",
+      "modified": "2025-10-18T14:48:16.873459Z",
       "name": "T1110.003",
       "external_references": [
         {
@@ -89,9 +89,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--f461fedc-592c-46fa-a737-db7011966205",
-      "created": "2025-10-18T12:56:34.747797Z",
-      "modified": "2025-10-18T12:56:34.747797Z",
+      "id": "x-attack-pattern-ref--77445bbb-bdd3-42f2-a8b7-6c1a49d00b93",
+      "created": "2025-10-18T14:48:16.873459Z",
+      "modified": "2025-10-18T14:48:16.873459Z",
       "name": "T1190",
       "external_references": [
         {
@@ -103,9 +103,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--c25a1354-388b-4f76-ac22-d6b74c550db0",
-      "created": "2025-10-18T12:56:34.747797Z",
-      "modified": "2025-10-18T12:56:34.747797Z",
+      "id": "x-attack-pattern-ref--5a976b18-8f9d-49a9-9b79-2438c675763f",
+      "created": "2025-10-18T14:48:16.873459Z",
+      "modified": "2025-10-18T14:48:16.873459Z",
       "name": "T1195.002",
       "external_references": [
         {
@@ -117,9 +117,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--f62b9b5c-6fe0-4022-b1d5-f5a5ee51bddb",
-      "created": "2025-10-18T12:56:34.747797Z",
-      "modified": "2025-10-18T12:56:34.747797Z",
+      "id": "x-attack-pattern-ref--c6c79f4d-83c6-4233-8c43-2c879febe8af",
+      "created": "2025-10-18T14:48:16.873459Z",
+      "modified": "2025-10-18T14:48:16.873459Z",
       "name": "T1212",
       "external_references": [
         {
@@ -131,9 +131,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--ad8ae04d-29e0-4acf-bdfd-9cc1635114a3",
-      "created": "2025-10-18T12:56:34.747797Z",
-      "modified": "2025-10-18T12:56:34.747797Z",
+      "id": "x-attack-pattern-ref--e3cf34aa-1731-4664-a98e-46ef017aefa3",
+      "created": "2025-10-18T14:48:16.873459Z",
+      "modified": "2025-10-18T14:48:16.873459Z",
       "name": "T1552.004",
       "external_references": [
         {
@@ -145,9 +145,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--038f0081-fa43-4de4-be06-6a3b911b8d37",
-      "created": "2025-10-18T12:56:34.747797Z",
-      "modified": "2025-10-18T12:56:34.747797Z",
+      "id": "x-attack-pattern-ref--d6337096-7f3d-4a11-bdef-2b838db57c7b",
+      "created": "2025-10-18T14:48:16.873459Z",
+      "modified": "2025-10-18T14:48:16.873459Z",
       "name": "T1555",
       "external_references": [
         {
@@ -159,9 +159,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--53b24b2b-1fda-478e-a615-1321371091a3",
-      "created": "2025-10-18T12:56:34.747797Z",
-      "modified": "2025-10-18T12:56:34.747797Z",
+      "id": "x-attack-pattern-ref--f3675bac-3dad-47f1-ad30-022e2cef15e1",
+      "created": "2025-10-18T14:48:16.873459Z",
+      "modified": "2025-10-18T14:48:16.873459Z",
       "name": "T1558.003",
       "external_references": [
         {
@@ -173,9 +173,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--fa110344-9016-4f3a-9a0d-61cb57bb3ad4",
-      "created": "2025-10-18T12:56:34.747797Z",
-      "modified": "2025-10-18T12:56:34.747797Z",
+      "id": "x-attack-pattern-ref--878343f2-b407-45eb-95b0-fb3f8520e95a",
+      "created": "2025-10-18T14:48:16.873459Z",
+      "modified": "2025-10-18T14:48:16.873459Z",
       "name": "T1587.001",
       "external_references": [
         {
@@ -187,9 +187,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--af1aa279-d113-4125-ba98-c558403a0791",
-      "created": "2025-10-18T12:56:34.747797Z",
-      "modified": "2025-10-18T12:56:34.747797Z",
+      "id": "x-attack-pattern-ref--f8a9285f-775a-45bb-8eeb-9ffaa065b1d7",
+      "created": "2025-10-18T14:48:16.873459Z",
+      "modified": "2025-10-18T14:48:16.873459Z",
       "name": "T1595.002",
       "external_references": [
         {
@@ -201,9 +201,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--47cc106f-dc5a-488f-a06b-7105fe7e2621",
-      "created": "2025-10-18T12:56:34.747797Z",
-      "modified": "2025-10-18T12:56:34.747797Z",
+      "id": "x-attack-pattern-ref--1ddbfad4-b1c4-4b3f-9274-8cac104cc529",
+      "created": "2025-10-18T14:48:16.873459Z",
+      "modified": "2025-10-18T14:48:16.873459Z",
       "name": "T1598",
       "external_references": [
         {
@@ -215,13 +215,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--b6f2f42f-e55c-4c0d-9cb8-938ec073ef13",
-      "created": "2025-10-18T12:56:34.747797Z",
-      "modified": "2025-10-18T12:56:34.747797Z",
+      "id": "indicator--6881c896-b4e3-47f8-98b2-4f5e89a4fad6",
+      "created": "2025-10-18T14:48:16.873459Z",
+      "modified": "2025-10-18T14:48:16.873459Z",
       "name": "domain:fbi.gov",
       "pattern": "[domain-name:value = 'fbi.gov']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.747797Z",
+      "valid_from": "2025-10-18T14:48:16.873459Z",
       "labels": [
         "domain",
         "extracted-from-report",
@@ -231,13 +231,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--71ba99d6-dca8-445e-9b1b-d04a7bbc11b9",
-      "created": "2025-10-18T12:56:34.747797Z",
-      "modified": "2025-10-18T12:56:34.747797Z",
+      "id": "indicator--38b7c2c2-e26b-4cf9-a0ff-3b17e83ee140",
+      "created": "2025-10-18T14:48:16.873459Z",
+      "modified": "2025-10-18T14:48:16.873459Z",
       "name": "domain:cisa.dhs.gov",
       "pattern": "[domain-name:value = 'cisa.dhs.gov']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.747797Z",
+      "valid_from": "2025-10-18T14:48:16.873459Z",
       "labels": [
         "domain",
         "extracted-from-report",
@@ -247,13 +247,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--e4c26f8e-cff9-4ed7-ac2e-33e3cca948da",
-      "created": "2025-10-18T12:56:34.747797Z",
-      "modified": "2025-10-18T12:56:34.747797Z",
+      "id": "indicator--cc6df1f2-7413-4b59-9c4e-3b51f26ec380",
+      "created": "2025-10-18T14:48:16.873459Z",
+      "modified": "2025-10-18T14:48:16.873459Z",
       "name": "domain:nsa.gov",
       "pattern": "[domain-name:value = 'nsa.gov']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.747797Z",
+      "valid_from": "2025-10-18T14:48:16.873459Z",
       "labels": [
         "domain",
         "extracted-from-report",
@@ -263,13 +263,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--dee1a9e2-3e20-43e7-b8bc-739ae340ec53",
-      "created": "2025-10-18T12:56:34.747797Z",
-      "modified": "2025-10-18T12:56:34.747797Z",
+      "id": "indicator--a66e0fdb-25ac-4328-86a5-26e01f1c9d7d",
+      "created": "2025-10-18T14:48:16.873459Z",
+      "modified": "2025-10-18T14:48:16.873459Z",
       "name": "domain:cisa.gov",
       "pattern": "[domain-name:value = 'cisa.gov']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.747797Z",
+      "valid_from": "2025-10-18T14:48:16.873459Z",
       "labels": [
         "domain",
         "extracted-from-report",
@@ -279,13 +279,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--bf73f15c-98f3-4f7b-bf28-c7e2c1a5d760",
-      "created": "2025-10-18T12:56:34.747797Z",
-      "modified": "2025-10-18T12:56:34.747797Z",
+      "id": "indicator--d9799090-4ff4-4707-bac6-225750a4733f",
+      "created": "2025-10-18T14:48:16.873459Z",
+      "modified": "2025-10-18T14:48:16.873459Z",
       "name": "email:cywatch@fbi.gov",
       "pattern": "[email-addr:value = 'cywatch@fbi.gov']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.747797Z",
+      "valid_from": "2025-10-18T14:48:16.873459Z",
       "labels": [
         "email",
         "extracted-from-report",
@@ -295,13 +295,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--d576b18d-4eb7-4ee5-b98e-39702c4a2780",
-      "created": "2025-10-18T12:56:34.747797Z",
-      "modified": "2025-10-18T12:56:34.747797Z",
+      "id": "indicator--270da0fc-96ae-4c96-a262-e970dc6f132d",
+      "created": "2025-10-18T14:48:16.873459Z",
+      "modified": "2025-10-18T14:48:16.873459Z",
       "name": "email:cisaservicedesk@cisa.dhs.gov",
       "pattern": "[email-addr:value = 'cisaservicedesk@cisa.dhs.gov']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.747797Z",
+      "valid_from": "2025-10-18T14:48:16.873459Z",
       "labels": [
         "email",
         "extracted-from-report",
@@ -311,13 +311,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--c18261b9-a3e8-434c-add4-ca72061598b9",
-      "created": "2025-10-18T12:56:34.747797Z",
-      "modified": "2025-10-18T12:56:34.747797Z",
+      "id": "indicator--d8e0bcb5-dc5b-4f72-8f1a-c65c7aa08f8c",
+      "created": "2025-10-18T14:48:16.873459Z",
+      "modified": "2025-10-18T14:48:16.873459Z",
       "name": "email:cybersecurity_requests@nsa.gov",
       "pattern": "[email-addr:value = 'cybersecurity_requests@nsa.gov']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.747797Z",
+      "valid_from": "2025-10-18T14:48:16.873459Z",
       "labels": [
         "email",
         "extracted-from-report",
@@ -327,13 +327,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--f81a667b-5896-4087-8fdd-8df3141a5c4c",
-      "created": "2025-10-18T12:56:34.747797Z",
-      "modified": "2025-10-18T12:56:34.747797Z",
+      "id": "indicator--2facf20d-ec51-4b17-8d26-e674aa4d0830",
+      "created": "2025-10-18T14:48:16.873459Z",
+      "modified": "2025-10-18T14:48:16.873459Z",
       "name": "domain:cisa.gov",
       "pattern": "[domain-name:value = 'cisa.gov']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.747797Z",
+      "valid_from": "2025-10-18T14:48:16.873459Z",
       "labels": [
         "domain",
         "extracted-from-report",
@@ -343,13 +343,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--d357cf62-13f9-4288-aaf7-c2048f3e610c",
-      "created": "2025-10-18T12:56:34.747797Z",
-      "modified": "2025-10-18T12:56:34.747797Z",
+      "id": "indicator--fc86509f-a7e4-4b35-86fa-ff59994a9fe0",
+      "created": "2025-10-18T14:48:16.873459Z",
+      "modified": "2025-10-18T14:48:16.873459Z",
       "name": "domain:fbi.gov",
       "pattern": "[domain-name:value = 'fbi.gov']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.747797Z",
+      "valid_from": "2025-10-18T14:48:16.873459Z",
       "labels": [
         "domain",
         "extracted-from-report",
@@ -359,13 +359,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--ea63f90a-ff9d-47d2-802a-20f8ac9986ba",
-      "created": "2025-10-18T12:56:34.747797Z",
-      "modified": "2025-10-18T12:56:34.747797Z",
+      "id": "indicator--8b6497a4-5544-4160-89bf-e8dc62e6f263",
+      "created": "2025-10-18T14:48:16.873459Z",
+      "modified": "2025-10-18T14:48:16.873459Z",
       "name": "email:cywatch@fbi.gov",
       "pattern": "[email-addr:value = 'cywatch@fbi.gov']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.747797Z",
+      "valid_from": "2025-10-18T14:48:16.873459Z",
       "labels": [
         "email",
         "extracted-from-report",
@@ -375,13 +375,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--3418aac1-1459-4e19-aab9-5cbc8d81269e",
-      "created": "2025-10-18T12:56:34.747797Z",
-      "modified": "2025-10-18T12:56:34.747797Z",
+      "id": "indicator--e1be225f-5e29-4b87-822e-ba02bdec68e0",
+      "created": "2025-10-18T14:48:16.873459Z",
+      "modified": "2025-10-18T14:48:16.873459Z",
       "name": "domain:cisa.gov",
       "pattern": "[domain-name:value = 'cisa.gov']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.747797Z",
+      "valid_from": "2025-10-18T14:48:16.873459Z",
       "labels": [
         "domain",
         "extracted-from-report",
@@ -391,13 +391,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--0a1f8709-dbc9-431c-89b1-09c28b6c2d7b",
-      "created": "2025-10-18T12:56:34.747797Z",
-      "modified": "2025-10-18T12:56:34.747797Z",
+      "id": "indicator--7d21d17a-bc85-4e04-9808-572f57984b1d",
+      "created": "2025-10-18T14:48:16.873459Z",
+      "modified": "2025-10-18T14:48:16.873459Z",
       "name": "domain:rewardsforjustice.net",
       "pattern": "[domain-name:value = 'rewardsforjustice.net']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.747797Z",
+      "valid_from": "2025-10-18T14:48:16.873459Z",
       "labels": [
         "domain",
         "extracted-from-report",
@@ -407,13 +407,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--934643a8-32ab-4129-9883-afd74cf0f435",
-      "created": "2025-10-18T12:56:34.747797Z",
-      "modified": "2025-10-18T12:56:34.747797Z",
+      "id": "indicator--999cde37-3ae7-402c-a640-f758d9261afa",
+      "created": "2025-10-18T14:48:16.873459Z",
+      "modified": "2025-10-18T14:48:16.873459Z",
       "name": "url:https://www.ncsc.gov.uk/news/joint-advisory-further-ttps-associated-with-svr-cyber-actors",
       "pattern": "[url:value = 'https://www.ncsc.gov.uk/news/joint-advisory-further-ttps-associated-with-svr-cyber-actors']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.747797Z",
+      "valid_from": "2025-10-18T14:48:16.873459Z",
       "labels": [
         "url",
         "extracted-from-report",
@@ -423,13 +423,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--50a6fd2e-d8aa-4694-a558-7dcf8345a175",
-      "created": "2025-10-18T12:56:34.747797Z",
-      "modified": "2025-10-18T12:56:34.747797Z",
+      "id": "indicator--0a236947-0f27-4eb2-995d-e986cabd7673",
+      "created": "2025-10-18T14:48:16.873459Z",
+      "modified": "2025-10-18T14:48:16.873459Z",
       "name": "domain:ncsc.gov.uk",
       "pattern": "[domain-name:value = 'ncsc.gov.uk']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.747797Z",
+      "valid_from": "2025-10-18T14:48:16.873459Z",
       "labels": [
         "domain",
         "extracted-from-report",
@@ -439,13 +439,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--0d344ecf-7aa0-4730-a891-5e1f62254fa2",
-      "created": "2025-10-18T12:56:34.747797Z",
-      "modified": "2025-10-18T12:56:34.747797Z",
+      "id": "indicator--9deece4a-44bb-4cc7-8613-c179dedbac53",
+      "created": "2025-10-18T14:48:16.873459Z",
+      "modified": "2025-10-18T14:48:16.873459Z",
       "name": "domain:www.ncsc.gov.uk",
       "pattern": "[domain-name:value = 'www.ncsc.gov.uk']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.747797Z",
+      "valid_from": "2025-10-18T14:48:16.873459Z",
       "labels": [
         "domain",
         "extracted-from-report",

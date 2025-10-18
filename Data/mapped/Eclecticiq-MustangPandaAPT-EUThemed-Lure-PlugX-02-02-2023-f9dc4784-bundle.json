@@ -1,13 +1,13 @@
 {
   "type": "bundle",
-  "id": "bundle--ac492870-6a08-4872-8fba-fc5ab9c54e25",
+  "id": "bundle--f817a41f-cf49-47ea-9403-83b8706ad486",
   "objects": [
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--56bf0704-dcc4-4ae4-8d3d-c8a866b42a10",
-      "created": "2025-10-18T12:56:34.756867Z",
-      "modified": "2025-10-18T12:56:34.756867Z",
+      "id": "x-attack-pattern-ref--16d21faf-fa31-47ec-a75f-a8ba93501d96",
+      "created": "2025-10-18T14:48:16.881528Z",
+      "modified": "2025-10-18T14:48:16.881528Z",
       "name": "T1036.007",
       "external_references": [
         {
@@ -19,9 +19,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--8b28fa95-cc70-4aa9-ba83-dfd377545fad",
-      "created": "2025-10-18T12:56:34.756867Z",
-      "modified": "2025-10-18T12:56:34.756867Z",
+      "id": "x-attack-pattern-ref--692a0777-a5e0-4f2c-9a12-cba6e325f51e",
+      "created": "2025-10-18T14:48:16.881528Z",
+      "modified": "2025-10-18T14:48:16.881528Z",
       "name": "T1132.001",
       "external_references": [
         {
@@ -33,9 +33,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--0ede7177-e1a4-415a-b467-445bede7a038",
-      "created": "2025-10-18T12:56:34.756867Z",
-      "modified": "2025-10-18T12:56:34.756867Z",
+      "id": "x-attack-pattern-ref--c037e597-699d-44e0-a7fc-c041956aa5a1",
+      "created": "2025-10-18T14:48:16.881528Z",
+      "modified": "2025-10-18T14:48:16.881528Z",
       "name": "T1140",
       "external_references": [
         {
@@ -47,9 +47,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--3366bc2a-81d6-4c91-bc42-2b7af517dcf2",
-      "created": "2025-10-18T12:56:34.756867Z",
-      "modified": "2025-10-18T12:56:34.756867Z",
+      "id": "x-attack-pattern-ref--98434433-34dc-42c7-b31d-13391f0ecd1e",
+      "created": "2025-10-18T14:48:16.881528Z",
+      "modified": "2025-10-18T14:48:16.881528Z",
       "name": "T1204",
       "external_references": [
         {
@@ -61,9 +61,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--6a5bcc65-4bc2-42ba-b24f-399e1516e37d",
-      "created": "2025-10-18T12:56:34.756867Z",
-      "modified": "2025-10-18T12:56:34.756867Z",
+      "id": "x-attack-pattern-ref--8ca0ad5d-ff7e-4fef-8115-93eb4660ccb4",
+      "created": "2025-10-18T14:48:16.881528Z",
+      "modified": "2025-10-18T14:48:16.881528Z",
       "name": "T1547.001",
       "external_references": [
         {
@@ -75,9 +75,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--b04a994c-0608-4644-ba26-64964234cd21",
-      "created": "2025-10-18T12:56:34.756867Z",
-      "modified": "2025-10-18T12:56:34.756867Z",
+      "id": "x-attack-pattern-ref--e5f58f54-4b7e-4387-a680-2e983894004c",
+      "created": "2025-10-18T14:48:16.881528Z",
+      "modified": "2025-10-18T14:48:16.881528Z",
       "name": "T1573.001",
       "external_references": [
         {
@@ -89,9 +89,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--5c1c3e44-d52e-4bcf-a42a-a8a4befa0eb7",
-      "created": "2025-10-18T12:56:34.756867Z",
-      "modified": "2025-10-18T12:56:34.756867Z",
+      "id": "x-attack-pattern-ref--96b2e0c2-86ce-4a1b-bfbd-a520aa26aa48",
+      "created": "2025-10-18T14:48:16.881528Z",
+      "modified": "2025-10-18T14:48:16.881528Z",
       "name": "T1574.001",
       "external_references": [
         {
@@ -103,13 +103,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--037001dc-3e51-4f2f-b1f5-d2c76fd2b4b2",
-      "created": "2025-10-18T12:56:34.756867Z",
-      "modified": "2025-10-18T12:56:34.756867Z",
+      "id": "indicator--4bf52fce-aa3e-42ab-bfff-8a6e275a06e5",
+      "created": "2025-10-18T14:48:16.881528Z",
+      "modified": "2025-10-18T14:48:16.881528Z",
       "name": "domain:blog.eclecticiq.com",
       "pattern": "[domain-name:value = 'blog.eclecticiq.com']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.756867Z",
+      "valid_from": "2025-10-18T14:48:16.881528Z",
       "labels": [
         "domain",
         "extracted-from-report",
@@ -119,13 +119,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--982ce410-d21f-491e-9d88-2d70029a7ee6",
-      "created": "2025-10-18T12:56:34.756867Z",
-      "modified": "2025-10-18T12:56:34.756867Z",
+      "id": "indicator--207c8c47-5395-4c4b-97d6-0e605fc006d3",
+      "created": "2025-10-18T14:48:16.881528Z",
+      "modified": "2025-10-18T14:48:16.881528Z",
       "name": "domain:de.doc.lnk",
       "pattern": "[domain-name:value = 'de.doc.lnk']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.756867Z",
+      "valid_from": "2025-10-18T14:48:16.881528Z",
       "labels": [
         "domain",
         "extracted-from-report",
@@ -135,13 +135,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--fb32e85a-260c-4add-90c6-811c6ac9c749",
-      "created": "2025-10-18T12:56:34.756867Z",
-      "modified": "2025-10-18T12:56:34.756867Z",
+      "id": "indicator--ba9b001e-9bd6-4ca4-8ff6-d74a8d38a9e6",
+      "created": "2025-10-18T14:48:16.881528Z",
+      "modified": "2025-10-18T14:48:16.881528Z",
       "name": "sha256:ee2c8909089f53aafc421d9853c01856b0a9015eba12aa0382e98417d28aef3f",
       "pattern": "[file:hashes.'SHA256' = 'ee2c8909089f53aafc421d9853c01856b0a9015eba12aa0382e98417d28aef3f']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.756867Z",
+      "valid_from": "2025-10-18T14:48:16.881528Z",
       "labels": [
         "sha256",
         "extracted-from-report",
@@ -151,13 +151,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--1c23a3c2-5c1f-4a17-b8fd-eaab705f4095",
-      "created": "2025-10-18T12:56:34.756867Z",
-      "modified": "2025-10-18T12:56:34.756867Z",
+      "id": "indicator--e162d44d-284f-4eb8-a511-792e67dae1e1",
+      "created": "2025-10-18T14:48:16.881528Z",
+      "modified": "2025-10-18T14:48:16.881528Z",
       "name": "sha256:8c4926dd32204b6a666b274a78ccfb16fe84bbd7d6bc218a5310970c4c5d9450",
       "pattern": "[file:hashes.'SHA256' = '8c4926dd32204b6a666b274a78ccfb16fe84bbd7d6bc218a5310970c4c5d9450']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.756867Z",
+      "valid_from": "2025-10-18T14:48:16.881528Z",
       "labels": [
         "sha256",
         "extracted-from-report",
@@ -167,13 +167,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--1cc0bad8-48aa-433c-8528-b9e8fb3e2583",
-      "created": "2025-10-18T12:56:34.756867Z",
-      "modified": "2025-10-18T12:56:34.756867Z",
+      "id": "indicator--09a7a7f9-3dff-4b7f-bb67-91894dc99ad2",
+      "created": "2025-10-18T14:48:16.881528Z",
+      "modified": "2025-10-18T14:48:16.881528Z",
       "name": "sha256:723d804cfc334cad788f86c39c7fb58b42f452a72191f7f39400cf05d980b4f3",
       "pattern": "[file:hashes.'SHA256' = '723d804cfc334cad788f86c39c7fb58b42f452a72191f7f39400cf05d980b4f3']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.756867Z",
+      "valid_from": "2025-10-18T14:48:16.881528Z",
       "labels": [
         "sha256",
         "extracted-from-report",
@@ -183,13 +183,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--a2d2196f-0a8a-433e-bd5c-cf29763efce1",
-      "created": "2025-10-18T12:56:34.756867Z",
-      "modified": "2025-10-18T12:56:34.756867Z",
+      "id": "indicator--c600737e-d98b-4b7b-b431-5188d3954f17",
+      "created": "2025-10-18T14:48:16.881528Z",
+      "modified": "2025-10-18T14:48:16.881528Z",
       "name": "sha256:2c0273394cda1b07680913edd70d3438a098bb4468f16eebf2f50d060cdf4e96",
       "pattern": "[file:hashes.'SHA256' = '2c0273394cda1b07680913edd70d3438a098bb4468f16eebf2f50d060cdf4e96']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.756867Z",
+      "valid_from": "2025-10-18T14:48:16.881528Z",
       "labels": [
         "sha256",
         "extracted-from-report",
@@ -199,13 +199,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--918afc69-32e3-4fa9-a600-7c3d660867cf",
-      "created": "2025-10-18T12:56:34.756867Z",
-      "modified": "2025-10-18T12:56:34.756867Z",
+      "id": "indicator--2201fc37-9424-414e-a87a-92437ee1f07d",
+      "created": "2025-10-18T14:48:16.881528Z",
+      "modified": "2025-10-18T14:48:16.881528Z",
       "name": "sha256:26c855264896db95ed46e502f2d318e5f2ad25b59bdc47bd7ffe92646102ae0d",
       "pattern": "[file:hashes.'SHA256' = '26c855264896db95ed46e502f2d318e5f2ad25b59bdc47bd7ffe92646102ae0d']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.756867Z",
+      "valid_from": "2025-10-18T14:48:16.881528Z",
       "labels": [
         "sha256",
         "extracted-from-report",
@@ -215,13 +215,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--123ddaa8-e22a-49ca-b5e4-e0e4f431b601",
-      "created": "2025-10-18T12:56:34.756867Z",
-      "modified": "2025-10-18T12:56:34.756867Z",
+      "id": "indicator--5e6d3037-bef7-4a71-bd07-452b73d3a665",
+      "created": "2025-10-18T14:48:16.881528Z",
+      "modified": "2025-10-18T14:48:16.881528Z",
       "name": "domain:eclecticiq.com",
       "pattern": "[domain-name:value = 'eclecticiq.com']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.756867Z",
+      "valid_from": "2025-10-18T14:48:16.881528Z",
       "labels": [
         "domain",
         "extracted-from-report",
@@ -231,13 +231,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--2b89b42b-0160-41b7-ad4a-b37ba845b42c",
-      "created": "2025-10-18T12:56:34.756867Z",
-      "modified": "2025-10-18T12:56:34.756867Z",
+      "id": "indicator--f4c8ada2-566f-4e79-8571-b5ad6682495c",
+      "created": "2025-10-18T14:48:16.881528Z",
+      "modified": "2025-10-18T14:48:16.881528Z",
       "name": "email:research@eclecticiq.com",
       "pattern": "[email-addr:value = 'research@eclecticiq.com']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-18T12:56:34.756867Z",
+      "valid_from": "2025-10-18T14:48:16.881528Z",
       "labels": [
         "email",
         "extracted-from-report",

@@ -66,53 +66,6 @@ LAST_RESULTS = {} #Global
 LAST_RESULTS_RULE = {}
 LAST_RESULTS_ROBERTA = {}
 
-
-def _run_mitigations_and_get_csv(force: bool = False) -> Path:
-    """
-    Generate Data/mitigations/mitigations.csv (idempotent).
-    Re-runs if:
-      - force=True, or
-      - mitigations.py is newer than the CSV, or
-      - any known inputs (mapping files) are newer than the CSV, or
-      - the CSV does not exist.
-    """
-    script  = MITIGATIONS_SCRIPT
-    out_csv = MITIGATIONS_CSV
-
-    # Inputs the mitigations depend on (add more if your script reads others)
-    inputs = [
-        script,
-        GROUP_TTPS_DETAIL_CSV,
-        EXCEL_ATTACK_TECHS,
-        MAPPING_CSV,
-    ]
-
-    def _needs_rerun() -> bool:
-        if not out_csv.exists():
-            return True
-        out_mtime = out_csv.stat().st_mtime
-        for p in inputs:
-            try:
-                if p.exists() and p.stat().st_mtime > out_mtime:
-                    return True
-            except Exception:
-                # If we can't stat something, be conservative and rerun
-                return True
-        return False
-
-    if not force and not _needs_rerun():
-        print(f"[SKIP] mitigations.py — up to date: {out_csv}")
-        return out_csv
-
-    print(f"[RUN] mitigations.py — generating: {out_csv}")
-    res = subprocess.run([sys.executable, str(script)], cwd=str(PROJECT_ROOT))
-    if res.returncode != 0:
-        raise RuntimeError(f"mitigations.py failed with exit code {res.returncode}")
-    if not out_csv.exists():
-        raise FileNotFoundError(f"Expected mitigations CSV not found at: {out_csv}")
-    return out_csv
-
-
 def _ensure_score_and_rank_rule(df: pd.DataFrame) -> pd.DataFrame:
     """
     Ensure df has numeric 'score' and 'rank' columns.
@@ -182,9 +135,7 @@ def needs_run(outputs: Iterable[Path], inputs: Iterable[Path] = ()) -> bool:
         return False
     return max(Path(p).stat().st_mtime for p in ins) > out_mtime
 
-def ensure_dirs():
-    for p in [DATA_ROOT, RAW_DIR, EXTRACTED_PDFS_DIR, PROCESSED_DIR, MODELS_ROOT, EXPERIMENTS_ROOT]:
-        p.mkdir(parents=True, exist_ok=True)
+
 
 def _atomic_to_csv(df, path: str):
     d = Path(path).parent
@@ -346,7 +297,7 @@ def _run_rule_match_flow(ttps: list[str]) -> dict:
     matched_df.to_csv("matched_groups_rule.csv", index=False)
     pd.DataFrame({"TTP": ttps}).to_csv("inputted_ttps.csv", index=False)
     # Mitigations (idempotent) + GPT analysis
-    mit_csv_path = _run_mitigations_and_get_csv()
+    mit_csv_path = MITIGATIONS_CSV
     gpt_response = analyze_TTP(ttps, matched_df, mitigations_csv=str(mit_csv_path))
     parsed = parse_ai_response(gpt_response)
 
@@ -502,7 +453,7 @@ def _run_roberta_flow(ttps: list[str]) -> dict:
     top3_df = df_ml.head(3).drop(columns=["origin"], errors="ignore")
 
         # Mitigations (idempotent) + GPT analysis
-    mit_csv_path = _run_mitigations_and_get_csv()
+    mit_csv_path = MITIGATIONS_CSV
     gpt_response = analyze_TTP(ttps, df_ml, mitigations_csv=str(mit_csv_path))
     parsed = parse_ai_response(gpt_response)
 
@@ -584,6 +535,47 @@ def step_build_dataset():
         return
     run([sys.executable, str(BUILD_DATASET_SCRIPT)])
 
+def step_mitigations(force: bool = False):
+    """
+    Generate mitigations CSV (Data/mitigations/mitigations.csv).
+    Runs mitigations.py if inputs changed or file missing.
+    """
+    out_csv = MITIGATIONS_CSV
+    if not needs_run([out_csv], inputs=[MITIGATIONS_SCRIPT, GROUP_TTPS_DETAIL_CSV, MAPPING_CSV, EXCEL_ATTACK_TECHS]) and not force:
+        print(f"[SKIP] mitigations.py — up to date: {out_csv}")
+        return
+
+    print(f"[RUN] mitigations.py — generating: {out_csv}")
+    res = subprocess.run([sys.executable, str(MITIGATIONS_SCRIPT)], cwd=str(PROJECT_ROOT))
+    if res.returncode != 0:
+        raise RuntimeError(f"mitigations.py failed with exit code {res.returncode}")
+    if not out_csv.exists():
+        raise FileNotFoundError(f"Expected mitigations CSV not found at: {out_csv}")
+    print(f"[OK] mitigations.csv generated: {out_csv}")
+
+def step_map_iocs_to_attack(force: bool = False):
+    """
+    Run map_iocs_to_attack.py to produce:
+      - ranked_groups.csv
+      - group_ttps_detail.csv
+    """
+    outputs = [RANKED_GROUPS_CSV, GROUP_TTPS_DETAIL_CSV]
+    inputs = [MAP_IOCS_SCRIPT, EXTRACTED_IOCS_CSV, TI_GROUPS_TECHS_CSV]
+    if not needs_run(outputs, inputs=inputs) and not force:
+        print(f"[SKIP] map_iocs_to_attack.py — up to date: {RANKED_GROUPS_CSV}, {GROUP_TTPS_DETAIL_CSV}")
+        return
+
+    print(f"[RUN] map_iocs_to_attack.py — generating IOC→ATT&CK mappings…")
+    res = subprocess.run([sys.executable, str(MAP_IOCS_SCRIPT)], cwd=str(PROJECT_ROOT))
+    if res.returncode != 0:
+        raise RuntimeError(f"map_iocs_to_attack.py failed with exit code {res.returncode}")
+
+    for out in outputs:
+        if not out.exists():
+            raise FileNotFoundError(f"Expected output missing: {out}")
+
+    print(f"[OK] Generated: {RANKED_GROUPS_CSV.name}, {GROUP_TTPS_DETAIL_CSV.name}")
+
 def _is_empty_dir(p: Path) -> bool:
     return (not p.exists()) or (next(p.iterdir(), None) is None)
 
@@ -599,6 +591,7 @@ def step_train_roberta():
 # ============================================
 @app.route('/')
 def index():
+    ensure_dir_tree()
     try:
         # Always regenerate latest mapping from Excel
         extract_techniques(EXCEL_ATTACK_TECHS, MAPPING_CSV)
@@ -639,6 +632,8 @@ def index():
         step_extract_pdfs()
         step_enterprise_attack()
         step_build_dataset()
+        step_mitigations()
+        step_map_iocs_to_attack()
         step_train_roberta()
 
         return render_template('index.html', grouped_ttps=grouped_ttps)
@@ -765,7 +760,7 @@ def match():
         matched_df.to_csv("matched_groups_rule.csv", index=False)
 
         # GPT Analysis
-        mit_csv_path = _run_mitigations_and_get_csv()
+        mit_csv_path = MITIGATIONS_CSV
         gpt_response = analyze_TTP(ttps, matched_df, mitigations_csv=str(mit_csv_path))
         parsed = parse_ai_response(gpt_response)
 

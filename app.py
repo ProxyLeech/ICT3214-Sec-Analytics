@@ -194,146 +194,274 @@ def _atomic_to_csv(df, path: str):
     os.replace(tmp_name, path)  # atomic on POSIX & Windows
 
 #For mitigations
-def _collect_top_group_ttps(df_ml: pd.DataFrame) -> list[str]:
+# def _collect_top_group_ttps(df_ml: pd.DataFrame) -> list[str]:
+#     """
+#     Return technique IDs ONLY for the top (first/highest-score) matched group
+#     by looking them up in Data/mapped/group_ttps_detail.csv.
+#     """
+#     map_path = GROUP_TTPS_DETAIL_CSV
+#     if df_ml is None or df_ml.empty or not map_path.exists():
+#         return []
+
+#     df = df_ml.copy()
+#     # Prefer highest score when present
+#     if "score" in df.columns:
+#         df = df.sort_values("score", ascending=False)
+#     top = df.iloc[0]
+
+#     # find group name/id columns robustly
+#     group_name = None
+#     for c in ("group_name", "group", "actor", "name"):
+#         if c in df.columns and pd.notna(top[c]):
+#             group_name = str(top[c]).strip().lower()
+#             break
+
+#     group_id = None
+#     for c in ("group_id", "id", "mitre_id"):
+#         if c in df.columns and pd.notna(top[c]):
+#             group_id = str(top[c]).strip().lower()
+#             break
+#     try:
+#             g = pd.read_csv(map_path)
+#     except Exception:
+#             return []
+
+#     # normalize columns + values
+#     g.columns = [c.strip().lower() for c in g.columns]
+#     for col in ("group_id", "group_name", "aliases", "matched_exact", "matched_root_only",
+#                 "ttp_list", "techniques", "technique_ids"):
+#         if col in g.columns:
+#             g[col] = g[col].astype(str).fillna("").str.strip()
+
+#     # --------- primary: exact match on id or name ----------
+#     sel = pd.Series([True] * len(g))
+#     matched = pd.Series([True] * len(g))
+
+#     if group_id and "group_id" in g.columns:
+#         matched &= g["group_id"].str.lower() == group_id
+#     elif group_name and "group_name" in g.columns:
+#         matched &= g["group_name"].str.lower() == group_name
+#     else:
+#         matched &= False  # force empty
+
+#     gsel = g[matched]
+#     # --------- secondary: alias/contains fallback ----------
+#     if gsel.empty:
+#         if group_name:
+#             alias_mask = pd.Series([False] * len(g))
+#             if "aliases" in g.columns:
+#                 alias_mask |= g["aliases"].str.lower().str.contains(group_name, na=False)
+#             if "group_name" in g.columns:
+#                 alias_mask |= g["group_name"].str.lower().str.contains(group_name, na=False)
+#             gsel = g[alias_mask]
+
+#     if gsel.empty:
+#         return []
+
+#     # safe copy
+#     gsel = gsel.copy()
+
+#     import re
+#     id_re = re.compile(r"\bT\d{4}(?:\.\d{3})?\b", re.IGNORECASE)
+
+#     ttps = []
+#     for col in ("matched_exact", "matched_root_only", "ttp_list", "techniques", "technique_ids"):
+#         if col in gsel.columns:
+#             gsel.loc[:, col] = gsel[col].fillna("")
+#             for entry in gsel[col].tolist():
+#                 ttps.extend([m.upper() for m in id_re.findall(entry)])
+
+#     # dedupe + numeric sort
+#     def _key(tid: str):
+#         m = re.match(r"T(\d{4})(?:\.(\d{3}))?$", tid)
+#         return (int(m.group(1)), int(m.group(2) or 999)) if m else (9999, 999)
+#     return sorted(set(ttps), key=_key)
+
+#MICHAEL FIXING MITIGATIONS
+def _collect_top_group_ttps(matched_df: pd.DataFrame) -> list[str]:
     """
-    Return technique IDs ONLY for the top (first/highest-score) matched group
-    by looking them up in Data/mapped/group_ttps_detail.csv.
+    Extract MITRE TTPs (T####/.###) for the top-ranked group_name + group_id
+    pair from Data/mapped/group_ttps_detail.csv, using regex from matched_exact
+    and matched_root_only columns.
     """
     map_path = GROUP_TTPS_DETAIL_CSV
-    if df_ml is None or df_ml.empty or not map_path.exists():
+    if matched_df is None or matched_df.empty or not map_path.exists():
         return []
 
-    df = df_ml.copy()
-    # Prefer highest score when present
-    if "score" in df.columns:
-        df = df.sort_values("score", ascending=False)
-    top = df.iloc[0]
+    # Get top ranked group info
+    top_row = matched_df.sort_values("score", ascending=False).iloc[0]
+    top_group = str(top_row.get("group_name", "")).strip().lower()
+    top_gid   = str(top_row.get("group_id", "")).strip().lower()
 
-    # find group name/id columns robustly
-    group_name = None
-    for c in ("group_name", "group", "actor", "name"):
-        if c in df.columns and pd.notna(top[c]):
-            group_name = str(top[c]).strip().lower()
-            break
+    if not top_group and not top_gid:
+        print("[WARN] No group_name/group_id found in matched_df.")
+        return []
 
-    group_id = None
-    for c in ("group_id", "id", "mitre_id"):
-        if c in df.columns and pd.notna(top[c]):
-            group_id = str(top[c]).strip().lower()
-            break
+    # Load full group_ttps_detail mapping
     try:
-            g = pd.read_csv(map_path)
-    except Exception:
-            return []
-
-    # normalize columns + values
-    g.columns = [c.strip().lower() for c in g.columns]
-    for col in ("group_id", "group_name", "aliases", "matched_exact", "matched_root_only",
-                "ttp_list", "techniques", "technique_ids"):
-        if col in g.columns:
-            g[col] = g[col].astype(str).fillna("").str.strip()
-
-    # --------- primary: exact match on id or name ----------
-    sel = pd.Series([True] * len(g))
-    matched = pd.Series([True] * len(g))
-
-    if group_id and "group_id" in g.columns:
-        matched &= g["group_id"].str.lower() == group_id
-    elif group_name and "group_name" in g.columns:
-        matched &= g["group_name"].str.lower() == group_name
-    else:
-        matched &= False  # force empty
-
-    gsel = g[matched]
-    # --------- secondary: alias/contains fallback ----------
-    if gsel.empty:
-        if group_name:
-            alias_mask = pd.Series([False] * len(g))
-            if "aliases" in g.columns:
-                alias_mask |= g["aliases"].str.lower().str.contains(group_name, na=False)
-            if "group_name" in g.columns:
-                alias_mask |= g["group_name"].str.lower().str.contains(group_name, na=False)
-            gsel = g[alias_mask]
-
-    if gsel.empty:
+        gmap = pd.read_csv(map_path)
+    except Exception as e:
+        print(f"[ERROR] Failed to read {map_path}: {e}")
         return []
 
-    # safe copy
-    gsel = gsel.copy()
+    gmap.columns = [c.strip().lower() for c in gmap.columns]
+    if "group_name" not in gmap.columns or "group_id" not in gmap.columns:
+        print(f"[ERROR] group_ttps_detail.csv missing 'group_name'/'group_id'")
+        return []
 
-    import re
+    # Filter for matching group_name AND/OR group_id
+    mask = (
+        (gmap["group_name"].str.lower() == top_group)
+        | (gmap["group_id"].str.lower() == top_gid)
+    )
+    gsel = gmap[mask]
+    if gsel.empty:
+        print(f"[INFO] No entries found for {top_group} ({top_gid})")
+        return []
+
+    # Extract all T#### and T####.### IDs from matched_exact + matched_root_only
     id_re = re.compile(r"\bT\d{4}(?:\.\d{3})?\b", re.IGNORECASE)
-
     ttps = []
-    for col in ("matched_exact", "matched_root_only", "ttp_list", "techniques", "technique_ids"):
+    for col in ("matched_exact", "matched_root_only"):
         if col in gsel.columns:
-            gsel.loc[:, col] = gsel[col].fillna("")
-            for entry in gsel[col].tolist():
-                ttps.extend([m.upper() for m in id_re.findall(entry)])
+            gsel[col] = gsel[col].fillna("")
+            for val in gsel[col]:
+                ttps.extend([m.upper() for m in id_re.findall(val)])
 
-    # dedupe + numeric sort
+    # Deduplicate and numerically sort
     def _key(tid: str):
         m = re.match(r"T(\d{4})(?:\.(\d{3}))?$", tid)
         return (int(m.group(1)), int(m.group(2) or 999)) if m else (9999, 999)
-    return sorted(set(ttps), key=_key)
+
+    result = sorted(set(ttps), key=_key)
+    print(f"[DEBUG] Found {len(result)} TTPs for group {top_group} ({top_gid})")
+    print(f"[DEBUG] TTPs extracted: {result}")
+    return result
+
+
+
+
 # =========================
 # STRICT group → TTP lookup
 # =========================
-def _collect_group_ttps(matched_df: pd.DataFrame) -> list[str]:
+# def _collect_group_ttps(matched_df: pd.DataFrame) -> list[str]:
+#     """
+#     Extract unique MITRE technique IDs (e.g. T1110, T1110.003) from
+#     Data/mapped/group_ttps_detail.csv for the matched groups.
+#     Falls back gracefully if columns differ between datasets.
+#     """
+#     map_path = GROUP_TTPS_DETAIL_CSV
+#     if not map_path.exists():
+#         print(f"[ERROR] {map_path} not found.")
+#         return []
+
+#     try:
+#         g = pd.read_csv(map_path)
+#     except Exception as e:
+#         print(f"[ERROR] Failed reading {map_path}: {e}")
+#         return []
+
+#     # Validate required minimal columns
+#     expected_cols = {"group_name", "group_id", "matched_exact", "matched_root_only"}
+#     missing = expected_cols - set(g.columns.str.lower())
+#     if missing:
+#         print(f"[WARN] group_ttps_detail.csv missing columns: {missing}; using best-effort extraction.")
+
+#     # Normalization helpers
+#     import re
+#     id_re = re.compile(r"\bT\d{4}(?:\.\d{3})?\b", re.IGNORECASE)
+
+#     def _extract_ttps(text: str) -> list[str]:
+#         if not isinstance(text, str):
+#             return []
+#         found = id_re.findall(text)
+#         return [f"T{f[1:]}" if not f.startswith("T") else f.upper() for f in found]
+
+#     # Collect TTPs from relevant columns
+#     all_ttps = []
+#     for col in ["matched_exact", "matched_root_only"]:
+#         if col in g.columns:
+#             g[col] = g[col].fillna("")
+#             for entry in g[col].tolist():
+#                 all_ttps.extend(_extract_ttps(entry))
+
+#     # Remove duplicates + sort by numeric order
+#     def _sort_key(tid: str):
+#         m = re.match(r"T(\d{4})(?:\.(\d{3}))?", tid)
+#         return (int(m.group(1)), int(m.group(2) or 999)) if m else (9999, 999)
+
+#     uniq_ttps = sorted(set(all_ttps), key=_sort_key)
+#     print(f"[DEBUG] Extracted {len(uniq_ttps)} unique technique IDs from group_ttps_detail.csv")
+#     return uniq_ttps
+
+#MICAHEL FIXING MITIGATION
+def _collect_top_group_ttps(df: pd.DataFrame, use_ml: bool = False) -> list[str]:
     """
-    Extract unique MITRE technique IDs (e.g. T1110, T1110.003) from
-    Data/mapped/group_ttps_detail.csv for the matched groups.
-    Falls back gracefully if columns differ between datasets.
+    Collect all MITRE technique IDs (T#### or T####.###) for the *top 1 matched group*.
+    Handles both rule-based and RoBERTa outputs:
+      - Rule-based: uses matched_exact/matched_root_only columns.
+      - RoBERTa: uses technique_id_list column.
     """
     map_path = GROUP_TTPS_DETAIL_CSV
-    if not map_path.exists():
-        print(f"[ERROR] {map_path} not found.")
+    if df is None or df.empty or not map_path.exists():
+        print("[WARN] Empty DataFrame or missing group_ttps_detail.csv")
         return []
 
+    # Get top group (highest score)
+    top = df.sort_values("score", ascending=False).iloc[0]
+    top_name = str(top.get("group_name", "")).strip().lower()
+    top_id   = str(top.get("group_id", "")).strip().lower()
+
+    # Load mapping file
     try:
-        g = pd.read_csv(map_path)
+        gmap = pd.read_csv(map_path)
     except Exception as e:
         print(f"[ERROR] Failed reading {map_path}: {e}")
         return []
+    gmap.columns = [c.strip().lower() for c in gmap.columns]
 
-    # Validate required minimal columns
-    expected_cols = {"group_name", "group_id", "matched_exact", "matched_root_only"}
-    missing = expected_cols - set(g.columns.str.lower())
-    if missing:
-        print(f"[WARN] group_ttps_detail.csv missing columns: {missing}; using best-effort extraction.")
+    # Filter mapping for this top actor
+    mask = pd.Series(False, index=gmap.index)
+    if top_id and "group_id" in gmap.columns:
+        mask |= gmap["group_id"].str.lower() == top_id
+    if top_name and "group_name" in gmap.columns:
+        mask |= gmap["group_name"].str.lower() == top_name
+    gsel = gmap[mask]
+    if gsel.empty:
+        print(f"[INFO] No mapping rows found for {top_name or top_id}")
+        return []
 
-    # Normalization helpers
-    import re
+    # Regex to find technique IDs
     id_re = re.compile(r"\bT\d{4}(?:\.\d{3})?\b", re.IGNORECASE)
+    ttps = []
 
-    def _extract_ttps(text: str) -> list[str]:
-        if not isinstance(text, str):
-            return []
-        found = id_re.findall(text)
-        return [f"T{f[1:]}" if not f.startswith("T") else f.upper() for f in found]
+    if use_ml and "technique_id_list" in df.columns:
+        raw = str(top.get("technique_id_list", ""))
+        ttps.extend([m.upper() for m in id_re.findall(raw)])
+    else:
+        for col in ("matched_exact", "matched_root_only"):
+            if col in gsel.columns:
+                gsel[col] = gsel[col].fillna("")
+                for val in gsel[col]:
+                    ttps.extend([m.upper() for m in id_re.findall(val)])
 
-    # Collect TTPs from relevant columns
-    all_ttps = []
-    for col in ["matched_exact", "matched_root_only"]:
-        if col in g.columns:
-            g[col] = g[col].fillna("")
-            for entry in g[col].tolist():
-                all_ttps.extend(_extract_ttps(entry))
-
-    # Remove duplicates + sort by numeric order
-    def _sort_key(tid: str):
-        m = re.match(r"T(\d{4})(?:\.(\d{3}))?", tid)
+    # Deduplicate + sort
+    def _key(tid):
+        m = re.match(r"T(\d{4})(?:\.(\d{3}))?$", tid)
         return (int(m.group(1)), int(m.group(2) or 999)) if m else (9999, 999)
 
-    uniq_ttps = sorted(set(all_ttps), key=_sort_key)
-    print(f"[DEBUG] Extracted {len(uniq_ttps)} unique technique IDs from group_ttps_detail.csv")
-    return uniq_ttps
+    result = sorted(set(ttps), key=_key)
+    print(f"[DEBUG] Found {len(result)} TTPs for top group: {top_name or top_id}")
+    print(f"[DEBUG] TTPs extracted: {result}")
+    return result
 
 
 # ============================================
 # Rule-based flow helper
 # ============================================
 def _run_rule_match_flow(ttps: list[str]) -> dict:
+    LAST_RESULTS_ROBERTA.clear()
+
     matched_df = match_ttps(ttps, MAPPED_DIR).copy()
     matched_df = _ensure_score_and_rank_rule(matched_df)
     if "rank" in matched_df.columns and matched_df["rank"].notna().any():
@@ -350,7 +478,25 @@ def _run_rule_match_flow(ttps: list[str]) -> dict:
     parsed = parse_ai_response(gpt_response)
 
     # --- NEW: limit mitigations to the TOP group only ---
-    top_group_ttps = _collect_group_ttps(matched_df)
+    # top_group_ttps = _collect_group_ttps(matched_df)
+    top_group_ttps = _collect_top_group_ttps(matched_df)
+    # ✅ Add associated TTPs column for display
+
+    #MICHAEL FIXING MTIIGATION
+    top_ttps_str = ", ".join(sorted(top_group_ttps)) if top_group_ttps else "—"
+    # top3_df["associated_ttps"] = top_ttps_str
+    
+    # Populate the unified column for HTML display
+    top3_df["combined_ttps"] = ", ".join(sorted(top_group_ttps)) if top_group_ttps else "—"
+        
+    # 🧭 Debug sanity check
+    print("\n================ DEBUG SANITY CHECK ================")
+    print(f"[DEBUG] Top group extracted {len(top_group_ttps)} TTPs:")
+    print(sorted(top_group_ttps))
+    print("====================================================\n")
+
+    mit_filtered = load_filtered_mitigations(str(mit_csv_path), top_group_ttps)
+
     if not top_group_ttps:
         print("[INFO] No top-group TTPs resolved for RULES; skipping mitigations (no group mapping).")
 
@@ -365,8 +511,12 @@ def _run_rule_match_flow(ttps: list[str]) -> dict:
         # summarize just the top group’s mitigations for the HTML view
         parsed["mitigation"] = summarize_mitigations(mit_filtered.to_dict(orient="records"))
         # write a scoped CSV and pass it to the Word generator
-        _atomic_to_csv(mit_filtered, "mitigations_rule_top.csv")
-        mit_for_docx = "mitigations_rule_top.csv"
+        # _atomic_to_csv(mit_filtered, "mitigations_rule_top.csv")
+        # mit_for_docx = "mitigations_rule_top.csv"
+        mit_rule_path = PROJECT_ROOT / "mitigations_rule_top.csv"
+        _atomic_to_csv(mit_filtered, mit_rule_path)
+        mit_for_docx = str(mit_rule_path)
+
     else:
         parsed["mitigation"] = "No mitigations found for these techniques."
         mit_for_docx = None
@@ -479,6 +629,8 @@ def _predict_with_module(payload: dict):
             return {"groups": []}
         
 def _run_roberta_flow(ttps: list[str]) -> dict:
+    LAST_RESULTS_RULE.clear()
+
     ml = _predict_with_module({
         "id": "from_ttps",
         "attacks": ttps,
@@ -506,6 +658,14 @@ def _run_roberta_flow(ttps: list[str]) -> dict:
     parsed = parse_ai_response(gpt_response)
 
     top_group_ttps = _collect_top_group_ttps(df_ml)
+    # ✅ Add associated TTPs column for display
+
+    #MICHAEL FIXING MITIGATION
+    top_ttps_str = ", ".join(sorted(top_group_ttps)) if top_group_ttps else "—"
+    # top3_df["associated_ttps"] = top_ttps_str
+    top3_df["combined_ttps"] = ", ".join(sorted(top_group_ttps)) if top_group_ttps else "—"
+
+
     if not top_group_ttps:
         print("[INFO] No top-group TTPs resolved for ROBERTA; skipping mitigations (no group mapping).")
 
@@ -855,6 +1015,8 @@ def export():
 
     except Exception as e:
         return f"Error exporting to .doc: {e}"
+    
+
 
 if __name__ == '__main__':
     app.run(debug=True, threaded=True)

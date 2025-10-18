@@ -4,21 +4,21 @@
   <title>Adversary Attribution Report</title>
 
   {% if not export_mode %}
-    <!-- Only load external CSS in browser -->
+    <!-- ========================= Browser Mode ========================= -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   {% else %}
-  <!-- Inline styles for Word export -->
+  <!-- ========================= Export Mode (Word) ========================= -->
   <style>
     body { font-family: Arial, sans-serif; margin: 30px; font-size: 12px; }
     h1 { color: #003366; border-bottom: 2px solid #ccc; padding-bottom: 4px; }
     h3 { color: #004c99; margin-top: 20px; }
+
+    /* ✅ Table styling (Word compatible) */
     table {
       border-collapse: collapse;
       width: 100%;
-      table-layout: auto;
+      table-layout: fixed;
       word-wrap: break-word;
-      overflow-x: auto;
-      display: block;
     }
     th, td {
       border: 1px solid #999;
@@ -35,6 +35,12 @@
       font-weight: bold;
     }
     tr:nth-child(even) { background-color: #f9f9f9; }
+
+    /* Ensure proper rendering in Word */
+    table, thead, tbody, tr, th, td {
+      display: table;
+    }
+
     pre {
       background: #f8f8f8;
       border: 1px solid #ddd;
@@ -43,6 +49,7 @@
       word-break: break-word;
       font-size: 11px;
     }
+
     .timestamp { font-size: 0.85em; color: #666; }
     a { color: #0056b3; text-decoration: none; }
     a#export {
@@ -55,6 +62,17 @@
       margin-left: 10px;
     }
     a#export:hover { background-color: #003f7f; }
+
+    /* Scrollable long TTP list */
+    .ttp-cell {
+      max-height: 100px;
+      overflow-y: auto;
+      display: block;
+      font-family: monospace;
+      background-color: #fafafa;
+      border: 1px solid #ddd;
+      padding: 4px;
+    }
   </style>
   {% endif %}
 </head>
@@ -65,7 +83,8 @@
   {% endif %}
 
   <div class="container">
-    <!-- ========================= Conditional Sections ========================= -->
+
+    <!-- ========================= RULE-BASED SECTION ========================= -->
     {% if not export_mode or request.args.get('which') == 'rule' %}
     <h1>Adversary Attribution Report (Rule-based)</h1>
     <p class="timestamp">Generated on: {{ timestamp }}</p>
@@ -79,17 +98,19 @@
         {% if rule_matched and rule_matched|length > 0 %}
         <thead>
           <tr>
-            {% for col in rule_matched[0].keys() %}
+            {% for col in rule_matched[0].keys() if col != 'combined_ttps' %}
               <th>{{ col }}</th>
             {% endfor %}
+            <th>All Associated TTPs (combined across reports)</th>
           </tr>
         </thead>
         <tbody>
           {% for row in rule_matched %}
           <tr>
-            {% for col in rule_matched[0].keys() %}
+            {% for col in rule_matched[0].keys() if col != 'combined_ttps' %}
               <td>{{ row[col] }}</td>
             {% endfor %}
+            <td><div class="ttp-cell">{{ row.get('combined_ttps', '—') }}</div></td>
           </tr>
           {% endfor %}
         </tbody>
@@ -123,6 +144,7 @@
       <div class="divider" style="margin:40px 0;border-top:2px solid #ccc;"></div>
     {% endif %}
 
+    <!-- ========================= ROBERTA SECTION ========================= -->
     {% if not export_mode or request.args.get('which') == 'roberta' %}
     <h1>Adversary Attribution Report (RoBERTa)</h1>
     <p class="timestamp">Generated on: {{ timestamp }}</p>
@@ -136,17 +158,20 @@
         {% if rob_matched and rob_matched|length > 0 %}
         <thead>
           <tr>
-            {% for col in rob_matched[0].keys() %}
+            {# ✅ Remove doc_source and score columns for clarity #}
+            {% for col in rob_matched[0].keys() if col not in ['combined_ttps', 'doc_source', 'score'] %}
               <th>{{ col }}</th>
             {% endfor %}
+            <th>All Associated TTPs (combined across reports)</th>
           </tr>
         </thead>
         <tbody>
           {% for row in rob_matched %}
           <tr>
-            {% for col in rob_matched[0].keys() %}
+            {% for col in rob_matched[0].keys() if col not in ['combined_ttps', 'doc_source', 'score'] %}
               <td>{{ row[col] }}</td>
             {% endfor %}
+            <td><div class="ttp-cell">{{ row.get('combined_ttps', '—') }}</div></td>
           </tr>
           {% endfor %}
         </tbody>

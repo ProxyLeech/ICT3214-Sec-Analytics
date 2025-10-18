@@ -94,26 +94,96 @@ def load_mitigations_summary(mitigations_csv: str) -> str:
     except Exception as e:
         return f"Error reading mitigations CSV: {e}"
     
-def load_filtered_mitigations(mitigations_csv: str, ttps: list[str]) -> pd.DataFrame:
-    """
-    Return only mitigation rows whose 'target id' matches any TTP in `ttps`,
-    including sub-techniques (e.g., T1110.x matches T1110).
-    """
-    if not os.path.exists(mitigations_csv):
-        raise FileNotFoundError(f"{mitigations_csv} not found")
+# def load_filtered_mitigations(mitigations_csv: str, ttps: list[str]) -> pd.DataFrame:
+#     """
+#     Return only mitigation rows whose 'target id' matches any TTP in `ttps`,
+#     including sub-techniques (e.g., T1110.x matches T1110).
+#     """
+#     if not os.path.exists(mitigations_csv):
+#         raise FileNotFoundError(f"{mitigations_csv} not found")
 
-    df = pd.read_csv(mitigations_csv)
+#     df = pd.read_csv(mitigations_csv)
+#     if "target id" not in df.columns:
+#         raise ValueError("mitigations.csv missing 'target id' column")
+
+#     df["target id"] = df["target id"].astype(str).str.strip().str.upper()
+
+#     roots = {t.split(".")[0] for t in ttps}
+#     def _match(tid: str) -> bool:
+#         tid = tid.upper().strip()
+#         return any(tid == t or tid.startswith(f"{t}.") for t in ttps) or tid.split(".")[0] in roots
+
+#     return df[df["target id"].apply(_match)].copy()
+
+#MICHAEL FIXING MITIGATION
+
+
+def load_filtered_mitigations(mitigation_csv: str, ttps: list[str]) -> pd.DataFrame:
+    """
+    Strictly filters mitigations so that:
+    - 'T1020' matches only 'T1020'
+    - 'T1020.001' matches only 'T1020.001'
+    - no partial prefix matches allowed.
+    """
+    if not mitigation_csv or not Path(mitigation_csv).exists():
+        print(f"[WARN] Mitigation CSV missing: {mitigation_csv}")
+        return pd.DataFrame()
+
+    df = pd.read_csv(mitigation_csv)
+    if df.empty or not ttps:
+        return pd.DataFrame()
+
+    # Normalize
+    df.columns = [c.strip().lower() for c in df.columns]
     if "target id" not in df.columns:
-        raise ValueError("mitigations.csv missing 'target id' column")
+        print("[WARN] Missing 'target id' column in mitigations CSV.")
+        return pd.DataFrame()
 
-    df["target id"] = df["target id"].astype(str).str.strip().str.upper()
+    # Clean up the list
+    ttps_clean = [t.strip().upper() for t in ttps if isinstance(t, str) and t.strip()]
 
-    roots = {t.split(".")[0] for t in ttps}
-    def _match(tid: str) -> bool:
-        tid = tid.upper().strip()
-        return any(tid == t or tid.startswith(f"{t}.") for t in ttps) or tid.split(".")[0] in roots
+    # --- Exact Match Filter ---
+    df["target id"] = df["target id"].astype(str).str.upper().str.strip()
+    filtered_rows = df[df["target id"].isin(ttps_clean)]
 
-    return df[df["target id"].apply(_match)].copy()
+    print(f"[DEBUG] {len(filtered_rows)} mitigations matched EXACT technique IDs out of {len(df)} total.")
+    return filtered_rows
+
+
+
+    # id_re = re.compile(r"\bT\d{4}(?:\.\d{3})?\b")
+
+    # def _row_has_match(cell: str) -> bool:
+    #     # extract only complete TIDs from this row
+    #     ids = [m.group(0).strip() for m in id_re.finditer(cell.upper())]
+    #     # true only if ANY id is exactly in our group’s TTP list or a sub-technique of it
+    #     for tid in ids:
+    #         if tid in ttp_set:
+    #             return True
+    #         # sub-technique relationship:  T1059 matches T1059.001 etc.
+    #         base = tid.split(".")[0]
+    #         if base in ttp_set and tid.startswith(base + "."):
+    #             return True
+    #     return False
+
+    id_re = re.compile(r"\bT\d{4}(?:\.\d{3})?\b")
+
+    def _row_has_match(cell: str) -> bool:
+        ids = [m.group(0).strip() for m in id_re.finditer(cell.upper())]
+        for tid in ids:
+            if tid in ttp_set:
+                return True
+            base = tid.split(".")[0]
+            if base in ttp_set and tid.startswith(base + "."):
+                return True
+        return False
+
+
+    matched = df[df["target id"].apply(_row_has_match)].copy()
+    print(f"[DEBUG] Matched {len(matched)} mitigations out of {len(df)}")
+    return matched
+
+
 
 
 # ===========================

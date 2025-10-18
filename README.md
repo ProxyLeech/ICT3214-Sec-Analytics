@@ -79,6 +79,10 @@ APTnotes PDFs
 └──► report_generator.py → Generates GenAI-based structured intelligence reports summarizing group matches, mitigations, and analyst insights
 ```
 
+<img width="329" height="554" alt="image" src="https://github.com/user-attachments/assets/12cbaa1c-3185-4f0f-be1f-b5814e8d2991" />
+<img width="421" height="554" alt="image" src="https://github.com/user-attachments/assets/e17b00be-1d62-4069-95ba-094594ced439" />
+<img width="755" height="616" alt="image" src="https://github.com/user-attachments/assets/ccbe8831-b622-4825-a193-c9af4b944aad" />
+
 
 ---
 
@@ -121,11 +125,13 @@ echo "OPENAI_API_KEY=YOUR_KEY_HERE" > .env
 
 ## Usage
 
-```
-## 1. Run the web application
-
+```bash
+# 1. Run the web application
 python app.py
-navigate to `http://127.0.0.1:5000`
+
+# 2. navigate to `http://127.0.0.1:5000`
+http://127.0.0.1:500
+
 ```
 
 ---
@@ -147,6 +153,7 @@ navigate to `http://127.0.0.1:5000`
 | Empty report output         | Invalid TTP input format        | Use valid MITRE IDs (e.g., `T1059.003`) |
 
 ---
+
 
 
 

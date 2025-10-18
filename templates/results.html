@@ -2,114 +2,178 @@
 <html lang="en">
 <head>
   <title>Adversary Attribution Report</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+  {% if not export_mode %}
+    <!-- Only load external CSS in browser -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  {% else %}
+  <!-- Inline styles for Word export -->
+  <style>
+    body { font-family: Arial, sans-serif; margin: 30px; font-size: 12px; }
+    h1 { color: #003366; border-bottom: 2px solid #ccc; padding-bottom: 4px; }
+    h3 { color: #004c99; margin-top: 20px; }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      table-layout: auto;
+      word-wrap: break-word;
+      overflow-x: auto;
+      display: block;
+    }
+    th, td {
+      border: 1px solid #999;
+      text-align: left;
+      padding: 6px 8px;
+      vertical-align: top;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size: 11px;
+    }
+    th {
+      background-color: #e6f0ff;
+      color: #002b5c;
+      font-weight: bold;
+    }
+    tr:nth-child(even) { background-color: #f9f9f9; }
+    pre {
+      background: #f8f8f8;
+      border: 1px solid #ddd;
+      padding: 8px;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size: 11px;
+    }
+    .timestamp { font-size: 0.85em; color: #666; }
+    a { color: #0056b3; text-decoration: none; }
+    a#export {
+      display: inline-block;
+      background-color: #0056b3;
+      color: white;
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      margin-left: 10px;
+    }
+    a#export:hover { background-color: #003f7f; }
+  </style>
+  {% endif %}
 </head>
+
 <body>
   {% if not export_mode %}
-  {% include 'common/navbar.html' %}
+    {% include 'common/navbar.html' %}
   {% endif %}
 
   <div class="container">
-    <!-- ========================= Rule-based (top) ========================= -->
-    <h1>Adversary Attribution Report</h1>
+    <!-- ========================= Conditional Sections ========================= -->
+    {% if not export_mode or request.args.get('which') == 'rule' %}
+    <h1>Adversary Attribution Report (Rule-based)</h1>
     <p class="timestamp">Generated on: {{ timestamp }}</p>
 
     <h3>Inputted Techniques</h3>
     <p>{{ ttps | join(', ') }}</p>
 
     <h3>Top 3 Matched Threat Groups</h3>
-    <table>
-      {% if rule_matched and rule_matched|length > 0 %}
-      <tr>
-        {% for col in rule_matched[0].keys() %}
-          <th>{{ col }}</th>
-        {% endfor %}
-      </tr>
-      {% for row in rule_matched %}
-      <tr>
-        {% for val in row.values() %}
-          <td>{{ val }}</td>
-        {% endfor %}
-      </tr>
-      {% endfor %}
-      {% else %}
-      <tr><td>No matches.</td></tr>
-      {% endif %}
-    </table>
+    <div style="overflow-x:auto;">
+      <table>
+        {% if rule_matched and rule_matched|length > 0 %}
+        <thead>
+          <tr>
+            {% for col in rule_matched[0].keys() %}
+              <th>{{ col }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in rule_matched %}
+          <tr>
+            {% for col in rule_matched[0].keys() %}
+              <td>{{ row[col] }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+        {% else %}
+        <tr><td>No matches.</td></tr>
+        {% endif %}
+      </table>
+    </div>
 
     <h3>Analyst Report</h3>
     <section>
       <h4>1. Executive Summary</h4>
       <pre>{{ rule_analysis.summary }}</pre>
-
       <h4>2. Technique Overlap Overview</h4>
       <pre>{{ rule_analysis.table }}</pre>
-
       <h4>3. Probable Threat Actor(s)</h4>
       <pre>{{ rule_analysis.attacker }}</pre>
-
       <h4>4. Defensive Mitigations</h4>
       <pre>{{ rule_analysis.mitigation }}</pre>
-
       <h4>5. Analyst Recommendations</h4>
       <pre>{{ rule_analysis.suggestion }}</pre>
     </section>
 
     {% if not export_mode %}
-    <a href="/">← Back to Selection</a>
-    <a id="export" href="/export?which=rule">Export Results (Rule-based)</a>
+      <a href="/">← Back to Selection</a>
+      <a id="export" href="/export?which=rule">Export Results (Rule-based)</a>
+    {% endif %}
     {% endif %}
 
-    <div class="divider"></div>
+    {% if not export_mode %}
+      <div class="divider" style="margin:40px 0;border-top:2px solid #ccc;"></div>
+    {% endif %}
 
-    <!-- ========================= RoBERTa (below) ========================= -->
-    <h1>RoBERTa</h1>
+    {% if not export_mode or request.args.get('which') == 'roberta' %}
+    <h1>Adversary Attribution Report (RoBERTa)</h1>
     <p class="timestamp">Generated on: {{ timestamp }}</p>
 
     <h3>Inputted Techniques</h3>
     <p>{{ ttps | join(', ') }}</p>
 
     <h3>Top 3 Matched Threat Groups</h3>
-    <table>
-      {% if rob_matched and rob_matched|length > 0 %}
-      <tr>
-        {% for col in rob_matched[0].keys() %}
-          <th>{{ col }}</th>
-        {% endfor %}
-      </tr>
-      {% for row in rob_matched %}
-      <tr>
-        {% for val in row.values() %}
-          <td>{{ val }}</td>
-        {% endfor %}
-      </tr>
-      {% endfor %}
-      {% else %}
-      <tr><td>No matches.</td></tr>
-      {% endif %}
-    </table>
+    <div style="overflow-x:auto;">
+      <table>
+        {% if rob_matched and rob_matched|length > 0 %}
+        <thead>
+          <tr>
+            {% for col in rob_matched[0].keys() %}
+              <th>{{ col }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in rob_matched %}
+          <tr>
+            {% for col in rob_matched[0].keys() %}
+              <td>{{ row[col] }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+        {% else %}
+        <tr><td>No matches.</td></tr>
+        {% endif %}
+      </table>
+    </div>
 
     <h3>Analyst Report</h3>
     <section>
       <h4>1. Executive Summary</h4>
       <pre>{{ rob_analysis.summary }}</pre>
-
       <h4>2. Technique Overlap Overview</h4>
       <pre>{{ rob_analysis.table }}</pre>
-
       <h4>3. Probable Threat Actor(s)</h4>
       <pre>{{ rob_analysis.attacker }}</pre>
-
       <h4>4. Defensive Mitigations</h4>
       <pre>{{ rob_analysis.mitigation }}</pre>
-
       <h4>5. Analyst Recommendations</h4>
       <pre>{{ rob_analysis.suggestion }}</pre>
     </section>
 
     {% if not export_mode %}
-    <a href="/">← Back to Selection</a>
-    <a id="export" href="/export?which=roberta">Export Results (RoBERTa)</a>
+      <a href="/">← Back to Selection</a>
+      <a id="export" href="/export?which=roberta">Export Results (RoBERTa)</a>
+    {% endif %}
     {% endif %}
   </div>
 </body>

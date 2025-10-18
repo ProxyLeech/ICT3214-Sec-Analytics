@@ -23,3 +23,11 @@ enterprise-attack-v17.1-mitigations_mappings.csv
 techniques_mapping.csv
 
 Data/mitigations/mitigations.csv
+
+matched_top3_roberta.csv
+matched_top3_rule.csv
+inputted_ttps_rule.csv
+Data\processed\extracted_iocs.csv
+matched_groups_roberta.csv
+
+

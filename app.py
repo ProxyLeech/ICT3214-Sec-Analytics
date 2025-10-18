@@ -4,7 +4,14 @@ from matching import (
     validate_ttps,
     match_ttps,
 )
-from report_generator import analyze_TTP, load_mitigations_summary, parse_ai_response, generate_word_report
+from report_generator import (
+    analyze_TTP,
+    load_mitigations_summary,
+    parse_ai_response,
+    generate_word_report,
+    load_filtered_mitigations,
+    summarize_mitigations
+)
 from datetime import datetime
 from collections import defaultdict
 from technique_labels import extract_techniques  # import the extractor
@@ -21,10 +28,9 @@ from pathlib import Path
 # =======================================================
 
 BASE_DIR = Path(__file__).resolve().parent
-SRC_PATH = BASE_DIR / "src"   # ✅ src is inside ICT3214-Sec-Analytics
+SRC_PATH = BASE_DIR / "src"  # ✅ src is inside ICT3214-Sec-Analytics
 sys.path.insert(0, str(SRC_PATH))
 app = Flask(__name__)
-
 
 DATA_DIR = BASE_DIR / "Data" / "mapped"
 EXCEL_PATH = BASE_DIR / "Data" / "excel" / "enterprise-attack-v17.1-techniques.xlsx"
@@ -42,29 +48,35 @@ DATA_DIR = BASE_DIR / "Data" / "mapped"
 EXCEL_PATH = BASE_DIR / "Data" / "excel" / "enterprise-attack-v17.1-techniques.xlsx"
 MAPPING_CSV = BASE_DIR / "techniques_mapping.csv"
 
+# Idempotent mitigations runner
 def _run_mitigations_and_get_csv() -> Path:
     """
-    Run mitigations.py synchronously and return the output CSV path:
-      Data/mapped/mitigations.csv
+    Run mitigations.py synchronously ONCE and return the output CSV path:
+      Data/mitigations/mitigations.csv
     """
     script = BASE_DIR / "mitigations.py"
     out_csv = BASE_DIR / "Data" / "mitigations" / "mitigations.csv"
 
-    # Run mitigations.py in the same directory
+    # Only run if the CSV doesn't exist (idempotent)
+    if out_csv.exists():
+        print(f"[SKIP] mitigations.py — up to date: {out_csv}")
+        return out_csv
+
+    print(f"[RUN] mitigations.py — generating: {out_csv}")
     res = subprocess.run([sys.executable, str(script)], cwd=str(BASE_DIR))
     if res.returncode != 0:
         raise RuntimeError(f"mitigations.py failed with exit code {res.returncode}")
     if not out_csv.exists():
         raise FileNotFoundError(f"Expected mitigations CSV not found at: {out_csv}")
     return out_csv
-#ADDITIONAL ADDED PATHS
-#=================================================
-ROOT = Path(__file__).resolve().parents[1]   
-sys.path.insert(0, str(ROOT / "src"))        # make common/, data/, models/ importable
-from paths.paths import (
+
+# ---- Extra project roots (as in your original)
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))  # make common/, data/, models/ importable
+from paths.paths import (  # type: ignore  # noqa: E402
     DATA_ROOT, RAW_DIR,
-    EXTRACTED_PDFS_DIR, 
-    PROCESSED_DIR, 
+    EXTRACTED_PDFS_DIR,
+    PROCESSED_DIR,
     DATASCRIPT_ROOT,
     MODELS_ROOT,
     EXPERIMENTS_ROOT,
@@ -79,11 +91,11 @@ LABELS_TXT    = PROCESSED_DIR / "labels.txt"
 EXTRACTED_PDFS_DIR   = DATA_ROOT / "extracted_pdfs"
 
 # Scripts (relative to repo root)
-EXTRACT_SCRIPT         = DATASCRIPT_ROOT  / "extract_pdfs.py"
-ATTACK_SCRIPT          = DATASCRIPT_ROOT / "enterprise_attack.py"
+EXTRACT_SCRIPT       = DATASCRIPT_ROOT / "extract_pdfs.py"
+ATTACK_SCRIPT        = DATASCRIPT_ROOT / "enterprise_attack.py"
 BUILD_DATASET_SCRIPT = DATASCRIPT_ROOT / "build_dataset.py"
-TRAIN_ROBERTA_SCRIPT = MODELS_ROOT  / "train_roberta.py"
-PREDICT_SCRIPT         = MODELS_ROOT     / "predict_roberta.py"
+TRAIN_ROBERTA_SCRIPT = MODELS_ROOT     / "train_roberta.py"
+PREDICT_SCRIPT       = MODELS_ROOT     / "predict_roberta.py"
 
 
 #=================================================
@@ -147,6 +159,62 @@ def ensure_dirs():
     for p in [DATA_ROOT, RAW_DIR, EXTRACTED_PDFS_DIR, PROCESSED_DIR, MODELS_ROOT, EXPERIMENTS_ROOT]:
         p.mkdir(parents=True, exist_ok=True)
 
+# =========================
+# STRICT group → TTP lookup
+# =========================
+def _collect_group_ttps(matched_df: pd.DataFrame) -> list[str]:
+    """
+    Extract unique MITRE technique IDs (e.g. T1110, T1110.003) from
+    Data/mapped/group_ttps_detail.csv for the matched groups.
+    Falls back gracefully if columns differ between datasets.
+    """
+    map_path = BASE_DIR / "Data" / "mapped" / "group_ttps_detail.csv"
+    if not map_path.exists():
+        print(f"[ERROR] {map_path} not found.")
+        return []
+
+    try:
+        g = pd.read_csv(map_path)
+    except Exception as e:
+        print(f"[ERROR] Failed reading {map_path}: {e}")
+        return []
+
+    # Validate required minimal columns
+    expected_cols = {"group_name", "group_id", "matched_exact", "matched_root_only"}
+    missing = expected_cols - set(g.columns.str.lower())
+    if missing:
+        print(f"[WARN] group_ttps_detail.csv missing columns: {missing}; using best-effort extraction.")
+
+    # Normalization helpers
+    import re
+    id_re = re.compile(r"\bT\d{4}(?:\.\d{3})?\b", re.IGNORECASE)
+
+    def _extract_ttps(text: str) -> list[str]:
+        if not isinstance(text, str):
+            return []
+        found = id_re.findall(text)
+        return [f"T{f[1:]}" if not f.startswith("T") else f.upper() for f in found]
+
+    # Collect TTPs from relevant columns
+    all_ttps = []
+    for col in ["matched_exact", "matched_root_only"]:
+        if col in g.columns:
+            g[col] = g[col].fillna("")
+            for entry in g[col].tolist():
+                all_ttps.extend(_extract_ttps(entry))
+
+    # Remove duplicates + sort by numeric order
+    def _sort_key(tid: str):
+        m = re.match(r"T(\d{4})(?:\.(\d{3}))?", tid)
+        return (int(m.group(1)), int(m.group(2) or 999)) if m else (9999, 999)
+
+    uniq_ttps = sorted(set(all_ttps), key=_sort_key)
+    print(f"[DEBUG] Extracted {len(uniq_ttps)} unique technique IDs from group_ttps_detail.csv")
+    return uniq_ttps
+
+# ============================================
+# Rule-based flow helper
+# ============================================
 def _atomic_to_csv(df, path: str):
     d = Path(path).parent
     d.mkdir(parents=True, exist_ok=True)
@@ -168,14 +236,29 @@ def _run_rule_match_flow(ttps: list[str]) -> dict:
     top3_df = matched_df.head(3)
     pd.DataFrame({"TTP": ttps}).to_csv("inputted_ttps.csv", index=False)
 
-    # NEW: run mitigations and include in OpenAI context
+    # Mitigations (idempotent) + GPT analysis
     mit_csv_path = _run_mitigations_and_get_csv()
-
     gpt_response = analyze_TTP(ttps, matched_df, mitigations_csv=str(mit_csv_path))
     parsed = parse_ai_response(gpt_response)
-    from report_generator import load_mitigations_summary
-    parsed["mitigation"] = load_mitigations_summary(str(mit_csv_path))
 
+    # Filter mitigations for the matched groups' techniques
+    # 1) get group-based TTPs (strict CSV mapping)
+    group_ttps = _collect_group_ttps(matched_df)
+
+    # 2) fallback ONLY if none found
+    if not group_ttps:
+      print("[INFO] No group-mapped TTPs found; falling back to inputted TTPs.")
+      group_ttps = list({t.strip().upper() for t in ttps if t})
+
+    # 3) filter mitigations using those TTPs (includes sub-techniques)
+    mit_filtered = load_filtered_mitigations(str(mit_csv_path), group_ttps)
+    if mit_filtered.empty:
+        parsed["mitigation"] = "No mitigations found for these techniques."
+    else:
+        mit_dicts = mit_filtered.to_dict(orient="records")
+        parsed["mitigation"] = summarize_mitigations(mit_dicts)
+    
+    # Try generating docx (non-fatal)
     try:
         out_path = generate_word_report(gpt_response, ttps, mitigations_csv=str(mit_csv_path))
         if not out_path:
@@ -229,6 +312,24 @@ def _run_roberta_flow(ttps: list[str]) -> dict:
     from report_generator import load_mitigations_summary
     parsed["mitigation"] = load_mitigations_summary(str(mit_csv_path))
 
+    # Filter mitigations for the matched groups' techniques
+    # 1) get group-based TTPs (strict CSV mapping)
+    group_ttps = _collect_group_ttps(df_ml)
+
+    # 2) fallback ONLY if none found
+    if not group_ttps:
+      print("[INFO] No group-mapped TTPs found; falling back to inputted TTPs.")
+      group_ttps = list({t.strip().upper() for t in ttps if t})
+
+    # 3) filter mitigations using those TTPs (includes sub-techniques)
+    mit_filtered = load_filtered_mitigations(str(mit_csv_path), group_ttps)
+    if mit_filtered.empty:
+        parsed["mitigation"] = "No mitigations found for these techniques."
+    else:
+        mit_dicts = mit_filtered.to_dict(orient="records")
+        parsed["mitigation"] = summarize_mitigations(mit_dicts)
+
+    # Try generating docx (non-fatal)
     try:
         out_path = generate_word_report(gpt_response, ttps, mitigations_csv=str(mit_csv_path))
         if not out_path:
@@ -435,15 +536,12 @@ def roberta():
 @app.route('/submit_both', methods=['POST'])
 def submit_both():
     try:
-        # collect selected TTPs once
         ttps_input = [t.split()[0].upper() for t in request.form.getlist('ttps[]')]
         ttps = validate_ttps(ttps_input)
 
-        # run both flows
         rule_res = _run_rule_match_flow(ttps)
         rob_res  = _run_roberta_flow(ttps)
 
-        # cache both for export
         global LAST_RESULTS_RULE, LAST_RESULTS_ROBERTA
         LAST_RESULTS_RULE = {
             "ttps": rule_res["ttps"],
@@ -462,10 +560,10 @@ def submit_both():
             "results_compare.html",
             timestamp=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             ttps=ttps,
-            rule_matched=rule_res["matched_top3"],     # list of dicts
-            rule_analysis=rule_res["analysis"],        # dict with keys summary/table/attacker/mitigation/suggestion
-            rob_matched=rob_res["matched_top3"],       # list of dicts
-            rob_analysis=rob_res["analysis"],          # same dict structure
+            rule_matched=rule_res["matched_top3"],
+            rule_analysis=rule_res["analysis"],
+            rob_matched=rob_res["matched_top3"],
+            rob_analysis=rob_res["analysis"],
             export_mode=False,
         )
 
@@ -578,9 +676,6 @@ def predict_api():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 400
 
-# =======================================================
-# MATCH ROUTE – Match selected TTPs to threat groups
-# =======================================================
 @app.route('/match', methods=['POST'])
 def match():
     try:
@@ -590,26 +685,34 @@ def match():
 
         matched_df = match_ttps(ttps, DATA_DIR)
 
-        # Convert numeric fields
-        matched_df['rank'] = pd.to_numeric(matched_df.get('rank', float('nan')), errors='coerce')
-        matched_df['score'] = pd.to_numeric(matched_df.get('score', float('nan')), errors='coerce')
-
-        # Sort results
-        if matched_df['rank'].notna().any():
-            matched_df = matched_df.sort_values(by='rank', ascending=True)
+        # Convert numeric, sort, top3
+        matched_df["rank"]  = pd.to_numeric(matched_df.get("rank", float("nan")), errors="coerce")
+        matched_df["score"] = pd.to_numeric(matched_df.get("score", float("nan")), errors="coerce")
+        if matched_df["rank"].notna().any():
+            matched_df = matched_df.sort_values(by="rank", ascending=True)
         else:
-            matched_df = matched_df.sort_values(by='score', ascending=False)
-
-        # Top 3
+            matched_df = matched_df.sort_values(by="score", ascending=False)
         top3_df = matched_df.head(3)
         pd.DataFrame({"TTP": ttps}).to_csv("inputted_ttps.csv", index=False)
 
         # GPT Analysis
         mit_csv_path = _run_mitigations_and_get_csv()
         gpt_response = analyze_TTP(ttps, matched_df, mitigations_csv=str(mit_csv_path))
-        from report_generator import load_mitigations_summary
-        parsed["mitigation"] = load_mitigations_summary(str(mit_csv_path))
         parsed = parse_ai_response(gpt_response)
+
+        # Filter mitigations for matched group techniques
+        group_ttps = list({t.strip().upper() for t in _collect_group_ttps(matched_df, ttps)})
+
+        mit_filtered = load_filtered_mitigations(str(mit_csv_path), group_ttps)
+
+        # Remove duplicate mitigation descriptions
+        if not mit_filtered.empty:
+         mit_filtered = mit_filtered.drop_duplicates(
+         subset=["target id", "target name", "mapping description"], keep="first"
+        )
+
+        parsed["mitigation"] = mit_filtered.to_dict(orient="records")
+
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
         global LAST_RESULTS
@@ -627,16 +730,12 @@ def match():
             analysis=parsed,
             timestamp=timestamp
         )
-        
 
     except Exception as e:
         return render_template('error.html', error=str(e))
 # =======================================================
 # Export
 
-# =======================================================
-# EXPORT ROUTE - For when printing results to document
-# =======================================================
 @app.route('/export')
 def export():
     try:
@@ -658,7 +757,7 @@ def export():
             export_mode=True
         )
 
-        # strip CSS link as you did
+        # strip CSS link
         rendered = re.sub(r'<link rel="stylesheet" href="[^"]*attribution\.css">', "", rendered, flags=re.IGNORECASE)
 
         response = make_response(rendered)

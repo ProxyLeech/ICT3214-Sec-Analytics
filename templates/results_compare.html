@@ -2,22 +2,7 @@
 <html lang="en">
 <head>
   <title>Adversary Attribution Report</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/attribution.css') }}">
-  <style>
-    h1 { color: #0056b3; border-bottom: 2px solid #e0e0e0; padding-bottom: 0.5rem; }
-    h3 { margin-top: 2rem; color: #333; }
-    pre {
-      background: #f3f3f3; padding: 1rem; border-radius: 6px;
-      overflow-x: auto; white-space: pre-wrap;
-    }
-    table { width: 100%; border-collapse: collapse; margin-top: 1rem; background: #fff; }
-    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-    th { text-align: left; background: #007bff; color: #fff; }
-    a { display: inline-block; color: #007bff; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .timestamp { font-size: 0.9rem; color: #666; }
-    .divider { margin: 32px 0; border-top: 2px dashed #e0e0e0; }
-  </style>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
   {% if not export_mode %}
@@ -26,7 +11,7 @@
 
   <div class="container">
     <!-- ========================= Rule-based (top) ========================= -->
-    <h1>Threat Attribution Report</h1>
+    <h1>Adversary Attribution Report</h1>
     <p class="timestamp">Generated on: {{ timestamp }}</p>
 
     <h3>Inputted Techniques</h3>

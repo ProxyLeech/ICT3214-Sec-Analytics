@@ -27,7 +27,13 @@ Data/mitigations/mitigations.csv
 matched_top3_roberta.csv
 matched_top3_rule.csv
 inputted_ttps_rule.csv
+inputted_group_rule.csv
+
 Data\processed\extracted_iocs.csv
 matched_groups_roberta.csv
+matched_groups_rule.csv
+inputted_ttps.csv
+mitigations_roberta_top.csv
+mitigations_rule_top.csv
 
 

@@ -90,10 +90,17 @@ def split_tokens(cell) -> Set[str]:
 
 def with_roots(tts: Iterable[str]) -> Set[str]:
     out: Set[str] = set()
+    input_roots = {t.split(".", 1)[0] for t in tts if "." in t}
+
     for t in tts:
         out.add(t)
-        if "." in t:
-            out.add(t.split(".", 1)[0])  # e.g., T1110.001 → T1110
+        # Add root only if:
+        # - it’s not already in the input list, AND
+        # - this TTP is a sub-technique (has a dot)
+        root = t.split(".", 1)[0]
+        if "." in t and root not in input_roots:
+            out.add(root)
+
     return out
 
 # ============================================
@@ -121,7 +128,8 @@ def match_ttps(ttps: Tuple[str, ...], data_dir: Path) -> pd.DataFrame:
 # ============================================
 def write_outputs(matched: pd.DataFrame, ttps: Tuple[str, ...], out_dir: Path) -> Tuple[Path, Path]:
     out_dir.mkdir(parents=True, exist_ok=True)
-    matched_out = out_dir / "matched_groups.csv"
+    matched_out = out_dir / "matched_groups_rule.csv"
+
     matched.to_csv(matched_out, index=False)
     return matched_out
 

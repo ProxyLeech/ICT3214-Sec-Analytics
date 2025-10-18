@@ -115,43 +115,6 @@ def scan_split_counts(csv_path: pathlib.Path) -> Dict[str, int]:
     print(f"[INFO] Split counts: train={counts['train']}  val={counts['val']}  test={counts['test']}")
     return counts
 
-# def read_labels_from_csv(csv_path: pathlib.Path, groups_only: bool, tech2groups: dict[str, set[str]]) -> List[str]:
-#     uniq = set()
-#     with csv_path.open("r", encoding="utf-8") as f:
-#         for r in csv.DictReader(f):
-#             labs = (r.get("labels") or "").strip()
-#             if not labs:
-#                 continue
-#             if groups_only:
-#                 # expand techniques -> groups; keep any groups already present
-#                 row_groups = set()
-#                 for x in labs.split("|"):
-#                     x = x.strip()
-#                     if not x:
-#                         continue
-#                     if x.startswith("T"):
-#                         # use exact T#### or T####.### first; if nothing, also try root T####
-#                         if x in tech2groups:
-#                             row_groups |= tech2groups[x]
-#                         else:
-#                             root = x.split(".", 1)[0]
-#                             row_groups |= tech2groups.get(root, set())
-#                     else:
-#                         row_groups.add(x)
-#                 uniq |= {g for g in row_groups if g}
-#             else:
-#                 for x in labs.split("|"):
-#                     x = x.strip()
-#                     if x:
-#                         uniq.add(x)
-
-#     if groups_only:
-#         labels = sorted(uniq)  # groups only
-#     else:
-#         tech = sorted([x for x in uniq if x.startswith("T")])
-#         grp  = sorted([x for x in uniq if not x.startswith("T")])
-#         labels = tech + grp
-#     return labels
 def read_labels_from_csv(csv_path: pathlib.Path) -> List[str]:
     uniq = set()
     with csv_path.open("r", encoding="utf-8") as f:
@@ -168,12 +131,6 @@ def read_labels_from_csv(csv_path: pathlib.Path) -> List[str]:
     grp  = sorted([x for x in uniq if not x.startswith("T")])
     return tech + grp
 
-# def ensure_labels_file(labels_path: pathlib.Path, csv_path: pathlib.Path, groups_only: bool, tech2groups: dict[str, set[str]]) -> List[str]:
-#     if not labels_path.exists():
-#         labels = read_labels_from_csv(csv_path, groups_only=groups_only, tech2groups=tech2groups)
-#         labels_path.write_text("\n".join(labels) + "\n", encoding="utf-8")
-#         return labels
-#     return [l.strip() for l in labels_path.read_text(encoding="utf-8").splitlines() if l.strip()]
 def ensure_labels_file(labels_path: pathlib.Path, csv_path: pathlib.Path) -> List[str]:
     if not labels_path.exists():
         labels = read_labels_from_csv(csv_path)
@@ -223,6 +180,33 @@ def compute_output_dir(cfg: Config) -> pathlib.Path:
         return pathlib.Path(f"{cfg.N_FOLDS}foldruns/roberta")
     return cfg.OUTPUT_DIR
 
+def prune_experiments(exp_root: Path, keep_names=("metrics.json", "README.txt")):
+    """
+    In EXPERIMENTS_ROOT, remove everything except metrics.json & README.txt
+    for each run directory. Also removes now-empty subfolders.
+    """
+    if not exp_root.exists():
+        return
+
+    # 1) Delete all files that are not in keep_names
+    for p in exp_root.rglob("*"):
+        try:
+            if p.is_file() and p.name not in keep_names:
+                p.unlink()
+        except Exception as e:
+            print(f"[WARN] Failed to delete {p}: {e}")
+
+    # 2) Remove empty directories bottom-up (but keep run dirs that still
+    #    contain the kept files)
+    for d in sorted([d for d in exp_root.rglob("*") if d.is_dir()], key=lambda x: len(str(x)), reverse=True):
+        try:
+            # If directory is empty now, remove it
+            next(d.iterdir())
+        except StopIteration:
+            try:
+                d.rmdir()
+            except Exception as e:
+                print(f"[WARN] Failed to remove empty dir {d}: {e}")
 
 class MultiLabelCSVDataset(Dataset):
     """
@@ -492,16 +476,6 @@ def main():
             targs = build_training_args(cfg, do_eval_in_training=use_eval_in_training, out_dir=run_dir)
             callbacks = maybe_early_stopping(use_eval_in_training, cfg, targs) or []
 
-            # trainer = Trainer(
-            #     model=base_model,
-            #     args=targs,
-            #     train_dataset=train_ds,
-            #     eval_dataset=val_ds if use_eval_in_training else None,
-            #     tokenizer=tokenizer,
-            #     data_collator=data_collator,
-            #     compute_metrics=make_compute_metrics(cfg.THRESHOLD) if use_eval_in_training else None,
-            #     callbacks=callbacks,
-            # )
             class WeightedBCETrainer(Trainer):
                 def compute_loss(
                     self,
@@ -679,6 +653,12 @@ def main():
         print("[WARN] No best model selected (scores missing?).")
     else:
         print(f"[OK] Finished. Best model from: {best_src_dir}  →  {BEST_DIR}")
+    # Finally, prune experiments (keep only metrics.json and README.txt)
+    try:
+        prune_experiments(EXPERIMENTS_ROOT)
+        print(f"[OK] Pruned experiments under {EXPERIMENTS_ROOT} (kept metrics.json & README.txt per run).")
+    except Exception as e:
+        print(f"[WARN] Pruning experiments failed: {e}")
 
 if __name__ == "__main__":
     main()

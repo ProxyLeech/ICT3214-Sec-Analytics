@@ -52,7 +52,7 @@ ICT3214-SEC-ANALYTICS/
 │       ├──► cleaned_report_template.docx - report template used by OpenAI to generate the adversary attribution report
 │       ├──► index.html - Serves as the main landing page and user interface for the Flask-based MITRE ATT&CK Threat Attribution system. 
 │       ├──► error.html - Error page rendered when invalid input, missing files, or API-related exceptions occur during app execution.
-│       ├──► results_compare.html - Displays the dual-output comparison between the rule-based and RoBERTa-based threat attribution flows.  
+│       ├──► results.html - Displays the dual-output comparison between the rule-based and RoBERTa-based threat attribution flows.  
 │       ├──► results.html -  Displays **LLM-assisted adversary attribution results** for both **rule-based matching pipeline** and the **machine learning (RoBERTa)**
 │      
 ├──► matching.py - Validates and normalizes user-entered MITRE ATT&CK TTPs and performs correlation to identify matching threat groups based on exact and root-technique overlaps; outputs ranked matches and input TTP lists for downstream analysis and report generation.

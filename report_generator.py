@@ -21,19 +21,24 @@ if not key:
 client = OpenAI(api_key=key)
 
 def load_csv_data():
-    if not os.path.exists("inputted_ttps_rule.csv"):
-        raise SystemExit("inputted_ttps_rule.csv not found.")
+    if not os.path.exists("inputted_ttps.csv"):
+        raise SystemExit("inputted_ttps.csv not found.")
     if not os.path.exists("matched_groups_rule.csv"):
         raise SystemExit("matched_groups_rule.csv not found.")
+    if not os.path.exists("matched_groups_roberta.csv"):
+        raise SystemExit("matched_groups_roberta.csv not found.")
+    
+    ttps_df = pd.read_csv("inputted_ttps.csv")
+    matched_df_rule = pd.read_csv("matched_groups_rule.csv")
+    matched_df_roberta = pd.read_csv("matched_groups_roberta.csv")
 
-    ttps_df = pd.read_csv("inputted_ttps_rule.csv")
-    matched_df = pd.read_csv("matched_groups_rule.csv")
-
-    if "score" in matched_df.columns:
-        matched_df = matched_df.sort_values(by="score", ascending=False)
+    if "score" in matched_df_rule.columns:
+        matched_df_rule = matched_df_rule.sort_values(by="score", ascending=False)
+    if "score" in matched_df_roberta.columns:
+        matched_df_roberta = matched_df_roberta.sort_values(by="score", ascending=False)
 
     input_ttps = ttps_df["TTP"].dropna().tolist()
-    return input_ttps, matched_df
+    return input_ttps, matched_df_rule, matched_df_roberta
 
 
 def load_mitigations_summary(mitigations_csv: str) -> str:
@@ -70,6 +75,28 @@ def load_mitigations_summary(mitigations_csv: str) -> str:
 
     except Exception as e:
         return f"Error reading mitigations CSV: {e}"
+    
+def load_filtered_mitigations(mitigations_csv: str, ttps: list[str]) -> pd.DataFrame:
+    """
+    Return only mitigation rows whose 'target id' matches any TTP in `ttps`,
+    including sub-techniques (e.g., T1110.x matches T1110).
+    """
+    if not os.path.exists(mitigations_csv):
+        raise FileNotFoundError(f"{mitigations_csv} not found")
+
+    df = pd.read_csv(mitigations_csv)
+    if "target id" not in df.columns:
+        raise ValueError("mitigations.csv missing 'target id' column")
+
+    df["target id"] = df["target id"].astype(str).str.strip().str.upper()
+
+    roots = {t.split(".")[0] for t in ttps}
+    def _match(tid: str) -> bool:
+        tid = tid.upper().strip()
+        return any(tid == t or tid.startswith(f"{t}.") for t in ttps) or tid.split(".")[0] in roots
+
+    return df[df["target id"].apply(_match)].copy()
+
 
 # ===========================
 # GPT Analysis
@@ -381,9 +408,16 @@ def generate_word_report(report_text, input_ttps, mitigations_csv=None):
         elif "3. most likely attacker" in text:
             doc.paragraphs[i + 1].text = parsed["attacker"] or "N/A"
 
+        # elif "4. defensive mitigations" in text:
+        #     if mitigations_csv and os.path.exists(mitigations_csv):
+        #         mitigations_text = load_mitigations_summary(mitigations_csv)
+        #         doc.paragraphs[i + 1].text = mitigations_text
+        #     else:
+        #         # fallback to parsed mitigation if CSV missing
+        #         doc.paragraphs[i + 1].text = parsed.get("mitigation", "[Mitigations CSV not found or invalid.]")
         elif "4. defensive mitigations" in text:
-            if mitigations_csv and os.path.exists(mitigations_csv):
-                mitigations_text = load_mitigations_summary(mitigations_csv)
+            if mitigations_csv and os.path.exists(mitigigations_csv := str(mitigations_csv)):
+                mitigations_text = load_mitigations_summary(mitigigations_csv)
                 doc.paragraphs[i + 1].text = mitigations_text
             else:
                 # fallback to parsed mitigation if CSV missing
@@ -399,13 +433,210 @@ def generate_word_report(report_text, input_ttps, mitigations_csv=None):
     # doc.save(filepath)
     # print(f"✅ Report saved: {filepath}")
 
+def summarize_mitigations(mitigations: list[dict]) -> str:
+    """
+    Cleanly summarize mitigations by technique ID.
+    Groups repeated mappings and shortens redundant text.
+    """
+    if not mitigations:
+        return "No mitigations found for these techniques."
+
+    import re
+    grouped = {}
+    for m in mitigations:
+        tid = m.get("target id", "").strip()
+        name = m.get("target name", "").strip()
+        desc = m.get("mapping description", "").strip()
+
+        # Extract first sentence or concise action
+        desc = desc.split(".")[0].strip()
+        desc = re.sub(r"\s+", " ", desc)
+
+        if not tid:
+            continue
+        grouped.setdefault(tid, {"name": name, "actions": set()})
+        if desc:
+            grouped[tid]["actions"].add(desc)
+
+    summarized = []
+    for tid, info in grouped.items():
+        actions = sorted(info["actions"])
+        block = f"{tid} – {info['name']}\n" + "\n".join(f"• {a}" for a in actions)
+        summarized.append(block)
+
+    return "\n\n".join(summarized)
+def _filter_and_write_mitigations(mitigations_csv: str, ttps: list[str], out_path: str) -> Optional[str]:
+    """
+    Write a mitigations CSV filtered to the provided TTP list.
+    Returns the CSV path if something was written; otherwise None.
+    """
+    try:
+        df = load_filtered_mitigations(mitigations_csv, ttps)
+        if not df.empty:
+            pd_path = Path(out_path)
+            pd_path.parent.mkdir(parents=True, exist_ok=True)
+            df.to_csv(pd_path, index=False)
+            return str(pd_path)
+    except Exception as _e:
+        pass
+    return None
+
+def _extract_ttps_from_text(s: str) -> list[str]:
+    """Find T####(.###) technique IDs in a string."""
+    if not isinstance(s, str):
+        return []
+    return re.findall(r"\bT\d{4}(?:\.\d{3})?\b", s, flags=re.IGNORECASE)
+
+def _load_top_group_ttps(matched_df: pd.DataFrame) -> list[str]:
+    """
+    Return a sorted unique list of technique IDs mapped to the FIRST (top-scored) group
+    in matched_df using Data/mapped/group_ttps_detail.csv. Falls back to [].
+    """
+    # Pick the top row/group robustly
+    if matched_df is None or matched_df.empty:
+        return []
+    # Prefer highest score if present
+    df_sorted = matched_df.copy()
+    if "score" in df_sorted.columns:
+        df_sorted = df_sorted.sort_values("score", ascending=False)
+    top = df_sorted.iloc[0]
+
+    top_group_name = None
+    top_group_id = None
+    for c in ("group_name", "group", "actor", "name"):
+        if c in df_sorted.columns:
+            top_group_name = str(top[c]).strip()
+            break
+    for c in ("group_id", "id", "mitre_id"):
+        if c in df_sorted.columns:
+            top_group_id = str(top[c]).strip()
+            break
+
+    # Load the strict mapping CSV
+    base_dir = Path(__file__).resolve().parent
+    map_csv = base_dir / "Data" / "mapped" / "group_ttps_detail.csv"
+    if not map_csv.exists():
+        # No strict map -> no top-group-filtered ttps
+        return []
+
+    try:
+        g = pd.read_csv(map_csv)
+    except Exception:
+        return []
+
+    # Normalize columns
+    g.columns = [c.strip().lower() for c in g.columns]
+    name_col = "group_name" if "group_name" in g.columns else None
+    id_col   = "group_id"   if "group_id"   in g.columns else None
+
+    # Filter rows belonging to the top group by id or name
+    sel = pd.Series([True] * len(g))
+    if top_group_id and id_col:
+        sel &= g[id_col].astype(str).str.strip().str.lower() == top_group_id.strip().lower()
+    elif top_group_name and name_col:
+        sel &= g[name_col].astype(str).str.strip().str.lower() == top_group_name.strip().lower()
+    else:
+        return []
+
+    gsel = g[sel]
+    if gsel.empty:
+        return []
+
+    # Collect TTPs from known text columns
+    ttps = []
+    for col in ("matched_exact", "matched_root_only", "ttp_list", "techniques", "technique_ids"):
+        if col in gsel.columns:
+            gsel[col] = gsel[col].fillna("")
+            for txt in gsel[col].tolist():
+                ttps.extend(_extract_ttps_from_text(txt))
+
+    # De-duplicate and normalize to uppercase; sort by numeric order
+    ttps = {t.upper() for t in ttps}
+    def _key(tid: str):
+        m = re.match(r"T(\d{4})(?:\.(\d{3}))?$", tid, re.IGNORECASE)
+        return (int(m.group(1)), int(m.group(2) or 999)) if m else (9999, 999)
+    return sorted(ttps, key=_key)
+
+def _filter_and_write_mitigations(mitigations_csv: str, ttps: list[str], out_path: str) -> Optional[str]:
+    """
+    Write a mitigations CSV filtered to the provided TTP list.
+    Returns the CSV path if something was written; otherwise None.
+    """
+    try:
+        df = load_filtered_mitigations(mitigations_csv, ttps)
+        if not df.empty:
+            pd_path = Path(out_path)
+            pd_path.parent.mkdir(parents=True, exist_ok=True)
+            df.to_csv(pd_path, index=False)
+            return str(pd_path)
+    except Exception:
+        pass
+    return None
 
 
 # ===========================
 # Run
 # ===========================
+# if __name__ == "__main__":
+#     print("Running AI Threat Analysis...")
+#     input_ttps, matched_df_rule = load_csv_data()
+#     report = analyze_TTP(input_ttps, matched_df_rule)
+#     generate_word_report(report, input_ttps)
 if __name__ == "__main__":
-    print("Running AI Threat Analysis...")
-    input_ttps, matched_df = load_csv_data()
-    report = analyze_TTP(input_ttps, matched_df)
-    generate_word_report(report, input_ttps)
+    print("Running AI Threat Analysis for RULES and ROBERTA (top group mitigations only)…")
+
+    # --- Input CSVs you specified ---
+    try:
+        ttps_df = pd.read_csv("inputted_ttps.csv")
+    except FileNotFoundError:
+        raise SystemExit("inputted_ttps.csv not found.")
+
+    try:
+        matched_df_rules = pd.read_csv("matched_groups_rule.csv")
+    except FileNotFoundError:
+        raise SystemExit("matched_groups_rule.csv not found.")
+
+    try:
+        matched_df_roberta = pd.read_csv("matched_groups_roberta.csv")
+    except FileNotFoundError:
+        raise SystemExit("matched_groups_roberta.csv not found.")
+
+    # Extract the selected TTPs (still used in the report header etc.)
+    input_ttps = ttps_df["TTP"].dropna().astype(str).str.upper().tolist()
+
+    # Sort matches for a clean prompt (if score is available)
+    if "score" in matched_df_rules.columns:
+        matched_df_rules = matched_df_rules.sort_values(by="score", ascending=False)
+    if "score" in matched_df_roberta.columns:
+        matched_df_roberta = matched_df_roberta.sort_values(by="score", ascending=False)
+
+    # --- Mitigations source (global) ---
+    mitigations_src = Path("Data/mitigations/mitigations.csv")
+    if not mitigations_src.exists():
+        print("[WARN] Data/mitigations/mitigations.csv not found — proceeding without mitigations context.")
+        mit_rules_csv = None
+        mit_roberta_csv = None
+    else:
+        # NEW: limit mitigations to TTPs of the TOP GROUP ONLY for each run
+        ttps_rules_top   = _load_top_group_ttps(matched_df_rules)
+        ttps_roberta_top = _load_top_group_ttps(matched_df_roberta)
+
+        if not ttps_rules_top:
+            print("[WARN] Could not resolve top-group TTPs for RULES; mitigations will be omitted.")
+        if not ttps_roberta_top:
+            print("[WARN] Could not resolve top-group TTPs for ROBERTA; mitigations will be omitted.")
+
+        mit_rules_csv   = _filter_and_write_mitigations(str(mitigations_src), ttps_rules_top,   "mitigations_rule.csv") if ttps_rules_top   else None
+        mit_roberta_csv = _filter_and_write_mitigations(str(mitigations_src), ttps_roberta_top, "mitigations_roberta.csv") if ttps_roberta_top else None
+
+    # --- RULES analysis+report (mitigations limited to its top group) ---
+    print("\n[RUN] RULE-BASED analysis…")
+    report_rules = analyze_TTP(input_ttps, matched_df_rules, mitigations_csv=mit_rules_csv)
+    generate_word_report(report_rules, input_ttps, mitigations_csv=mit_rules_csv)
+
+    # --- ROBERTA analysis+report (mitigations limited to its top group) ---
+    print("\n[RUN] ROBERTA analysis…")
+    report_roberta = analyze_TTP(input_ttps, matched_df_roberta, mitigations_csv=mit_roberta_csv)
+    generate_word_report(report_roberta, input_ttps, mitigations_csv=mit_roberta_csv)
+
+    print("\n[OK] Done. Generated reports with mitigations scoped to the first actor only (per run).")

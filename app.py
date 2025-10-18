@@ -410,39 +410,67 @@ def _collect_top_group_ttps(df: pd.DataFrame, use_ml: bool = False) -> list[str]
 # Rule-based flow helper
 # ============================================
 def _run_rule_match_flow(ttps: list[str]) -> dict:
+    """
+    Rule-based threat attribution flow:
+    - Runs rule-based TTP matching
+    - Extracts per-group associated TTPs for display
+    - Filters mitigations to only those related to top group's TTPs
+    - Generates parsed analysis + optional DOCX report
+    """
     LAST_RESULTS_ROBERTA.clear()
 
+    # 1️⃣ Run rule-based matching
     matched_df = match_ttps(ttps, MAPPED_DIR).copy()
     matched_df = _ensure_score_and_rank_rule(matched_df)
+
     if "rank" in matched_df.columns and matched_df["rank"].notna().any():
         matched_df = matched_df.sort_values(by=["rank", "score"], ascending=[True, False])
     else:
         matched_df = matched_df.sort_values(by="score", ascending=False)
+
     top3_df = matched_df.head(3)
 
     matched_df.to_csv("matched_groups_rule.csv", index=False)
     pd.DataFrame({"TTP": ttps}).to_csv("inputted_ttps.csv", index=False)
-    # Mitigations (idempotent) + GPT analysis
+
+    # 2️⃣ GPT-based analysis section
     mit_csv_path = MITIGATIONS_CSV
     gpt_response = analyze_TTP(ttps, matched_df, mitigations_csv=str(mit_csv_path))
     parsed = parse_ai_response(gpt_response)
 
-    # --- NEW: limit mitigations to the TOP group only ---
-    # top_group_ttps = _collect_group_ttps(matched_df)
-    top_group_ttps = _collect_top_group_ttps(matched_df)
-    # ✅ Add associated TTPs column for display
+    # =========================================================
+    # 🧩 Per-group Combined TTPs — Each group gets its own TTPs
+    # =========================================================
+    def _extract_ttps_from_text(s: str):
+        if not isinstance(s, str):
+            return []
+        return re.findall(r"\bT\d{4}(?:\.\d{3})?\b", s.upper())
 
-    #MICHAEL FIXING MTIIGATION
-    top_ttps_str = ", ".join(sorted(top_group_ttps)) if top_group_ttps else "—"
-    # top3_df["associated_ttps"] = top_ttps_str
-    
-    # Populate the unified column for HTML display
-    top3_df["combined_ttps"] = ", ".join(sorted(top_group_ttps)) if top_group_ttps else "—"
-        
-    # 🧭 Debug sanity check
+    combined_ttps_list = []
+    for _, row in matched_df.iterrows():
+        ttps_found = set()
+        for col in ["matched_exact", "matched_root_only"]:
+            if col in row and isinstance(row[col], str):
+                ttps_found.update(_extract_ttps_from_text(row[col]))
+        combined_ttps_list.append(", ".join(sorted(ttps_found)) if ttps_found else "—")
+
+    matched_df["combined_ttps"] = combined_ttps_list
+    top3_df = matched_df.head(3).copy()
+
+    # =========================================================
+    # 🛡️ Mitigation filtering — top group's TTPs only
+    # =========================================================
+    # top_group_ttps = _extract_ttps_from_text(",".join(top3_df["combined_ttps"].tolist()))
+    # ✅ Only extract TTPs from the rank 1 group (true top match)
+    top_rank_row = matched_df.loc[matched_df["rank"] == matched_df["rank"].min()].head(1)
+    if not top_rank_row.empty and "combined_ttps" in top_rank_row.columns:
+        top_group_ttps = _extract_ttps_from_text(top_rank_row.iloc[0]["combined_ttps"])
+    else:
+        top_group_ttps = []
+
     print("\n================ DEBUG SANITY CHECK ================")
-    print(f"[DEBUG] Top group extracted {len(top_group_ttps)} TTPs:")
-    print(sorted(top_group_ttps))
+    print(f"[DEBUG] Each group has unique combined_ttps extracted.")
+    print(f"[DEBUG] Aggregated top group TTPs: {sorted(set(top_group_ttps))}")
     print("====================================================\n")
 
     mit_filtered = load_filtered_mitigations(str(mit_csv_path), top_group_ttps)
@@ -450,40 +478,35 @@ def _run_rule_match_flow(ttps: list[str]) -> dict:
     if not top_group_ttps:
         print("[INFO] No top-group TTPs resolved for RULES; skipping mitigations (no group mapping).")
 
-
-    mit_filtered = load_filtered_mitigations(str(mit_csv_path), top_group_ttps)
-
-    # Remove duplicate mitigation descriptions
+    # 3️⃣ Deduplicate + summarize mitigations
     if not mit_filtered.empty:
         mit_filtered = mit_filtered.drop_duplicates(
-            subset=["target id", "target name", "mapping description"], keep="first"
+            subset=["target id", "target name", "mapping description"],
+            keep="first"
         )
-        # summarize just the top group’s mitigations for the HTML view
         parsed["mitigation"] = summarize_mitigations(mit_filtered.to_dict(orient="records"))
-        # write a scoped CSV and pass it to the Word generator
-        # _atomic_to_csv(mit_filtered, "mitigations_rule_top.csv")
-        # mit_for_docx = "mitigations_rule_top.csv"
+
         mit_rule_path = PROJECT_ROOT / "mitigations_rule_top.csv"
         _atomic_to_csv(mit_filtered, mit_rule_path)
         mit_for_docx = str(mit_rule_path)
-
     else:
         parsed["mitigation"] = "No mitigations found for these techniques."
         mit_for_docx = None
 
-    # Generate DOCX (non-fatal)
+    # 4️⃣ Generate Word report (non-fatal)
     try:
         out_path = generate_word_report(
             gpt_response,
             ttps,
-            mitigations_csv=mit_for_docx  # <-- pass the scoped CSV
+            mitigations_csv=mit_for_docx
         )
         if not out_path:
             out_path = "threat_report_rule.docx"
     except Exception as e:
         print("[WARN] Rule-based DOCX generation failed:", e)
         out_path = None
-    
+
+    # 5️⃣ Return structured result
     return {
         "ttps": ttps,
         "matched_full_df": matched_df,
@@ -491,6 +514,7 @@ def _run_rule_match_flow(ttps: list[str]) -> dict:
         "analysis": parsed,
         "doc_path": out_path,
     }
+
 
 # ============================================
 # RoBERTa flow helper
@@ -579,8 +603,16 @@ def _predict_with_module(payload: dict):
             return {"groups": []}
         
 def _run_roberta_flow(ttps: list[str]) -> dict:
+    """
+    RoBERTa-based threat attribution flow:
+    - Uses ML model predictions for group ranking
+    - Extracts per-group associated TTPs (from matched_exact/root_only/technique_id_list)
+    - Filters mitigations based on top group's TTPs
+    - Generates parsed analysis and DOCX report
+    """
     LAST_RESULTS_RULE.clear()
 
+    # 1️⃣ Run the RoBERTa predictor
     ml = _predict_with_module({
         "id": "from_ttps",
         "attacks": ttps,
@@ -592,39 +624,68 @@ def _run_roberta_flow(ttps: list[str]) -> dict:
         raise RuntimeError("RoBERTa returned no groups. Check model artifacts and labels.")
     df_ml = pd.DataFrame(group_rows)
 
+    # Normalize column names
     if "group" in df_ml.columns and "group_name" not in df_ml.columns:
         df_ml.rename(columns={"group": "group_name"}, inplace=True)
 
     df_ml = _ensure_score_and_rank(df_ml)
     df_ml.sort_values("score", ascending=False, inplace=True)
-    # after df_ml.sort_values("score", ascending=False, inplace=True)
-    # Persist files for the report script
     _save_roberta_traces(df_ml)
     top3_df = df_ml.head(3).drop(columns=["origin"], errors="ignore")
 
-        # Mitigations (idempotent) + GPT analysis
+    # 2️⃣ GPT-based analysis
     mit_csv_path = MITIGATIONS_CSV
     gpt_response = analyze_TTP(ttps, df_ml, mitigations_csv=str(mit_csv_path))
     parsed = parse_ai_response(gpt_response)
 
-    top_group_ttps = _collect_top_group_ttps(df_ml)
-    # ✅ Add associated TTPs column for display
+    # =========================================================
+    # 🧩 Per-group Combined TTPs — Extract for EACH group
+    # =========================================================
+    def _extract_ttps_from_text(s: str):
+        if not isinstance(s, str):
+            return []
+        return re.findall(r"\bT\d{4}(?:\.\d{3})?\b", s.upper())
 
-    #MICHAEL FIXING MITIGATION
-    top_ttps_str = ", ".join(sorted(top_group_ttps)) if top_group_ttps else "—"
-    # top3_df["associated_ttps"] = top_ttps_str
-    top3_df["combined_ttps"] = ", ".join(sorted(top_group_ttps)) if top_group_ttps else "—"
+    combined_ttps_list = []
+    for _, row in df_ml.iterrows():
+        ttps_found = set()
+        for col in ["matched_exact", "matched_root_only", "technique_id_list"]:
+            if col in row and isinstance(row[col], str):
+                ttps_found.update(_extract_ttps_from_text(row[col]))
+        combined_ttps_list.append(", ".join(sorted(ttps_found)) if ttps_found else "—")
 
+    df_ml["combined_ttps"] = combined_ttps_list
+    top3_df = df_ml.head(3).copy()
+
+    # =========================================================
+    # 🛡️ Mitigations — use top group's extracted TTPs
+    # =========================================================
+    # 🛡️ Mitigations — use only the rank-1 group's TTPs
+    top_rank_row = df_ml.loc[df_ml["rank"] == df_ml["rank"].min()].head(1)
+
+    if not top_rank_row.empty and "combined_ttps" in top_rank_row.columns:
+        top_group_ttps = _extract_ttps_from_text(top_rank_row.iloc[0]["combined_ttps"])
+        print(f"[DEBUG] Using top group only for mitigations → "
+            f"{top_rank_row.iloc[0]['group_name']} ({top_rank_row.iloc[0]['group_id']})")
+    else:
+        top_group_ttps = []
+        print("[DEBUG] No valid top group row found for mitigations.")
+
+    print("\n================ DEBUG SANITY CHECK ================")
+    print(f"[DEBUG] Each ML group now has its own combined_ttps.")
+    print(f"[DEBUG] Aggregated top group TTPs: {sorted(set(top_group_ttps))}")
+    print("====================================================\n")
+
+    mit_filtered = load_filtered_mitigations(str(mit_csv_path), top_group_ttps)
 
     if not top_group_ttps:
         print("[INFO] No top-group TTPs resolved for ROBERTA; skipping mitigations (no group mapping).")
 
-
-    mit_filtered = load_filtered_mitigations(str(mit_csv_path), top_group_ttps)
-
+    # 3️⃣ Deduplicate + summarize mitigations
     if not mit_filtered.empty:
         mit_filtered = mit_filtered.drop_duplicates(
-            subset=["target id", "target name", "mapping description"], keep="first"
+            subset=["target id", "target name", "mapping description"],
+            keep="first"
         )
         parsed["mitigation"] = summarize_mitigations(mit_filtered.to_dict(orient="records"))
         _atomic_to_csv(mit_filtered, "mitigations_roberta_top.csv")
@@ -633,18 +694,20 @@ def _run_roberta_flow(ttps: list[str]) -> dict:
         parsed["mitigation"] = "No mitigations found for these techniques."
         mit_for_docx = None
 
-    # Generate DOCX (non-fatal)
+    # 4️⃣ Generate DOCX report
     try:
         out_path = generate_word_report(
             gpt_response,
             ttps,
-            mitigations_csv=mit_for_docx  # <-- pass the scoped CSV
+            mitigations_csv=mit_for_docx
         )
         if not out_path:
             out_path = "threat_report_roberta.docx"
     except Exception as e:
         print("[WARN] RoBERTa DOCX generation failed:", e)
         out_path = None
+
+    # 5️⃣ Return structured result
     return {
         "ttps": ttps,
         "matched_full_df": df_ml,
@@ -652,6 +715,7 @@ def _run_roberta_flow(ttps: list[str]) -> dict:
         "analysis": parsed,
         "doc_path": out_path,
     }
+
 
 # ============================================
 # Small helpers

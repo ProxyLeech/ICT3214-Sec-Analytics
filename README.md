@@ -38,11 +38,13 @@ ICT3214-SEC-ANALYTICS/
 │           ├──► pdfs/ - contains APTnotes PDF files
 │     ├──► excel/ - contains extracted enterprise-attack MITRE ATT&CK & mitigation techniques
 │     ├──► extracted_pdfs/ - contains extracted information from data/raw/pdfs. This will be generated when app.py is run
-│     ├──► mapped/ - contains the pdfs with successful correlation of IOCs and ATT&CK techniques
+│     ├──► mapped/ - HELP
+│     ├──► mappedPDFs/ - HELP
 │     ├──► processed/ 
-│              ├──► rules/ - Regex based auto generated ATT&CK matching rules
+│              ├──► rules/ - HELP
 │              ├──► extracted_iocs.csv - Stores extracted Indicators of Compromise (IOCs) such as domains, IPs, URLs, hashes, and emails parsed from APTnotes PDFs for later threat group mapping.
-│              ├──► ti_groups_techniques.csv - Mapping of MITRE ATT&CK Intrusion Sets (Groups) to the Techniques/sub-techniques they use
+│              ├──► ti_groups_techniques.csv - HELP
+├──► logs/ - contains materials used to train RoBERTa model  
 ├──► src/
 │     ├──► data/ - contains scripts to create .csv in data/ folders 
 │     ├──► models/ - contains latest and best RoBERTa model as well as scripts to train and predict

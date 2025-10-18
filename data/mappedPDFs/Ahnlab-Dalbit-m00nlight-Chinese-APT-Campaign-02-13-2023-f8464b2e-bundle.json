@@ -1,0 +1,2278 @@
+{
+  "type": "bundle",
+  "id": "bundle--b8b45308-7fc1-4da9-9c11-9836822e11a4",
+  "objects": [
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--e08cca41-89e8-45cd-8265-e2fcc67849ca",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "T1003",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1003"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--3685065c-2864-4274-9d4a-835d938a8ec8",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "T1018",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1018"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--fa9d0278-7a50-4296-8a45-2768991bb8cf",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "T1021",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1021"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--a6b1c4ef-12c0-4762-9fca-5d3e715ba750",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "T1046",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1046"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--25b0f087-d89b-4be8-895d-a43746e9b8b4",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "T1047",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1047"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--58b88e5c-e9a8-43c9-b943-c46270e17c12",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "T1053",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1053"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--8aae9af2-868a-41c4-8691-b6859740bd5c",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "T1059",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1059"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--1f4fd625-5155-44d0-bcc4-34f3d5f925b6",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "T1068",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1068"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--77f68c64-ff65-4b97-8a61-187e3dcdbc96",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "T1070",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1070"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--96b9ac25-1800-4a88-be47-74fda49e6db7",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "T1098",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1098"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--a5b63e7a-4615-486c-a6c3-87774b920933",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "T1134",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1134"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--bf3b7cb1-60d1-4fb2-b358-6fee8bfafaa8",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "T1136",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1136"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--078f7998-36a4-4c77-9863-a7e4f823cf50",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "T1505",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1505"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--9b9d5939-ac6f-4d24-b8eb-e583b89e41b9",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "T1562",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1562"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--22b9fa7a-d0bb-485e-85ef-2e4b90f7b864",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "T1569",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1569"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--5fa48936-b588-40ac-a17b-dbccf448ca2f",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "T1570",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1570"
+        }
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--1e1798b5-0856-4420-83e9-0581287dd6e7",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "domain:asec.ahnlab.com",
+      "pattern": "[domain-name:value = 'asec.ahnlab.com']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--1cb993a3-adc6-4055-a1d7-cb83402a9f38",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "domain:m00nlight.top",
+      "pattern": "[domain-name:value = 'm00nlight.top']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--84cf9507-961e-462e-906b-6182baf75bd2",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "domain:m00nlight.top",
+      "pattern": "[domain-name:value = 'm00nlight.top']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--a82dee41-3b1a-4a7f-b703-264cd221efe0",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "domain:microsoft.net",
+      "pattern": "[domain-name:value = 'microsoft.net']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--bb5bc643-4286-4d75-969c-0497dd885816",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "domain:asp.net",
+      "pattern": "[domain-name:value = 'asp.net']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--1f9eca44-3e92-4ef9-ba1a-85d78c15c0fa",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "domain:m00nlight.top",
+      "pattern": "[domain-name:value = 'm00nlight.top']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--ef1f5a93-4544-451e-9a7c-5d58352494b1",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "ipv4:127.0.0.1",
+      "pattern": "[ipv4-addr:value = '127.0.0.1']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "ipv4",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--7890f984-b1c2-4f99-b506-c30ed9e24e9d",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "ipv4:127.0.0.1",
+      "pattern": "[ipv4-addr:value = '127.0.0.1']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "ipv4",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--d0fa5317-d27e-4920-b200-5ffa1f5f8c50",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "domain:startmail.com",
+      "pattern": "[domain-name:value = 'startmail.com']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--52a8c9d2-4fcc-4146-b3d1-a68e0ccfd356",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "domain:onionmail.com",
+      "pattern": "[domain-name:value = 'onionmail.com']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--d14cd0c2-0868-4ee4-90c4-524797beb214",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:0359a857a22c8e93bc43caea07d07e23",
+      "pattern": "[file:hashes.'MD5' = '0359a857a22c8e93bc43caea07d07e23']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--088f97ed-13cf-41ad-a9a9-72fc72c5ceb6",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:85a6e4448f4e5be1aa135861a2c35d35",
+      "pattern": "[file:hashes.'MD5' = '85a6e4448f4e5be1aa135861a2c35d35']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--c4bbd3b4-4b55-42dc-9c59-a7a0303abe64",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:4fc81fd5ac488b677a4c0ce5c272ffe3",
+      "pattern": "[file:hashes.'MD5' = '4fc81fd5ac488b677a4c0ce5c272ffe3']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--4d15d8ae-561c-4198-aa97-ee8e3e8ca569",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:c0452b18695644134a1e38af0e974172",
+      "pattern": "[file:hashes.'MD5' = 'c0452b18695644134a1e38af0e974172']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--ec947799-6ab1-4097-ac22-8ec9ea98443b",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:6b4c7ea91d5696369dd0a848586f0b28",
+      "pattern": "[file:hashes.'MD5' = '6b4c7ea91d5696369dd0a848586f0b28']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--2589c256-3490-4c11-a643-bc0a04b1d672",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:96b23ff19a945fad77dd4dd6d166faaa",
+      "pattern": "[file:hashes.'MD5' = '96b23ff19a945fad77dd4dd6d166faaa']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--09da021f-bf77-474f-9e7f-e6e1c9079cbf",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:88bef25e4958d0a198a2cc0d921e4384",
+      "pattern": "[file:hashes.'MD5' = '88bef25e4958d0a198a2cc0d921e4384']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--2c9f082b-61a4-4ddc-a620-9fd384583e2f",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:c908340bf152b96dc0f270eb6d39437f",
+      "pattern": "[file:hashes.'MD5' = 'c908340bf152b96dc0f270eb6d39437f']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--66e73f10-4237-438c-971d-f4c0a5dfc25b",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:2c3de1cefe5cd2a5315a9c9970277bd7",
+      "pattern": "[file:hashes.'MD5' = '2c3de1cefe5cd2a5315a9c9970277bd7']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--57b985a3-6fba-45b1-8dbc-318a6f385a60",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:e5b626c4b172065005d04205b026e446",
+      "pattern": "[file:hashes.'MD5' = 'e5b626c4b172065005d04205b026e446']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--e08a9906-628f-4bfe-a7b8-8995cee1c7cd",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:27ec6fb6739c4886b3c9e21b6b9041b6",
+      "pattern": "[file:hashes.'MD5' = '27ec6fb6739c4886b3c9e21b6b9041b6']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--44a91ebe-add4-4775-9222-15de06d32713",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:612585fa3ada349a02bc97d4c60de784",
+      "pattern": "[file:hashes.'MD5' = '612585fa3ada349a02bc97d4c60de784']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--03e7c1ff-49a9-4747-851e-b3739cee0c34",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:21c7b2e6e0fb603c5fdd33781ac84b8f",
+      "pattern": "[file:hashes.'MD5' = '21c7b2e6e0fb603c5fdd33781ac84b8f']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--c68e88b8-b5d0-424b-8cc3-f3133266cd98",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:c44457653b2c69933e04734fe31ff699",
+      "pattern": "[file:hashes.'MD5' = 'c44457653b2c69933e04734fe31ff699']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--0db25385-e6b5-4d74-89da-30136d3b76ba",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:e31b7d841b1865e11eab056e70416f1a",
+      "pattern": "[file:hashes.'MD5' = 'e31b7d841b1865e11eab056e70416f1a']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--f04c30a8-3af9-4498-ac13-25ee50e03893",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:69c7d9025fa3841c4cd69db1353179cf",
+      "pattern": "[file:hashes.'MD5' = '69c7d9025fa3841c4cd69db1353179cf']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--14b33e11-dd23-44ed-91cb-238e6ca93c9e",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:fca13226da57b33f95bf3faad1004ee0",
+      "pattern": "[file:hashes.'MD5' = 'fca13226da57b33f95bf3faad1004ee0']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--749dbb95-d804-44a9-bd38-537cc54fc81c",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:af002abd289296572d8afadfca809294",
+      "pattern": "[file:hashes.'MD5' = 'af002abd289296572d8afadfca809294']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--3cf16306-a151-4a07-8f17-931ea58b844e",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:e981219f6ba673e977c5c1771f86b189",
+      "pattern": "[file:hashes.'MD5' = 'e981219f6ba673e977c5c1771f86b189']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--ff7090f8-c7ad-4c97-8b42-b189af937a62",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:f978d05f1ebeb5df334f395d58a7e108",
+      "pattern": "[file:hashes.'MD5' = 'f978d05f1ebeb5df334f395d58a7e108']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--2721eb67-79b8-4c79-a692-a59c2efe1c48",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:e3af60f483774014c43a7617c44d05e7",
+      "pattern": "[file:hashes.'MD5' = 'e3af60f483774014c43a7617c44d05e7']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--e8fb23a6-6516-44c9-bbc8-291b0311df0b",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:c802dd3d8732d9834c5a558e9d39ed37",
+      "pattern": "[file:hashes.'MD5' = 'c802dd3d8732d9834c5a558e9d39ed37']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--ffca5bbb-2b40-4068-a645-949245fcbd82",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:07191f554ed5d9025bc85ee1bf51f975",
+      "pattern": "[file:hashes.'MD5' = '07191f554ed5d9025bc85ee1bf51f975']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--4dffea0b-4fb6-42cc-a1d9-9ad455469e4e",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:61a687b0bea0ef97224c7bd2df118b87",
+      "pattern": "[file:hashes.'MD5' = '61a687b0bea0ef97224c7bd2df118b87']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--8797ba29-8490-422a-b0fa-e22678eb32ae",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:9fe61c9538f2df492dff1aab0f90579f",
+      "pattern": "[file:hashes.'MD5' = '9fe61c9538f2df492dff1aab0f90579f']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--50980a12-bc2e-4c72-a85c-93561eb81208",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:ab9091f25a5ad44bef898588764f1990",
+      "pattern": "[file:hashes.'MD5' = 'ab9091f25a5ad44bef898588764f1990']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--3870269d-c16e-46e7-95bd-1775d8a43184",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:87e5c9f3127f29465ae04b9160756c62",
+      "pattern": "[file:hashes.'MD5' = '87e5c9f3127f29465ae04b9160756c62']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--e202de5d-bef8-4788-945a-2004e9a625db",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:4bafbdca775375283a90f47952e182d9",
+      "pattern": "[file:hashes.'MD5' = '4bafbdca775375283a90f47952e182d9']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--f259b3c1-2337-42aa-9e72-6886d6e6c6e6",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:0311ee1452a19b97e626d24751375652",
+      "pattern": "[file:hashes.'MD5' = '0311ee1452a19b97e626d24751375652']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--855f76b8-93e6-4a62-8da9-8e3642a82de1",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:acacf51ceef8943f0ee40fc181b6f1fa",
+      "pattern": "[file:hashes.'MD5' = 'acacf51ceef8943f0ee40fc181b6f1fa']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--40b66415-3523-4bff-ad01-b35b8a815cdb",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:3cbea05bf7a1affb821e379b1966d89c",
+      "pattern": "[file:hashes.'MD5' = '3cbea05bf7a1affb821e379b1966d89c']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--629d77fd-b319-438d-a066-c87a44019884",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:10f4a1df9c3f1388f9c74eb4cdf24e7c",
+      "pattern": "[file:hashes.'MD5' = '10f4a1df9c3f1388f9c74eb4cdf24e7c']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--bd872c75-9405-4bf9-a03f-fdbc2e944901",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:b5bdf2de230722e1fe63d88d8f628ebc",
+      "pattern": "[file:hashes.'MD5' = 'b5bdf2de230722e1fe63d88d8f628ebc']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--f4b91809-337b-40fc-b6bb-a2f160f45f6f",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:edb685194f2fcd6a92f6e909dee7a237",
+      "pattern": "[file:hashes.'MD5' = 'edb685194f2fcd6a92f6e909dee7a237']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--cb6432c0-0a20-4c39-b845-1717a6e65a5d",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:e9bd5ed33a573bd5d9c4e071567808e5",
+      "pattern": "[file:hashes.'MD5' = 'e9bd5ed33a573bd5d9c4e071567808e5']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--1b50f7af-0f26-4c6f-873c-a99f5e7ab79e",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:fbae6c3769ed4ae4eccaff76af7e7dfe",
+      "pattern": "[file:hashes.'MD5' = 'fbae6c3769ed4ae4eccaff76af7e7dfe']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--58381154-5629-49e1-9f74-9cb5153e9d9c",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:937435bbcbc3670430bb762c56c7b329",
+      "pattern": "[file:hashes.'MD5' = '937435bbcbc3670430bb762c56c7b329']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--1deec19c-0ef7-41d1-b2a4-b8fe3928d8bf",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:fd0f73dd80d15626602c08b90529d9fd",
+      "pattern": "[file:hashes.'MD5' = 'fd0f73dd80d15626602c08b90529d9fd']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--5aca164b-a45c-423c-80b9-ce957b190a7d",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:29274ca90e6dcf5ae4762739fcbadf01",
+      "pattern": "[file:hashes.'MD5' = '29274ca90e6dcf5ae4762739fcbadf01']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--5610ec57-6f49-4349-8d25-1a647e7d4c63",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:784becfb944dec42cccf75c8cf2b97e3",
+      "pattern": "[file:hashes.'MD5' = '784becfb944dec42cccf75c8cf2b97e3']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--83d44f24-2ed0-4d05-94de-6d36c23e806f",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:7307c6900952d4ef385231179c0a05e4",
+      "pattern": "[file:hashes.'MD5' = '7307c6900952d4ef385231179c0a05e4']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--8a8db923-ef53-4689-89d2-691fed6a2eb0",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:bcfca13c801608a82a0924f787a19e1d",
+      "pattern": "[file:hashes.'MD5' = 'bcfca13c801608a82a0924f787a19e1d']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--060c840b-fa58-423f-9ba1-6072248ed199",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:75fe1b6536e94aaee132c8d022e14f85",
+      "pattern": "[file:hashes.'MD5' = '75fe1b6536e94aaee132c8d022e14f85']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--b0e97e01-6830-46a1-8fba-672a61a9a5b3",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:d6cb8b66f7a9f3b26b4a98acb2f9d0c5",
+      "pattern": "[file:hashes.'MD5' = 'd6cb8b66f7a9f3b26b4a98acb2f9d0c5']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--8f98545c-e0bd-474e-840c-3aca30f7d0f8",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:323a36c23e61c6b37f28abfd5b7e5dfe",
+      "pattern": "[file:hashes.'MD5' = '323a36c23e61c6b37f28abfd5b7e5dfe']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--29bfe197-4614-44bc-96c4-4d4742c2922e",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:7b40aa57e1c61ecd6db2a1c18e08b0af",
+      "pattern": "[file:hashes.'MD5' = '7b40aa57e1c61ecd6db2a1c18e08b0af']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--841fc24d-4608-40c4-8272-8e7a4fde3229",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:3665d512be2e9d31fc931912d5c6900e",
+      "pattern": "[file:hashes.'MD5' = '3665d512be2e9d31fc931912d5c6900e']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--0613c435-8990-4656-bb51-0e66891f6f9f",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:1aca4310315d79e70168f15930cc3308",
+      "pattern": "[file:hashes.'MD5' = '1aca4310315d79e70168f15930cc3308']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--4bf7cded-8dc4-481c-ad50-d711a17ab90a",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:5e0845a9f08c1cfc7966824758b6953a",
+      "pattern": "[file:hashes.'MD5' = '5e0845a9f08c1cfc7966824758b6953a']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--b7c1663a-5faf-42c7-9af2-3d5995360568",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:9b0e4652a0317e6e4da66f29a74b5ad7",
+      "pattern": "[file:hashes.'MD5' = '9b0e4652a0317e6e4da66f29a74b5ad7']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--5bc49852-15a9-4fa6-b6b9-6cd6a2fac091",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:d8d36f17b50c8a37c2201fbb0672200a",
+      "pattern": "[file:hashes.'MD5' = 'd8d36f17b50c8a37c2201fbb0672200a']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--1e261dfc-ce7d-43ec-be3a-e9491ec61f4a",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:b998a39b31ad9b409d68dcb74ac6d97d",
+      "pattern": "[file:hashes.'MD5' = 'b998a39b31ad9b409d68dcb74ac6d97d']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--2f10312a-571b-4da3-9e8a-edd07d07b24c",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:d5054ed83e63f911be46b3ff8af82267",
+      "pattern": "[file:hashes.'MD5' = 'd5054ed83e63f911be46b3ff8af82267']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--8e6056e6-0637-4a34-8949-6fcc307d3e71",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:e7b7bf4c2ed49575bedabdce2385c8d5",
+      "pattern": "[file:hashes.'MD5' = 'e7b7bf4c2ed49575bedabdce2385c8d5']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--36d70935-5452-4b6c-a3fa-3fbaa9391f75",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:f01a9a2d1e31332ed36c1a4d2839f412",
+      "pattern": "[file:hashes.'MD5' = 'f01a9a2d1e31332ed36c1a4d2839f412']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--7ed9dd59-a682-4291-bbf0-5c38af8f3941",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:d4d8c9be9a4a6499d254e845c6835f5f",
+      "pattern": "[file:hashes.'MD5' = 'd4d8c9be9a4a6499d254e845c6835f5f']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--5825f689-f268-440b-a059-d87b5a45c771",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:4eb5eb52061cc8cf06e28e7eb20cd055",
+      "pattern": "[file:hashes.'MD5' = '4eb5eb52061cc8cf06e28e7eb20cd055']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--f8077bbe-3334-4b3b-acca-65f63004c06b",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:0cc22fd05a3e771b09b584db0a161363",
+      "pattern": "[file:hashes.'MD5' = '0cc22fd05a3e771b09b584db0a161363']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--3e30131a-713f-40b6-8f44-10d40dc3ee9a",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:8de8dfcb99621b21bf66a3ef2fcd8138",
+      "pattern": "[file:hashes.'MD5' = '8de8dfcb99621b21bf66a3ef2fcd8138']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--d47e25c7-9d18-4d9c-ba7c-f7185e54d733",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:df8f2dc27cbbd10d944210b19f97dafd",
+      "pattern": "[file:hashes.'MD5' = 'df8f2dc27cbbd10d944210b19f97dafd']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--87daa8e0-9923-4185-98cd-b901164b5186",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:2866f3c8dfd5698e7c58d166a5857e1e",
+      "pattern": "[file:hashes.'MD5' = '2866f3c8dfd5698e7c58d166a5857e1e']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--54f73552-fd62-4596-9b01-aac28922de34",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:cbee2fd458ff686a4cd2dde42306bba1",
+      "pattern": "[file:hashes.'MD5' = 'cbee2fd458ff686a4cd2dde42306bba1']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--2724f8e0-0011-4151-a45a-c69a272ed9bb",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:3dc8b64b498220612a43d36049f055ab",
+      "pattern": "[file:hashes.'MD5' = '3dc8b64b498220612a43d36049f055ab']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--a950cbac-1222-4c74-b7dd-659c2ca42de8",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:31c4a3f16baa5e0437fdd4603987b812",
+      "pattern": "[file:hashes.'MD5' = '31c4a3f16baa5e0437fdd4603987b812']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--906c482c-3fc0-4f35-8d4f-7c804c44fa2e",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:b33a27bfbe7677df4a465dfa9795ff4a",
+      "pattern": "[file:hashes.'MD5' = 'b33a27bfbe7677df4a465dfa9795ff4a']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--e0e6604b-e86c-4b60-b88e-1f840107661a",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:7d9c233b8c9e3f0ea290d2b84593c842",
+      "pattern": "[file:hashes.'MD5' = '7d9c233b8c9e3f0ea290d2b84593c842']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--cdeef49e-c092-4a97-b412-0b51bc1ec85e",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:c4f18576fd1177ba1ef54e884cb7a79d",
+      "pattern": "[file:hashes.'MD5' = 'c4f18576fd1177ba1ef54e884cb7a79d']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--28a4b0c2-cc51-403d-bfd4-bf13258ac432",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:5d33609af27ea092f80aff1af6ddf98d",
+      "pattern": "[file:hashes.'MD5' = '5d33609af27ea092f80aff1af6ddf98d']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--13572f57-576b-461c-a71e-1ebf01a576e1",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:622f060fce624bdca9a427c3edec1663",
+      "pattern": "[file:hashes.'MD5' = '622f060fce624bdca9a427c3edec1663']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--9862abd8-7ecb-4a3d-ab06-384f7159a352",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:1f2432ec77b750aa3e3f72c866584dc3",
+      "pattern": "[file:hashes.'MD5' = '1f2432ec77b750aa3e3f72c866584dc3']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--55c0cae8-4147-457e-b6d6-2eddc60d30e4",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:d331602d190c0963ec83e46f5a5cd54a",
+      "pattern": "[file:hashes.'MD5' = 'd331602d190c0963ec83e46f5a5cd54a']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--c972ecb0-f461-4417-9192-192e6365aa5a",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:21d268341884c4fc62b5af7a3b433d90",
+      "pattern": "[file:hashes.'MD5' = '21d268341884c4fc62b5af7a3b433d90']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--77dc0a5b-c279-42b8-b20a-b30f7026a2ec",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:6a20945ae9f7c9e1a28015e40758bb4f",
+      "pattern": "[file:hashes.'MD5' = '6a20945ae9f7c9e1a28015e40758bb4f']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--ea2899e4-3819-48f0-ac89-186eb4b5fb00",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:a29f39713ce6a92e642d14374e7203f0",
+      "pattern": "[file:hashes.'MD5' = 'a29f39713ce6a92e642d14374e7203f0']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--5fecd1c3-cfc2-41fa-b01c-c0ca98e90a4a",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:7ce988f1b593e96206a1ef57eb1bec8a",
+      "pattern": "[file:hashes.'MD5' = '7ce988f1b593e96206a1ef57eb1bec8a']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--3c867830-d7a1-4911-9402-60511c5ff8a6",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:fc9abba1f212db8eeac7734056b81a6e",
+      "pattern": "[file:hashes.'MD5' = 'fc9abba1f212db8eeac7734056b81a6e']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--82838850-326f-44c1-9a0a-68a624e14e83",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:9f55b31c66a01953c17eea6ace66f636",
+      "pattern": "[file:hashes.'MD5' = '9f55b31c66a01953c17eea6ace66f636']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--e98ee3d9-42c4-4641-9f1e-39e6bde077f5",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:33129e959221bf9d5211710747fddabe",
+      "pattern": "[file:hashes.'MD5' = '33129e959221bf9d5211710747fddabe']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--d98a2368-c89c-434a-bb3b-697f716d2e70",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:48b99c2f0441f5a4794afb4f89610e48",
+      "pattern": "[file:hashes.'MD5' = '48b99c2f0441f5a4794afb4f89610e48']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--7d66ec13-6266-4388-a2f6-962552946262",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:28e026b9550e4eb37435013425abfa38",
+      "pattern": "[file:hashes.'MD5' = '28e026b9550e4eb37435013425abfa38']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--22dc9483-04cb-4bcd-a21f-70e88742d519",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:2ceabffe2d40714e5535212d46d78119",
+      "pattern": "[file:hashes.'MD5' = '2ceabffe2d40714e5535212d46d78119']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--03448d46-689c-435d-ba71-359815dfece6",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:c72750485db39d0c04469cd6b100a595",
+      "pattern": "[file:hashes.'MD5' = 'c72750485db39d0c04469cd6b100a595']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--00e7f7dc-bcc0-4040-915f-55db4c6fb715",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:68403cc3a6fcbeb9e5e9f7263d04c02f",
+      "pattern": "[file:hashes.'MD5' = '68403cc3a6fcbeb9e5e9f7263d04c02f']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--eb86ddb6-ff64-49a3-8ba6-70a2d32ac09e",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:52ff6e3e942ac8ee012dcde89e7a1116",
+      "pattern": "[file:hashes.'MD5' = '52ff6e3e942ac8ee012dcde89e7a1116']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--8c92dd93-57c5-419e-b981-fd78ecc3a2c4",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:d82481e9bc50d9d9aeb9d56072bf3cfe",
+      "pattern": "[file:hashes.'MD5' = 'd82481e9bc50d9d9aeb9d56072bf3cfe']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--28a71383-bc30-43d8-b8c0-c2477a0c3097",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:22381941763862631070e043d4dd0dc2",
+      "pattern": "[file:hashes.'MD5' = '22381941763862631070e043d4dd0dc2']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--7bc29a2c-a030-492b-a282-2c255fad3b7f",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:6b5bccf615bf634b0e55a86a9c24c902",
+      "pattern": "[file:hashes.'MD5' = '6b5bccf615bf634b0e55a86a9c24c902']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--a3bb66db-6292-46bf-80ac-df2cc98d8ab9",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:942d949a28b2921fb980e2d659e6ef75",
+      "pattern": "[file:hashes.'MD5' = '942d949a28b2921fb980e2d659e6ef75']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--117bca87-92d1-4576-9055-a37a51efbff9",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:059d98dcb83be037cd9829d31c096dab",
+      "pattern": "[file:hashes.'MD5' = '059d98dcb83be037cd9829d31c096dab']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--ed94a152-0b25-41e5-abc9-52fb5cbad495",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:cca50cdd843aa824e5eef5f05e74f4a5",
+      "pattern": "[file:hashes.'MD5' = 'cca50cdd843aa824e5eef5f05e74f4a5']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--abce35b5-5d08-4a7b-8794-624b742095b9",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:f6f0d44aa5e3d83bb1ac777c9cea7060",
+      "pattern": "[file:hashes.'MD5' = 'f6f0d44aa5e3d83bb1ac777c9cea7060']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--d8e70ac5-f15d-4bfc-b825-e314aebee791",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:0ca345bc074fa2ef7a2797b875b6cd4d",
+      "pattern": "[file:hashes.'MD5' = '0ca345bc074fa2ef7a2797b875b6cd4d']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--654a45ef-50ef-442c-b6fd-6f51b7fd0f36",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:f6da8dc4e1226aa2d0dabc32acd06915",
+      "pattern": "[file:hashes.'MD5' = 'f6da8dc4e1226aa2d0dabc32acd06915']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--9dad23bc-9880-40c8-a849-858d5629811f",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:0bbfaea19c8d1444ae282ff5911a527b",
+      "pattern": "[file:hashes.'MD5' = '0bbfaea19c8d1444ae282ff5911a527b']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--b9683522-1c3a-47ab-8b63-648921c140cc",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:a69d3580921ec8adce64c9b38ac3653a",
+      "pattern": "[file:hashes.'MD5' = 'a69d3580921ec8adce64c9b38ac3653a']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--1335a9e6-d4d8-447d-8978-654e9e08fa13",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:c4e39c1fc0e1b165319fa533a9795c44",
+      "pattern": "[file:hashes.'MD5' = 'c4e39c1fc0e1b165319fa533a9795c44']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--d822b517-f981-4dc6-b16a-fdf247354f9b",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:fb6bf74c6c1f2482e914816d6e97ce09",
+      "pattern": "[file:hashes.'MD5' = 'fb6bf74c6c1f2482e914816d6e97ce09']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--b44ee575-18b3-48d6-9acf-c1ea2ed5229a",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:678dbe60e15d913fb363c8722bde313d",
+      "pattern": "[file:hashes.'MD5' = '678dbe60e15d913fb363c8722bde313d']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--aa51eb2b-50d8-4171-a01a-d81de5cc12b7",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:e0f4afe374d75608d604fbf108eac64f",
+      "pattern": "[file:hashes.'MD5' = 'e0f4afe374d75608d604fbf108eac64f']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--69541ef2-b921-4659-9790-f3184525e87b",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:f5271a6d909091527ed9f30eafa0ded6",
+      "pattern": "[file:hashes.'MD5' = 'f5271a6d909091527ed9f30eafa0ded6']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--a4e18bc3-7d85-478f-ad0b-6ffa83e458d6",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:ae8acf66bfe3a44148964048b826d005",
+      "pattern": "[file:hashes.'MD5' = 'ae8acf66bfe3a44148964048b826d005']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--5e26614c-aebe-4d08-89b9-70fc8e10a43b",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:6983f7001de10f4d19fc2d794c3eb534",
+      "pattern": "[file:hashes.'MD5' = '6983f7001de10f4d19fc2d794c3eb534']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--369cdcfb-7b8f-4c3f-b259-f50bc3a5623d",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:fcb7f7dab6d401a17bd436fc12a84623",
+      "pattern": "[file:hashes.'MD5' = 'fcb7f7dab6d401a17bd436fc12a84623']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--2e9c9f1d-53d7-464a-a641-14468ad6e443",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:bb8bdb3e8c92e97e2f63626bc3b254c4",
+      "pattern": "[file:hashes.'MD5' = 'bb8bdb3e8c92e97e2f63626bc3b254c4']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--2ddc4311-c929-4e22-ae3f-949340f0f5ff",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:80f421c5fd5b28fc05b485de4f7896a1",
+      "pattern": "[file:hashes.'MD5' = '80f421c5fd5b28fc05b485de4f7896a1']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--fb3beafa-478c-46b9-9c66-642988bf5f9e",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:a03b57cc0103316e974bbb0f159f78f6",
+      "pattern": "[file:hashes.'MD5' = 'a03b57cc0103316e974bbb0f159f78f6']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--451b80f6-d75d-418a-89f3-72f9ebfa17fa",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:46f366e3ee36c05ab5a7a319319f7c72",
+      "pattern": "[file:hashes.'MD5' = '46f366e3ee36c05ab5a7a319319f7c72']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--abb0750c-f5c2-42f0-bbdb-4e194cbaebd4",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:7bd775395b821e158a6961c573e6fd43",
+      "pattern": "[file:hashes.'MD5' = '7bd775395b821e158a6961c573e6fd43']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--afa24dbf-b4c2-4288-b8fe-5131db106fe1",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:b434df66d0dd15c2f5e5b2975f2cfbe2",
+      "pattern": "[file:hashes.'MD5' = 'b434df66d0dd15c2f5e5b2975f2cfbe2']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--7c346d6c-cbba-4cfa-9202-bfb5e02c577d",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "ipv4:45.136.186.19",
+      "pattern": "[ipv4-addr:value = '45.136.186.19']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "ipv4",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--d611f899-15d0-45b1-8485-aa1c7123e5e8",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "ipv4:45.136.186.175",
+      "pattern": "[ipv4-addr:value = '45.136.186.175']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "ipv4",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--83453475-ba0b-4a89-887c-9f17be4c1ab2",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "ipv4:45.93.31.122",
+      "pattern": "[ipv4-addr:value = '45.93.31.122']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "ipv4",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--2da144b2-eee1-4dc7-86f3-ec18f3a82f57",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:c17cfe533f8ce24f0e41bd7e14a35e5e",
+      "pattern": "[file:hashes.'MD5' = 'c17cfe533f8ce24f0e41bd7e14a35e5e']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--9d408562-228b-418b-97c2-8f0df9d4262c",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:011cedd9932207ee5539895e2a1ed60a",
+      "pattern": "[file:hashes.'MD5' = '011cedd9932207ee5539895e2a1ed60a']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--2395eac8-acef-4c13-b12d-ab19ad999055",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:bc744a4bf1c158dba37276bf7db50d85",
+      "pattern": "[file:hashes.'MD5' = 'bc744a4bf1c158dba37276bf7db50d85']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--1de9ddcc-f3c9-46fc-926a-fc4e715dcff5",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:23c0500a69b71d5942585bb87559fe83",
+      "pattern": "[file:hashes.'MD5' = '23c0500a69b71d5942585bb87559fe83']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--1245586c-bdde-4053-9de2-c340c61e1aea",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:53271b2ab6c327a68e78a7c0bf9f4044",
+      "pattern": "[file:hashes.'MD5' = '53271b2ab6c327a68e78a7c0bf9f4044']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--01253bef-5a35-4990-97b7-df0d75c225d6",
+      "created": "2025-10-13T16:31:07.091097Z",
+      "modified": "2025-10-13T16:31:07.091097Z",
+      "name": "md5:c87ac56d434195c527d3358e12e2b2e0",
+      "pattern": "[file:hashes.'MD5' = 'c87ac56d434195c527d3358e12e2b2e0']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.091097Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Ahnlab-Dalbit-m00nlight-Chinese-APT-Campaign-02-13-2023-f8464b2e"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,916 @@
+{
+  "type": "bundle",
+  "id": "bundle--a75b3908-ab44-4a8b-a496-1eb50a9eb5cc",
+  "objects": [
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--c59eaf76-6068-4293-96b4-0350e33014e3",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "T1005",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1005"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--8d9c8631-c8b7-4314-9887-07ed389a8a5f",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "T1059.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1059.001"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--22b32b4f-cc23-4ca4-882b-7fe6606c50f6",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "T1082",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1082"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--99464c50-c503-430a-9fc9-ae3ba63b9fe8",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "T1083",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1083"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--4dca157e-6dfb-4ccd-a2d9-41adb1e5e3b6",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "T1113",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1113"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--3b175f7b-5083-40bb-be4b-0445f1e29970",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "T1140",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1140"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--c1d7f65a-7ebe-4030-82b3-7ae0d7cf4f1a",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "T1204.002",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1204.002"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--ae54b885-55d3-4592-a2e3-05424f43d463",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "T1566.001",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1566.001"
+        }
+      ]
+    },
+    {
+      "type": "x-attack-pattern-ref",
+      "spec_version": "2.1",
+      "id": "x-attack-pattern-ref--61301dc3-c8a6-4c85-b714-683098ef1e04",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "T1567.002",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1567.002"
+        }
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--f249dbac-15fd-4416-91af-6587b1dbb218",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "domain:zscaler.com",
+      "pattern": "[domain-name:value = 'zscaler.com']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--e38b34bb-d231-482d-806e-1fadd0767933",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:46e03f21a95afa321b88e44e7e399ec3",
+      "pattern": "[file:hashes.'MD5' = '46e03f21a95afa321b88e44e7e399ec3']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--539e605b-2640-4132-a3a0-caad11bbe148",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:46e03f21a95afa321b88e44e7e399ec3",
+      "pattern": "[file:hashes.'MD5' = '46e03f21a95afa321b88e44e7e399ec3']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--300e2b5a-bcf3-42b0-b5b8-33482917f0e8",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "domain:api.ipify.org",
+      "pattern": "[domain-name:value = 'api.ipify.org']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--4d115bbf-6520-4aba-ae78-ac966d459100",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "domain:msupdata.com",
+      "pattern": "[domain-name:value = 'msupdata.com']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--00f642b7-993a-42ed-b94f-c202bbf679a1",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "domain:sognostudio.com",
+      "pattern": "[domain-name:value = 'sognostudio.com']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--92b1647a-b71f-4ae3-86bc-934a5a176977",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "domain:smartweb9.com",
+      "pattern": "[domain-name:value = 'smartweb9.com']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--2ef3d7aa-b0ee-4213-bd1d-b43581d7616f",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "domain:www.msupdata.com",
+      "pattern": "[domain-name:value = 'www.msupdata.com']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--c6c3dc66-f431-4c9a-ae77-136867cb95a2",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "sha1:ec5e468fbf2483cab74d13e5ff6791522fa1081b",
+      "pattern": "[file:hashes.'SHA1' = 'ec5e468fbf2483cab74d13e5ff6791522fa1081b']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "sha1",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--62b45e5a-95b1-43bc-bdec-8ae2044c2939",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "domain:adham.ghar.bawi",
+      "pattern": "[domain-name:value = 'adham.ghar.bawi']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--a6854ee4-5ff1-4221-a31f-c3dbe9612ccc",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "domain:justpaste.it",
+      "pattern": "[domain-name:value = 'justpaste.it']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--8510f8f3-71e0-429b-bd98-f5b6322d3e58",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "domain:win32.trojan.moleratsapt",
+      "pattern": "[domain-name:value = 'win32.trojan.moleratsapt']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--6efae935-4d71-45fd-a415-0b03bd36ebd7",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "domain:pdf.trojan.moleratsapt",
+      "pattern": "[domain-name:value = 'pdf.trojan.moleratsapt']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "domain",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--1c6829c6-7f45-4b31-a4ae-36abb60d6b3d",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:46e03f21a95afa321b88e44e7e399ec3",
+      "pattern": "[file:hashes.'MD5' = '46e03f21a95afa321b88e44e7e399ec3']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--3ad9dba7-e1dc-4086-b47f-cef6be94224b",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:5c87b653db4cc731651526f9f0d52dbb",
+      "pattern": "[file:hashes.'MD5' = '5c87b653db4cc731651526f9f0d52dbb']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--512234e4-4f5c-40e8-a07e-8c7684fbf554",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:105885d14653932ff6b155d0ed64f926",
+      "pattern": "[file:hashes.'MD5' = '105885d14653932ff6b155d0ed64f926']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--7a8c3f80-eb2d-4ef6-86d2-b81016cc49db",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:601107fc8fef440defd922f00589e2e9",
+      "pattern": "[file:hashes.'MD5' = '601107fc8fef440defd922f00589e2e9']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--3b7269cc-f78d-4bee-afe7-4133b8901a53",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:9939bf80b7bc586776e45e848ec41946",
+      "pattern": "[file:hashes.'MD5' = '9939bf80b7bc586776e45e848ec41946']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--3d29af80-1712-42e6-9dc9-fff16ab03e12",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:e72d18b78362e068d0f3afa040df6a4c",
+      "pattern": "[file:hashes.'MD5' = 'e72d18b78362e068d0f3afa040df6a4c']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--54c3f4ab-05eb-4198-a584-e1fd87db84d4",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:ebc98d9c96065c8f1c0f4ce445bf507b",
+      "pattern": "[file:hashes.'MD5' = 'ebc98d9c96065c8f1c0f4ce445bf507b']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--78e943c5-3ffa-470b-ab71-303cf39a08cd",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:c7271b91d190a730864cd149414e8c43",
+      "pattern": "[file:hashes.'MD5' = 'c7271b91d190a730864cd149414e8c43']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--6c2f9009-3c2e-4988-9408-c5dcc7494027",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:00d7f155f1a9b29be2c872c6cad40026",
+      "pattern": "[file:hashes.'MD5' = '00d7f155f1a9b29be2c872c6cad40026']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--06f8e394-6a97-4869-a251-445274a93cf2",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:2dc3ef988adca0ed20650c45735d4160",
+      "pattern": "[file:hashes.'MD5' = '2dc3ef988adca0ed20650c45735d4160']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--fbd25e87-62fa-4868-90f1-4ca76c0f92da",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:b9ad53066ab218e40d61b299bd2175ba",
+      "pattern": "[file:hashes.'MD5' = 'b9ad53066ab218e40d61b299bd2175ba']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--c125561c-acba-48bb-bc10-c67c217fd3ab",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:b7373b976bbdc5356bb89e2cba1540cb",
+      "pattern": "[file:hashes.'MD5' = 'b7373b976bbdc5356bb89e2cba1540cb']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--52fa2bc5-dbca-49bb-95c4-909ea3c9e738",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:8884b0d29a15c1b6244a6a9ae69afa16",
+      "pattern": "[file:hashes.'MD5' = '8884b0d29a15c1b6244a6a9ae69afa16']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--7af86c2f-4ac2-4229-bf22-62ca2a7891c3",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:270ee9d4d22ca039539c00565b20d2e7",
+      "pattern": "[file:hashes.'MD5' = '270ee9d4d22ca039539c00565b20d2e7']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--99752c1b-aaa6-4d7a-acf3-9f9bc5111801",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:8debf9b41ec41b9ff493d5668edbb922",
+      "pattern": "[file:hashes.'MD5' = '8debf9b41ec41b9ff493d5668edbb922']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--8536e938-73b8-4018-82b8-1d2e45e6e816",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:d56a4865836961b592bf4a7addf7a414",
+      "pattern": "[file:hashes.'MD5' = 'd56a4865836961b592bf4a7addf7a414']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--5fade2f7-ee04-46a7-9ec6-b3c85d89bab8",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:59368e712e0ac681060780e9caa672a6",
+      "pattern": "[file:hashes.'MD5' = '59368e712e0ac681060780e9caa672a6']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--1b3ceabd-b223-4957-bfbc-32319ba48beb",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:99fed519715b3de0af954740a2f4d183",
+      "pattern": "[file:hashes.'MD5' = '99fed519715b3de0af954740a2f4d183']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--f85c1291-c367-4f5d-b6c6-a2f34f8d779f",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:8debf9b41ec41b9ff493d5668edbb922",
+      "pattern": "[file:hashes.'MD5' = '8debf9b41ec41b9ff493d5668edbb922']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--503ef187-9c62-456e-a82e-79fd61dfd6f0",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:bd14674edb9634daf221606f395b1e1d",
+      "pattern": "[file:hashes.'MD5' = 'bd14674edb9634daf221606f395b1e1d']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--b89f161c-e92b-414d-b5ba-ba004725a003",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:04d17caf8be87e68c266c34c5bd99f48",
+      "pattern": "[file:hashes.'MD5' = '04d17caf8be87e68c266c34c5bd99f48']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--fafb99c0-db87-4c5a-8fd2-a850fbd74155",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:c7271b91d190a730864cd149414e8c43",
+      "pattern": "[file:hashes.'MD5' = 'c7271b91d190a730864cd149414e8c43']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--07c87b42-58bd-48e2-bf95-3dd92a61f4d1",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:217943eb23563fa3fff766c5ec538fa4",
+      "pattern": "[file:hashes.'MD5' = '217943eb23563fa3fff766c5ec538fa4']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--a149219c-55be-4791-b296-ea20290f8e2b",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:fef0ec9054b8eff678d3556ec38764a6",
+      "pattern": "[file:hashes.'MD5' = 'fef0ec9054b8eff678d3556ec38764a6']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--7849f79f-1299-403d-8e3e-c0848a66deea",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:32cc7dd93598684010f985d1f1cea7fd",
+      "pattern": "[file:hashes.'MD5' = '32cc7dd93598684010f985d1f1cea7fd']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--10a68a7f-a808-4a43-b95f-bd07e2e81bed",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:1dc3711272f8e9a6876a7bccbfd687a8",
+      "pattern": "[file:hashes.'MD5' = '1dc3711272f8e9a6876a7bccbfd687a8']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--756701ca-4b87-4219-aca7-8845e6561f68",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:da1d640dfcb2cd3e0ab317aa1e89b22a",
+      "pattern": "[file:hashes.'MD5' = 'da1d640dfcb2cd3e0ab317aa1e89b22a']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--7f50604c-fcce-49d3-bebf-20b9254138c7",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:31d07f99c865ffe1ec14c4afa98208ad",
+      "pattern": "[file:hashes.'MD5' = '31d07f99c865ffe1ec14c4afa98208ad']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--30cbc218-d2f3-4539-9d2f-bc3bd9676e31",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:a52f1574e4ee4483479e9356f96ee5e3",
+      "pattern": "[file:hashes.'MD5' = 'a52f1574e4ee4483479e9356f96ee5e3']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--bc9efabe-ddf0-42d8-94da-92a69c8af50c",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:933ffc08bcf8152f4b2eeb173b4a1e26",
+      "pattern": "[file:hashes.'MD5' = '933ffc08bcf8152f4b2eeb173b4a1e26']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--2ad71643-8239-4de6-9b92-9cd57d0aa194",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:4ae0048f67e878fcedfaff339fab4fe3",
+      "pattern": "[file:hashes.'MD5' = '4ae0048f67e878fcedfaff339fab4fe3']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--114d660f-c11c-4721-9277-0173e6756869",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:1478906992cb2a8ddd42541654e9f1ac",
+      "pattern": "[file:hashes.'MD5' = '1478906992cb2a8ddd42541654e9f1ac']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--c29c1256-3b51-4448-8c5a-5345579f99ad",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:4ae0048f67e878fcedfaff339fab4fe3",
+      "pattern": "[file:hashes.'MD5' = '4ae0048f67e878fcedfaff339fab4fe3']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--9bbfaaab-7c9a-45d8-8cd5-7a9856835200",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:5c87b653db4cc731651526f9f0d52dbb",
+      "pattern": "[file:hashes.'MD5' = '5c87b653db4cc731651526f9f0d52dbb']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--c53af852-c600-4375-a985-fe0a481aaa84",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:105885d14653932ff6b155d0ed64f926",
+      "pattern": "[file:hashes.'MD5' = '105885d14653932ff6b155d0ed64f926']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    },
+    {
+      "type": "indicator",
+      "spec_version": "2.1",
+      "id": "indicator--440e158c-0855-4c4d-b922-34b80093ed35",
+      "created": "2025-10-13T16:31:07.161739Z",
+      "modified": "2025-10-13T16:31:07.161739Z",
+      "name": "md5:e72d18b78362e068d0f3afa040df6a4c",
+      "pattern": "[file:hashes.'MD5' = 'e72d18b78362e068d0f3afa040df6a4c']",
+      "pattern_type": "stix",
+      "valid_from": "2025-10-13T16:31:07.161739Z",
+      "labels": [
+        "md5",
+        "extracted-from-report",
+        "Zscaler-Molerats-APT-targeting-Middle-East-01-20-2022-ccd8bb80"
+      ]
+    }
+  ]
+}

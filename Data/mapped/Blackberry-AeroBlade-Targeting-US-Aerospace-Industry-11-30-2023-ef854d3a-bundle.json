@@ -1,13 +1,13 @@
 {
   "type": "bundle",
-  "id": "bundle--b3b26697-3813-4fa5-8273-5795982290dd",
+  "id": "bundle--ec8ee508-8f40-4aa7-9db9-b38645872181",
   "objects": [
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--d4c036bf-b624-4119-88f7-5797851dcaa9",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "x-attack-pattern-ref--d243db35-5116-44df-98fc-4f3e32b42e8c",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "T1001",
       "external_references": [
         {
@@ -19,9 +19,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--37e40b6b-3eea-4558-9ab3-3ec195de3e59",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "x-attack-pattern-ref--bcf3c0df-1c57-458a-a6cf-6be62b167c23",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "T1016",
       "external_references": [
         {
@@ -33,9 +33,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--5eda26e4-b27b-41d7-8f1b-d753b0c4a1fe",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "x-attack-pattern-ref--05c8cfe9-4e1e-4b15-8377-c3676be2a4b6",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "T1027",
       "external_references": [
         {
@@ -47,9 +47,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--77edb408-459b-4cae-a1fd-1b67ac47d3a8",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "x-attack-pattern-ref--947cff04-d899-4a52-ad9d-e199ff78e293",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "T1027.001",
       "external_references": [
         {
@@ -61,9 +61,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--a7a2446d-4030-4d59-8d79-9f10adc8ce0c",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "x-attack-pattern-ref--a594cc1e-2d0e-479a-8ff4-0e9f33a0227a",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "T1029",
       "external_references": [
         {
@@ -75,9 +75,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--11e2ace7-56d5-43fd-84f2-8c924d5e3e47",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "x-attack-pattern-ref--5498515c-5365-44ec-9f18-baf208ecec5c",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "T1033",
       "external_references": [
         {
@@ -89,9 +89,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--5ef9a9ee-fe65-461d-985d-dde414706d7b",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "x-attack-pattern-ref--5454d3d1-8c4e-4f8e-978f-62ef074c6f95",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "T1036.005",
       "external_references": [
         {
@@ -103,9 +103,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--0e0cac97-462a-402d-b00a-c455eed765f7",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "x-attack-pattern-ref--bd403b92-887c-44aa-9fcc-14677aeff694",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "T1041",
       "external_references": [
         {
@@ -117,9 +117,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--ecac7464-ec9c-49ba-a860-150d11f71103",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "x-attack-pattern-ref--33be6cbe-75ce-4e55-b58c-33e7abbbd67c",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "T1053.005",
       "external_references": [
         {
@@ -131,9 +131,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--338c547b-96e5-4bc7-929d-7d3510a8e543",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "x-attack-pattern-ref--8bf93997-486d-4057-b084-7ae26f04012c",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "T1059.003",
       "external_references": [
         {
@@ -145,9 +145,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--0e32113b-05bb-4db8-9029-b2c0beaafc92",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "x-attack-pattern-ref--7e3c77a1-7789-4340-aca1-2db1a0e2244c",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "T1059.005",
       "external_references": [
         {
@@ -159,9 +159,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--bfece169-81b3-4d0f-b402-d9e87ef51a2a",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "x-attack-pattern-ref--66e8e74d-b448-46e9-9ec7-30db8bb361e5",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "T1071.001",
       "external_references": [
         {
@@ -173,9 +173,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--6439dca4-8810-41b7-aa1b-d0b45072b262",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "x-attack-pattern-ref--3d480d29-ac00-4b6f-9f6c-f7b32c0d4df4",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "T1082",
       "external_references": [
         {
@@ -187,9 +187,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--ce9461e1-68b5-46ae-9034-89de41fc167a",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "x-attack-pattern-ref--c052e7d3-c0e7-4f52-a65a-4605a048fae1",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "T1083",
       "external_references": [
         {
@@ -201,9 +201,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--23639fc6-8877-4df8-8882-d2f91931f715",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "x-attack-pattern-ref--b03cf6ef-157d-414e-ab99-d42977b761f8",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "T1105",
       "external_references": [
         {
@@ -215,9 +215,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--d2fe124d-6c2f-47b6-8e4b-48d7892d3118",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "x-attack-pattern-ref--d933536f-9a59-485f-a65f-f4c7cdcd9700",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "T1106",
       "external_references": [
         {
@@ -229,9 +229,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--d8be1c5f-3d76-4af9-80be-83d77ffe82e5",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "x-attack-pattern-ref--4bc4d46f-14fc-4723-ac3e-54eb90c15152",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "T1137.001",
       "external_references": [
         {
@@ -243,9 +243,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--558a08f0-7482-4890-a215-63617832f7de",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "x-attack-pattern-ref--8b667543-3f8c-403b-a047-d046ece3cc24",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "T1140",
       "external_references": [
         {
@@ -257,9 +257,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--cc30428c-2fc4-454f-ba2c-0d3aa4fc8995",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "x-attack-pattern-ref--4d0c9fbd-b2d2-46f0-b3e3-25ae66dff20a",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "T1203",
       "external_references": [
         {
@@ -271,9 +271,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--b274bb5a-11bf-4e74-bbfe-e05d205fa314",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "x-attack-pattern-ref--97df849e-e350-45d6-94e6-f92f42233e8d",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "T1204.002",
       "external_references": [
         {
@@ -285,9 +285,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--74132f94-eb4b-4ccf-8b90-f8728e95dfeb",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "x-attack-pattern-ref--a8f1f359-25ec-4b51-86e1-76156d221545",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "T1221",
       "external_references": [
         {
@@ -299,9 +299,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--e700d03f-c427-489b-bac4-28e800eadd17",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "x-attack-pattern-ref--c2afa0b8-e053-495c-9320-06e36d8edd22",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "T1559.001",
       "external_references": [
         {
@@ -313,9 +313,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--633f21cd-7de3-47af-baef-801713113372",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "x-attack-pattern-ref--9f24c8a4-5eef-44c9-bb80-0d7ca7387d01",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "T1559.002",
       "external_references": [
         {
@@ -327,9 +327,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--a30380d4-93dd-458a-942d-116eb8934995",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "x-attack-pattern-ref--c449481b-d83b-42f2-9388-d0e90350067a",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "T1566.001",
       "external_references": [
         {
@@ -341,9 +341,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--230461f9-8d35-462e-8c30-c80afeec909b",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "x-attack-pattern-ref--11709991-fe17-4918-be22-85a78ae6dc46",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "T1573.001",
       "external_references": [
         {
@@ -355,13 +355,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--c8d3109b-b36a-4f7c-ab47-258b9a60c298",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "indicator--6d882ab8-ef58-4307-b96a-57dc834c3bcc",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "domain:blogs.blackberry.com",
       "pattern": "[domain-name:value = 'blogs.blackberry.com']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-09T11:46:58.787481Z",
+      "valid_from": "2025-10-18T12:56:34.739227Z",
       "labels": [
         "domain",
         "extracted-from-report",
@@ -371,13 +371,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--8c94f5f7-3234-42ce-a34c-5c1f13a87e70",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "indicator--a854d404-f878-4c7b-9d1e-3068ee27e044",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "domain:redacted.redacted.com",
       "pattern": "[domain-name:value = 'redacted.redacted.com']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-09T11:46:58.787481Z",
+      "valid_from": "2025-10-18T12:56:34.739227Z",
       "labels": [
         "domain",
         "extracted-from-report",
@@ -387,13 +387,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--6fea35dc-5ead-47e0-a8a5-30dc289dad20",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "indicator--92bfdd0e-819a-494e-bf10-dbb145c72d3d",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "domain:blackberry.com",
       "pattern": "[domain-name:value = 'blackberry.com']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-09T11:46:58.787481Z",
+      "valid_from": "2025-10-18T12:56:34.739227Z",
       "labels": [
         "domain",
         "extracted-from-report",
@@ -403,13 +403,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--ab2660e0-0f3e-49c1-9b9e-3c2a9e6d3eb1",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "indicator--6b28e069-c693-4c9b-8a7c-a6b76fcbd298",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "md5:885B04081BD89F5E23CBC59723052601",
       "pattern": "[file:hashes.'MD5' = '885B04081BD89F5E23CBC59723052601']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-09T11:46:58.787481Z",
+      "valid_from": "2025-10-18T12:56:34.739227Z",
       "labels": [
         "md5",
         "extracted-from-report",
@@ -419,13 +419,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--172311d0-fbad-4311-9399-249905b1c8e0",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "indicator--cf9a780f-af05-4e8a-921b-155e3ac307b3",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "md5:62D3FF36EC8A721488E512E1C94B2744",
       "pattern": "[file:hashes.'MD5' = '62D3FF36EC8A721488E512E1C94B2744']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-09T11:46:58.787481Z",
+      "valid_from": "2025-10-18T12:56:34.739227Z",
       "labels": [
         "md5",
         "extracted-from-report",
@@ -435,13 +435,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--2e221f1c-2c2f-496d-86a4-3dde9d9777f2",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "indicator--f96de4f2-d109-480e-b35b-0e64a04817e5",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "md5:A04D2C0AA0A798047161118B5D5816AA",
       "pattern": "[file:hashes.'MD5' = 'A04D2C0AA0A798047161118B5D5816AA']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-09T11:46:58.787481Z",
+      "valid_from": "2025-10-18T12:56:34.739227Z",
       "labels": [
         "md5",
         "extracted-from-report",
@@ -451,13 +451,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--46ceca69-971e-4669-9596-28273bee2365",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "indicator--310b3ff3-bb37-4100-8b61-02bba1a8e1cf",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "sha256:16bd34c3f00288e46d8e3fdb67916aa7c68d8a0622f2c76c57112dae36c76875",
       "pattern": "[file:hashes.'SHA256' = '16bd34c3f00288e46d8e3fdb67916aa7c68d8a0622f2c76c57112dae36c76875']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-09T11:46:58.787481Z",
+      "valid_from": "2025-10-18T12:56:34.739227Z",
       "labels": [
         "sha256",
         "extracted-from-report",
@@ -467,13 +467,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--c5f1e4e6-21fc-42a6-9988-888799971cc3",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "indicator--efd00388-ae6b-4396-add1-bb34b6822d4c",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "sha256:6d515dafef42a5648754de3c0fa6adfcb8b57af1c1d69e629b0d840dab7f91ec",
       "pattern": "[file:hashes.'SHA256' = '6d515dafef42a5648754de3c0fa6adfcb8b57af1c1d69e629b0d840dab7f91ec']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-09T11:46:58.787481Z",
+      "valid_from": "2025-10-18T12:56:34.739227Z",
       "labels": [
         "sha256",
         "extracted-from-report",
@@ -483,13 +483,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--aeaa80be-b926-4c7a-9655-2b1c8f796002",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "indicator--330c8982-58c3-4269-84e5-04dcea310a4e",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "sha256:abc348d3cc40521afc165aa6dc2d66fd9e654d91e3d66461724ac9490030697f",
       "pattern": "[file:hashes.'SHA256' = 'abc348d3cc40521afc165aa6dc2d66fd9e654d91e3d66461724ac9490030697f']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-09T11:46:58.787481Z",
+      "valid_from": "2025-10-18T12:56:34.739227Z",
       "labels": [
         "sha256",
         "extracted-from-report",
@@ -499,13 +499,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--2467c8a8-d82f-4b3c-8154-514300cc447f",
-      "created": "2025-10-09T11:46:58.787481Z",
-      "modified": "2025-10-09T11:46:58.787481Z",
+      "id": "indicator--04fbdcfe-ceb2-4368-b439-1c2582cc333c",
+      "created": "2025-10-18T12:56:34.739227Z",
+      "modified": "2025-10-18T12:56:34.739227Z",
       "name": "email:cti@blackberry.com",
       "pattern": "[email-addr:value = 'cti@blackberry.com']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-09T11:46:58.787481Z",
+      "valid_from": "2025-10-18T12:56:34.739227Z",
       "labels": [
         "email",
         "extracted-from-report",

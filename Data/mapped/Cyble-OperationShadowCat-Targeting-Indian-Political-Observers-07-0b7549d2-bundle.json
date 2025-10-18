@@ -1,13 +1,13 @@
 {
   "type": "bundle",
-  "id": "bundle--3be94350-4e93-44ec-8f01-aae2e191c8a1",
+  "id": "bundle--33057222-f0cd-4284-b55a-3a94c40d7c55",
   "objects": [
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--1fd3b93f-ca91-478a-bf7c-ea1ceb0fda5b",
-      "created": "2025-10-09T11:46:58.797683Z",
-      "modified": "2025-10-09T11:46:58.797683Z",
+      "id": "x-attack-pattern-ref--4642ba77-7068-47d3-ac1e-6ee62810fe93",
+      "created": "2025-10-18T12:56:34.755550Z",
+      "modified": "2025-10-18T12:56:34.755550Z",
       "name": "T1027.003",
       "external_references": [
         {
@@ -19,9 +19,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--7582fcb5-b629-4fa3-abef-c1fc5ef7a998",
-      "created": "2025-10-09T11:46:58.797683Z",
-      "modified": "2025-10-09T11:46:58.797683Z",
+      "id": "x-attack-pattern-ref--cf9803a7-0844-4e00-908a-f7fc3e8ec807",
+      "created": "2025-10-18T12:56:34.755550Z",
+      "modified": "2025-10-18T12:56:34.755550Z",
       "name": "T1036.008",
       "external_references": [
         {
@@ -33,9 +33,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--016c0193-35b7-4930-ad51-baeb89cefade",
-      "created": "2025-10-09T11:46:58.797683Z",
-      "modified": "2025-10-09T11:46:58.797683Z",
+      "id": "x-attack-pattern-ref--a8313150-35ff-47a2-b688-8e6542cc8a61",
+      "created": "2025-10-18T12:56:34.755550Z",
+      "modified": "2025-10-18T12:56:34.755550Z",
       "name": "T1055.004",
       "external_references": [
         {
@@ -47,9 +47,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--869c9059-66e1-45b5-908d-f3ca701b8eb3",
-      "created": "2025-10-09T11:46:58.797683Z",
-      "modified": "2025-10-09T11:46:58.797683Z",
+      "id": "x-attack-pattern-ref--2644f8f1-b4ab-4fe0-a40d-8c45dbd20a48",
+      "created": "2025-10-18T12:56:34.755550Z",
+      "modified": "2025-10-18T12:56:34.755550Z",
       "name": "T1059.001",
       "external_references": [
         {
@@ -61,9 +61,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--c8a1a110-ef6c-49ea-9413-2ff1bf4257e5",
-      "created": "2025-10-09T11:46:58.797683Z",
-      "modified": "2025-10-09T11:46:58.797683Z",
+      "id": "x-attack-pattern-ref--46b72807-dbe5-466c-b8c7-6da4cb87cf9f",
+      "created": "2025-10-18T12:56:34.755550Z",
+      "modified": "2025-10-18T12:56:34.755550Z",
       "name": "T1070.004",
       "external_references": [
         {
@@ -75,9 +75,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--9b208702-6ad2-4875-be2c-2bd16a8dcfb5",
-      "created": "2025-10-09T11:46:58.797683Z",
-      "modified": "2025-10-09T11:46:58.797683Z",
+      "id": "x-attack-pattern-ref--83850502-2f2e-4651-a299-53fef2730d73",
+      "created": "2025-10-18T12:56:34.755550Z",
+      "modified": "2025-10-18T12:56:34.755550Z",
       "name": "T1071.001",
       "external_references": [
         {
@@ -89,9 +89,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--1dffcc8c-b56c-4011-a3f1-bda4f06db31c",
-      "created": "2025-10-09T11:46:58.797683Z",
-      "modified": "2025-10-09T11:46:58.797683Z",
+      "id": "x-attack-pattern-ref--3f6ccbaa-34a7-49db-936f-1f8a922b8f5f",
+      "created": "2025-10-18T12:56:34.755550Z",
+      "modified": "2025-10-18T12:56:34.755550Z",
       "name": "T1082",
       "external_references": [
         {
@@ -103,9 +103,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--2516cf3b-fbfd-4c4d-85bf-af142b6583ff",
-      "created": "2025-10-09T11:46:58.797683Z",
-      "modified": "2025-10-09T11:46:58.797683Z",
+      "id": "x-attack-pattern-ref--09a33467-ee1e-44ad-86b7-f5118b548db3",
+      "created": "2025-10-18T12:56:34.755550Z",
+      "modified": "2025-10-18T12:56:34.755550Z",
       "name": "T1106",
       "external_references": [
         {
@@ -117,9 +117,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--28c698cf-f927-4b69-8e4c-734005efb25f",
-      "created": "2025-10-09T11:46:58.797683Z",
-      "modified": "2025-10-09T11:46:58.797683Z",
+      "id": "x-attack-pattern-ref--d81ea3a3-b062-4bf3-8dab-610405a565d5",
+      "created": "2025-10-18T12:56:34.755550Z",
+      "modified": "2025-10-18T12:56:34.755550Z",
       "name": "T1140",
       "external_references": [
         {
@@ -131,9 +131,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--73f3f3a8-6bc8-4ff2-80c3-b93e6504efdc",
-      "created": "2025-10-09T11:46:58.797683Z",
-      "modified": "2025-10-09T11:46:58.797683Z",
+      "id": "x-attack-pattern-ref--5809ee7f-6539-49bd-b375-ed9a1b685b85",
+      "created": "2025-10-18T12:56:34.755550Z",
+      "modified": "2025-10-18T12:56:34.755550Z",
       "name": "T1204.002",
       "external_references": [
         {
@@ -145,9 +145,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--8b94b730-6bdf-4d45-a9d8-5eaf12dd98de",
-      "created": "2025-10-09T11:46:58.797683Z",
-      "modified": "2025-10-09T11:46:58.797683Z",
+      "id": "x-attack-pattern-ref--a6115e1e-162a-4185-a280-4b9fd25ac52a",
+      "created": "2025-10-18T12:56:34.755550Z",
+      "modified": "2025-10-18T12:56:34.755550Z",
       "name": "T1566.001",
       "external_references": [
         {
@@ -159,9 +159,9 @@
     {
       "type": "x-attack-pattern-ref",
       "spec_version": "2.1",
-      "id": "x-attack-pattern-ref--f63eb490-97ad-4169-bde4-75a1d2c3ae38",
-      "created": "2025-10-09T11:46:58.797683Z",
-      "modified": "2025-10-09T11:46:58.797683Z",
+      "id": "x-attack-pattern-ref--2a4490b8-9049-4df7-9d3f-62cd4fb93958",
+      "created": "2025-10-18T12:56:34.755550Z",
+      "modified": "2025-10-18T12:56:34.755550Z",
       "name": "T1614",
       "external_references": [
         {
@@ -173,13 +173,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--80e33d4a-f433-4f3b-8573-628cc77847f0",
-      "created": "2025-10-09T11:46:58.797683Z",
-      "modified": "2025-10-09T11:46:58.797683Z",
+      "id": "indicator--82a12c9a-4198-4f6e-b1b4-17fbd055c9d9",
+      "created": "2025-10-18T12:56:34.755550Z",
+      "modified": "2025-10-18T12:56:34.755550Z",
       "name": "domain:cyble.com",
       "pattern": "[domain-name:value = 'cyble.com']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-09T11:46:58.797683Z",
+      "valid_from": "2025-10-18T12:56:34.755550Z",
       "labels": [
         "domain",
         "extracted-from-report",
@@ -189,13 +189,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--9ea98a8e-5ab9-495f-b295-c7d91905f514",
-      "created": "2025-10-09T11:46:58.797683Z",
-      "modified": "2025-10-09T11:46:58.797683Z",
+      "id": "indicator--c16f1630-0e03-4551-820f-a1238cf0016d",
+      "created": "2025-10-18T12:56:34.755550Z",
+      "modified": "2025-10-18T12:56:34.755550Z",
       "name": "domain:use1.netcatgroup.site",
       "pattern": "[domain-name:value = 'use1.netcatgroup.site']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-09T11:46:58.797683Z",
+      "valid_from": "2025-10-18T12:56:34.755550Z",
       "labels": [
         "domain",
         "extracted-from-report",
@@ -205,13 +205,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--83050f28-7b97-428c-8660-f1a0df866f98",
-      "created": "2025-10-09T11:46:58.797683Z",
-      "modified": "2025-10-09T11:46:58.797683Z",
+      "id": "indicator--a9200633-3310-4930-9e35-563b58df3c49",
+      "created": "2025-10-18T12:56:34.755550Z",
+      "modified": "2025-10-18T12:56:34.755550Z",
       "name": "domain:use1.netcatgroup.site",
       "pattern": "[domain-name:value = 'use1.netcatgroup.site']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-09T11:46:58.797683Z",
+      "valid_from": "2025-10-18T12:56:34.755550Z",
       "labels": [
         "domain",
         "extracted-from-report",
@@ -221,13 +221,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--1d11d938-b369-40ff-9d96-b99528391b30",
-      "created": "2025-10-09T11:46:58.797683Z",
-      "modified": "2025-10-09T11:46:58.797683Z",
+      "id": "indicator--e7f3cf98-4f8a-4d9c-96cf-6f557c7993cc",
+      "created": "2025-10-18T12:56:34.755550Z",
+      "modified": "2025-10-18T12:56:34.755550Z",
       "name": "domain:suquaituupie.global.ssl.fastly",
       "pattern": "[domain-name:value = 'suquaituupie.global.ssl.fastly']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-09T11:46:58.797683Z",
+      "valid_from": "2025-10-18T12:56:34.755550Z",
       "labels": [
         "domain",
         "extracted-from-report",
@@ -237,13 +237,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--ccd96ac2-20cc-42ce-9bf5-757ce78cbc91",
-      "created": "2025-10-09T11:46:58.797683Z",
-      "modified": "2025-10-09T11:46:58.797683Z",
+      "id": "indicator--249aaf2d-ef78-48e4-b377-4457bee8c4fb",
+      "created": "2025-10-18T12:56:34.755550Z",
+      "modified": "2025-10-18T12:56:34.755550Z",
       "name": "sha256:ffe5b09cbc0073be33332436150c81edfa952d2af749160699fc8b10b912ef35",
       "pattern": "[file:hashes.'SHA256' = 'ffe5b09cbc0073be33332436150c81edfa952d2af749160699fc8b10b912ef35']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-09T11:46:58.797683Z",
+      "valid_from": "2025-10-18T12:56:34.755550Z",
       "labels": [
         "sha256",
         "extracted-from-report",
@@ -253,13 +253,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--5767fa11-c849-4a0c-9dd6-632edce23f5c",
-      "created": "2025-10-09T11:46:58.797683Z",
-      "modified": "2025-10-09T11:46:58.797683Z",
+      "id": "indicator--90c21afe-0128-48dc-b6e1-ab00a3d969e8",
+      "created": "2025-10-18T12:56:34.755550Z",
+      "modified": "2025-10-18T12:56:34.755550Z",
       "name": "sha256:6f4dc0d9fe5970586403865d551bbea13e2ceb1bfe41f22e235a6456a5ec509b",
       "pattern": "[file:hashes.'SHA256' = '6f4dc0d9fe5970586403865d551bbea13e2ceb1bfe41f22e235a6456a5ec509b']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-09T11:46:58.797683Z",
+      "valid_from": "2025-10-18T12:56:34.755550Z",
       "labels": [
         "sha256",
         "extracted-from-report",
@@ -269,13 +269,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--4affafd3-bfd4-4b19-9aac-9ca35e060f55",
-      "created": "2025-10-09T11:46:58.797683Z",
-      "modified": "2025-10-09T11:46:58.797683Z",
+      "id": "indicator--926ff581-b637-40ac-8757-963c3b6424d6",
+      "created": "2025-10-18T12:56:34.755550Z",
+      "modified": "2025-10-18T12:56:34.755550Z",
       "name": "sha256:168182578da46de165d10e6753d1c7db7b214efc723c89c6d9d0038264abad54",
       "pattern": "[file:hashes.'SHA256' = '168182578da46de165d10e6753d1c7db7b214efc723c89c6d9d0038264abad54']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-09T11:46:58.797683Z",
+      "valid_from": "2025-10-18T12:56:34.755550Z",
       "labels": [
         "sha256",
         "extracted-from-report",
@@ -285,13 +285,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--81ca5ea8-f21c-4097-9580-43753cbf9a44",
-      "created": "2025-10-09T11:46:58.797683Z",
-      "modified": "2025-10-09T11:46:58.797683Z",
+      "id": "indicator--bf466b83-e7bc-4d69-a823-5c4a162c012b",
+      "created": "2025-10-18T12:56:34.755550Z",
+      "modified": "2025-10-18T12:56:34.755550Z",
       "name": "sha256:8edc8f3eed761694c6b1df740de376f9e12f82675df7507417adb2c8bbedd8da",
       "pattern": "[file:hashes.'SHA256' = '8edc8f3eed761694c6b1df740de376f9e12f82675df7507417adb2c8bbedd8da']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-09T11:46:58.797683Z",
+      "valid_from": "2025-10-18T12:56:34.755550Z",
       "labels": [
         "sha256",
         "extracted-from-report",
@@ -301,13 +301,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--3e7e7939-4131-46f7-9bde-6e363fda7299",
-      "created": "2025-10-09T11:46:58.797683Z",
-      "modified": "2025-10-09T11:46:58.797683Z",
+      "id": "indicator--b91c0848-50af-4755-abae-c22e78a881ea",
+      "created": "2025-10-18T12:56:34.755550Z",
+      "modified": "2025-10-18T12:56:34.755550Z",
       "name": "sha256:ac957c501867a86c13045fa72d53faacb291cc8b6b2750915abc1b5815b164c6",
       "pattern": "[file:hashes.'SHA256' = 'ac957c501867a86c13045fa72d53faacb291cc8b6b2750915abc1b5815b164c6']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-09T11:46:58.797683Z",
+      "valid_from": "2025-10-18T12:56:34.755550Z",
       "labels": [
         "sha256",
         "extracted-from-report",
@@ -317,13 +317,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--30b09582-5985-4a39-b009-560920ab1374",
-      "created": "2025-10-09T11:46:58.797683Z",
-      "modified": "2025-10-09T11:46:58.797683Z",
+      "id": "indicator--6b65ce90-9a9f-46d9-b47b-df52c141618f",
+      "created": "2025-10-18T12:56:34.755550Z",
+      "modified": "2025-10-18T12:56:34.755550Z",
       "name": "sha256:c42ea4d3c8b6ae2c4727a11de65f624a70dabba46c1996aa545de35a58804802",
       "pattern": "[file:hashes.'SHA256' = 'c42ea4d3c8b6ae2c4727a11de65f624a70dabba46c1996aa545de35a58804802']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-09T11:46:58.797683Z",
+      "valid_from": "2025-10-18T12:56:34.755550Z",
       "labels": [
         "sha256",
         "extracted-from-report",
@@ -333,13 +333,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--0fc13cd1-aa2c-4260-b49a-d82e8d1cb53c",
-      "created": "2025-10-09T11:46:58.797683Z",
-      "modified": "2025-10-09T11:46:58.797683Z",
+      "id": "indicator--b1835248-5e00-4598-84cb-b9bb12dd29b2",
+      "created": "2025-10-18T12:56:34.755550Z",
+      "modified": "2025-10-18T12:56:34.755550Z",
       "name": "sha256:83d6e377a5527f41d8333f8eb0d42f7c6a24f8694ed3caceb3a1e63de7b23e9d",
       "pattern": "[file:hashes.'SHA256' = '83d6e377a5527f41d8333f8eb0d42f7c6a24f8694ed3caceb3a1e63de7b23e9d']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-09T11:46:58.797683Z",
+      "valid_from": "2025-10-18T12:56:34.755550Z",
       "labels": [
         "sha256",
         "extracted-from-report",
@@ -349,13 +349,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--87e79ed4-5fb2-44cc-8cfc-b8c674c06be2",
-      "created": "2025-10-09T11:46:58.797683Z",
-      "modified": "2025-10-09T11:46:58.797683Z",
+      "id": "indicator--2eed931b-03c9-41b2-a806-2948c5e55bdc",
+      "created": "2025-10-18T12:56:34.755550Z",
+      "modified": "2025-10-18T12:56:34.755550Z",
       "name": "sha256:aef4d36ce252a9181767f263b1cbd831ac79f6e80516aa640222f9c56b06de4f",
       "pattern": "[file:hashes.'SHA256' = 'aef4d36ce252a9181767f263b1cbd831ac79f6e80516aa640222f9c56b06de4f']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-09T11:46:58.797683Z",
+      "valid_from": "2025-10-18T12:56:34.755550Z",
       "labels": [
         "sha256",
         "extracted-from-report",
@@ -365,13 +365,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--6f9c29ab-61d6-4513-a055-d120eb96fa29",
-      "created": "2025-10-09T11:46:58.797683Z",
-      "modified": "2025-10-09T11:46:58.797683Z",
+      "id": "indicator--be3b2c61-5fa6-4beb-a230-a993b92eee1d",
+      "created": "2025-10-18T12:56:34.755550Z",
+      "modified": "2025-10-18T12:56:34.755550Z",
       "name": "url:https://www.linkedin.com/pulse/malware-w-skr%C3%B3cie-lnk-ireneusz-tarnowski",
       "pattern": "[url:value = 'https://www.linkedin.com/pulse/malware-w-skr%C3%B3cie-lnk-ireneusz-tarnowski']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-09T11:46:58.797683Z",
+      "valid_from": "2025-10-18T12:56:34.755550Z",
       "labels": [
         "url",
         "extracted-from-report",
@@ -381,13 +381,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--81e55492-bc1f-4af8-89a3-1207c97599f9",
-      "created": "2025-10-09T11:46:58.797683Z",
-      "modified": "2025-10-09T11:46:58.797683Z",
+      "id": "indicator--bbf0577d-fba1-4791-ba7f-303758e332a5",
+      "created": "2025-10-18T12:56:34.755550Z",
+      "modified": "2025-10-18T12:56:34.755550Z",
       "name": "domain:linkedin.com",
       "pattern": "[domain-name:value = 'linkedin.com']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-09T11:46:58.797683Z",
+      "valid_from": "2025-10-18T12:56:34.755550Z",
       "labels": [
         "domain",
         "extracted-from-report",
@@ -397,13 +397,13 @@
     {
       "type": "indicator",
       "spec_version": "2.1",
-      "id": "indicator--4f126d14-4666-4626-81ae-e76af75f6b1c",
-      "created": "2025-10-09T11:46:58.797683Z",
-      "modified": "2025-10-09T11:46:58.797683Z",
+      "id": "indicator--4ae3229b-020b-4416-a81f-bed2bcbb61fb",
+      "created": "2025-10-18T12:56:34.755550Z",
+      "modified": "2025-10-18T12:56:34.755550Z",
       "name": "domain:www.linkedin.com",
       "pattern": "[domain-name:value = 'www.linkedin.com']",
       "pattern_type": "stix",
-      "valid_from": "2025-10-09T11:46:58.797683Z",
+      "valid_from": "2025-10-18T12:56:34.755550Z",
       "labels": [
         "domain",
         "extracted-from-report",

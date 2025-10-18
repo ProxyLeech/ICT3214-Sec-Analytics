@@ -1,19 +1,9 @@
 from flask import Flask, render_template, request, make_response, jsonify
 import pandas as pd
-from matching import (
-    validate_ttps,
-    match_ttps,
-)
-from report_generator import (
-    analyze_TTP,
-    parse_ai_response,
-    generate_word_report,
-    load_filtered_mitigations,
-    summarize_mitigations
-)
+
 from datetime import datetime
 from collections import defaultdict
-from technique_labels import extract_techniques  # import the extractor
+import importlib.util
 import io
 import re
 from typing import Iterable
@@ -25,42 +15,52 @@ import json
 # Project-relative paths
 # =======================================================
 from project_paths import (
-    PROJECT_ROOT, DATA_ROOT, SRC_ROOT, MODELS_ROOT, EXPERIMENTS_ROOT,
+    PROJECT_ROOT, DATA_ROOT, EXPERIMENTS_ROOT, SRC_ROOT, MODELS_ROOT,SCRIPTS_DIR,
     RAW_DIR, PROCESSED_DIR, EXTRACTED_PDFS_DIR,
     MAPPED_DIR, EXCEL_DIR, MITIGATIONS_DIR,
-    output_dir_for_folds, project_path,
+    ATTACK_STIX_DIR,PDFS_DIR,RULES_DIR,EXTRACT_SCRIPT,ATTACK_SCRIPT,MAP_IOCS_SCRIPT,
+    BUILD_DATASET_SCRIPT,MITIGATIONS_SCRIPT,
+    GROUP_TTPS_DETAIL_CSV,MATCHING_SCRIPT,REPORT_GENERATION_SCRIPT,TECHNIQUE_LABELS_SCRIPT,
+    TRAIN_ROBERTA_SCRIPT,PREDICT_SCRIPT,BEST_MODEL_DIR,
+    MAPPING_CSV,MITIGATIONS_CSV,EXCEL_ATTACK_TECHS,
+    EXTRACTED_IOCS_CSV,TI_GROUPS_TECHS_CSV,DATASET_CSV,LABELS_TXT,GROUP_TTPS_DETAIL_CSV,RANKED_GROUPS_CSV,
+    output_dir_for_folds, project_path,ensure_dir_tree,add_src_to_syspath
 )
-
 app = Flask(__name__)
-BASE_DIR= PROJECT_ROOT
-# === App-specific locations (built from canonical paths) ===
-# Data sources
-DATA_DIR      = MAPPED_DIR
-EXCEL_PATH    = EXCEL_DIR / "enterprise-attack-v17.1-techniques.xlsx"
-MAPPING_CSV   = PROJECT_ROOT / "techniques_mapping.csv"
+sys.path.insert(0, str(SRC_ROOT))  
 
-# Processed outputs
-PDFS_IN_DIR           = RAW_DIR / "pdfs"
-EXTRACTED_IOCS_CSV    = PROCESSED_DIR / "extracted_iocs.csv"
-TI_GROUPS_TECHS_CSV   = PROCESSED_DIR / "ti_groups_techniques.csv"
-DATASET_CSV           = PROCESSED_DIR / "dataset.csv"
-LABELS_TXT            = PROCESSED_DIR / "labels.txt"
+# from scripts.technique_labels import extract_techniques  # import the extractor
+# from scripts.report_generator import (
+#     analyze_TTP,
+#     parse_ai_response,
+#     generate_word_report,
+#     load_filtered_mitigations,
+#     summarize_mitigations
+# )
 
-# Script entry points
-DATASCRIPT_ROOT   = SRC_ROOT / "data"
-EXTRACT_SCRIPT    = DATASCRIPT_ROOT / "extract_pdfs.py"
-ATTACK_SCRIPT     = DATASCRIPT_ROOT / "enterprise_attack.py"
-BUILD_DATASET_SCRIPT = DATASCRIPT_ROOT / "build_dataset.py"
+def _import_from_path(path, module_name):
+    spec = importlib.util.spec_from_file_location(module_name, str(path))
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
 
-# Models
-TRAIN_ROBERTA_SCRIPT  = MODELS_ROOT / "train_roberta.py"
-PREDICT_SCRIPT        = MODELS_ROOT / "predict_roberta.py"
-BEST_MODEL_DIR        = MODELS_ROOT / "best_roberta_for_predict"
-BEST_REQUIRED         = [
-    BEST_MODEL_DIR / "config.json",
-    BEST_MODEL_DIR / "tokenizer.json",
-    BEST_MODEL_DIR / "id2label.json",
-]
+# load the three script modules by file path
+matching           = _import_from_path(MATCHING_SCRIPT, "matching")
+technique_labels   = _import_from_path(TECHNIQUE_LABELS_SCRIPT, "technique_labels")
+report_generator   = _import_from_path(REPORT_GENERATION_SCRIPT, "report_generator")
+
+# expose the functions you need
+validate_ttps         = matching.validate_ttps
+match_ttps            = matching.match_ttps
+
+extract_techniques    = technique_labels.extract_techniques
+
+analyze_TTP           = report_generator.analyze_TTP
+parse_ai_response     = report_generator.parse_ai_response
+generate_word_report  = report_generator.generate_word_report
+load_filtered_mitigations = report_generator.load_filtered_mitigations
+summarize_mitigations     = report_generator.summarize_mitigations
+
 # Cache
 LAST_RESULTS = {} #Global
 LAST_RESULTS_RULE = {}
@@ -76,14 +76,14 @@ def _run_mitigations_and_get_csv(force: bool = False) -> Path:
       - any known inputs (mapping files) are newer than the CSV, or
       - the CSV does not exist.
     """
-    script  = BASE_DIR / "mitigations.py"
-    out_csv = BASE_DIR / "Data" / "mitigations" / "mitigations.csv"
+    script  = MITIGATIONS_SCRIPT
+    out_csv = MITIGATIONS_CSV
 
     # Inputs the mitigations depend on (add more if your script reads others)
     inputs = [
         script,
-        BASE_DIR / "Data" / "mapped" / "group_ttps_detail.csv",
-        EXCEL_PATH,
+        GROUP_TTPS_DETAIL_CSV,
+        EXCEL_ATTACK_TECHS,
         MAPPING_CSV,
     ]
 
@@ -105,7 +105,7 @@ def _run_mitigations_and_get_csv(force: bool = False) -> Path:
         return out_csv
 
     print(f"[RUN] mitigations.py — generating: {out_csv}")
-    res = subprocess.run([sys.executable, str(script)], cwd=str(BASE_DIR))
+    res = subprocess.run([sys.executable, str(script)], cwd=str(PROJECT_ROOT))
     if res.returncode != 0:
         raise RuntimeError(f"mitigations.py failed with exit code {res.returncode}")
     if not out_csv.exists():
@@ -200,7 +200,7 @@ def _collect_top_group_ttps(df_ml: pd.DataFrame) -> list[str]:
     Return technique IDs ONLY for the top (first/highest-score) matched group
     by looking them up in Data/mapped/group_ttps_detail.csv.
     """
-    map_path = BASE_DIR / "Data" / "mapped" / "group_ttps_detail.csv"
+    map_path = GROUP_TTPS_DETAIL_CSV
     if df_ml is None or df_ml.empty or not map_path.exists():
         return []
 
@@ -286,7 +286,7 @@ def _collect_group_ttps(matched_df: pd.DataFrame) -> list[str]:
     Data/mapped/group_ttps_detail.csv for the matched groups.
     Falls back gracefully if columns differ between datasets.
     """
-    map_path = BASE_DIR / "Data" / "mapped" / "group_ttps_detail.csv"
+    map_path = GROUP_TTPS_DETAIL_CSV
     if not map_path.exists():
         print(f"[ERROR] {map_path} not found.")
         return []
@@ -335,7 +335,7 @@ def _collect_group_ttps(matched_df: pd.DataFrame) -> list[str]:
 # Rule-based flow helper
 # ============================================
 def _run_rule_match_flow(ttps: list[str]) -> dict:
-    matched_df = match_ttps(ttps, DATA_DIR).copy()
+    matched_df = match_ttps(ttps, MAPPED_DIR).copy()
     matched_df = _ensure_score_and_rank_rule(matched_df)
     if "rank" in matched_df.columns and matched_df["rank"].notna().any():
         matched_df = matched_df.sort_values(by=["rank", "score"], ascending=[True, False])
@@ -554,7 +554,7 @@ def _run_roberta_flow(ttps: list[str]) -> dict:
 # =======================================================
 # Pipeline steps (extract pdf → extract stix → build → train)
 # =======================================================
-def step_extract_pdfs(in_dir: Path = PDFS_IN_DIR, out_dir: Path = EXTRACTED_PDFS_DIR):
+def step_extract_pdfs(in_dir: Path = PDFS_DIR, out_dir: Path = EXTRACTED_PDFS_DIR):
     out_dir.mkdir(parents=True, exist_ok=True)
     out_csv = EXTRACTED_IOCS_CSV
 
@@ -601,7 +601,7 @@ def step_train_roberta():
 def index():
     try:
         # Always regenerate latest mapping from Excel
-        extract_techniques(EXCEL_PATH, MAPPING_CSV)
+        extract_techniques(EXCEL_ATTACK_TECHS, MAPPING_CSV)
 
         # Load mapping: id, name, label
         df_map = pd.read_csv(MAPPING_CSV)
@@ -631,7 +631,7 @@ def index():
         print(df_map.head(5))
         print("===================================================\n")
         
-        print(f"[ROOT] {BASE_DIR}")
+        print(f"[ROOT] {PROJECT_ROOT}")
         print(f"[DATA] {DATA_ROOT}")
         print(f"[PROC] {PROCESSED_DIR}")
         print(f"[MODELS] {MODELS_ROOT}")
@@ -750,7 +750,7 @@ def match():
         ttps_input = [t.split()[0].upper() for t in request.form.getlist('ttps[]')]
         ttps = validate_ttps(ttps_input)
 
-        matched_df = match_ttps(ttps, DATA_DIR)
+        matched_df = match_ttps(ttps, MAPPED_DIR)
 
         # Convert numeric, sort, top3
         matched_df["rank"]  = pd.to_numeric(matched_df.get("rank", float("nan")), errors="coerce")

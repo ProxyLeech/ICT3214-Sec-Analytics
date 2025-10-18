@@ -34,11 +34,19 @@ from transformers import (
 from pathlib import Path
 import sys
 
-# ensure we can import the paths module (layout A example)
 ROOT = Path(__file__).resolve().parents[2]  # repo root
 sys.path.insert(0, str(ROOT))
 from project_paths import (
-    PROJECT_ROOT, DATA_ROOT, PROCESSED_DIR, MODELS_ROOT, output_dir_for_folds, EXPERIMENTS_ROOT  ,
+    PROJECT_ROOT, DATA_ROOT, EXPERIMENTS_ROOT, SRC_ROOT, MODELS_ROOT, EXPERIMENTS_ROOT,SCRIPTS_DIR,
+    RAW_DIR, PROCESSED_DIR, EXTRACTED_PDFS_DIR,
+    MAPPED_DIR, EXCEL_DIR, MITIGATIONS_DIR,
+    ATTACK_STIX_DIR,PDFS_DIR,RULES_DIR,EXTRACT_SCRIPT,ATTACK_SCRIPT,MAP_IOCS_SCRIPT,
+    BUILD_DATASET_SCRIPT,MITIGATIONS_SCRIPT,
+    GROUP_TTPS_DETAIL_CSV,MATCHING_SCRIPT,REPORT_GENERATION_SCRIPT,TECHNIQUE_LABELS_SCRIPT,
+    TRAIN_ROBERTA_SCRIPT,PREDICT_SCRIPT,BEST_MODEL_DIR,
+    MAPPING_CSV,MITIGATIONS_CSV,EXCEL_ATTACK_TECHS,
+    EXTRACTED_IOCS_CSV,TI_GROUPS_TECHS_CSV,DATASET_CSV,LABELS_TXT,GROUP_TTPS_DETAIL_CSV,RANKED_GROUPS_CSV,
+    output_dir_for_folds, project_path,ensure_dir_tree,add_src_to_syspath
 )
 # EarlyStopping is optional; present on most recent transformers
 try:
@@ -91,8 +99,8 @@ class Config:
     SHUFFLE_POOL: bool = True      # Shuffle train+val pool before folding
 
     OUTPUT_DIR = output_dir_for_folds(N_FOLDS, model_slug="roberta_base_v1")
-    CSV_PATH   = PROCESSED_DIR / "dataset.csv"
-    LABELS_PATH = PROCESSED_DIR / "labels.txt"
+    CSV_PATH   = DATASET_CSV
+    LABELS_PATH = LABELS_TXT
 
 
     # ensure dirs exist
